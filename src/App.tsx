@@ -240,10 +240,11 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
   return out;
 }
 
-// —— Web Speech API (ja-JP) helper ——
+// —— Web Speech API (ja-JP) helper with Safari optimization ——
 function useJaSpeech() {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [ready, setReady] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
     const synth = window.speechSynthesis;
@@ -251,34 +252,124 @@ function useJaSpeech() {
       const list = synth.getVoices();
       setVoices(list);
       setReady(list.length > 0);
+      
+      // Auto-select best Japanese voice when voices load
+      if (list.length > 0) {
+        const bestVoice = pickBestJaVoice(list);
+        setSelectedVoice(bestVoice);
+      }
     }
+    
+    // Safari sometimes needs multiple attempts to load voices
     loadVoices();
+    if (window.speechSynthesis.getVoices().length === 0) {
+      setTimeout(loadVoices, 100);
+    }
+    
     synth.onvoiceschanged = loadVoices;
     return () => { synth.onvoiceschanged = null; };
   }, []);
 
-  function pickJaVoice(vs: SpeechSynthesisVoice[]) {
-    return (
-      vs.find(v => v.lang?.toLowerCase().startsWith('ja')) ||
-      vs.find(v => /japanese|nihon/i.test(v.name)) ||
-      vs[0]
-    );
+  function isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  function pickBestJaVoice(vs: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+    if (vs.length === 0) return null;
+
+    // For Safari, prioritize specific high-quality Japanese voices
+    if (isSafari()) {
+      // Try to find the best Japanese voices on Safari/macOS
+      const priorities = [
+        'Kyoko',           // macOS built-in Japanese voice (best quality)
+        'Otoya',           // Alternative Japanese voice
+        'O-ren',           // Another Japanese voice option
+      ];
+      
+      for (const name of priorities) {
+        const voice = vs.find(v => v.name.includes(name));
+        if (voice) return voice;
+      }
+    }
+
+    // General prioritization for all browsers
+    const jaVoices = vs.filter(v => {
+      const lang = v.lang?.toLowerCase();
+      return lang?.startsWith('ja') || /japanese|nihon/i.test(v.name);
+    });
+
+    if (jaVoices.length === 0) {
+      console.warn('No Japanese voices found, using default voice');
+      return vs[0] || null;
+    }
+
+    // Prioritize by quality indicators
+    const sortedVoices = jaVoices.sort((a, b) => {
+      // Prefer local voices over remote
+      if (a.localService !== b.localService) {
+        return a.localService ? -1 : 1;
+      }
+      
+      // Prefer voices with 'ja-JP' over other Japanese variants
+      const aIsJaJP = a.lang === 'ja-JP';
+      const bIsJaJP = b.lang === 'ja-JP';
+      if (aIsJaJP !== bIsJaJP) {
+        return aIsJaJP ? -1 : 1;
+      }
+      
+      // For Safari, prefer specific known good voices
+      if (isSafari()) {
+        const qualityNames = ['Kyoko', 'Otoya', 'O-ren'];
+        const aHasQuality = qualityNames.some(name => a.name.includes(name));
+        const bHasQuality = qualityNames.some(name => b.name.includes(name));
+        if (aHasQuality !== bHasQuality) {
+          return aHasQuality ? -1 : 1;
+        }
+      }
+      
+      return 0;
+    });
+
+    return sortedVoices[0];
   }
 
   function speakJa(text: string) {
     const synth = window.speechSynthesis;
     if (!text || !('speechSynthesis' in window)) return;
+    
     synth.cancel();
+    
     const utter = new SpeechSynthesisUtterance(text);
-    const v = pickJaVoice(voices);
-    if (v) utter.voice = v;
-    utter.lang = v?.lang || 'ja-JP';
-    utter.rate = 1; // speed
-    utter.pitch = 1;
+    const voice = selectedVoice || pickBestJaVoice(voices);
+    
+    if (voice) {
+      utter.voice = voice;
+      utter.lang = voice.lang || 'ja-JP';
+    } else {
+      utter.lang = 'ja-JP';
+    }
+    
+    // Optimize speech parameters for better quality
+    utter.rate = isSafari() ? 0.9 : 1.0;  // Slightly slower on Safari for clarity
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+    
+    // Add error handling
+    utter.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
+    };
+    
     synth.speak(utter);
   }
 
-  return { ready, voices, speakJa } as const;
+  return { 
+    ready, 
+    voices, 
+    selectedVoice,
+    speakJa,
+    setSelectedVoice,
+    isSafari: isSafari()
+  } as const;
 }
 
 export default function App() {
@@ -287,7 +378,7 @@ export default function App() {
   const [deck, setDeck] = useState(WORDS);
   const [romajiMode, setRomajiMode] = useState<'hepburn' | 'simple'>('hepburn'); // default Hepburn
 
-  const { ready: ttsReady, speakJa } = useJaSpeech();
+  const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
 
   const current = deck[index];
   const romaji = useMemo(() => kanaToRomaji(current?.furigana || '', romajiMode), [current, romajiMode]);
