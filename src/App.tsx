@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 // ————————————————————————————————————————————————
-// Katakana Flashcard Webapp
-// Updates in this patch:
-//  - Fix: fully implemented kana→romaji (hepburn/simple) — already present
-//  - Default Romaji mode = Hepburn (per user)
-//  - Hide colon-code example on back (per user)
-//  - NEW: Audio (TTS) playback for Japanese using Web Speech API
-//         → Plays the card's ふりがな (hiragana) with a ja-JP voice if available.
+// Katakana Flashcard Webapp v0.2.0
+// Recent updates:
+//  - v0.2.0: Enhanced Safari TTS quality with voice optimization
+//  - v0.1.0: Initial release with 100 words, romaji conversion, TTS
+//  - Features: Kana→romaji (hepburn/simple), Audio playback, 3D cards
 // ————————————————————————————————————————————————
+
+// App version from package.json
+const APP_VERSION = "0.2.0";
 
 // Dataset (100 words)
 const WORDS = [
@@ -512,6 +513,21 @@ export default function App() {
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* Version info */}
+      <div className="mt-4 text-center">
+        <span className="text-white/40 text-xs">
+          카타카나 플래시카드 v{APP_VERSION} | 
+          <a 
+            href="https://github.com/SsunLee/ssunbae_katakana-flashcards" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-white/60 ml-1"
+          >
+            GitHub
+          </a>
+        </span>
       </div>
     </div>
   );

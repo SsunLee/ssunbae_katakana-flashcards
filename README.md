@@ -3,6 +3,7 @@
 > 100개의 카타카나 단어를 학습할 수 있는 인터랙티브 웹 애플리케이션
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-🌐%20GitHub%20Pages-brightgreen)](https://ssunlee.github.io/ssunbae_katakana-flashcards/)
+[![Version](https://img.shields.io/badge/Version-v0.2.0-orange)](https://github.com/SsunLee/ssunbae_katakana-flashcards/releases)
 [![React](https://img.shields.io/badge/React-19.1.1-blue)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.17-blue)](https://tailwindcss.com/)
@@ -168,6 +169,22 @@ npm test -- --coverage
 ## 📄 라이선스
 
 이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+## 📋 버전 히스토리
+
+### v0.2.0 (2025-01-30)
+- 🔊 **Safari TTS 품질 개선**: macOS 내장 고품질 일본어 음성 (Kyoko, Otoya) 우선 선택
+- 🎯 **브라우저별 최적화**: Safari 전용 음성 설정 및 속도 조정 (0.9배속)
+- 🔧 **음성 품질 랭킹**: 로컬 vs 원격 음성, ja-JP 우선 선택 로직
+- ⚡ **안정성 향상**: 음성 로딩 실패 시 재시도, 오류 처리 개선
+
+### v0.1.0 (2025-01-29)
+- 🎌 **초기 릴리즈**: 100개 카타카나 단어 플래시카드
+- 🔊 **TTS 기능**: Web Speech API를 통한 일본어 음성 재생
+- 🔤 **로마자 변환**: Hepburn/Simple 방식 지원
+- 🎮 **3D 카드 애니메이션**: 부드러운 플립 효과
+- 📱 **반응형 디자인**: 모바일/태블릿/데스크톱 최적화
+- ✨ **현대적 UI**: 글래스모피즘 디자인
 
 ## 👨‍💻 개발자
 
