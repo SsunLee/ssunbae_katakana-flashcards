@@ -1,11 +1,26 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
-  ],
+export default {
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jp: [
+          "'Zen Kaku Gothic New'",
+          "'Noto Sans JP'",
+          "'Noto Serif JP'",
+          "'Kosugi Maru'",
+          "Hiragino Kaku Gothic ProN",
+          "Meiryo",
+          "Yu Gothic UI",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+        ],
+      },
+    },
   },
   plugins: [],
 }
