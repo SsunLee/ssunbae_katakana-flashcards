@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ssunbae_katakana-flashcards/static/css/main.840ca0aa.css",
-    "main.js": "/ssunbae_katakana-flashcards/static/js/main.a7cf42cb.js",
+    "main.js": "/ssunbae_katakana-flashcards/static/js/main.4a61cefd.js",
     "static/js/453.c643504b.chunk.js": "/ssunbae_katakana-flashcards/static/js/453.c643504b.chunk.js",
     "static/media/noto-sans-jp-6-400-normal.woff": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-6-400-normal.0b2417a039c820be64b9.woff",
     "static/media/noto-sans-jp-5-400-normal.woff": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-5-400-normal.55e4b05bb2c528b71c4c.woff",
@@ -253,11 +253,11 @@
     "static/media/noto-sans-jp-latin-ext-400-normal.woff2": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-latin-ext-400-normal.ac323b6ecba9b64e770b.woff2",
     "index.html": "/ssunbae_katakana-flashcards/index.html",
     "main.840ca0aa.css.map": "/ssunbae_katakana-flashcards/static/css/main.840ca0aa.css.map",
-    "main.a7cf42cb.js.map": "/ssunbae_katakana-flashcards/static/js/main.a7cf42cb.js.map",
+    "main.4a61cefd.js.map": "/ssunbae_katakana-flashcards/static/js/main.4a61cefd.js.map",
     "453.c643504b.chunk.js.map": "/ssunbae_katakana-flashcards/static/js/453.c643504b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.840ca0aa.css",
-    "static/js/main.a7cf42cb.js"
+    "static/js/main.4a61cefd.js"
   ]
 }
