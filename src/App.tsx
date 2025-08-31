@@ -1,6 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "@fontsource/noto-sans-jp"; // 일본어 가독성 향상 (웹폰트)
 
+
+
+import { Button } from "./components/ui/button";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./components/ui/dialog";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./components/ui/select";
+import { Switch } from "./components/ui/switch";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+
+
 // ————————————————————————————————————————————————
 // Katakana Flashcard Webapp v0.2.0
 // Recent updates:
@@ -422,6 +432,31 @@ export default function App() {
 
   const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
 
+  // voices가 로드된 뒤, 선택된 보이스가 없으면 안전하게 채워줍니다.
+  useEffect(() => {
+    if (voices.length === 0) return;
+  
+    if (!selectedVoice) {
+      let initial: SpeechSynthesisVoice | null = null;
+  
+      // 1) 저장된 보이스 우선
+      try {
+        const stored = localStorage.getItem("jaVoiceName");
+        if (stored) initial = voices.find(v => v.name === stored) || null;
+      } catch {}
+  
+      // 2) 없으면 최적 보이스(ja-*/local 우선) 또는 첫번째
+      if (!initial) {
+        const jaVoices = voices.filter(v => (v.lang || "").toLowerCase().startsWith("ja"));
+        initial = (jaVoices.find(v => v.localService) || jaVoices[0]) ?? voices[0];
+      }
+  
+      setSelectedVoice(initial);
+    }
+  }, [voices, selectedVoice, setSelectedVoice]);
+  
+
+
   const current = studyDeck[index] ?? null;
   const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
   //const progress = `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
@@ -506,98 +541,134 @@ export default function App() {
        {/* Controls (top) */}
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
 
-          {/* Center: 진행도 */}
-          <span className="text-white/70">⚡진행률 : {progress}</span>
+        {/* Center: 진행도 */}
+        <span className="text-white/70">⚡진행률 : {progress}</span>
 
 
-          {/* Left: 듣기 버튼 */}
-          <button
-            onClick={() => speakJa(current?.furigana || '')}
-            disabled={!ttsReady || !current}
-            className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
-            title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}>
-            🔊 듣기 (ふりがな)
-          </button>
+        {/* 듣기 */}
+        <Button
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={() => speakJa(current?.furigana || "")}
+          disabled={!ttsReady || !current}
+          title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}
+        >
+          🔊 듣기 (ふりがな)
+        </Button>
 
-          {/* Right: 설정 버튼 */}
-          <button
-            onClick={() => setShowSettings(true)}
-            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10"
+        {/* 우: 설정(하나만) — shadcn Dialog Trigger */}
+        <Dialog open={showSettings} onOpenChange={setShowSettings}>
+          <DialogTrigger asChild>
+          <Button
+            size="sm"
+            variant="outline"
+            className="bg-white/10 border-white/10 hover:bg-white/15"
             aria-label="Open Settings"
             title="TTS/Font 설정"
           >
-           ⚙️설정
-          </button>
-        </div>
+            ⚙️ 설정
+          </Button>
+          </DialogTrigger>
 
-      {/* Settings Panel (modal) */}
-      {showSettings && (
-        <div className="fixed inset-0 z-50">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setShowSettings(false)}
-          />
-          {/* Panel */}
-          <div className="absolute inset-0 flex items-center justify-center p-4">
-            <div className="w-full max-w-lg rounded-2xl bg-slate-900 border border-white/10 shadow-2xl p-5">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg font-semibold">⚙️설정</h2>
-                <button
-                  onClick={() => setShowSettings(false)}
-                  className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10"
-                  aria-label="Close settings">
-                  닫기 ✕
-                </button>
-              </div>
+          <DialogContent className="w-full max-w-lg rounded-2xl bg-slate-900 border border-white/10 shadow-2xl p-5 ... overflow-visible">
+            <DialogHeader className="mb-3 flex items-center justify-between">
+              <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">⚙️설정</DialogTitle>
+              <DialogClose asChild>
+              <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 px-3 text-white/90 hover:text-white"
+                >닫기 ✕
+              </Button>
+              </DialogClose>
+            </DialogHeader>
 
-              {/* Voice */}
-              <div className="mb-4">
-                <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
-                <select
-                  aria-label="Select Japanese voice"
-                  value={(selectedVoice && selectedVoice.name) || (voices[0]?.name ?? '')}
-                  onChange={(e) => {
-                    const v = voices.find(v => v.name === e.target.value) || null;
-                    setSelectedVoice(v);
-                    try { localStorage.setItem('jaVoiceName', v?.name || ''); } catch {}
-                  }}
-                  className="select-light w-full rounded-md px-3 py-2 outline-none"
+            {/* Voice ------------------------------------------------ */}
+            <div className="mb-4">
+              <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
+
+              {/* voices가 로딩되기 전에는 disabled + placeholder 만 */}
+              {voices.length === 0 ? (
+                <Select disabled>
+                  <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                    <SelectValue placeholder="(loading…)" />
+                  </SelectTrigger>
+                </Select>
+              ) : (
+
+
+              <Select
+                value={selectedVoice?.name || voices[0]?.name || ""}
+                onValueChange={(val) => {
+                  const v = voices.find(vv => vv.name === val) || null;
+                  setSelectedVoice(v);
+                  try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
+                }}
+                disabled={voices.length === 0}
+              >
+                <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                  <SelectValue placeholder="(loading...)" />
+                </SelectTrigger>
+
+                {/* Dialog(보통 z-50)보다 높은 z-index, popper로 위치 */}
+                <SelectContent
+                  className="z-[70] bg-slate-900 border-white/10"
+                  position="popper"
+                  sideOffset={8}
                 >
-                  {voices.length === 0 && <option value="">(loading...)</option>}
-                  {voices.map(v => (
-                    <option key={v.name} value={v.name}>
-                      {v.name} {v.lang ? `(${v.lang})` : ''}
-                    </option>
-                  ))}
-                </select>
-                <div className="mt-1 text-xs text-white/50">브라우저: {isSafari ? 'Safari' : 'Chrome/Edge 등'}</div>
-              </div>
+                  {voices.length === 0 ? (
+                    <SelectItem className="text-white" value="__loading" disabled>
+                      (loading…)
+                    </SelectItem>
+                  ) : (
+                    voices.map(v => (
+                      <SelectItem className="text-white" key={v.name} value={v.name}>
+                        {v.name} {v.lang ? `(${v.lang})` : ""}
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
 
+
+              )}
+
+              <div className="mt-1 text-xs text-white/50">
+                브라우저: {isSafari ? "Safari" : "Chrome/Edge 등"}
+              </div>
+            </div>
+
+            {/* Font ------------------------------------------------- */}
+            <div className="mb-2">
+              <label className="block text-sm text-white/70 mb-1">Font</label>
               {/* Font */}
-              <div className="mb-2">
-                <label className="block text-sm text-white/70 mb-1">Font</label>
-                <select
-                  value={fontFamily}
-                  onChange={(e) => setFontFamily(e.target.value)}
-                  className="select-light w-full rounded-md px-3 py-2 outline-none">
-                  <option value="Noto Sans JP">Noto Sans JP</option>
-                  <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
-                  <option value="Noto Serif JP">Noto Serif JP</option>
-                  <option value="Kosugi Maru">Kosugi Maru</option>
-                </select>
-              </div>
+              <Select value={fontFamily} onValueChange={setFontFamily}>
+                <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                  <SelectValue placeholder="Select font" />
+                </SelectTrigger>
 
-              <label className="block text-sm text-white/70 mb-4"> 
-                * 적용한 설정들은 즉시 적용 됩니다. 
-              </label>
+                <SelectContent
+                  className="z-[70] bg-slate-900 border-white/10"
+                  position="popper"
+                  sideOffset={8}
+                >
+                  <SelectItem className="text-white" value="Noto Sans JP">Noto Sans JP</SelectItem>
+                  <SelectItem className="text-white" value="Zen Kaku Gothic New">Zen Kaku Gothic New</SelectItem>
+                  <SelectItem className="text-white" value="Noto Serif JP">Noto Serif JP</SelectItem>
+                  <SelectItem className="text-white" value="Kosugi Maru">Kosugi Maru</SelectItem>
+                </SelectContent>
+              </Select>
 
             </div>
-          </div>
-        </div>
-      )}
 
+            <div className="text-sm text-white/70 mt-3">
+              * 적용한 설정들은 즉시 적용됩니다.
+            </div>
 
+          </DialogContent>
+        </Dialog>
+      </div>
       {/* Card with 3D flip */}
       <div className="[perspective:1200px] w-full max-w-md select-none">
      {/* studyDeck이 비면 안내 카드 */}
@@ -625,12 +696,15 @@ export default function App() {
           <div className="absolute inset-0 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6" style={{ backfaceVisibility: 'hidden' }}>
             {/* ⭐ Favorite toggle */}
             {current && (
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); toggleFav(current.id);}}
-                className="absolute top-3 right-3 text-lg rounded-full px-2 py-1 bg-white/10 hover:bg-white/15 border border-white/10"
-                title={favs[current.id] ? '즐겨찾기 해제' : '즐겨찾기 추가'}
-              >{favs[current.id] ? '⭐' : '☆'}</button>
+            <Button
+              type="button"
+              size="icon"
+              variant="secondary"
+              onClick={(e) => { e.stopPropagation(); toggleFav(current.id); }}
+              className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/10 hover:bg-white/15 border border-white/10"
+              title={favs[current.id] ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
+              <span className="text-lg">{favs[current.id] ? "⭐" : "☆"}</span>
+            </Button>
             )}
 
             <div className="text-sm text-white/60 mb-2">카드를 클릭하세요</div>
@@ -661,40 +735,66 @@ export default function App() {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-        <button onClick={prev} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">← 이전</button>
-        <button onClick={next} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">다음 →</button>
-        <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
-        <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={prev}>
+                <ChevronLeft className="mr-1 h-4 w-4" />
+            이전</Button>
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={next}>
+            다음
+            <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+        <Button   
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={shuffle} 
+          title="카드를 섞습니다">
+            섞기
+        </Button>
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={reset} 
+          title="처음 상태로 되돌립니다">
+            리셋
+        </Button>
+
+        <span className="mx-2 text-white/40">|</span>
         
-        <span className="mx-2 text-white/60">|</span>
-        {/* 즐겨찾기 토글만 */}
-        <label className="
-            ml-3 flex items-center gap-2
-            px-4 py-2
-            rounded-xl border border-white/20
-            bg-white/10 hover:bg-white/15
-            cursor-pointer select-none
-          ">
-          <span className="text-white/70 font-bold">⭐ Only</span>
-          <input
-            type="checkbox"
-            checked={onlyFavs}
-            onChange={(e) => { setOnlyFavs(e.target.checked); setIndex(0); setFlipped(false);}}
-            className="accent-white"
-          />
-        </label>
+      {/* ⭐ Only (Switch 사용) */}
+      <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
+        <span className="text-white/80 font-semibold">⭐ Only</span>
+        <Switch
+          checked={onlyFavs}
+          onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); }}
+        />
+      </label>
       </div>
 
 
       {/* App footer notice (bullet tips) */}
       <hr className="my-6 w-full max-w-md border-white/10" />
       <footer className="w-full max-w-md text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
-        <ul className="list-disc list-inside space-y-1 leading-relaxed">
-          <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 <b>즉시 적용</b>됩니다. (브라우저에 저장)</li>
-          <li>단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.</li>
-          <li>Front: 가타카나 + ふりがな · Back: 영어 정답 + 이모지 + <i>(로마자)</i></li>
-          <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
-        </ul>
+      <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
+  <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
+  <li>
+    단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.
+    <ul className="list-disc list-outside pl-6 mt-1 space-y-1 text-white/60">
+      <li>Front: 가타카나 + ふりがな</li>
+      <li>Back: 영어 정답 + 이모지 + (로마자)</li>
+    </ul>
+  </li>
+  <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
+</ul>
+
       </footer>
 
       {/* Version info */}
