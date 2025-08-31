@@ -22,6 +22,19 @@ import pkg from '../package.json';
 // App version from package.json
 const APP_VERSION = pkg.version;
 
+// api로 가져올 단어 항목 타입
+type Word = {
+  id: number;
+  katakana: string;
+  furigana: string;
+  answer: string;
+  emoji: string;
+};
+
+
+
+
+
 // Dataset (100 words)
 const WORDS = [
   { id: 1, katakana: "タクシー", furigana: "たくしー", answer: "Taxi", emoji: "🚖" },
@@ -252,8 +265,6 @@ function useJaSpeech() {
           localStorage.setItem('jaVoiceName', bestVoice?.name || '');
         } catch {}
 
-        
-
       }
     }
     
@@ -375,6 +386,53 @@ export default function App() {
   const [flipped, setFlipped] = useState(false);
   const [deck, setDeck] = useState(WORDS);
   const [romajiMode, setRomajiMode] = useState<'hepburn' | 'simple'>('hepburn'); // default Hepburn
+
+
+  // 불러오기 상태
+  const [loadingImport, setLoadingImport] = useState(false);
+
+  // 서버에서 단어 가져와서 덱을 갈아끼우는 동작
+  async function importWordsFromServer(topic = '기본') {
+    try {
+      setLoadingImport(true);
+
+      // (Vercel에 올렸다면 같은 도메인/api 로 호출됩니다)
+      const resp = await fetch('/api/generate-words', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic }),
+      });
+
+      const json = await resp.json();
+      if (!json?.ok) throw new Error(json?.error || 'Unknown error from server');
+
+      const base: Omit<Word, 'id'>[] = json.words || [];
+      if (!Array.isArray(base) || base.length === 0) {
+        alert('No words received from server');
+        return;
+      }
+
+      // id를 1부터 매겨서 덱 세팅
+      const newDeck: Word[] = base.map((w: Omit<Word, 'id'>, i: number) => ({
+        id: i + 1,
+        ...w,
+      }));
+      
+      // 덱 교체
+      setDeck(newDeck);
+      setIndex(0);
+      setFlipped(false);
+
+      // 옵션 저장
+      try {
+        localStorage.setItem('words:custrom', JSON.stringify(newDeck));} catch {}
+      alert('새 단어 ${newDeck.length}개를 불러왔습니다!');
+
+    } catch (e: any) {
+      console.error(e);
+      alert(e.message || 'Failed to import words from server');
+    } finally { setLoadingImport(false); }
+  }
 
   // settings panel
   const [showSettings, setShowSettings] = useState(false);
@@ -597,7 +655,6 @@ export default function App() {
                 </Select>
               ) : (
 
-
               <Select
                 value={selectedVoice?.name || voices[0]?.name || ""}
                 onValueChange={(val) => {
@@ -630,7 +687,6 @@ export default function App() {
                   )}
                 </SelectContent>
               </Select>
-
 
               )}
 
@@ -665,6 +721,45 @@ export default function App() {
             <div className="text-sm text-white/70 mt-3">
               * 적용한 설정들은 즉시 적용됩니다.
             </div>
+
+            <div className="mt-4 flex gap-2">
+              <Button
+                size="sm"
+                className="text-white bg-white/10 border-white/10 hover:bg-white/15"
+                variant="outline"
+                disabled={loadingImport}
+                onClick={() => importWordsFromServer('여행/일상')}
+                title="서버에서 새 단어를 불러옵니다"
+              >
+                {loadingImport ? '가져오는 중…' : '단어 가져오기'}
+              </Button>
+
+              {/* 선택: 현재 덱 저장본 복원 (로컬) */}
+              <Button
+                size="sm"
+                className="text-white bg-white/10 border-white/10 hover:bg-white/15"              
+                variant="outline"
+                onClick={() => {
+                  try {
+                    const raw = localStorage.getItem('words:custom');
+                    if (!raw) return alert('저장된 사용자 단어가 없습니다.');
+                    const parsed = JSON.parse(raw) as Word[];
+                    if (!Array.isArray(parsed) || parsed.length === 0) {
+                      return alert('저장된 데이터에 단어가 없습니다.');
+                    }
+                    setDeck(parsed);
+                    setIndex(0);
+                    setFlipped(false);
+                    alert('사용자 단어를 복원했습니다.');
+                  } catch {
+                    alert('복원에 실패했습니다.');
+                  }
+                }}
+              >
+                저장본 복원
+              </Button>
+            </div>
+            
 
           </DialogContent>
         </Dialog>

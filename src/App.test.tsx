@@ -1,14 +1,39 @@
 import React, { useEffect, useMemo, useState } from "react";
+import "@fontsource/noto-sans-jp"; // 일본어 가독성 향상 (웹폰트)
+
+
+
+import { Button } from "./components/ui/button";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./components/ui/dialog";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./components/ui/select";
+import { Switch } from "./components/ui/switch";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import pkg from '../package.json';
+
 
 // ————————————————————————————————————————————————
-// Katakana Flashcard Webapp
-// Updates in this patch:
-//  - Fix: fully implemented kana→romaji (hepburn/simple) — already present
-//  - Default Romaji mode = Hepburn (per user)
-//  - Hide colon-code example on back (per user)
-//  - NEW: Audio (TTS) playback for Japanese using Web Speech API
-//         → Plays the card's ふりがな (hiragana) with a ja-JP voice if available.
+// Katakana Flashcard Webapp v0.2.0
+// Recent updates:
+//  - v0.2.0: Enhanced Safari TTS quality with voice optimization
+//  - v0.1.0: Initial release with 100 words, romaji conversion, TTS
+//  - Features: Kana→romaji (hepburn/simple), Audio playback, 3D cards
 // ————————————————————————————————————————————————
+
+// App version from package.json
+const APP_VERSION = pkg.version;
+
+// api로 가져올 단어 항목 타입
+type Word = {
+  id: number;
+  katakana: string;
+  furigana: string;
+  answer: string;
+  emoji: string;
+};
+
+
+
+
 
 // Dataset (100 words)
 const WORDS = [
@@ -114,12 +139,23 @@ const WORDS = [
   { id: 100, katakana: "ユーザー", furigana: "ゆーざー", answer: "User", emoji: "👤" },
 ];
 
-// ひらがな(ふりがな) → ローマ字
-// mode: 'hepburn' | 'simple'
-function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
+// 일본어 웹 폰트 스택(이름 → font-family 문자열)
+const FONT_STACKS: Record<string, string> = {
+    'Noto Sans JP':
+      `'Noto Sans JP','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+    'Zen Kaku Gothic New':
+      `'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+    'Noto Serif JP':
+      `'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif`,
+    'Kosugi Maru':
+      `'Kosugi Maru','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+  };
+
+// ひらがな(ふりがな) → ローマ字 (Hepburn)
+function kanaToRomaji(kana: string) {
   if (!kana) return '';
 
-  const baseMapHepburn: Record<string, string> = {
+  const baseMap: Record<string, string> = {
     あ:'a', い:'i', う:'u', え:'e', お:'o',
     か:'ka', き:'ki', く:'ku', け:'ke', こ:'ko',
     さ:'sa', し:'shi', す:'su', せ:'se', そ:'so',
@@ -141,43 +177,7 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     ー:'-'
   };
 
-  const baseMapSimple: Record<string, string> = {
-    あ:'a', い:'i', う:'u', え:'e', お:'o',
-    か:'ka', き:'ki', く:'ku', け:'ke', こ:'ko',
-    さ:'sa', し:'si', す:'su', せ:'se', そ:'so',
-    た:'ta', ち:'ti', つ:'tu', て:'te', と:'to',
-    な:'na', に:'ni', ぬ:'nu', ね:'ne', の:'no',
-    は:'ha', ひ:'hi', ふ:'hu', へ:'he', ほ:'ho',
-    ま:'ma', み:'mi', む:'mu', め:'me', も:'mo',
-    や:'ya', ゆ:'yu', よ:'yo',
-    ら:'ra', り:'ri', る:'ru', れ:'re', ろ:'ro',
-    わ:'wa', を:'o', ん:'n',
-    が:'ga', ぎ:'gi', ぐ:'gu', げ:'ge', ご:'go',
-    ざ:'za', じ:'zi', ず:'zu', ぜ:'ze', ぞ:'zo',
-    だ:'da', ぢ:'zi', づ:'zu', で:'de', ど:'do',
-    ば:'ba', び:'bi', ぶ:'bu', べ:'be', ぼ:'bo',
-    ぱ:'pa', ぴ:'pi', ぷ:'pu', ぺ:'pe', ぽ:'po',
-    ぁ:'a', ぃ:'i', ぅ:'u', ぇ:'e', ぉ:'o',
-    ゃ:'ya', ゅ:'yu', ょ:'yo',
-    っ:'*',
-    ー:'-'
-  };
-
-  const combosHepburn: Record<string, string> = {
-    きゃ:'kya', きゅ:'kyu', きょ:'kyo',
-    ぎゃ:'gya', ぎゅ:'gyu', ぎょ:'gyo',
-    しゃ:'sha', しゅ:'shu', しょ:'sho',
-    じゃ:'ja', じゅ:'ju', じょ:'jo',
-    ちゃ:'cha', ちゅ:'chu', ちょ:'cho',
-    にゃ:'nya', にゅ:'nyu', にょ:'nyo',
-    ひゃ:'hya', ひゅ:'hyu', ひょ:'hyo',
-    みゃ:'mya', みゅ:'myu', みょ:'myo',
-    りゃ:'rya', りゅ:'ryu', りょ:'ryo',
-    びゃ:'bya', びゅ:'byu', びょ:'byo',
-    ぴゃ:'pya', ぴゅ:'pyu', ぴょ:'pyo'
-  };
-
-  const combosSimple: Record<string, string> = {
+  const combos: Record<string, string> = {
     きゃ:'kya', きゅ:'kyu', きょ:'kyo',
     ぎゃ:'gya', ぎゅ:'gyu', ぎょ:'gyo',
     しゃ:'sya', しゅ:'syu', しょ:'syo',
@@ -191,8 +191,7 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     ぴゃ:'pya', ぴゅ:'pyu', ぴょ:'pyo'
   };
 
-  const map = mode === 'simple' ? baseMapSimple : baseMapHepburn;
-  const combos = mode === 'simple' ? combosSimple : combosHepburn;
+  const map = baseMap;
 
   let i = 0;
   let out = '';
@@ -220,13 +219,9 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     }
 
     if (ch === 'ー') {
-      if (mode === 'hepburn') {
-        // repeat last vowel (no macron)
-        const lastVowel = Array.from(out).reverse().find((c) => vowels.includes(c));
-        if (lastVowel) out += lastVowel;
-      } else {
-        // simple mode: ignore
-      }
+      // Hepburn: 직전 모음 반복(마크론 없이 표기)
+      const lastVowel = Array.from(out).reverse().find((c) => vowels.includes(c));
+      if (lastVowel) out += lastVowel;
       i += 1;
       continue;
     }
@@ -240,10 +235,11 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
   return out;
 }
 
-// —— Web Speech API (ja-JP) helper ——
+// —— Web Speech API (ja-JP) helper with Safari optimization ——
 function useJaSpeech() {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [ready, setReady] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
     const synth = window.speechSynthesis;
@@ -251,34 +247,138 @@ function useJaSpeech() {
       const list = synth.getVoices();
       setVoices(list);
       setReady(list.length > 0);
+      
+      // Auto-select best Japanese voice when voices load
+      if (list.length > 0) {
+        // 1) 로컬스토리지에 저장된 보이스 우선
+        let stored: SpeechSynthesisVoice | null = null;
+        try {
+          const storedName = localStorage.getItem('jaVoiceName');
+          if (storedName) stored = list.find(v => v.name === storedName) || null;
+        } catch {}
+        // 2) 없으면 최적 보이스 자동 선택
+        const bestVoice = stored || pickBestJaVoice(list);
+        setSelectedVoice(bestVoice);
+
+        // save 
+        try {
+          localStorage.setItem('jaVoiceName', bestVoice?.name || '');
+        } catch {}
+
+      }
     }
+    
+    // Safari sometimes needs multiple attempts to load voices
     loadVoices();
+    if (window.speechSynthesis.getVoices().length === 0) {
+      setTimeout(loadVoices, 100);
+      setTimeout(loadVoices, 500);
+    }
+    
     synth.onvoiceschanged = loadVoices;
     return () => { synth.onvoiceschanged = null; };
   }, []);
 
-  function pickJaVoice(vs: SpeechSynthesisVoice[]) {
-    return (
-      vs.find(v => v.lang?.toLowerCase().startsWith('ja')) ||
-      vs.find(v => /japanese|nihon/i.test(v.name)) ||
-      vs[0]
-    );
+  function isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  }
+
+  function pickBestJaVoice(vs: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+    if (vs.length === 0) return null;
+
+    // For Safari, prioritize specific high-quality Japanese voices
+    if (isSafari()) {
+      // Try to find the best Japanese voices on Safari/macOS
+      const priorities = [
+        'Kyoko',           // macOS built-in Japanese voice (best quality)
+        'Otoya',           // Alternative Japanese voice
+        'O-ren',           // Another Japanese voice option
+      ];
+      
+      for (const name of priorities) {
+        const voice = vs.find(v => v.name.includes(name));
+        if (voice) return voice;
+      }
+    }
+
+    // General prioritization for all browsers
+    const jaVoices = vs.filter(v => {
+      const lang = v.lang?.toLowerCase();
+      return lang?.startsWith('ja') || /japanese|nihon/i.test(v.name);
+    });
+
+    if (jaVoices.length === 0) {
+      console.warn('No Japanese voices found, using default voice');
+      return vs[0] || null;
+    }
+
+    // Prioritize by quality indicators
+    const sortedVoices = jaVoices.sort((a, b) => {
+      // Prefer local voices over remote
+      if (a.localService !== b.localService) {
+        return a.localService ? -1 : 1;
+      }
+      
+      // Prefer voices with 'ja-JP' over other Japanese variants
+      const aIsJaJP = a.lang === 'ja-JP';
+      const bIsJaJP = b.lang === 'ja-JP';
+      if (aIsJaJP !== bIsJaJP) {
+        return aIsJaJP ? -1 : 1;
+      }
+      
+      // For Safari, prefer specific known good voices
+      if (isSafari()) {
+        const qualityNames = ['Kyoko', 'Otoya', 'O-ren'];
+        const aHasQuality = qualityNames.some(name => a.name.includes(name));
+        const bHasQuality = qualityNames.some(name => b.name.includes(name));
+        if (aHasQuality !== bHasQuality) {
+          return aHasQuality ? -1 : 1;
+        }
+      }
+      
+      return 0;
+    });
+
+    return sortedVoices[0];
   }
 
   function speakJa(text: string) {
     const synth = window.speechSynthesis;
     if (!text || !('speechSynthesis' in window)) return;
+    
     synth.cancel();
+    
     const utter = new SpeechSynthesisUtterance(text);
-    const v = pickJaVoice(voices);
-    if (v) utter.voice = v;
-    utter.lang = v?.lang || 'ja-JP';
-    utter.rate = 1; // speed
-    utter.pitch = 1;
+    const voice = selectedVoice || pickBestJaVoice(voices);
+    
+    if (voice) {
+      utter.voice = voice;
+      utter.lang = voice.lang || 'ja-JP';
+    } else {
+      utter.lang = 'ja-JP';
+    }
+    
+    // Optimize speech parameters for better quality
+    utter.rate = isSafari() ? 0.9 : 1.0;  // Slightly slower on Safari for clarity
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+    
+    // Add error handling
+    utter.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
+    };
+    
     synth.speak(utter);
   }
 
-  return { ready, voices, speakJa } as const;
+  return { 
+    ready, 
+    voices, 
+    selectedVoice,
+    speakJa,
+    setSelectedVoice,
+    isSafari: isSafari()
+  } as const;
 }
 
 export default function App() {
@@ -287,15 +387,158 @@ export default function App() {
   const [deck, setDeck] = useState(WORDS);
   const [romajiMode, setRomajiMode] = useState<'hepburn' | 'simple'>('hepburn'); // default Hepburn
 
-  const { ready: ttsReady, speakJa } = useJaSpeech();
 
-  const current = deck[index];
-  const romaji = useMemo(() => kanaToRomaji(current?.furigana || '', romajiMode), [current, romajiMode]);
-  const progress = `${index + 1} / ${deck.length}`;
+  // 불러오기 상태
+  const [loadingImport, setLoadingImport] = useState(false);
+
+  // 서버에서 단어 가져와서 덱을 갈아끼우는 동작
+  async function importWordsFromServer(topic = '기본') {
+    try {
+      setLoadingImport(true);
+
+      // (Vercel에 올렸다면 같은 도메인/api 로 호출됩니다)
+      const resp = await fetch('/api/generate-words', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic }),
+      });
+
+      const json = await resp.json();
+      if (!json?.ok) throw new Error(json?.error || 'Unknown error from server');
+
+      const base: Omit<Word, 'id'>[] = json.words || [];
+      if (!Array.isArray(base) || base.length === 0) {
+        alert('No words received from server');
+        return;
+      }
+
+      // id를 1부터 매겨서 덱 세팅
+      const newDeck: Word[] = base.map((w: Omit<Word, 'id'>, i: number) => ({
+        id: i + 1,
+        ...w,
+      }));
+      
+      // 덱 교체
+      setDeck(newDeck);
+      setIndex(0);
+      setFlipped(false);
+
+      // 옵션 저장
+      try {
+        localStorage.setItem('words:custrom', JSON.stringify(newDeck));} catch {}
+      alert('새 단어 ${newDeck.length}개를 불러왔습니다!');
+
+    } catch (e: any) {
+      console.error(e);
+      alert('단어 가져오기 실패 : ${e?.message || e}');
+    } finally { setLoadingImport(false); }
+  }
+
+  // settings panel
+  const [showSettings, setShowSettings] = useState(false);
+
+  // esc로 설정 패널 닫기
+  useEffect(() => {
+    if (!showSettings) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowSettings(false);};
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showSettings]);
+
+
+  const [fontFamily, setFontFamily] = useState<string>(() => {
+    try {
+        return localStorage.getItem('jpFont') || 'Noto Sans JP';
+      } catch {
+        return 'Noto Sans JP';
+      }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('jpFont', fontFamily);
+    } catch {}
+  }, [fontFamily]);
+    const fontStack = useMemo(
+        () => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'],
+        [fontFamily]
+    );
+
+    // ⭐ 즐겨찾기 (id -> true) 로컬 저장
+    const [favs, setFavs] = useState<Record<number, true>>(() => {
+      try { return JSON.parse(localStorage.getItem('favWords') || '{}'); } catch { return {}; }
+    });
+    useEffect(() => {
+      try { localStorage.setItem('favWords', JSON.stringify(favs));} catch {}
+    }, [favs]);
+
+    // ⭐ 즐겨찾기만 학습 토글 (로컬 저장)
+    const [onlyFavs, setOnlyFavs] = useState<boolean>(() => {
+      try {return localStorage.getItem('onlyFavs') === '1';} catch { return false; }
+    });
+
+    useEffect(() => {
+      try { localStorage.setItem('onlyFavs', onlyFavs ? '1' : '0'); } catch {}
+    }, [onlyFavs]);
+
+    // 현재 학습용 덱 (즐겨찾기 필터 반영)
+    const studyDeck = useMemo(
+      () => (onlyFavs ? deck.filter(w => favs[w.id]) : deck),
+      [deck, favs, onlyFavs]
+    );
+
+
+  const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
+
+  // voices가 로드된 뒤, 선택된 보이스가 없으면 안전하게 채워줍니다.
+  useEffect(() => {
+    if (voices.length === 0) return;
+  
+    if (!selectedVoice) {
+      let initial: SpeechSynthesisVoice | null = null;
+  
+      // 1) 저장된 보이스 우선
+      try {
+        const stored = localStorage.getItem("jaVoiceName");
+        if (stored) initial = voices.find(v => v.name === stored) || null;
+      } catch {}
+  
+      // 2) 없으면 최적 보이스(ja-*/local 우선) 또는 첫번째
+      if (!initial) {
+        const jaVoices = voices.filter(v => (v.lang || "").toLowerCase().startsWith("ja"));
+        initial = (jaVoices.find(v => v.localService) || jaVoices[0]) ?? voices[0];
+      }
+  
+      setSelectedVoice(initial);
+    }
+  }, [voices, selectedVoice, setSelectedVoice]);
+  
+
+
+  const current = studyDeck[index] ?? null;
+  const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
+  //const progress = `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
+  const progress = 
+  studyDeck.length === 0
+    ? '0 / 0'
+    : `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
+
+  // studyDeck 변동 시 index 보정
+  useEffect(() => {
+    if (studyDeck.length === 0) {
+      if (index !== 0) setIndex(0);
+      setFlipped(false);
+      return;
+    }
+    if (index >= studyDeck.length){
+      setIndex(0);
+      setFlipped(false);
+    }
+  }, [studyDeck.length]);
 
   function onFlip() { setFlipped((f) => !f); }
-  function next() { setIndex((i) => (i + 1) % deck.length); setFlipped(false); }
-  function prev() { setIndex((i) => (i - 1 + deck.length) % deck.length); setFlipped(false); }
+  function next() { setIndex((i) => (i + 1) % Math.max(1, studyDeck.length)); setFlipped(false); }
+  function prev() { setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length)); setFlipped(false); }
   function shuffle() {
     const arr = [...deck];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -306,121 +549,379 @@ export default function App() {
   }
   function reset() { setDeck(WORDS); setIndex(0); setFlipped(false); }
 
-  // removed colon-code from UI as requested
+  // 즐겨찾기 토글
+  function toggleFav(id: number) {
+    setFavs(prev => {
+      const n = { ...prev};
+      if (n[id]) delete n[id]; else n[id] = true;
+        return n;
+    });
+  }
 
-  // ——— tiny self-tests for kana→romaji ———
-  const tests = useMemo(() => {
-    const cases = [
-      { k: 'たくしー', hep: 'takushii', simp: 'takusi', why: 'ー long i; simple ignores ー' },
-      { k: 'がっこう', hep: 'gakkou', simp: 'gakkou', why: 'っ gemination + おう long o' },
-      { k: 'しょ', hep: 'sho', simp: 'syo', why: 'combo mapping differs' },
-      { k: 'ちゃ', hep: 'cha', simp: 'tya', why: 'combo mapping differs' },
-      { k: 'ふじ', hep: 'fuji', simp: 'huzi', why: 'ふ→fu/hu, じ→ji/zi' },
-      { k: 'にゅう', hep: 'nyuu', simp: 'nyu', why: 'ゆ + う, simple does not expand lengths' },
-    ];
-    return cases.map((c) => ({
-      ...c,
-      gotH: kanaToRomaji(c.k, 'hepburn'),
-      gotS: kanaToRomaji(c.k, 'simple'),
-      passH: kanaToRomaji(c.k, 'hepburn') === c.hep,
-      passS: kanaToRomaji(c.k, 'simple') === c.simp,
-    }));
-  }, []);
+
+  // 키보드 방향키로 이전 다음, 엔터로는 뒤집기
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      // 설정 패널 무시
+      if (showSettings) return;
+      // 입력/선택 요소에 포커스가 있으면 무시
+      const tag = (document.activeElement?.tagName || '').toUpperCase();
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        next();
+      } else if (e.key ==='ArrowLeft') {
+        e.preventDefault();
+        prev();
+      } else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        onFlip();
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [showSettings, next, prev]);
+
+
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6">
+    <div
+      className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6"
+      style={{ fontFamily: fontStack }}
+    >
+
       <header className="mb-6 text-center">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Katakana Flashcards</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">💖쑨쑨배의 가타카나 공부💖</h1>
         <p className="text-white/70 mt-1">가타카나 단어를 보고 맞춰보세요. 클릭하면 뒤집혀 정답이 보입니다.</p>
       </header>
 
-      {/* Controls (top) */}
-      <div className="mb-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-        <button onClick={prev} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">← 이전</button>
-        <button onClick={next} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">다음 →</button>
-        <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
-        <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
-        <span className="mx-2 text-white/60">|</span>
-        <label className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
-          <span className="text-white/70">Romaji</span>
-          <select value={romajiMode} onChange={(e) => setRomajiMode(e.target.value as 'hepburn' | 'simple')} className="bg-transparent outline-none">
-            <option value="hepburn">Hepburn (takushii)</option>
-            <option value="simple">Simple (takusi)</option>
-          </select>
-        </label>
-        <span className="mx-2 text-white/60">|</span>
-        <button
-          onClick={() => speakJa(current?.furigana || '')}
-          disabled={!ttsReady}
-          className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
+       {/* Controls (top) */}
+        <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
+
+        {/* Center: 진행도 */}
+        <span className="text-white/70">⚡진행률 : {progress}</span>
+
+
+        {/* 듣기 */}
+        <Button
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={() => speakJa(current?.furigana || "")}
+          disabled={!ttsReady || !current}
           title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}
         >
           🔊 듣기 (ふりがな)
-        </button>
-        <span className="text-white/70">{progress}</span>
-      </div>
+        </Button>
 
+        {/* 우: 설정(하나만) — shadcn Dialog Trigger */}
+        <Dialog open={showSettings} onOpenChange={setShowSettings}>
+          <DialogTrigger asChild>
+          <Button
+            size="sm"
+            variant="outline"
+            className="bg-white/10 border-white/10 hover:bg-white/15"
+            aria-label="Open Settings"
+            title="TTS/Font 설정"
+          >
+            ⚙️ 설정
+          </Button>
+          </DialogTrigger>
+
+          <DialogContent className="w-full max-w-lg rounded-2xl bg-slate-900 border border-white/10 shadow-2xl p-5 ... overflow-visible">
+            <DialogHeader className="mb-3 flex items-center justify-between">
+              <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">⚙️설정</DialogTitle>
+              <DialogClose asChild>
+              <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-8 px-3 text-white/90 hover:text-white"
+                >닫기 ✕
+              </Button>
+              </DialogClose>
+            </DialogHeader>
+
+            {/* Voice ------------------------------------------------ */}
+            <div className="mb-4">
+              <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
+
+              {/* voices가 로딩되기 전에는 disabled + placeholder 만 */}
+              {voices.length === 0 ? (
+                <Select disabled>
+                  <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                    <SelectValue placeholder="(loading…)" />
+                  </SelectTrigger>
+                </Select>
+              ) : (
+
+              <Select
+                value={selectedVoice?.name || voices[0]?.name || ""}
+                onValueChange={(val) => {
+                  const v = voices.find(vv => vv.name === val) || null;
+                  setSelectedVoice(v);
+                  try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
+                }}
+                disabled={voices.length === 0}
+              >
+                <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                  <SelectValue placeholder="(loading...)" />
+                </SelectTrigger>
+
+                {/* Dialog(보통 z-50)보다 높은 z-index, popper로 위치 */}
+                <SelectContent
+                  className="z-[70] bg-slate-900 border-white/10"
+                  position="popper"
+                  sideOffset={8}
+                >
+                  {voices.length === 0 ? (
+                    <SelectItem className="text-white" value="__loading" disabled>
+                      (loading…)
+                    </SelectItem>
+                  ) : (
+                    voices.map(v => (
+                      <SelectItem className="text-white" key={v.name} value={v.name}>
+                        {v.name} {v.lang ? `(${v.lang})` : ""}
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
+
+              )}
+
+              <div className="mt-1 text-xs text-white/50">
+                브라우저: {isSafari ? "Safari" : "Chrome/Edge 등"}
+              </div>
+            </div>
+
+            {/* Font ------------------------------------------------- */}
+            <div className="mb-2">
+              <label className="block text-sm text-white/70 mb-1">Font</label>
+              {/* Font */}
+              <Select value={fontFamily} onValueChange={setFontFamily}>
+                <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+                  <SelectValue placeholder="Select font" />
+                </SelectTrigger>
+
+                <SelectContent
+                  className="z-[70] bg-slate-900 border-white/10"
+                  position="popper"
+                  sideOffset={8}
+                >
+                  <SelectItem className="text-white" value="Noto Sans JP">Noto Sans JP</SelectItem>
+                  <SelectItem className="text-white" value="Zen Kaku Gothic New">Zen Kaku Gothic New</SelectItem>
+                  <SelectItem className="text-white" value="Noto Serif JP">Noto Serif JP</SelectItem>
+                  <SelectItem className="text-white" value="Kosugi Maru">Kosugi Maru</SelectItem>
+                </SelectContent>
+              </Select>
+
+            </div>
+
+            <div className="text-sm text-white/70 mt-3">
+              * 적용한 설정들은 즉시 적용됩니다.
+            </div>
+
+            <div className="mt-4 flex gap-2">
+              <Button
+                size="sm"
+                className="text-white bg-white/10 border-white/10 hover:bg-white/15"
+                variant="outline"
+                disabled={loadingImport}
+                onClick={() => importWordsFromServer('여행/일상')}
+                title="서버에서 새 단어를 불러옵니다"
+              >
+                {loadingImport ? '가져오는 중…' : '단어 가져오기'}
+              </Button>
+
+              {/* 선택: 현재 덱 저장본 복원 (로컬) */}
+              <Button
+                size="sm"
+                className="text-white bg-white/10 border-white/10 hover:bg-white/15"              
+                variant="outline"
+                onClick={() => {
+                  try {
+                    const raw = localStorage.getItem('words:custom');
+                    if (!raw) return alert('저장된 사용자 단어가 없습니다.');
+                    const parsed = JSON.parse(raw) as Word[];
+                    if (!Array.isArray(parsed) || parsed.length === 0) {
+                      return alert('저장된 데이터에 단어가 없습니다.');
+                    }
+                    setDeck(parsed);
+                    setIndex(0);
+                    setFlipped(false);
+                    alert('사용자 단어를 복원했습니다.');
+                  } catch {
+                    alert('복원에 실패했습니다.');
+                  }
+                }}
+              >
+                저장본 복원
+              </Button>
+            </div>
+            
+
+          </DialogContent>
+        </Dialog>
+      </div>
       {/* Card with 3D flip */}
       <div className="[perspective:1200px] w-full max-w-md select-none">
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="flip card"
-          onClick={onFlip}
-          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? onFlip() : null)}
-          className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
-          style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
-        >
+     {/* studyDeck이 비면 안내 카드 */}
+     {!current ? (
+       <div className="relative h-64 md:h-72 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6">
+         <div className="text-center">
+           <div className="text-lg font-semibold mb-2">즐겨찾기한 카드가 없습니다</div>
+           <p className="text-white/70">
+             카드 앞면 우상단의 <b>☆</b> 버튼으로 즐겨찾기를 추가하거나
+             <br />‘⭐ Only’ 토글을 끄세요.
+           </p>
+         </div>
+       </div>
+      ) : (
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="flip card"
+        onClick={onFlip}
+        className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
+        style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+      >
+
           {/* Front */}
           <div className="absolute inset-0 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6" style={{ backfaceVisibility: 'hidden' }}>
+            {/* ⭐ Favorite toggle */}
+            {current && (
+            <Button
+              type="button"
+              size="icon"
+              variant="secondary"
+              onClick={(e) => { e.stopPropagation(); toggleFav(current.id); }}
+              className="absolute top-3 right-3 h-8 w-8 rounded-full bg-white/10 hover:bg-white/15 border border-white/10"
+              title={favs[current.id] ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
+              <span className="text-lg">{favs[current.id] ? "⭐" : "☆"}</span>
+            </Button>
+            )}
+
             <div className="text-sm text-white/60 mb-2">카드를 클릭하세요</div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-semibold leading-snug">
-                <ruby>
-                  {current.katakana}
-                  <rt className="block text-base md:text-lg font-normal text-white/80 mt-2">{current.furigana}</rt>
-                </ruby>
+            <div className="text-center w-full">
+              <div
+                className="text-5xl md:text-6xl font-semibold leading-snug break-words overflow-hidden text-ellipsis max-w-full"
+                style={{ wordBreak: "break-all", overflowWrap: "break-word" }}>
+
+                <div className="flex flex-col items-center">
+                  {/* 메인 카타카나 */}
+                  <div className="text-5xl md:text-6xl font-semibold leading-snug">
+                    {current.katakana}
+                  </div>
+
+                  {/* 후리가나 (작게, 아래 표시) */}
+                  <div className="mt-2 text-base md:text-lg font-normal text-white/80">
+                    {current.furigana}
+                  </div>
+                </div>
+
               </div>
-              <div className="mt-3 text-sm text-white/60">ふりがな 付き</div>
             </div>
           </div>
 
           {/* Back */}
           <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6" style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}>
-            <div className="text-center">
+            <div className="text-center w-full">
               <div className="text-sm text-white/60 mb-2">정답</div>
-              <div className="text-4xl md:text-5xl font-semibold break-words">
+              <div
+                className="text-4xl md:text-5xl font-semibold break-words overflow-hidden text-ellipsis max-w-full"
+                style={{ wordBreak: "break-all", overflowWrap: "break-word" }}
+              >
                 {current.answer} <span className="align-middle">{current.emoji}</span>
-                <span className="block text-lg md:text-xl font-normal text-white/80 mt-2">({romaji})</span>
+                <span
+                  className="block text-lg md:text-xl font-normal text-white/80 mt-2 break-words max-w-full"
+                  style={{ wordBreak: "break-all", overflowWrap: "break-word" }}
+                >
+                  ({romaji})
+                </span>
               </div>
-              {/* colon code removed per user preference */}
             </div>
           </div>
         </div>
+      )}
       </div>
 
-      {/* How to use */}
-      <div className="mt-6 max-w-md text-sm text-white/70 leading-relaxed text-center">
-        <p className="mb-1">단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.</p>
-        <p>Front: 가타카나 + ふりがな · Back: 영어 정답 + 이모지 + (로마자)</p>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={prev}>
+                <ChevronLeft className="mr-1 h-4 w-4" />
+            이전</Button>
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={next}>
+            다음
+            <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+        <Button   
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={shuffle} 
+          title="카드를 섞습니다">
+            섞기
+        </Button>
+        <Button 
+          size="sm"
+          variant="outline"
+          className="border-white/10 bg-white/5 hover:bg-white/10"
+          onClick={reset} 
+          title="처음 상태로 되돌립니다">
+            리셋
+        </Button>
+
+        <span className="mx-2 text-white/40">|</span>
+        
+      {/* ⭐ Only (Switch 사용) */}
+      <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
+        <span className="text-white/80 font-semibold">⭐ Only</span>
+        <Switch
+          checked={onlyFavs}
+          onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); }}
+        />
+      </label>
       </div>
 
-      {/* Dev Test Panel */}
-      <div className="mt-8 w-full max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-4">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold">Kana→Romaji Tests</h2>
-          <span className="text-white/60 text-sm">모드: {romajiMode}</span>
-        </div>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-          {tests.map((t, idx) => (
-            <li key={idx} className="bg-white/5 rounded-xl p-3 border border-white/10">
-              <div className="mb-1">かな: <code>{t.k}</code></div>
-              <div>Hepburn → <code className={t.passH ? 'text-green-400' : 'text-red-400'}>{t.gotH}</code> {t.passH ? '✓' : `✗ (exp ${t.hep})`}</div>
-              <div>Simple  → <code className={t.passS ? 'text-green-400' : 'text-red-400'}>{t.gotS}</code> {t.passS ? '✓' : `✗ (exp ${t.simp})`}</div>
-              <div className="mt-1 text-white/60">{t.why}</div>
-            </li>
-          ))}
-        </ul>
+
+      {/* App footer notice (bullet tips) */}
+      <hr className="my-6 w-full max-w-md border-white/10" />
+      <footer className="w-full max-w-md text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
+  <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
+  <li>
+    단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.
+    <ul className="list-disc list-outside pl-6 mt-1 space-y-1 text-white/60">
+      <li>Front: 가타카나 + ふりがな</li>
+      <li>Back: 영어 정답 + 이모지 + (로마자)</li>
+    </ul>
+  </li>
+  <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
+</ul>
+
+      </footer>
+
+      {/* Version info */}
+      <div className="mt-4 text-center">
+        <span className="text-white/40 text-xs">
+          카타카나 플래시카드 v{APP_VERSION} | 쑨쑨배의 Github
+          <a 
+            href="https://github.com/SsunLee/ssunbae_katakana-flashcards" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-white/60 ml-1"
+          >
+            GitHub
+          </a>
+        </span>
       </div>
     </div>
   );
