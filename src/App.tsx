@@ -128,13 +128,11 @@ const FONT_STACKS: Record<string, string> = {
       `'Kosugi Maru','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
   };
 
-
-// ひらがな(ふりがな) → ローマ字
-// mode: 'hepburn' | 'simple'
-function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
+// ひらがな(ふりがな) → ローマ字 (Hepburn)
+function kanaToRomaji(kana: string) {
   if (!kana) return '';
 
-  const baseMapHepburn: Record<string, string> = {
+  const baseMap: Record<string, string> = {
     あ:'a', い:'i', う:'u', え:'e', お:'o',
     か:'ka', き:'ki', く:'ku', け:'ke', こ:'ko',
     さ:'sa', し:'shi', す:'su', せ:'se', そ:'so',
@@ -156,43 +154,7 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     ー:'-'
   };
 
-  const baseMapSimple: Record<string, string> = {
-    あ:'a', い:'i', う:'u', え:'e', お:'o',
-    か:'ka', き:'ki', く:'ku', け:'ke', こ:'ko',
-    さ:'sa', し:'si', す:'su', せ:'se', そ:'so',
-    た:'ta', ち:'ti', つ:'tu', て:'te', と:'to',
-    な:'na', に:'ni', ぬ:'nu', ね:'ne', の:'no',
-    は:'ha', ひ:'hi', ふ:'hu', へ:'he', ほ:'ho',
-    ま:'ma', み:'mi', む:'mu', め:'me', も:'mo',
-    や:'ya', ゆ:'yu', よ:'yo',
-    ら:'ra', り:'ri', る:'ru', れ:'re', ろ:'ro',
-    わ:'wa', を:'o', ん:'n',
-    が:'ga', ぎ:'gi', ぐ:'gu', げ:'ge', ご:'go',
-    ざ:'za', じ:'zi', ず:'zu', ぜ:'ze', ぞ:'zo',
-    だ:'da', ぢ:'zi', づ:'zu', で:'de', ど:'do',
-    ば:'ba', び:'bi', ぶ:'bu', べ:'be', ぼ:'bo',
-    ぱ:'pa', ぴ:'pi', ぷ:'pu', ぺ:'pe', ぽ:'po',
-    ぁ:'a', ぃ:'i', ぅ:'u', ぇ:'e', ぉ:'o',
-    ゃ:'ya', ゅ:'yu', ょ:'yo',
-    っ:'*',
-    ー:'-'
-  };
-
-  const combosHepburn: Record<string, string> = {
-    きゃ:'kya', きゅ:'kyu', きょ:'kyo',
-    ぎゃ:'gya', ぎゅ:'gyu', ぎょ:'gyo',
-    しゃ:'sha', しゅ:'shu', しょ:'sho',
-    じゃ:'ja', じゅ:'ju', じょ:'jo',
-    ちゃ:'cha', ちゅ:'chu', ちょ:'cho',
-    にゃ:'nya', にゅ:'nyu', にょ:'nyo',
-    ひゃ:'hya', ひゅ:'hyu', ひょ:'hyo',
-    みゃ:'mya', みゅ:'myu', みょ:'myo',
-    りゃ:'rya', りゅ:'ryu', りょ:'ryo',
-    びゃ:'bya', びゅ:'byu', びょ:'byo',
-    ぴゃ:'pya', ぴゅ:'pyu', ぴょ:'pyo'
-  };
-
-  const combosSimple: Record<string, string> = {
+  const combos: Record<string, string> = {
     きゃ:'kya', きゅ:'kyu', きょ:'kyo',
     ぎゃ:'gya', ぎゅ:'gyu', ぎょ:'gyo',
     しゃ:'sya', しゅ:'syu', しょ:'syo',
@@ -206,8 +168,7 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     ぴゃ:'pya', ぴゅ:'pyu', ぴょ:'pyo'
   };
 
-  const map = mode === 'simple' ? baseMapSimple : baseMapHepburn;
-  const combos = mode === 'simple' ? combosSimple : combosHepburn;
+  const map = baseMap;
 
   let i = 0;
   let out = '';
@@ -235,13 +196,9 @@ function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
     }
 
     if (ch === 'ー') {
-      if (mode === 'hepburn') {
-        // repeat last vowel (no macron)
-        const lastVowel = Array.from(out).reverse().find((c) => vowels.includes(c));
-        if (lastVowel) out += lastVowel;
-      } else {
-        // simple mode: ignore
-      }
+      // Hepburn: 직전 모음 반복(마크론 없이 표기)
+      const lastVowel = Array.from(out).reverse().find((c) => vowels.includes(c));
+      if (lastVowel) out += lastVowel;
       i += 1;
       continue;
     }
@@ -439,15 +396,56 @@ export default function App() {
         [fontFamily]
     );
 
+    // ⭐ 즐겨찾기 (id -> true) 로컬 저장
+    const [favs, setFavs] = useState<Record<number, true>>(() => {
+      try { return JSON.parse(localStorage.getItem('favWords') || '{}'); } catch { return {}; }
+    });
+    useEffect(() => {
+      try { localStorage.setItem('favWords', JSON.stringify(favs));} catch {}
+    }, [favs]);
+
+    // ⭐ 즐겨찾기만 학습 토글 (로컬 저장)
+    const [onlyFavs, setOnlyFavs] = useState<boolean>(() => {
+      try {return localStorage.getItem('onlyFavs') === '1';} catch { return false; }
+    });
+
+    useEffect(() => {
+      try { localStorage.setItem('onlyFavs', onlyFavs ? '1' : '0'); } catch {}
+    }, [onlyFavs]);
+
+    // 현재 학습용 덱 (즐겨찾기 필터 반영)
+    const studyDeck = useMemo(
+      () => (onlyFavs ? deck.filter(w => favs[w.id]) : deck),
+      [deck, favs, onlyFavs]
+    );
+
+
   const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
 
-  const current = deck[index];
-  const romaji = useMemo(() => kanaToRomaji(current?.furigana || '', romajiMode), [current, romajiMode]);
-  const progress = `${index + 1} / ${deck.length}`;
+  const current = studyDeck[index] ?? null;
+  const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
+  //const progress = `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
+  const progress = 
+  studyDeck.length === 0
+    ? '0 / 0'
+    : `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
+
+  // studyDeck 변동 시 index 보정
+  useEffect(() => {
+    if (studyDeck.length === 0) {
+      if (index !== 0) setIndex(0);
+      setFlipped(false);
+      return;
+    }
+    if (index >= studyDeck.length){
+      setIndex(0);
+      setFlipped(false);
+    }
+  }, [studyDeck.length]);
 
   function onFlip() { setFlipped((f) => !f); }
-  function next() { setIndex((i) => (i + 1) % deck.length); setFlipped(false); }
-  function prev() { setIndex((i) => (i - 1 + deck.length) % deck.length); setFlipped(false); }
+  function next() { setIndex((i) => (i + 1) % Math.max(1, studyDeck.length)); setFlipped(false); }
+  function prev() { setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length)); setFlipped(false); }
   function shuffle() {
     const arr = [...deck];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -457,6 +455,16 @@ export default function App() {
     setDeck(arr); setIndex(0); setFlipped(false);
   }
   function reset() { setDeck(WORDS); setIndex(0); setFlipped(false); }
+
+  // 즐겨찾기 토글
+  function toggleFav(id: number) {
+    setFavs(prev => {
+      const n = { ...prev};
+      if (n[id]) delete n[id]; else n[id] = true;
+        return n;
+    });
+  }
+
 
   // 키보드 방향키로 이전 다음, 엔터로는 뒤집기
   useEffect(() => {
@@ -484,30 +492,12 @@ export default function App() {
 
 
 
-  // ——— tiny self-tests for kana→romaji ———
-  const tests = useMemo(() => {
-    const cases = [
-      { k: 'たくしー', hep: 'takushii', simp: 'takusi', why: 'ー long i; simple ignores ー' },
-      { k: 'がっこう', hep: 'gakkou', simp: 'gakkou', why: 'っ gemination + おう long o' },
-      { k: 'しょ', hep: 'sho', simp: 'syo', why: 'combo mapping differs' },
-      { k: 'ちゃ', hep: 'cha', simp: 'tya', why: 'combo mapping differs' },
-      { k: 'ふじ', hep: 'fuji', simp: 'huzi', why: 'ふ→fu/hu, じ→ji/zi' },
-      { k: 'にゅう', hep: 'nyuu', simp: 'nyu', why: 'ゆ + う, simple does not expand lengths' },
-    ];
-    return cases.map((c) => ({
-      ...c,
-      gotH: kanaToRomaji(c.k, 'hepburn'),
-      gotS: kanaToRomaji(c.k, 'simple'),
-      passH: kanaToRomaji(c.k, 'hepburn') === c.hep,
-      passS: kanaToRomaji(c.k, 'simple') === c.simp,
-    }));
-  }, []);
-
   return (
     <div
       className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6"
       style={{ fontFamily: fontStack }}
     >
+
       <header className="mb-6 text-center">
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">💖쑨쑨배의 가타카나 공부💖</h1>
         <p className="text-white/70 mt-1">가타카나 단어를 보고 맞춰보세요. 클릭하면 뒤집혀 정답이 보입니다.</p>
@@ -519,10 +509,11 @@ export default function App() {
           {/* Center: 진행도 */}
           <span className="text-white/70">⚡진행률 : {progress}</span>
 
+
           {/* Left: 듣기 버튼 */}
           <button
             onClick={() => speakJa(current?.furigana || '')}
-            disabled={!ttsReady}
+            disabled={!ttsReady || !current}
             className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
             title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}>
             🔊 듣기 (ふりがな)
@@ -609,16 +600,39 @@ export default function App() {
 
       {/* Card with 3D flip */}
       <div className="[perspective:1200px] w-full max-w-md select-none">
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="flip card"
-          onClick={onFlip}
-          className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
-          style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
-        >
+     {/* studyDeck이 비면 안내 카드 */}
+     {!current ? (
+       <div className="relative h-64 md:h-72 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6">
+         <div className="text-center">
+           <div className="text-lg font-semibold mb-2">즐겨찾기한 카드가 없습니다</div>
+           <p className="text-white/70">
+             카드 앞면 우상단의 <b>☆</b> 버튼으로 즐겨찾기를 추가하거나
+             <br />‘⭐ Only’ 토글을 끄세요.
+           </p>
+         </div>
+       </div>
+      ) : (
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="flip card"
+        onClick={onFlip}
+        className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
+        style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+      >
+
           {/* Front */}
           <div className="absolute inset-0 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6" style={{ backfaceVisibility: 'hidden' }}>
+            {/* ⭐ Favorite toggle */}
+            {current && (
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); toggleFav(current.id);}}
+                className="absolute top-3 right-3 text-lg rounded-full px-2 py-1 bg-white/10 hover:bg-white/15 border border-white/10"
+                title={favs[current.id] ? '즐겨찾기 해제' : '즐겨찾기 추가'}
+              >{favs[current.id] ? '⭐' : '☆'}</button>
+            )}
+
             <div className="text-sm text-white/60 mb-2">카드를 클릭하세요</div>
             <div className="text-center">
               <div className="text-5xl md:text-6xl font-semibold leading-snug">
@@ -643,6 +657,7 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
@@ -650,7 +665,24 @@ export default function App() {
         <button onClick={next} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">다음 →</button>
         <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
         <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
+        
         <span className="mx-2 text-white/60">|</span>
+        {/* 즐겨찾기 토글만 */}
+        <label className="
+            ml-3 flex items-center gap-2
+            px-4 py-2
+            rounded-xl border border-white/20
+            bg-white/10 hover:bg-white/15
+            cursor-pointer select-none
+          ">
+          <span className="text-white/70 font-bold">⭐ Only</span>
+          <input
+            type="checkbox"
+            checked={onlyFavs}
+            onChange={(e) => { setOnlyFavs(e.target.checked); setIndex(0); setFlipped(false);}}
+            className="accent-white"
+          />
+        </label>
       </div>
 
 
