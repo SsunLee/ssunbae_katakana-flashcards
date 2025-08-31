@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ssunbae_katakana-flashcards/static/css/main.dca15998.css",
-    "main.js": "/ssunbae_katakana-flashcards/static/js/main.72067807.js",
+    "main.css": "/ssunbae_katakana-flashcards/static/css/main.1d11eb9d.css",
+    "main.js": "/ssunbae_katakana-flashcards/static/js/main.9547a4ad.js",
     "static/js/453.c643504b.chunk.js": "/ssunbae_katakana-flashcards/static/js/453.c643504b.chunk.js",
     "static/media/noto-sans-jp-6-400-normal.woff": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-6-400-normal.0b2417a039c820be64b9.woff",
     "static/media/noto-sans-jp-5-400-normal.woff": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-5-400-normal.55e4b05bb2c528b71c4c.woff",
@@ -252,12 +252,12 @@
     "static/media/noto-sans-jp-vietnamese-400-normal.woff2": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-vietnamese-400-normal.3e2a150dd6ad7967bbef.woff2",
     "static/media/noto-sans-jp-latin-ext-400-normal.woff2": "/ssunbae_katakana-flashcards/static/media/noto-sans-jp-latin-ext-400-normal.ac323b6ecba9b64e770b.woff2",
     "index.html": "/ssunbae_katakana-flashcards/index.html",
-    "main.dca15998.css.map": "/ssunbae_katakana-flashcards/static/css/main.dca15998.css.map",
-    "main.72067807.js.map": "/ssunbae_katakana-flashcards/static/js/main.72067807.js.map",
+    "main.1d11eb9d.css.map": "/ssunbae_katakana-flashcards/static/css/main.1d11eb9d.css.map",
+    "main.9547a4ad.js.map": "/ssunbae_katakana-flashcards/static/js/main.9547a4ad.js.map",
     "453.c643504b.chunk.js.map": "/ssunbae_katakana-flashcards/static/js/453.c643504b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dca15998.css",
-    "static/js/main.72067807.js"
+    "static/css/main.1d11eb9d.css",
+    "static/js/main.9547a4ad.js"
   ]
 }
