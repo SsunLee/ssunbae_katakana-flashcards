@@ -38,9 +38,13 @@ const SelectContent = React.forwardRef<
       )}
       {...props}
     >
-      <SelectPrimitive.Viewport className="p-1">
+
+      {/* 리스트 영역 */}
+      <SelectPrimitive.Viewport className="max-h-72 overflow-y-auto p-1 touch-pan-y">
         {children}
       </SelectPrimitive.Viewport>
+
+
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));

@@ -1,6 +1,6 @@
 {
   "name": "katakana-flashcards",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "homepage": "https://ssunlee.github.io/ssunbae_katakana-flashcards",
   "dependencies": {
@@ -8,6 +8,7 @@
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-switch": "^1.2.6",
+    "@shadcn/ui": "^0.0.4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
@@ -16,6 +17,7 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "@vercel/node": "^5.3.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.542.0",

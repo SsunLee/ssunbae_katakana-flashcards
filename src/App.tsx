@@ -8,7 +8,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./components/ui/select";
 import { Switch } from "./components/ui/switch";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import pkg from '../package.json';
 
 
 // ————————————————————————————————————————————————
@@ -20,7 +20,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 // ————————————————————————————————————————————————
 
 // App version from package.json
-const APP_VERSION = "0.2.0";
+const APP_VERSION = pkg.version;
 
 // Dataset (100 words)
 const WORDS = [
@@ -708,26 +708,43 @@ export default function App() {
             )}
 
             <div className="text-sm text-white/60 mb-2">카드를 클릭하세요</div>
-            <div className="text-center">
-              <div className="text-5xl md:text-6xl font-semibold leading-snug">
-                <ruby>
-                  {current.katakana}
-                  <rt className="block text-base md:text-lg font-normal text-white/80 mt-2">{current.furigana}</rt>
-                </ruby>
+            <div className="text-center w-full">
+              <div
+                className="text-5xl md:text-6xl font-semibold leading-snug break-words overflow-hidden text-ellipsis max-w-full"
+                style={{ wordBreak: "break-all", overflowWrap: "break-word" }}>
+
+                <div className="flex flex-col items-center">
+                  {/* 메인 카타카나 */}
+                  <div className="text-5xl md:text-6xl font-semibold leading-snug">
+                    {current.katakana}
+                  </div>
+
+                  {/* 후리가나 (작게, 아래 표시) */}
+                  <div className="mt-2 text-base md:text-lg font-normal text-white/80">
+                    {current.furigana}
+                  </div>
+                </div>
+
               </div>
-              <div className="mt-3 text-sm text-white/60">ふりがな 付き</div>
             </div>
           </div>
 
           {/* Back */}
           <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6" style={{ transform: 'rotateY(180deg)', backfaceVisibility: 'hidden' }}>
-            <div className="text-center">
+            <div className="text-center w-full">
               <div className="text-sm text-white/60 mb-2">정답</div>
-              <div className="text-4xl md:text-5xl font-semibold break-words">
+              <div
+                className="text-4xl md:text-5xl font-semibold break-words overflow-hidden text-ellipsis max-w-full"
+                style={{ wordBreak: "break-all", overflowWrap: "break-word" }}
+              >
                 {current.answer} <span className="align-middle">{current.emoji}</span>
-                <span className="block text-lg md:text-xl font-normal text-white/80 mt-2">({romaji})</span>
+                <span
+                  className="block text-lg md:text-xl font-normal text-white/80 mt-2 break-words max-w-full"
+                  style={{ wordBreak: "break-all", overflowWrap: "break-word" }}
+                >
+                  ({romaji})
+                </span>
               </div>
-              {/* colon code removed per user preference */}
             </div>
           </div>
         </div>
