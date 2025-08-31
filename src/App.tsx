@@ -116,6 +116,19 @@ const WORDS = [
   { id: 100, katakana: "ユーザー", furigana: "ゆーざー", answer: "User", emoji: "👤" },
 ];
 
+// 일본어 웹 폰트 스택(이름 → font-family 문자열)
+const FONT_STACKS: Record<string, string> = {
+    'Noto Sans JP':
+      `'Noto Sans JP','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+    'Zen Kaku Gothic New':
+      `'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+    'Noto Serif JP':
+      `'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif`,
+    'Kosugi Maru':
+      `'Kosugi Maru','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
+  };
+
+
 // ひらがな(ふりがな) → ローマ字
 // mode: 'hepburn' | 'simple'
 function kanaToRomaji(kana: string, mode: 'hepburn' | 'simple' = 'hepburn') {
@@ -396,6 +409,36 @@ export default function App() {
   const [deck, setDeck] = useState(WORDS);
   const [romajiMode, setRomajiMode] = useState<'hepburn' | 'simple'>('hepburn'); // default Hepburn
 
+  // settings panel
+  const [showSettings, setShowSettings] = useState(false);
+
+  // esc로 설정 패널 닫기
+  useEffect(() => {
+    if (!showSettings) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowSettings(false);};
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showSettings]);
+
+
+  const [fontFamily, setFontFamily] = useState<string>(() => {
+    try {
+        return localStorage.getItem('jpFont') || 'Noto Sans JP';
+      } catch {
+        return 'Noto Sans JP';
+      }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('jpFont', fontFamily);
+    } catch {}
+  }, [fontFamily]);
+    const fontStack = useMemo(
+        () => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'],
+        [fontFamily]
+    );
+
   const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
 
   const current = deck[index];
@@ -415,7 +458,31 @@ export default function App() {
   }
   function reset() { setDeck(WORDS); setIndex(0); setFlipped(false); }
 
-  // removed colon-code from UI as requested
+  // 키보드 방향키로 이전 다음, 엔터로는 뒤집기
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      // 설정 패널 무시
+      if (showSettings) return;
+      // 입력/선택 요소에 포커스가 있으면 무시
+      const tag = (document.activeElement?.tagName || '').toUpperCase();
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        next();
+      } else if (e.key ==='ArrowLeft') {
+        e.preventDefault();
+        prev();
+      } else if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        onFlip();
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [showSettings, next, prev]);
+
+
 
   // ——— tiny self-tests for kana→romaji ———
   const tests = useMemo(() => {
@@ -437,54 +504,108 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6">
+    <div
+      className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6"
+      style={{ fontFamily: fontStack }}
+    >
       <header className="mb-6 text-center">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">Katakana Flashcards</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">💖쑨쑨배의 가타카나 공부💖</h1>
         <p className="text-white/70 mt-1">가타카나 단어를 보고 맞춰보세요. 클릭하면 뒤집혀 정답이 보입니다.</p>
       </header>
 
-      {/* Controls (top) */}
-      <div className="mb-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-        <button onClick={prev} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">← 이전</button>
-        <button onClick={next} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">다음 →</button>
-        <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
-        <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
-        <span className="mx-2 text-white/60">|</span>
+       {/* Controls (top) */}
+        <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
 
-        <label className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
-        <span className="text-white/70">Voice</span>
-        <select
-          aria-label="Select Japanese voice"
-          value={selectedVoice?.name || (voices[0]?.name ?? '')}
-          onChange={(e) => {
-          const v = voices.find(v => v.name === e.target.value) || null;
-          setSelectedVoice(v);
-          try { 
-            localStorage.setItem('jaVoiceName', v?.name || ''); 
-          } catch {}
-          }}
-          className="select-light rounded-md px-2 py-1 outline-none w-[260px] min-w-[220px] whitespace-nowrap text-ellipsis"
+          {/* Center: 진행도 */}
+          <span className="text-white/70">⚡진행률 : {progress}</span>
+
+          {/* Left: 듣기 버튼 */}
+          <button
+            onClick={() => speakJa(current?.furigana || '')}
+            disabled={!ttsReady}
+            className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
+            title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}>
+            🔊 듣기 (ふりがな)
+          </button>
+
+          {/* Right: 설정 버튼 */}
+          <button
+            onClick={() => setShowSettings(true)}
+            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10"
+            aria-label="Open Settings"
+            title="TTS/Font 설정"
           >
-          {voices.length === 0 && <option value="">(loading...)</option>}
-          {voices.map(v => (
-          <option key={v.name} value={v.name}>{v.name} {v.lang ? `(${v.lang})` : ''}</option>
-          ))}
-        </select>
-        </label>
-        <span className="text-white/50 text-xs">{isSafari ? 'Safari' : 'Browser'}</span>
+           ⚙️설정
+          </button>
+        </div>
 
+      {/* Settings Panel (modal) */}
+      {showSettings && (
+        <div className="fixed inset-0 z-50">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setShowSettings(false)}
+          />
+          {/* Panel */}
+          <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="w-full max-w-lg rounded-2xl bg-slate-900 border border-white/10 shadow-2xl p-5">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-lg font-semibold">⚙️설정</h2>
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10"
+                  aria-label="Close settings">
+                  닫기 ✕
+                </button>
+              </div>
 
-        <span className="mx-2 text-white/60">|</span>
-        <button
-          onClick={() => { if (ttsReady) speakJa(current?.furigana || ''); }}
-          disabled={!ttsReady}
-          className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
-          title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}
-        >
-          🔊 듣기 (ふりがな)
-        </button>
-        <span className="text-white/70">{progress}</span>
-      </div>
+              {/* Voice */}
+              <div className="mb-4">
+                <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
+                <select
+                  aria-label="Select Japanese voice"
+                  value={(selectedVoice && selectedVoice.name) || (voices[0]?.name ?? '')}
+                  onChange={(e) => {
+                    const v = voices.find(v => v.name === e.target.value) || null;
+                    setSelectedVoice(v);
+                    try { localStorage.setItem('jaVoiceName', v?.name || ''); } catch {}
+                  }}
+                  className="select-light w-full rounded-md px-3 py-2 outline-none"
+                >
+                  {voices.length === 0 && <option value="">(loading...)</option>}
+                  {voices.map(v => (
+                    <option key={v.name} value={v.name}>
+                      {v.name} {v.lang ? `(${v.lang})` : ''}
+                    </option>
+                  ))}
+                </select>
+                <div className="mt-1 text-xs text-white/50">브라우저: {isSafari ? 'Safari' : 'Chrome/Edge 등'}</div>
+              </div>
+
+              {/* Font */}
+              <div className="mb-2">
+                <label className="block text-sm text-white/70 mb-1">Font</label>
+                <select
+                  value={fontFamily}
+                  onChange={(e) => setFontFamily(e.target.value)}
+                  className="select-light w-full rounded-md px-3 py-2 outline-none">
+                  <option value="Noto Sans JP">Noto Sans JP</option>
+                  <option value="Zen Kaku Gothic New">Zen Kaku Gothic New</option>
+                  <option value="Noto Serif JP">Noto Serif JP</option>
+                  <option value="Kosugi Maru">Kosugi Maru</option>
+                </select>
+              </div>
+
+              <label className="block text-sm text-white/70 mb-4"> 
+                * 적용한 설정들은 즉시 적용 됩니다. 
+              </label>
+
+            </div>
+          </div>
+        </div>
+      )}
+
 
       {/* Card with 3D flip */}
       <div className="[perspective:1200px] w-full max-w-md select-none">
@@ -493,7 +614,6 @@ export default function App() {
           tabIndex={0}
           aria-label="flip card"
           onClick={onFlip}
-          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? onFlip() : null)}
           className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
           style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
         >
@@ -525,34 +645,30 @@ export default function App() {
         </div>
       </div>
 
-      {/* How to use */}
-      <div className="mt-6 max-w-md text-sm text-white/70 leading-relaxed text-center">
-        <p className="mb-1">단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.</p>
-        <p>Front: 가타카나 + ふりがな · Back: 영어 정답 + 이모지 + (로마자)</p>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+        <button onClick={prev} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">← 이전</button>
+        <button onClick={next} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10">다음 →</button>
+        <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
+        <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
+        <span className="mx-2 text-white/60">|</span>
       </div>
 
-      {/* Dev Test Panel */}
-      <div className="mt-8 w-full max-w-2xl bg-white/5 border border-white/10 rounded-2xl p-4">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold">Kana→Romaji Tests</h2>
-          <span className="text-white/60 text-sm">모드: {romajiMode}</span>
-        </div>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-          {tests.map((t, idx) => (
-            <li key={idx} className="bg-white/5 rounded-xl p-3 border border-white/10">
-              <div className="mb-1">かな: <code>{t.k}</code></div>
-              <div>Hepburn → <code className={t.passH ? 'text-green-400' : 'text-red-400'}>{t.gotH}</code> {t.passH ? '✓' : `✗ (exp ${t.hep})`}</div>
-              <div>Simple  → <code className={t.passS ? 'text-green-400' : 'text-red-400'}>{t.gotS}</code> {t.passS ? '✓' : `✗ (exp ${t.simp})`}</div>
-              <div className="mt-1 text-white/60">{t.why}</div>
-            </li>
-          ))}
+
+      {/* App footer notice (bullet tips) */}
+      <hr className="my-6 w-full max-w-md border-white/10" />
+      <footer className="w-full max-w-md text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+        <ul className="list-disc list-inside space-y-1 leading-relaxed">
+          <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 <b>즉시 적용</b>됩니다. (브라우저에 저장)</li>
+          <li>단어를 추가/수정하려면 코드 상단의 <code>WORDS</code> 배열을 편집하세요.</li>
+          <li>Front: 가타카나 + ふりがな · Back: 영어 정답 + 이모지 + <i>(로마자)</i></li>
+          <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
-      </div>
+      </footer>
 
       {/* Version info */}
       <div className="mt-4 text-center">
         <span className="text-white/40 text-xs">
-          카타카나 플래시카드 v{APP_VERSION} | 
+          카타카나 플래시카드 v{APP_VERSION} | 쑨쑨배의 Github
           <a 
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards" 
             target="_blank" 
