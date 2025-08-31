@@ -15,3 +15,31 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Ensure native select dropdowns are readable on dark UIs */
+select {
+  color: #111;
+  background-color: #fff;
+}
+option {
+  color: #111;
+  background-color: #fff;
+}
+/* Light look for native <select> on dark UIs (ensures visible selected text) */
+.select-light {
+    color: #111 !important;
+    background-color: #fff !important;
+  }
+  .select-light option {
+    color: #111 !important;
+    background-color: #fff !important;
+  }
+  /* Some Chromium/Windows builds use the option color for the collapsed field */
+  .select-light option:checked {
+    color: #111 !important;
+  }
+  /* Legacy Edge/IE fallback */
+  .select-light::-ms-value {
+    color: #111 !important;
+    background: #fff !important;
+  }
+  

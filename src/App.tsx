@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import "@fontsource/noto-sans-jp"; // 일본어 가독성 향상 (웹폰트)
 
 // ————————————————————————————————————————————————
 // Katakana Flashcard Webapp v0.2.0
@@ -256,8 +257,23 @@ function useJaSpeech() {
       
       // Auto-select best Japanese voice when voices load
       if (list.length > 0) {
-        const bestVoice = pickBestJaVoice(list);
+        // 1) 로컬스토리지에 저장된 보이스 우선
+        let stored: SpeechSynthesisVoice | null = null;
+        try {
+          const storedName = localStorage.getItem('jaVoiceName');
+          if (storedName) stored = list.find(v => v.name === storedName) || null;
+        } catch {}
+        // 2) 없으면 최적 보이스 자동 선택
+        const bestVoice = stored || pickBestJaVoice(list);
         setSelectedVoice(bestVoice);
+
+        // save 
+        try {
+          localStorage.setItem('jaVoiceName', bestVoice?.name || '');
+        } catch {}
+
+        
+
       }
     }
     
@@ -265,6 +281,7 @@ function useJaSpeech() {
     loadVoices();
     if (window.speechSynthesis.getVoices().length === 0) {
       setTimeout(loadVoices, 100);
+      setTimeout(loadVoices, 500);
     }
     
     synth.onvoiceschanged = loadVoices;
@@ -433,16 +450,33 @@ export default function App() {
         <button onClick={shuffle} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="카드를 섞습니다">섞기</button>
         <button onClick={reset} className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10" title="처음 상태로 되돌립니다">리셋</button>
         <span className="mx-2 text-white/60">|</span>
+
         <label className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-xl border border-white/10">
-          <span className="text-white/70">Romaji</span>
-          <select value={romajiMode} onChange={(e) => setRomajiMode(e.target.value as 'hepburn' | 'simple')} className="bg-transparent outline-none">
-            <option value="hepburn">Hepburn (takushii)</option>
-            <option value="simple">Simple (takusi)</option>
-          </select>
+        <span className="text-white/70">Voice</span>
+        <select
+          aria-label="Select Japanese voice"
+          value={selectedVoice?.name || (voices[0]?.name ?? '')}
+          onChange={(e) => {
+          const v = voices.find(v => v.name === e.target.value) || null;
+          setSelectedVoice(v);
+          try { 
+            localStorage.setItem('jaVoiceName', v?.name || ''); 
+          } catch {}
+          }}
+          className="select-light rounded-md px-2 py-1 outline-none w-[260px] min-w-[220px] whitespace-nowrap text-ellipsis"
+          >
+          {voices.length === 0 && <option value="">(loading...)</option>}
+          {voices.map(v => (
+          <option key={v.name} value={v.name}>{v.name} {v.lang ? `(${v.lang})` : ''}</option>
+          ))}
+        </select>
         </label>
+        <span className="text-white/50 text-xs">{isSafari ? 'Safari' : 'Browser'}</span>
+
+
         <span className="mx-2 text-white/60">|</span>
         <button
-          onClick={() => speakJa(current?.furigana || '')}
+          onClick={() => { if (ttsReady) speakJa(current?.furigana || ''); }}
           disabled={!ttsReady}
           className="px-3 py-1.5 rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 disabled:opacity-50"
           title={ttsReady ? "ふりがな を 再生" : "브라우저가 음성을 아직 준비 중입니다"}
