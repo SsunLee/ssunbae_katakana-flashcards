@@ -1,5 +1,5 @@
 {
-  "engines": {
-    "node": "22.x"
+  "functions": {
+    "api/**/*.js": { "runtime": "nodejs22.x" }
   }
 }
