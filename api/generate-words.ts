@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
   
-  const { topic } = req.body;
+  const { topic, count } = req.body;
 
   if (!topic) {
     return res.status(400).json({ error: 'Topic is required' });
@@ -31,15 +31,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // 프롬프트 작성
   const prompt = `
     You are a helpful assistant for Japanese learners. 
-    Generate 10 Katakana words related to the topic "${topic}".
-    Provide the response as a single, valid JSON array of objects.
-    Each object must have exactly four keys:
-    1. "katakana": The Katakana word.
-    2. "furigana": The Hiragana reading of the word.
-    3. "answer": The English translation.
-    4. "emoji": A single, relevant emoji character.
-
-    Do not include any text, explanation, or markdown formatting outside of the JSON array.
+    Generate exactly  ${count} Katakana words related to the topic "${topic}".
+    Provide the response as a single, valid JSON object with a single key named "words". 
+    The "words" key should contain an array of objects.
+    Each object must have exactly four keys: "katakana", "furigana", "answer", and "emoji".
+    Do not include any text, explanation, or markdown formatting outside of the JSON object.
   `;
 
   try {
@@ -48,23 +44,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       messages: [{ role: 'user', content: prompt }],
       response_format : { type: 'json_object'},  
   });
-    const responseJasonText = completion.choices[0].message.content;
-    const parsedData = JSON.parse(responseJasonText || '{}');
+    const responseJsonText = completion.choices[0].message.content;
+    const parsedData = JSON.parse(responseJsonText || '{}');
 
-    // 응답 데이터 검증
-    const wordsArray = Array.isArray(parsedData) 
-    ? parsedData : Object.values(parsedData).find(Array.isArray);
+    // 🔽 응답에서 'words' 키를 직접 찾아 배열을 추출하도록 수정
+    const wordsArray = parsedData.words;
 
-    if (!wordsArray) {
-      throw new Error('Invalid response format: No array found');
+    if (!Array.isArray(wordsArray)) {
+        // 응답을 로그로 남겨서 실제 어떤 데이터가 왔는지 확인
+        console.error("Generated data does not contain a 'words' array:", parsedData);
+        throw new Error("Generated data does not contain a 'words' array.");
     }
 
-    // 성공 응답 전송
-    res.status(200).json({ ok: true, words: wordsArray } );
+    res.status(200).json({ ok: true, words: wordsArray });
+
   } catch (error) {
     console.error('Error generating words:', error);
-    res.status(500).json({ error: 'Failed to generate words' });
+    res.status(500).json({ ok: false, error: 'Failed to generate words from AI.' });
   }
-  
-
 }

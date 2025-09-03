@@ -1,3 +1,6 @@
+
+export {};
+
 // api로 가져올 단어 항목 타입
 export type Word = {
   id: number;

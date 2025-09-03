@@ -105,12 +105,21 @@ export default function App() {
       // 5. JSON 파싱
       const json = await resp.json();
   
+      // ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼ 디버깅 코드 추가 ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+      console.log("1. 서버로부터 받은 전체 JSON:", json);
+    
+
+
       // 6. 단어 목록 검증
       if (!json?.ok) {
         throw new Error(json?.error || '알 수 없는 오류');
       }
   
       const newWords: Array<Omit<Word, 'id'>> = Array.isArray(json.words) ? json.words : [];
+      // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ 디버깅 코드 추가 ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+      console.log("2. 추출된 단어 배열 (newWords):", newWords);
+      console.log("3. 추출된 단어 개수 (newWords.length):", newWords.length);
+      
       if (newWords.length === 0) {
         alert('서버에서 단어를 불러오지 못했습니다.');
         return 0;
