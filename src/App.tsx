@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { use, useEffect, useMemo, useState } from "react";
 import "@fontsource/noto-sans-jp"; // 일본어 가독성 향상 (웹폰트)
 
 
@@ -9,6 +9,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from ".
 import { Switch } from "./components/ui/switch";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import pkg from '../package.json';
+import { Value } from "@radix-ui/react-select";
 
 
 // ————————————————————————————————————————————————
@@ -244,20 +245,24 @@ function useJaSpeech() {
   useEffect(() => {
     const synth = window.speechSynthesis;
     function loadVoices() {
-      const list = synth.getVoices();
-      setVoices(list);
-      setReady(list.length > 0);
+
+      const allVoices = synth.getVoices();
+      const jaVoices = allVoices.filter(v => 
+        (v.lang || '').toLowerCase().startsWith('ja'));
+      
+      setVoices(jaVoices);
+      setReady(jaVoices.length > 0);
       
       // Auto-select best Japanese voice when voices load
-      if (list.length > 0) {
+      if (jaVoices.length > 0) {
         // 1) 로컬스토리지에 저장된 보이스 우선
         let stored: SpeechSynthesisVoice | null = null;
         try {
           const storedName = localStorage.getItem('jaVoiceName');
-          if (storedName) stored = list.find(v => v.name === storedName) || null;
+          if (storedName) stored = jaVoices.find(v => v.name === storedName) || null;
         } catch {}
         // 2) 없으면 최적 보이스 자동 선택
-        const bestVoice = stored || pickBestJaVoice(list);
+        const bestVoice = stored || pickBestJaVoice(jaVoices);
         setSelectedVoice(bestVoice);
 
         // save 
@@ -385,107 +390,129 @@ export default function App() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [deck, setDeck] = useState(WORDS);
-  const [romajiMode, setRomajiMode] = useState<'hepburn' | 'simple'>('hepburn'); // default Hepburn
+
+  const [topic, setTopic] = useState('여행');
+  const [wordCount, setWordCount] = useState<number>(10);
 
 
   // 불러오기 상태
   const [loadingImport, setLoadingImport] = useState(false);
 
-  // 서버에서 단어 가져와서 덱을 갈아끼우는 동작
-  async function importWordsFromServer(topic = '기본') {
+  // ⭐ 즐겨찾기 (id -> true) 로컬 저장
+  const [favs, setFavs] = useState<Record<number, true>>(() => {
+    try { return JSON.parse(localStorage.getItem('favWords') || '{}'); } catch { return {}; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('favWords', JSON.stringify(favs));} catch {}
+  }, [favs]);
+  
+  // ⭐ 즐겨찾기만 학습 토글 (로컬 저장)
+  const [onlyFavs, setOnlyFavs] = useState<boolean>(() => {
+    try {return localStorage.getItem('onlyFavs') === '1';} catch { return false; }
+  });
+  
+  useEffect(() => {
+    try { localStorage.setItem('onlyFavs', onlyFavs ? '1' : '0'); } catch {}
+  }, [onlyFavs]);
+  
+  // 현재 학습용 덱 (즐겨찾기 필터 반영)
+  const studyDeck = useMemo(
+    () => (onlyFavs ? deck.filter(w => favs[w.id]) : deck),
+    [deck, favs, onlyFavs]
+  );
+  
+  async function importWordsFromServer(topic: string): Promise<number> {
+    // 1. 주제가 비어있으면 사용자에게 알림
+    if (!topic || topic.trim() === '') {
+      alert('주제를 입력해주세요.');
+      return 0;
+    }
+  
+    // 2. 불러오기 상태 설정
+    setLoadingImport(true);
     try {
-      setLoadingImport(true);
-
-      // (Vercel에 올렸다면 같은 도메인/api 로 호출됩니다)
+      // 3. 서버에 요청
       const resp = await fetch('/api/generate-words', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic }),
-      });
-
-      const json = await resp.json();
-      if (!json?.ok) throw new Error(json?.error || 'Unknown error from server');
-
-      const base: Omit<Word, 'id'>[] = json.words || [];
-      if (!Array.isArray(base) || base.length === 0) {
-        alert('No words received from server');
-        return;
-      }
-
-      // id를 1부터 매겨서 덱 세팅
-      const newDeck: Word[] = base.map((w: Omit<Word, 'id'>, i: number) => ({
-        id: i + 1,
-        ...w,
-      }));
+        body: JSON.stringify({ topic }),});
       
-      // 덱 교체
+      // 4. 응답 처리
+      if (!resp.ok) {
+        const errorText = await resp.text();
+        throw new Error(`서버 오류: ${resp.status} ${errorText}`);
+      }
+  
+      // 5. JSON 파싱
+      const json = await resp.json();
+  
+      // 6. 단어 목록 검증
+      if (!json?.ok) {
+        throw new Error(json?.error || '알 수 없는 오류');
+      }
+  
+      const newWords: Array<Omit<Word, 'id'>> = Array.isArray(json.words) ? json.words : [];
+      if (newWords.length === 0) {
+        alert('서버에서 단어를 불러오지 못했습니다.');
+        return 0;
+      }
+      // 7. 새로운 단어에 고유 ID 부여
+      const newDeck: Word[] = newWords.map((w, i) => ({ id: i + 1, ...w }));
+      // 8. 덱 업데이트
       setDeck(newDeck);
       setIndex(0);
       setFlipped(false);
-
-      // 옵션 저장
+      setFavs({}); // 새로운 덱을 받았으므로 즐겨찾기 초기화
+      if (onlyFavs) setOnlyFavs(false); // 즐겨찾기 필터 해제
+  
+      // 9. 성공적으로 불러온 단어 수 반환
       try {
-        localStorage.setItem('words:custrom', JSON.stringify(newDeck));} catch {}
-      alert('새 단어 ${newDeck.length}개를 불러왔습니다!');
-
-    } catch (e: any) {
-      console.error(e);
-      alert(e.message || 'Failed to import words from server');
-    } finally { setLoadingImport(false); }
-  }
-
-  // settings panel
-  const [showSettings, setShowSettings] = useState(false);
-
-  // esc로 설정 패널 닫기
-  useEffect(() => {
-    if (!showSettings) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowSettings(false);};
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [showSettings]);
-
-
-  const [fontFamily, setFontFamily] = useState<string>(() => {
-    try {
-        return localStorage.getItem('jpFont') || 'Noto Sans JP';
-      } catch {
-        return 'Noto Sans JP';
+        localStorage.setItem('words:custom', JSON.stringify(newDeck));
+      } catch (e) {
+        console.warn('로컬 저장 실패', e);
       }
-  });
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('jpFont', fontFamily);
-    } catch {}
-  }, [fontFamily]);
-    const fontStack = useMemo(
-        () => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'],
-        [fontFamily]
-    );
-
-    // ⭐ 즐겨찾기 (id -> true) 로컬 저장
-    const [favs, setFavs] = useState<Record<number, true>>(() => {
-      try { return JSON.parse(localStorage.getItem('favWords') || '{}'); } catch { return {}; }
-    });
+      // 10. 성공 알림
+      alert(`서버에서 ${newDeck.length}개의 단어를 불러왔습니다.`);
+      return newDeck.length;
+    } catch (e: any) {
+      console.error('단어 불러오기 실패', e);
+      alert(`단어 불러오기 실패: ${e.message}`);
+      return 0;
+    } finally {
+      setLoadingImport(false);
+    }
+  }
+  
+    // settings panel
+    const [showSettings, setShowSettings] = useState(false);
+  
+    // esc로 설정 패널 닫기
     useEffect(() => {
-      try { localStorage.setItem('favWords', JSON.stringify(favs));} catch {}
-    }, [favs]);
-
-    // ⭐ 즐겨찾기만 학습 토글 (로컬 저장)
-    const [onlyFavs, setOnlyFavs] = useState<boolean>(() => {
-      try {return localStorage.getItem('onlyFavs') === '1';} catch { return false; }
+      if (!showSettings) return;
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowSettings(false);};
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    }, [showSettings]);
+  
+  
+    const [fontFamily, setFontFamily] = useState<string>(() => {
+      try {
+          return localStorage.getItem('jpFont') || 'Noto Sans JP';
+        } catch {
+          return 'Noto Sans JP';
+        }
     });
-
+  
     useEffect(() => {
-      try { localStorage.setItem('onlyFavs', onlyFavs ? '1' : '0'); } catch {}
-    }, [onlyFavs]);
-
-    // 현재 학습용 덱 (즐겨찾기 필터 반영)
-    const studyDeck = useMemo(
-      () => (onlyFavs ? deck.filter(w => favs[w.id]) : deck),
-      [deck, favs, onlyFavs]
-    );
+      try {
+        localStorage.setItem('jpFont', fontFamily);
+      } catch {}
+    }, [fontFamily]);
+      const fontStack = useMemo(
+          () => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'],
+          [fontFamily]
+      );
 
 
   const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
@@ -649,8 +676,12 @@ export default function App() {
               {/* voices가 로딩되기 전에는 disabled + placeholder 만 */}
               {voices.length === 0 ? (
                 <Select disabled>
-                  <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
-                    <SelectValue placeholder="(loading…)" />
+                  <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white text-left">
+                    {selectedVoice ? (
+                      `${selectedVoice.name} ${selectedVoice.lang ? `(${selectedVoice.lang})` : ''}`
+                    ) : (
+                      <span className="text-white/70">(loading...)</span>
+                    )}
                   </SelectTrigger>
                 </Select>
               ) : (
@@ -697,6 +728,9 @@ export default function App() {
 
             {/* Font ------------------------------------------------- */}
             <div className="mb-2">
+
+
+
               <label className="block text-sm text-white/70 mb-1">Font</label>
               {/* Font */}
               <Select value={fontFamily} onValueChange={setFontFamily}>
@@ -722,44 +756,73 @@ export default function App() {
               * 적용한 설정들은 즉시 적용됩니다.
             </div>
 
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <label className="block text-sm text-white/70 mb-1"> 새로운 단어 주제</label>
+              <input
+                type="text"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                className="w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="예: 여행, 음식, 비즈니스..."
+              />
+            </div>
+            <div className="mt-2 text-sm text-white/70">
+              <label className="block text-sm text-white/70 mb-1">생성할 단어 개수</label>
+              <Select
+                value={String(wordCount)}
+                onValueChange={(Value) => setWordCount(Number(Value))}
+                >
+                  <SelectTrigger  className="w-full bg-slate-800/60 border-white/10 text-white">
+                    <SelectValue placeholder="단어 개수 선택" />
+                  </SelectTrigger>
+                  <SelectContent
+                    className="z-[70] bg-slate-900 border-white/10"
+                    position="popper"
+                    sideOffset={8}
+                    >
+                      <SelectItem className="text-white" value="5">5개</SelectItem>
+                      <SelectItem className="text-white" value="10">10개</SelectItem>
+                      <SelectItem className="text-white" value="15">15개</SelectItem>
+                      <SelectItem className="text-white" value="20">20개</SelectItem>
+                    </SelectContent>
+
+                </Select>            
+                
+            
+            </div>
+            {/* 단어 가져오기, 덱 리셋 */}
             <div className="mt-4 flex gap-2">
               <Button
                 size="sm"
                 className="text-white bg-white/10 border-white/10 hover:bg-white/15"
                 variant="outline"
                 disabled={loadingImport}
-                onClick={() => importWordsFromServer('여행/일상')}
+                onClick={() => importWordsFromServer(topic)}
                 title="서버에서 새 단어를 불러옵니다"
               >
                 {loadingImport ? '가져오는 중…' : '단어 가져오기'}
               </Button>
+              
 
-              {/* 선택: 현재 덱 저장본 복원 (로컬) */}
+              {/* 현재 덱 저장본 복원 (로컬) */}
               <Button
                 size="sm"
                 className="text-white bg-white/10 border-white/10 hover:bg-white/15"              
                 variant="outline"
-                onClick={() => {
-                  try {
-                    const raw = localStorage.getItem('words:custom');
-                    if (!raw) return alert('저장된 사용자 단어가 없습니다.');
-                    const parsed = JSON.parse(raw) as Word[];
-                    if (!Array.isArray(parsed) || parsed.length === 0) {
-                      return alert('저장된 데이터에 단어가 없습니다.');
-                    }
-                    setDeck(parsed);
-                    setIndex(0);
-                    setFlipped(false);
-                    alert('사용자 단어를 복원했습니다.');
-                  } catch {
-                    alert('복원에 실패했습니다.');
-                  }
+                onClick={() => { 
+                  reset();
+                  alert('덱을 기본값으로 복원했습니다.');
                 }}
               >
                 저장본 복원
               </Button>
+              
             </div>
-            
+            <div className="mt-3 text-sm text-white/70">
+              * '단어 가져오기'는 OpenAI API를 사용하며, 무료로 제공되는 기능입니다.
+              <br />
+              * 너무 많은 단어를 자주 요청할 경우, 일시적으로 차단될 수 있습니다.
+            </div>
 
           </DialogContent>
         </Dialog>
