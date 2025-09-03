@@ -8,16 +8,24 @@
 
 
 
+
+
 ## ✨ 프로젝트 스크린샷
 
 <div style="display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
-    <img src="https://github.com/user-attachments/assets/e1071533-0129-4a38-ab31-d7fb62790f25" alt="가타카나 플래시카드 메인 화면" style="width: 48%; min-width: 300px; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <img src="https://github.com/user-attachments/assets/4a88d553-eb37-416f-bbd2-9164f74c23bc" alt="가타카나 플래시카드 설정 화면" style="width: 48%; min-width: 300px; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <img src="https://github.com/user-attachments/assets/e1071533-0129-4a38-ab31-d7fb62790f25" alt="가타카나 플래시카드 메인 화면" 
+         style="width: 48%; min-width: 300px; max-width: 500px; 
+                height: 350px; object-fit: cover; /* 🔽 이 두 줄 추가/수정 */
+                border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <img src="https://github.com/user-attachments/assets/4a88d553-eb37-416f-bbd2-9164f74c23bc" alt="가타카나 플래시카드 설정 화면" 
+         style="width: 48%; min-width: 300px; max-width: 500px; 
+                height: 350px; object-fit: cover; /* 🔽 이 두 줄 추가/수정 */
+                border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 </div>
 
 ---
 
-## ## ✨ 주요 기능
+## ✨ 주요 기능
 
 * **📇 3D 플래시카드:** 클릭 또는 Enter 키로 앞/뒷면을 뒤집는 3D 애니메이션 효과
 * **🤖 AI 단어 생성:** 원하는 **주제**와 **개수**를 입력하면 GPT가 즉시 새로운 가타카나 단어 목록을 생성
@@ -30,7 +38,7 @@
 
 ---
 
-## ## 🛠️ 기술 스택
+## 🛠️ 기술 스택
 
 * **Frontend:** React, TypeScript
 * **UI:** Tailwind CSS, shadcn/ui
@@ -40,7 +48,7 @@
 
 ---
 
-## ## 🚀 로컬에서 실행하기
+## 🚀 로컬에서 실행하기
 
 1.  **저장소 복제**
     ```bash
