@@ -80,7 +80,7 @@ export default function App() {
     [deck, favs, onlyFavs]
   );
   
-  async function importWordsFromServer(topic: string): Promise<number> {
+  async function importWordsFromServer(topic: string, count: number): Promise<number> {
     // 1. 주제가 비어있으면 사용자에게 알림
     if (!topic || topic.trim() === '') {
       alert('주제를 입력해주세요.');
@@ -142,6 +142,7 @@ export default function App() {
 
       // 10. 성공 알림
       alert(`서버에서 ${newDeck.length}개의 단어를 불러왔습니다.`);
+      console.log('단어 : (newDeck.length)', newDeck.length);
       return newDeck.length;
     } catch (e: any) {
       console.error('단어 불러오기 실패', e);
@@ -287,7 +288,7 @@ export default function App() {
     >
 
       <header className="mb-6 text-center">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">💖쑨쑨배의 가타카나 공부💖</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight"> 🦋쑨쑨배の 가타카나 공부🦋</h1>
         <p className="text-white/70 mt-1">가타카나 단어를 보고 맞춰보세요. 클릭하면 뒤집혀 정답이 보입니다.</p>
       </header>
 
@@ -461,7 +462,7 @@ export default function App() {
                 className="text-white bg-white/10 border-white/10 hover:bg-white/15"
                 variant="outline"
                 disabled={loadingImport}
-                onClick={() => importWordsFromServer(topic)}
+                onClick={() => importWordsFromServer(topic,wordCount)}
                 title="서버에서 새 단어를 불러옵니다"
               >
                 {loadingImport ? '가져오는 중…' : '단어 가져오기'}

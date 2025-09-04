@@ -30,6 +30,7 @@
     "tailwind-variants": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^4.9.5",
+    "vercel": "^47.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
