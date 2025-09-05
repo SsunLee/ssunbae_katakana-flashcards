@@ -4,7 +4,7 @@ import "@fontsource/noto-sans-jp"; // 일본어 가독성 향상 (웹폰트)
 import { WORDS, type Word } from './data/words';
 import { useJaSpeech } from './hooks/useJaSpeech';
 import { kanaToRomaji } from './utils/kana';
-
+import { FONT_STACKS } from "./constants/fonts";
 
 import { Button } from "./components/ui/button";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from "./components/ui/dialog";
@@ -29,17 +29,7 @@ const APP_VERSION = pkg.version;
 
 
 
-// 일본어 웹 폰트 스택(이름 → font-family 문자열)
-const FONT_STACKS: Record<string, string> = {
-    'Noto Sans JP':
-      `'Noto Sans JP','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
-    'Zen Kaku Gothic New':
-      `'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
-    'Noto Serif JP':
-      `'Noto Serif JP','Hiragino Mincho ProN','Yu Mincho',serif`,
-    'Kosugi Maru':
-      `'Kosugi Maru','Hiragino Kaku Gothic ProN','Meiryo','Yu Gothic UI',system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans','Helvetica Neue',Arial`,
-  };
+
 
 
 
@@ -94,7 +84,7 @@ export default function App() {
       const resp = await fetch('/api/generate-words', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic }),});
+        body: JSON.stringify({ topic, count }),});
       
       // 4. 응답 처리
       if (!resp.ok) {
@@ -209,7 +199,6 @@ export default function App() {
     }
   }, [voices, selectedVoice, setSelectedVoice]);
   
-
 
   const current = studyDeck[index] ?? null;
   const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
