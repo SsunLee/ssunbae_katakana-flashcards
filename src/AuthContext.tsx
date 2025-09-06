@@ -14,6 +14,8 @@ export interface UserProfile {
 interface AuthContextType {
   user: UserProfile | null;
   loading: boolean;
+updateUser: (newProfileData: Partial<UserProfile>) => void; // 👈 [수정] updateUser 함수 타입 추가
+
 }
 
 // Context 생성
@@ -57,8 +59,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe(); // 클린업 함수
   }, []);
 
+  // 👈 [수정] 사용자 정보를 업데이트하는 함수 정의
+  const updateUser = (newProfileData: Partial<UserProfile>) => {
+    setUser(currentUser => {
+      if (!currentUser) return null;
+      return { ...currentUser, ...newProfileData };
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    // 👈 [수정] context value에 updateUser 함수 추가
+    <AuthContext.Provider value={{ user, loading, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

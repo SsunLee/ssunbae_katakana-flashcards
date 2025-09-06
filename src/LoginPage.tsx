@@ -55,7 +55,7 @@ export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-sm p-8 space-y-6 bg-slate-800/60 rounded-2xl shadow-xl border border-white/10">
-        <h1 className="text-2xl font-bold text-center">🦋 로그인 🦋</h1>
+        <h1 className="text-2xl font-bold text-center"> 카타카나 공부, 시작하기 </h1>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label className="text-sm font-medium">이메일</label>
@@ -85,7 +85,7 @@ export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
           </div>
           {/* --- 🔽 일반 오류 메시지 표시 --- */}
           {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
-          <Button type="submit" disabled={loading} className="w-full border border-white/20 bg-transparent hover:bg-white/10">
+          <Button type="submit" disabled={loading} className="w-full border border-white/20 bg-transparent hover:bg-blue-500/20 hover:text-blue-400">
             {loading ? '로그인 중...' : '로그인'}
           </Button>
         </form>

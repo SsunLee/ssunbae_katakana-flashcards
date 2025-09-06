@@ -36,7 +36,7 @@ export default function App() {
     <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col">
       <main className="flex-grow overflow-y-auto">
         {activeTab === 'home' && <FlashcardApp user={user} />}
-        {activeTab === 'menu' && <ProfilePage user={user} />}
+        {activeTab === 'menu' && <ProfilePage />}
         {activeTab === 'comingsoon' && <ComingSoonPage />}
       </main>
       <nav className="w-full h-16 border-t border-white/10 bg-slate-900/50 backdrop-blur-sm flex-shrink-0">
