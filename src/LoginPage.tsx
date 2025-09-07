@@ -18,10 +18,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 interface LoginPageProps {
-    onSwitchToRegister: () => void;
+  onSwitchToRegister: () => void;
+  onSuccess: () => void; 
 }
 
-export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
+export default function LoginPage({ onSwitchToRegister, onSuccess }: LoginPageProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
@@ -33,6 +34,7 @@ export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
     setErrors({}); // 오류 초기화
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      onSuccess();
     } catch (err: any) {
       // --- 🔽 Firebase 오류 코드에 따라 개별 오류 설정 ---
       switch (err.code) {
@@ -53,8 +55,7 @@ export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-sm p-8 space-y-6 bg-slate-800/60 rounded-2xl shadow-xl border border-white/10">
+    <div className="p-8 space-y-6">
         <h1 className="text-2xl font-bold text-center"> 카타카나 공부, 시작하기 </h1>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
@@ -95,22 +96,6 @@ export default function LoginPage({ onSwitchToRegister}: LoginPageProps) {
             회원가입
           </button>
         </p>
-      </div>
-
-        {/* Footer */}
-        <footer className="mt-8 text-center text-xs text-white/40">
-            <p>© 2024 SsunBae. All Rights Reserved.</p>
-            <p className="mt-1">
-            <a 
-                href="https://github.com/SsunLee/ssunbae_katakana-flashcards" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-white/60"
-            >
-                GitHub Repository
-            </a>
-            </p>
-        </footer>
       </div>
   );
 
