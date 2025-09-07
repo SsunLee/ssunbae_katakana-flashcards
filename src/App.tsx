@@ -35,11 +35,6 @@ export default function App() {
     localStorage.setItem('lastActivePage', activePage);
   }, [activePage]);
 
-  // --- ❌ [삭제] 불필요한 activeTab 관련 코드 전체 삭제 ---
-  // type ActiveTab = ...
-  // const [activeTab, setActiveTab] = useState(...)
-  // useEffect(() => { localStorage.setItem('lastActiveTab', activeTab) ... })
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authPage, setAuthPage] = useState<'login' | 'register'>('login');
@@ -58,6 +53,7 @@ export default function App() {
   return (
     <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col">
       {/* 상단 헤더 */}
+      <meta name="google-site-verification" content="Vn7jzu7s2VYl84xoMTTI3YFZXn12lmwV5OYDC_Eolvw" />
       <header className="w-full h-16 flex-shrink-0 border-b border-white/10 bg-slate-900/50 backdrop-blur-sm">
         <div className="h-full w-full max-w-7xl mx-auto flex items-center justify-between px-4">
           <button onClick={() => setIsMenuOpen(true)} className="p-2 -ml-2">
