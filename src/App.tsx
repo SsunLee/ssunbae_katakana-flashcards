@@ -53,9 +53,7 @@ export default function App() {
   return (
     <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col">
       {/* 상단 헤더 */}
-      <head>
-        <meta name="google-site-verification" content="Vn7jzu7s2VYl84xoMTTI3YFZXn12lmwV5OYDC_Eolvw" />
-      </head>
+
       <header className="w-full h-16 flex-shrink-0 border-b border-white/10 bg-slate-900/50 backdrop-blur-sm">
             
         <div className="h-full w-full max-w-7xl mx-auto flex items-center justify-between px-4">
