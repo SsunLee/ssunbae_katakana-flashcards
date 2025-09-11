@@ -3,6 +3,9 @@ import { auth, db } from "./firebase";
 import { useAuth } from './AuthContext'; // 👈 useAuth 훅 import
 
 
+// --- 🔽 [리팩토링] 분리된 컴포넌트 import ---
+import { SettingsDialog } from './components/SettingsDialog';
+
 
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
@@ -49,99 +52,62 @@ const generateRandomNickname = () => {
 export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: FlashcardAppProps) {
   console.log("현재 FlashcardApp의 deckType:", deckType);    
 
-  const { user } = useAuth(); // 👈 useAuth 훅을 사용하여 사용자 정보 가져오기
+  const { user } = useAuth(); // user should be of type User | null from AuthContext
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [favs, setFavs] = useState<Record<number, true>>({});
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [deck, setDeck] = useState<Word[]>(initialDeck);
+  const [guestNickname] = useState(() => generateRandomNickname());
 
-  // 🔽 게스트용 랜덤 닉네임을 저장할 상태 추가
-  const [guestNickname, setGuestNickname] = useState(() => generateRandomNickname());
+  const [filters, setFilters] = useState({ gojuon: true, dakuten: true, handakuten: false, yoon: false });
+  const handleFilterChange = (filterType: keyof typeof filters) => setFilters(prev => ({ ...prev, [filterType]: !prev[filterType] }));
 
-    // --- 🔽 [신규] 필터 상태 추가 ---
-  const [filters, setFilters] = useState({
-    gojuon: true,
-    dakuten: true,
-    handakuten: false,
-    yoon: false,
-  });
-  // --- 🔽 [신규] 필터 변경 핸들러 ---
-  const handleFilterChange = (filterType: keyof typeof filters) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: !prev[filterType]
-    }));
-  };
-
-  // Firestore에서 데이터 불러오기
   useEffect(() => {
     const loadUserData = async () => {
       if (!user) {
-        // 게스트 모드: initialDeck으로 초기화
         setDeck(initialDeck);
         setFavs({});
         setIsDataLoaded(true);
         return;
       }
-
       const userDocRef = doc(db, "users", user.uid);
       const userDocSnap = await getDoc(userDocRef);
-
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
         const modeData = userData.learningData?.[deckType];
-        
-        // 해당 모드의 저장된 데이터가 있으면 불러오고, 없으면 기본 덱으로 설정
-        setDeck(modeData?.deck && modeData.deck.length > 0 ? modeData.deck : initialDeck);
+        setDeck(modeData?.deck?.length > 0 ? modeData.deck : initialDeck);
         setFavs(modeData?.favs || {});
       } else {
-        // 사용자 문서는 있지만 learningData가 없는 경우
         setDeck(initialDeck);
         setFavs({});
       }
       setIsDataLoaded(true);
     };
-
     loadUserData();
-    // deckType이 바뀔 때마다 (메뉴 이동 시) 데이터를 다시 불러옵니다.
   }, [user, deckType, initialDeck]);
 
-  // Firestore에 데이터 저장하기
   const saveDataToFirestore = useCallback(async (newDeck: Word[], newFavs: Record<number, true>) => {
     if (!user || !isDataLoaded) return;
     try {
       const userDocRef = doc(db, "users", user.uid);
-      // 점 표기법(dot notation)을 사용하여 특정 모드의 데이터만 업데이트
-      await updateDoc(userDocRef, {
-        [`learningData.${deckType}`]: {
-          deck: newDeck,
-          favs: newFavs
-        }
-      });
+      await updateDoc(userDocRef, { [`learningData.${deckType}`]: { deck: newDeck, favs: newFavs } });
     } catch (error) {
-      // 문서가 없는 경우를 대비하여 setDoc으로 대체할 수도 있습니다.
       console.error("데이터 저장 실패:", error);
       try {
         const userDocRef = doc(db, "users", user.uid);
-        await setDoc(userDocRef, {
-          learningData: {
-            [deckType]: {
-              deck: newDeck,
-              favs: newFavs
-            }
-          }
-        }, { merge: true });
+        await setDoc(userDocRef, { learningData: { [deckType]: { deck: newDeck, favs: newFavs } } }, { merge: true });
       } catch (e) {
         console.error("데이터 생성/저장 실패:", e);
       }
     }
   }, [user, isDataLoaded, deckType]);
 
-  // deck 또는 favs 상태가 변경될 때마다 자동 저장
   useEffect(() => {
-    saveDataToFirestore(deck, favs);
-  }, [deck, favs, saveDataToFirestore]);
+    if (isDataLoaded) { // 첫 로드 시 불필요한 저장을 방지
+        saveDataToFirestore(deck, favs);
+    }
+  }, [deck, favs, saveDataToFirestore, isDataLoaded]);
 
   const [topic, setTopic] = useState('여행');
   const [wordCount, setWordCount] = useState<number>(10);
@@ -153,67 +119,43 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState<boolean>(false);
   const [fontFamily, setFontFamily] = useState<string>('Noto Sans JP');
-  
-  const studyDeck = useMemo(() => {
-    let baseDeck = deck;
-
-    if (deckType === 'katakana-chars') {
-      const activeFilters = Object.entries(filters)
-        .filter(([, value]) => value)
-        .map(([key]) => key);
-
-      if (activeFilters.length > 0) {
-        // 🔽 [수정] 현재 deck의 순서는 유지하되, type 정보는 initialDeck에서 찾아서 필터링
-        baseDeck = deck.filter(cardFromDeck => {
-          // initialDeck에서 현재 카드와 동일한 id를 가진 원본 카드를 찾습니다.
-          const originalCard = initialDeck.find(c => c.id === cardFromDeck.id);
-          // 원본 카드에 type 정보가 있고, 그 type이 활성화된 필터에 포함되는지 확인합니다.
-          return originalCard && activeFilters.includes((originalCard as any).type);
-        });
-      } else {
-        baseDeck = [];
-      }
-    }
-
-    if (onlyFavs) {
-      return baseDeck.filter(w => favs[w.id]);
-    }
-    
-    return baseDeck;
-  }, [deck, deckType, filters, onlyFavs, favs, initialDeck]);
-
-  
-  const { currentCards, totalPages } = useMemo(() => {
-    const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
-    const endIndex = startIndex + CARDS_PER_PAGE;
-    const currentCards = studyDeck.slice(startIndex, endIndex);
-    const totalPages = Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1;
-    return { currentCards, totalPages };
-  }, [currentPage, studyDeck]);
-
   const toggleGridCardFlip = (cardId: number) => { setFlippedStates(prev => ({ ...prev, [cardId]: !prev[cardId] })); };
   const goToNextPage = () => { setCurrentPage(prev => Math.min(prev + 1, totalPages)); };
   const goToPrevPage = () => { setCurrentPage(prev => Math.max(prev - 1, 1)); };
 
+
+  const studyDeck = useMemo(() => {
+    let baseDeck = deck;
+    if (deckType === 'katakana-chars') {
+      const activeFilters = Object.entries(filters).filter(([, value]) => value).map(([key]) => key);
+      baseDeck = activeFilters.length > 0 ? deck.filter(card => {
+        const originalCard = initialDeck.find(c => c.id === card.id);
+        return originalCard && activeFilters.includes((originalCard as any).type);
+      }) : [];
+    }
+    return onlyFavs ? baseDeck.filter(w => favs[w.id]) : baseDeck;
+  }, [deck, deckType, filters, onlyFavs, favs, initialDeck]);
+
+  const { currentCards, totalPages } = useMemo(() => ({
+    currentCards: studyDeck.slice((currentPage - 1) * CARDS_PER_PAGE, currentPage * CARDS_PER_PAGE),
+    totalPages: Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1,
+  }), [currentPage, studyDeck]);
+
   async function importWordsFromServer(topic: string, count: number) {
     setLoadingImport(true);
     try {
-      const resp = await fetch('/api/generate-words', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ topic, count }),
-      });
+      const resp = await fetch('/api/generate-words', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic, count }) });
       if (!resp.ok) throw new Error('서버 응답 오류');
-      const json = await resp.json();
-      if (!json.ok || !Array.isArray(json.words)) throw new Error('잘못된 데이터 형식');
-      const newDeck: Word[] = json.words.map((w: any, i: number) => ({ ...w, id: i + 1 }));
+      const { ok, words } = await resp.json();
+      if (!ok || !Array.isArray(words)) throw new Error('잘못된 데이터 형식');
+      const newDeck: Word[] = words.map((w: any, i: number) => ({ ...w, id: i + 1 }));
       setDeck(newDeck);
       setIndex(0);
       setFlipped(false);
       setFlippedStates({});
       setCurrentPage(1);
       setFavs({});
-      alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 불러왔습니다!`);      
+      alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 불러왔습니다!`);
     } catch (e) {
       console.error(e);
       alert('단어 불러오기 실패');
@@ -222,35 +164,32 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
     }
   }
 
-  const onFlip = useCallback(() => { setFlipped((f) => !f); }, []);
-  const next = useCallback(() => { setIndex((i) => (i + 1) % Math.max(1, studyDeck.length)); setFlipped(false); }, [studyDeck.length]);
-  const prev = useCallback(() => { setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length)); setFlipped(false); }, [studyDeck.length]);
-  const shuffle = () => { const arr = [...deck].sort(() => Math.random() - 0.5); setDeck(arr); setIndex(0); setFlipped(false); };
-  const reset = () => { 
-    setDeck(initialDeck); 
-    setIndex(0); 
-    setFlipped(false); 
-    setFlippedStates({}); 
-    setCurrentPage(1); 
-  };
-  const toggleFav = (id: number) => { setFavs(prev => { const n = { ...prev }; if (n[id]) delete n[id]; else n[id] = true; return n; }); };
+  const onFlip = useCallback(() => setFlipped(f => !f), []);
+  const next = useCallback(() => { setIndex(i => (i + 1) % Math.max(1, studyDeck.length)); setFlipped(false); }, [studyDeck.length]);
+  const prev = useCallback(() => { setIndex(i => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length)); setFlipped(false); }, [studyDeck.length]);
+  const shuffle = () => { setDeck(d => [...d].sort(() => Math.random() - 0.5)); setIndex(0); setFlipped(false); };
+  const reset = () => { setDeck(initialDeck); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
+  const toggleFav = (id: number) => setFavs(prev => { const n = { ...prev }; if (n[id]) delete n[id]; else n[id] = true; return n; });
+
+  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
   const current = studyDeck[index] ?? null;
   const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
-  const progress = studyDeck.length === 0 ? '0 / 0' : `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
+  const progress = studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : '0 / 0';
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'], [fontFamily]);
 
-  {/* JP support check */}
-  const {
-    isSupported: isTtsSupported,
-    ready: ttsReady,
-    speakJa,
-    selectedVoice,
-    voices,
-    setSelectedVoice,
-    isSafari
-  } = useJaSpeech();
-
-
+  // 키보드 이벤트 핸들러 추가
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (viewMode === 'single') {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onFlip(); }
+        if (event.key === 'ArrowRight') next();
+        if (event.key === 'ArrowLeft') prev();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [viewMode, onFlip, next, prev]);
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
@@ -264,8 +203,6 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
                 </p>
             </div>
         </header>
-
-
 
         {/* --- 🔽 게스트를 위한 로그인 안내 배너 --- */}
         {!user && (
@@ -306,105 +243,28 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
               </Button>
             )}
            
-            {/* --- 🔽 [수정] '단어 가져오기'는 로그인한 사용자에게만 보이도록 설정 --- */}
-            <Dialog open={showSettings} onOpenChange={setShowSettings}>
-              <DialogTrigger asChild>
-                <Button size="sm" variant="outline" className="bg-white/10 border-white/10 hover:bg-white/15" title="설정">
-                ⚙️ 설정
-                </Button>
-              </DialogTrigger>
-
-              <DialogOverlay className="bg-black/80 backdrop-blur-sm" />
-              <DialogContent className="bg-slate-800/60 border-white/10 text-white rounded-2xl shadow-xl p-0 w-full max-w-lg
-                    transition-all duration-300
-                    data-[state=open]:animate-in
-                    data-[state=open]:fade-in-0
-                    data-[state=open]:slide-in-from-top-[48%]
-                    data-[state=closed]:animate-out
-                    data-[state=closed]:fade-out-0
-                    data-[state=closed]:slide-out-to-top-[48%]
-                ">
-                <div className="p-6">
-                    <DialogHeader className="mb-4 text-left">
-                        <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">⚙️ 설정</DialogTitle>
-                    </DialogHeader>
-
-                {/* TTS 음성을 지원하는 상태에서만 보여주기 */}
-                {isTtsSupported && (
-                    <div className="mb-4">
-                      <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
-                      <Select
-                        value={selectedVoice?.name || ""}
-                        onValueChange={(val) => {
-                          const v = voices.find(vv => vv.name === val) || null;
-                          setSelectedVoice(v);
-                          try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
-                        }}
-                        disabled={voices.length === 0}
-                      >
-                        <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white text-left">
-                          {selectedVoice ? `${selectedVoice.name} (${selectedVoice.lang})` : '(loading...)'}
-                        </SelectTrigger>
-                        <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                          {voices.map(v => <SelectItem className="text-white" key={v.name} value={v.name}>{v.name} ({v.lang})</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                      <div className="mt-1 text-xs text-white/50">브라우저: {isSafari ? "Safari" : "Chrome/Edge 등"}</div>
-                    </div>
-                )}
-
-                <div className="mb-2">
-                  <label className="block text-sm text-white/70 mb-1">Font</label>
-                  <Select value={fontFamily} onValueChange={setFontFamily}>
-                      <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white"><SelectValue placeholder="Select font" /></SelectTrigger>
-                      <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                          <SelectItem className="text-white" value="Noto Sans JP">Noto Sans JP</SelectItem>
-                          <SelectItem className="text-white" value="Zen Kaku Gothic New">Zen Kaku Gothic New</SelectItem>
-                          <SelectItem className="text-white" value="Noto Serif JP">Noto Serif JP</SelectItem>
-                          <SelectItem className="text-white" value="Kosugi Maru">Kosugi Maru</SelectItem>
-                      </SelectContent>
-                  </Select>
-                </div>
-                {user && ( // 👈 user가 있을 때만 '단어 가져오기' 관련 UI를 보여줌
-                <>
-                <div className="mt-4 border-t border-white/10 pt-4">
-                  <label className="block text-sm text-white/70 mb-1"> 새로운 단어 주제</label>
-                  <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} className="w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="예: 여행, 음식..." />
-                </div>
-                <div className="mt-2 text-sm text-white/70">
-                  <label className="block text-sm text-white/70 mb-1">생성할 단어 개수</label>
-                  <Select value={String(wordCount)} onValueChange={(value) => setWordCount(Number(value))}>
-                      <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white"><SelectValue placeholder="단어 개수 선택" /></SelectTrigger>
-                      <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                          <SelectItem className="text-white" value="5">5개</SelectItem>
-                          <SelectItem className="text-white" value="10">10개</SelectItem>
-                          <SelectItem className="text-white" value="15">15개</SelectItem>
-                          <SelectItem className="text-white" value="20">20개</SelectItem>
-                      </SelectContent>
-                  </Select>
-                </div>
-                <div className="mt-4 flex gap-2">
-                  <Button size="sm" className="text-white bg-white/10 border-white/10 hover:bg-white/15" variant="outline" disabled={loadingImport} onClick={() => importWordsFromServer(topic,wordCount)} title="서버에서 새 단어를 불러옵니다">
-                    {loadingImport ? '가져오는 중…' : '단어 가져오기'}
-                  </Button>
-                  <Button size="sm" className="text-white bg-white/10 border-white/10 hover:bg-white/15" variant="outline" onClick={() => { reset(); alert('덱을 기본값으로 복원했습니다.'); }}>
-                    저장본 복원
-                  </Button>
-                  
-                </div>
-                <div className="mt-3 text-sm text-white/70">
-                  * '단어 가져오기'는 OpenAI API를 사용합니다.
-                </div>
-                </>
-                )}
-                {!user && (
-                    <div className="mt-4 border-t border-white/10 pt-4 text-center text-white/70">
-                    단어를 생성하려면 로그인이 필요합니다.
-                    </div>
-                )}
-                </div>
-              </DialogContent>
-            </Dialog>
+          {/* --- 🔽 [리팩토링] 분리된 설정 다이얼로그 컴포넌트 사용 --- */}
+            <SettingsDialog
+              open={showSettings}
+              onOpenChange={setShowSettings}
+              user={user}
+              deckType={deckType}
+              isTtsSupported={isTtsSupported}
+              selectedVoice={selectedVoice}
+              setSelectedVoice={setSelectedVoice}
+              voices={voices}
+              isSafari={isSafari}
+              fontFamily={fontFamily}
+              setFontFamily={setFontFamily}
+              topic={topic}
+              setTopic={setTopic}
+              wordCount={wordCount}
+              setWordCount={setWordCount}
+              loadingImport={loadingImport}
+              importWordsFromServer={importWordsFromServer}
+              resetDeck={reset}
+            />
+        
           </div>
         )}
       {deckType === 'katakana-chars' && (
