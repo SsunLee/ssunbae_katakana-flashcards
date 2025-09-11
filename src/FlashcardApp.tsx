@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { auth, db } from "./firebase";
 import { useAuth } from './AuthContext'; // 👈 useAuth 훅 import
 
+
+
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 // 필요한 데이터, 훅, 유틸리티 및 UI 컴포넌트들을 모두 import 합니다.
@@ -46,6 +48,7 @@ const generateRandomNickname = () => {
 
 export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: FlashcardAppProps) {
   console.log("현재 FlashcardApp의 deckType:", deckType);    
+
   const { user } = useAuth(); // 👈 useAuth 훅을 사용하여 사용자 정보 가져오기
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -231,11 +234,22 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
     setCurrentPage(1); 
   };
   const toggleFav = (id: number) => { setFavs(prev => { const n = { ...prev }; if (n[id]) delete n[id]; else n[id] = true; return n; }); };
-  const { ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
   const current = studyDeck[index] ?? null;
   const romaji = useMemo(() => kanaToRomaji(current?.furigana || ''), [current]);
   const progress = studyDeck.length === 0 ? '0 / 0' : `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}`;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'], [fontFamily]);
+
+  {/* JP support check */}
+  const {
+    isSupported: isTtsSupported,
+    ready: ttsReady,
+    speakJa,
+    selectedVoice,
+    voices,
+    setSelectedVoice,
+    isSafari
+  } = useJaSpeech();
+
 
 
   return (
@@ -277,16 +291,20 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
         {viewMode === 'single' && (
           <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
             <span className="text-white/70">⚡진행률 : {progress}</span>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => speakJa(current?.furigana || "")}
-              disabled={!ttsReady || !current}
-              title={ttsReady ? "ふりがな 를 再生" : "브라우저 음성 준비 중"}
-            >
-              🔊 듣기 (ふりがな)
-            </Button>
+            
+            {/* tts가 준비된 상태일 때만 */} 
+            {isTtsSupported && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/10 bg-white/5 hover:bg-white/10"
+                onClick={() => speakJa(current?.furigana || "")}
+                disabled={!ttsReady || !current}
+                title={ttsReady ? "ふりがな 를 再生" : "브라우저 음성 준비 중"}
+              >
+                🔊 듣기 (ふりがな)
+              </Button>
+            )}
            
             {/* --- 🔽 [수정] '단어 가져오기'는 로그인한 사용자에게만 보이도록 설정 --- */}
             <Dialog open={showSettings} onOpenChange={setShowSettings}>
@@ -311,26 +329,30 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
                         <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">⚙️ 설정</DialogTitle>
                     </DialogHeader>
 
-                <div className="mb-4">
-                  <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
-                  <Select
-                    value={selectedVoice?.name || ""}
-                    onValueChange={(val) => {
-                      const v = voices.find(vv => vv.name === val) || null;
-                      setSelectedVoice(v);
-                      try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
-                    }}
-                    disabled={voices.length === 0}
-                  >
-                    <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white text-left">
-                      {selectedVoice ? `${selectedVoice.name} (${selectedVoice.lang})` : '(loading...)'}
-                    </SelectTrigger>
-                    <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                      {voices.map(v => <SelectItem className="text-white" key={v.name} value={v.name}>{v.name} ({v.lang})</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  <div className="mt-1 text-xs text-white/50">브라우저: {isSafari ? "Safari" : "Chrome/Edge 등"}</div>
-                </div>
+                {/* TTS 음성을 지원하는 상태에서만 보여주기 */}
+                {isTtsSupported && (
+                    <div className="mb-4">
+                      <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
+                      <Select
+                        value={selectedVoice?.name || ""}
+                        onValueChange={(val) => {
+                          const v = voices.find(vv => vv.name === val) || null;
+                          setSelectedVoice(v);
+                          try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
+                        }}
+                        disabled={voices.length === 0}
+                      >
+                        <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white text-left">
+                          {selectedVoice ? `${selectedVoice.name} (${selectedVoice.lang})` : '(loading...)'}
+                        </SelectTrigger>
+                        <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
+                          {voices.map(v => <SelectItem className="text-white" key={v.name} value={v.name}>{v.name} ({v.lang})</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <div className="mt-1 text-xs text-white/50">브라우저: {isSafari ? "Safari" : "Chrome/Edge 등"}</div>
+                    </div>
+                )}
+
                 <div className="mb-2">
                   <label className="block text-sm text-white/70 mb-1">Font</label>
                   <Select value={fontFamily} onValueChange={setFontFamily}>

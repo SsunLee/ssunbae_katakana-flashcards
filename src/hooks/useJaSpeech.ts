@@ -2,13 +2,26 @@
 import { useEffect, useState } from 'react';
 
 
+// Web Speech API 지원 여부를 확인하는 변수
+const IS_SPEECH_SYNTHESIS_SUPPORTED = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+
 // —— Web Speech API (ja-JP) helper with Safari optimization ——
 export function useJaSpeech() {
+
+  const [isSupported] = useState(IS_SPEECH_SYNTHESIS_SUPPORTED);
+
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [ready, setReady] = useState(false);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
+
+    if (!isSupported) {
+      setReady(false);
+      return;
+    }
+
     const synth = window.speechSynthesis;
     function loadVoices() {
 
@@ -114,6 +127,9 @@ export function useJaSpeech() {
   }
 
   function speakJa(text: string) {
+
+    if (!isSupported) return;
+
     const synth = window.speechSynthesis;
     if (!text || !('speechSynthesis' in window)) return;
     
@@ -143,6 +159,7 @@ export function useJaSpeech() {
   }
 
   return { 
+    isSupported,
     ready, 
     voices, 
     selectedVoice,
