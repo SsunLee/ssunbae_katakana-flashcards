@@ -282,7 +282,7 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
 
         {/* Footer */}
         <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
-            <hr className="my-6 w-full max-w-md border-white/10" />
+            
             <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
                 <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
                 <li>단어를 추가/수정하려면 ⚙️설정 → 새로운 단어 주제/개수 설정 후 <b>단어 가져오기</b>를 클릭하세요.</li>
@@ -293,7 +293,7 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
         {/* Version Info */}
         <div className="mt-4 text-center">
             <span className="text-white/40 text-xs">
-                카타카나 플래시카드 v{APP_VERSION} | 
+                가타카나 공부 v{APP_VERSION} | 
                 <a href="https://github.com/SsunLee/ssunbae_katakana-flashcards" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 ml-1">
                     쑨쑨배의 Github
                 </a>

@@ -1,3 +1,5 @@
+// src/components/SideMenu.tsx
+
 import React from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { Button } from './ui/button';
@@ -37,7 +39,7 @@ export default function SideMenu({ isOpen, onClose, onNavigate, onAuthClick, act
                 : 'text-white/70 hover:bg-white/10 hover:text-white'
                 }`}
             >
-            📚 카타카나 단어 공부
+            📚 가타카나 단어 공부
           </Button>
           <Button 
             onClick={() => { onNavigate('katakana-chars'); onClose(); }} 
@@ -48,7 +50,7 @@ export default function SideMenu({ isOpen, onClose, onNavigate, onAuthClick, act
               : 'text-white/70 hover:bg-white/10 hover:text-white'
             }`}
           >
-            ✏️ 카타카나 글자 공부
+            ✏️ 가타카나 글자 공부
           </Button>
 
           <Button 
