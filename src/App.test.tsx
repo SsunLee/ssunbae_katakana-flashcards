@@ -809,7 +809,7 @@ export default function App() {
                 style={{ wordBreak: "break-all", overflowWrap: "break-word" }}>
 
                 <div className="flex flex-col items-center">
-                  {/* 메인 카타카나 */}
+                  {/* 메인 가타카나 */}
                   <div className="text-5xl md:text-6xl font-semibold leading-snug">
                     {current.katakana}
                   </div>
@@ -912,7 +912,7 @@ export default function App() {
       {/* Version info */}
       <div className="mt-4 text-center">
         <span className="text-white/40 text-xs">
-          카타카나 플래시카드 v{APP_VERSION} | 쑨쑨배의 Github
+          가타카나 공부 v{APP_VERSION} | 쑨쑨배의 Github
           <a 
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards" 
             target="_blank" 

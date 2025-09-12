@@ -56,7 +56,7 @@ export default function LoginPage({ onSwitchToRegister, onSuccess }: LoginPagePr
 
   return (
     <div className="p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center"> 카타카나 공부, 시작하기 </h1>
+        <h1 className="text-2xl font-bold text-center"> 가타카나 공부, 시작하기 </h1>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label className="text-sm font-medium">이메일</label>
