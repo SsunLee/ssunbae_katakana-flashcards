@@ -7,7 +7,7 @@ import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/firebase";
 import { LogOut, UserCircle2, BookOpen } from "lucide-react";
-
+import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
@@ -23,24 +23,27 @@ interface SideMenuProps {
 type MenuItem = {
   href: string;
   label: string;
-  icon: string;
+  icon?: string;
   disabled?: boolean;
 };
 
 type MenuGroup = {
   language: string;
   value: string;
+  icon?: string;
   disabled?: boolean;
   items: MenuItem[];
 };
 
 const menuConfig: MenuGroup[] = [
   {
-    language: "일본어 공부",
+    language: " 일본어 공부",
     value: "japanese",
+    icon: "🇯🇵",
     items: [
-      { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "📚" },
-      { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "✏️" },
+      { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "/icons/jp_word.png" },
+      { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "/icons/jp_katakana.png" },
+      { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
       { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸", disabled: true },
       { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: true },
     ],
@@ -48,16 +51,39 @@ const menuConfig: MenuGroup[] = [
   {
     language: "영어 공부",
     value: "english",
+    icon: "🇺🇸",
     disabled: true,
     items: [{ href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: true }],
   },
   {
     language: "스페인어 공부",
     value: "spanish",
+    icon: "🇪🇸",
     disabled: true,
     items: [{ href: "/study/spanish/words", label: "단어 공부", icon: "💃", disabled: true }],
   },
 ];
+
+// 파일 상단 import 유지: import Image from "next/image";
+
+// 이모지/이미지 모두 처리
+const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
+  if (!icon) return null;
+  // public/ 이하 정적 파일이면 "/..." 로 시작
+  const isImage = icon.startsWith("/");
+  return isImage ? (
+    <Image
+      src={icon}
+      alt=""
+      width={size}
+      height={size}
+      className="mr-2 inline-block align-[-2px] object-contain opacity-90"
+    />
+  ) : (
+    <span className="mr-2 inline-block align-[-2px] font-emoji text-[16px]">{icon}</span>
+  );
+};
+
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const { user } = useAuth();
@@ -104,25 +130,30 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-                <AccordionTrigger className="text-sm font-semibold text-slate-300 hover:no-underline hover:text-white disabled:opacity-50 px-2 py-3">
-                  {lang.language}
-                </AccordionTrigger>
+
+                  <AccordionTrigger className="text-sm font-semibold text-slate-300 hover:no-underline hover:text-white disabled:opacity-50 px-2 py-3">
+                    <MenuIcon icon={lang.icon} size={18} />
+                    <span>{lang.language}</span>
+                  </AccordionTrigger>
+
+
                 <AccordionContent className="pl-3 space-y-1">
                   {lang.items.map((item) => (
-                    <Button
-                      key={item.href}
-                      variant="ghost"
-                      disabled={item.disabled}
-                      onClick={() => handleNavigate(item.href)}
-                      className={`w-full justify-start text-sm h-auto transition-all duration-200 p-3 ${
-                        pathname === item.href
-                          ? "bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10"
-                          : "text-slate-400 hover:bg-slate-800 hover:text-white rounded-md"
-                      }`}
-                    >
-                      <span className="mr-2">{item.icon}</span>
-                      {item.label}
-                    </Button>
+                      <Button
+                        key={item.href}
+                        variant="ghost"
+                        disabled={item.disabled}
+                        onClick={() => handleNavigate(item.href)}
+                        className={`w-full justify-start text-sm h-auto transition-all duration-200 p-3 ${
+                          pathname === item.href
+                            ? "bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10"
+                            : "text-slate-400 hover:bg-slate-800 hover:text-white rounded-md"
+                        }`}
+                      >
+                        <MenuIcon icon={item.icon} />
+                        <span className="truncate">{item.label}</span>
+                      </Button>
+
                   ))}
                 </AccordionContent>
               </AccordionItem>

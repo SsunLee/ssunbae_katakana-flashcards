@@ -16,7 +16,7 @@ interface SingleCardViewProps {
 
 export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onToggleFav }: SingleCardViewProps) => {
   const romaji = kanaToRomaji(card?.furigana || '');
-
+  const isCharsMode = deckType.endsWith("-chars");  // ← 변경
   return (
     <div className="[perspective:1200px] w-full max-w-md mx-auto">
       <div
@@ -35,7 +35,7 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
           <div className="text-sm text-white/60 mb-2">카드를 클릭하세요</div>
           <div className="text-center w-full">
             <div className="flex flex-col items-center">
-              {deckType === 'katakana-chars' ? (
+              {isCharsMode ? (
                 <div className="text-9xl font-semibold leading-snug">{card.katakana}</div>
               ) : (
                 <>
@@ -51,7 +51,7 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
         <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center px-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
           <div className="text-center w-full">
             <div className="text-sm text-white/60 mb-2">정답</div>
-            {deckType === 'katakana-chars' ? (
+            {isCharsMode ? (
               <div>
                 <div className="text-8xl font-semibold">{card.furigana}</div>
                 <div className="text-2xl mt-1">{card.emoji}</div>
