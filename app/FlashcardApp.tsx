@@ -113,7 +113,7 @@ export default function FlashcardApp({ onLoginClick, initialDeck, deckType }: Fl
     setCurrentPage(1);
   };
 
-  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
+  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'], [fontFamily]);
 
