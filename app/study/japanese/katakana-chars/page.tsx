@@ -83,7 +83,16 @@ export default function KatakanaCharsPage() {
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
 
-  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
+  const { 
+    isSupported: isTtsSupported, 
+    ready: ttsReady, 
+    speakJa, 
+    selectedVoice, 
+    voices, 
+    selectVoice, 
+    isSafari 
+  } = useJaSpeech();
+
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'], [fontFamily]);
 
@@ -119,7 +128,7 @@ export default function KatakanaCharsPage() {
             deckType={deckType} 
             isTtsSupported={isTtsSupported} 
             selectedVoice={selectedVoice} 
-            setSelectedVoice={setSelectedVoice} 
+            selectVoice={selectVoice} 
             voices={voices} 
             isSafari={isSafari} 
             fontFamily={fontFamily} 

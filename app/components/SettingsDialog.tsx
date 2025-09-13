@@ -15,7 +15,7 @@ interface SettingsDialogProps {
   // TTS 관련
   isTtsSupported: boolean;
   selectedVoice: SpeechSynthesisVoice | null;
-  setSelectedVoice: (voice: SpeechSynthesisVoice | null) => void;
+  selectVoice: (voice: SpeechSynthesisVoice | null) => void; // ★★★ [수정] prop 이름과 타입 변경
   voices: SpeechSynthesisVoice[];
   isSafari: boolean;
 
@@ -35,7 +35,7 @@ interface SettingsDialogProps {
 
 export function SettingsDialog({
   open, onOpenChange, user, deckType,
-  isTtsSupported, selectedVoice, setSelectedVoice, voices, isSafari,
+  isTtsSupported, selectedVoice, selectVoice, voices, isSafari, // ★★★ [수정] prop 이름 변경
   fontFamily, setFontFamily,
   topic, setTopic, wordCount, setWordCount, loadingImport, importWordsFromServer, resetDeck
 }: SettingsDialogProps) {
@@ -69,9 +69,9 @@ export function SettingsDialog({
               <Select
                 value={selectedVoice?.name || ""}
                 onValueChange={(val) => {
-                  const v = voices.find(vv => vv.name === val) || null;
-                  setSelectedVoice(v);
-                  try { localStorage.setItem("jaVoiceName", v?.name || ""); } catch {}
+                  const voice = voices.find(v => v.name === val) || null;
+                  // ★★★ [수정] 새로운 selectVoice 함수를 호출합니다. (localStorage 로직 삭제)
+                  selectVoice(voice); 
                 }}
                 disabled={voices.length === 0}
               >
@@ -130,7 +130,7 @@ export function SettingsDialog({
                         title="서버에서 새 단어를 불러옵니다">
                       {loadingImport ? '가져오는 중…' : '단어 가져오기'}
                     </Button>
-                    
+
                     <Button size="sm" className="text-white bg-white/10 border-white/10 hover:bg-white/15" variant="outline" onClick={() => { resetDeck(); alert('덱을 기본값으로 복원했습니다.'); }}>
                       저장본 복원
                     </Button>

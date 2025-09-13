@@ -101,7 +101,16 @@ export default function KatakanaWordsPage() {
     setCurrentPage(1);
   };
 
-  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, setSelectedVoice, isSafari } = useJaSpeech();
+    const { 
+    isSupported: isTtsSupported, 
+    ready: ttsReady, 
+    speakJa, 
+    selectedVoice, 
+    voices, 
+    selectVoice, 
+    isSafari 
+  } = useJaSpeech();
+
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS['Noto Sans JP'], [fontFamily]);
 
@@ -157,7 +166,25 @@ export default function KatakanaWordsPage() {
                 🔊 듣기 (ふりがな)
               </Button>
             )}
-            <SettingsDialog open={showSettings} onOpenChange={setShowSettings} user={user} deckType={deckType} isTtsSupported={isTtsSupported} selectedVoice={selectedVoice} setSelectedVoice={setSelectedVoice} voices={voices} isSafari={isSafari} fontFamily={fontFamily} setFontFamily={setFontFamily} topic={topic} setTopic={setTopic} wordCount={wordCount} setWordCount={setWordCount} loadingImport={loadingImport} importWordsFromServer={importWords} resetDeck={reset} />
+            <SettingsDialog 
+                open={showSettings}
+                onOpenChange={setShowSettings} 
+                user={user} 
+                deckType={deckType} 
+                isTtsSupported={isTtsSupported} 
+                selectedVoice={selectedVoice} 
+                selectVoice={selectVoice} 
+                voices={voices} 
+                isSafari={isSafari} 
+                fontFamily={fontFamily} 
+                setFontFamily={setFontFamily} 
+                topic={topic} 
+                setTopic={setTopic} 
+                wordCount={wordCount} 
+                setWordCount={setWordCount} 
+                loadingImport={loadingImport} 
+                importWordsFromServer={importWords} 
+                resetDeck={reset} />
           </div>
         )}
 
