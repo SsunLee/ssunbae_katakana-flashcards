@@ -76,9 +76,7 @@ export default function HomePage() {
       <SideMenu 
         isOpen={isMenuOpen} 
         onClose={() => setIsMenuOpen(false)}
-        onNavigate={(page) => setActivePage(page as ActivePage)}
         onAuthClick={() => setShowAuthModal(true)}
-        activePage={activePage}
       />
 
       {/* 로그인/회원가입 모달 */}
