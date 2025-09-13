@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP, Zen_Kaku_Gothic_New, Noto_Serif_JP, Kosugi_Maru } from 'next/font/google';
 import './styles/globals.css'; 
 import { AuthProvider } from '@/app/AuthContext'; 
+import { AuthModalProvider } from "@/app/context/AuthModalContext";
 
 // 1. 폰트 설정 (가장 성능에 좋은 방식)
 const notoSansJP = Noto_Sans_JP({
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   // 파비콘 및 아이콘 설정
   icons: {
     icon: '/favicon.ico', // public 폴더에 있는 파일 경로
-    apple: '/logo192.png', // public 폴더에 있는 파일 경로
+    apple: '/logo.svg', // public 폴더에 있는 파일 경로
   },
 };
 // 3. RootLayout 컴포넌트

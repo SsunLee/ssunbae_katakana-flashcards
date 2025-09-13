@@ -1,86 +1,105 @@
 // src/components/SideMenu.tsx
-
 "use client";
 
-import React from 'react';
-import { useRouter, usePathname } from 'next/navigation'; // Next.js의 라우팅 훅
-import { useAuth } from '../AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
-import { LogOut, UserCircle2, BookOpen } from 'lucide-react'; // 아이콘 추가
+import React from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/app/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "@/app/firebase";
+import { LogOut, UserCircle2, BookOpen } from "lucide-react";
 
+import { useAuthModal } from "@/app/context/AuthModalContext";
 
-// shadcn/ui 컴포넌트 import
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
-import { Button } from './ui/button';
+import { Button } from "./ui/button";
 
 interface SideMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  onAuthClick: () => void; // 로그인/회원가입 모달을 열기 위한 함수
 }
 
 // 메뉴 항목 구성
-const menuConfig = [
+type MenuItem = {
+  href: string;
+  label: string;
+  icon: string;
+  disabled?: boolean;
+};
+
+type MenuGroup = {
+  language: string;
+  value: string;
+  disabled?: boolean;
+  items: MenuItem[];
+};
+
+const menuConfig: MenuGroup[] = [
   {
-    language: '일본어 공부',
-    value: 'japanese',
+    language: "일본어 공부",
+    value: "japanese",
     items: [
-      { href: '/study/japanese/katakana-words', label: '가타카나 단어 공부', icon: '📚' },
-      { href: '/study/japanese/katakana-chars', label: '가타카나 글자 공부', icon: '✏️' },
-      { href: '/study/japanese/sentences', label: '일본어 문장 공부', icon: '🌸', disabled: true },
-      { href: '/study/japanese/kanji', label: '한자 공부', icon: '🎴', disabled: true },
+      { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "📚" },
+      { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "✏️" },
+      { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸", disabled: true },
+      { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: true },
     ],
   },
   {
-    language: '영어 공부',
-    value: 'english',
+    language: "영어 공부",
+    value: "english",
     disabled: true,
-    items: [
-      { href: '/study/english/words', label: '단어 공부', icon: '📖', disabled: true },
-    ],
+    items: [{ href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: true }],
   },
   {
-    language: '스페인어 공부',
-    value: 'spanish',
+    language: "스페인어 공부",
+    value: "spanish",
     disabled: true,
-    items: [
-      { href: '/study/spanish/words', label: '단어 공부', icon: '💃', disabled: true },
-    ],
+    items: [{ href: "/study/spanish/words", label: "단어 공부", icon: "💃", disabled: true }],
   },
 ];
 
-export default function SideMenu({ isOpen, onClose, onAuthClick  }: SideMenuProps) {
+export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const { user } = useAuth();
-  const router = useRouter(); // 페이지 이동을 위한 router 훅
-  const pathname = usePathname(); // 현재 URL 경로를 알기 위한 pathname 훅
+  const router = useRouter();
+  const pathname = usePathname();
+  const { open } = useAuthModal();
 
   const handleLogout = async () => {
     await signOut(auth);
     onClose();
-    };
+  };
 
-    const handleNavigate = (href: string) => {
+  const handleNavigate = (href: string) => {
     router.push(href);
     onClose();
-    };
+  };
 
-   // 아코디언 기본값을 현재 경로가 속한 그룹으로 설정
-  const defaultAccordionValue = menuConfig.find(lang => 
-    lang.items.some(item => pathname.startsWith(item.href.substring(0, item.href.lastIndexOf('/'))))
-  )?.value;
+  // Sheet 닫고 → 다음 틱에 모달 열기(포커스/오버레이 충돌 방지)
+  const openAuthFromSheet = (p: "login" | "register" = "login") => {
+    onClose();
+    setTimeout(() => open(p), 0);
+  };
+
+  // 현재 경로가 속한 그룹을 기본 확장
+  const defaultAccordionValue =
+    menuConfig.find((lang) =>
+      lang.items.some((item) => pathname.startsWith(item.href.substring(0, item.href.lastIndexOf("/"))))
+    )?.value ?? undefined;
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="left" className="w-[300px] bg-slate-950 border-r border-slate-800 text-slate-200 p-0 flex flex-col">
+    <Sheet open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <SheetContent
+        side="left"
+        className="w-[300px] bg-slate-950 border-r border-slate-800 text-slate-200 p-0 flex flex-col"
+      >
         <SheetHeader className="p-6 border-b border-slate-800">
-          <SheetTitle className="text-white text-1g flex items-center gap-3">
+          <SheetTitle className="text-white text-lg flex items-center gap-3">
             <BookOpen className="text-blue-400" />
             <span>학습 메뉴</span>
           </SheetTitle>
         </SheetHeader>
-        
+
         <div className="flex-grow p-3 overflow-y-auto">
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
@@ -89,7 +108,6 @@ export default function SideMenu({ isOpen, onClose, onAuthClick  }: SideMenuProp
                   {lang.language}
                 </AccordionTrigger>
                 <AccordionContent className="pl-3 space-y-1">
-                  {/* 메뉴 아이템 */}
                   {lang.items.map((item) => (
                     <Button
                       key={item.href}
@@ -98,11 +116,10 @@ export default function SideMenu({ isOpen, onClose, onAuthClick  }: SideMenuProp
                       onClick={() => handleNavigate(item.href)}
                       className={`w-full justify-start text-sm h-auto transition-all duration-200 p-3 ${
                         pathname === item.href
-                          ? 'bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10'
-                          : 'text-slate-400 hover:bg-slate-800 hover:text-white rounded-md'
+                          ? "bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10"
+                          : "text-slate-400 hover:bg-slate-800 hover:text-white rounded-md"
                       }`}
                     >
-                      {/* 아이콘 영역 */}
                       <span className="mr-2">{item.icon}</span>
                       {item.label}
                     </Button>
@@ -123,7 +140,11 @@ export default function SideMenu({ isOpen, onClose, onAuthClick  }: SideMenuProp
                   <p className="text-xs text-slate-400">환영합니다!</p>
                 </div>
               </div>
-              <Button onClick={handleLogout} variant="outline" className="w-full text-slate-400 border-slate-700 hover:bg-slate-800 hover:text-red-400">
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                className="w-full text-slate-400 border-slate-700 hover:bg-slate-800 hover:text-red-400"
+              >
                 <LogOut className="w-4 h-4 mr-2" />
                 로그아웃
               </Button>
@@ -131,7 +152,7 @@ export default function SideMenu({ isOpen, onClose, onAuthClick  }: SideMenuProp
           ) : (
             <Button
               variant="default"
-              onClick={() => { onAuthClick(); onClose(); }}
+              onClick={() => openAuthFromSheet("login")}
               className="w-full text-white bg-blue-600 hover:bg-blue-500 transition-colors"
             >
               로그인 / 회원가입

@@ -1,0 +1,10 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ssunbae-edu bookmark stack">
+  <!-- stack -->
+  <g transform="translate(86 60)">
+    <path d="M0 0h36v92l-18 12-18-12z" fill="#32A2FA"/>
+    <path d="M28 10h36v92l-18 12-18-12z" fill="#FF2D83"/>
+    <path d="M56 20h36v92l-18 12-18-12z" fill="#F59E0B"/>
+  </g>
+  <!-- subtle base -->
+  <ellipse cx="128" cy="190" rx="56" ry="8" fill="#000" opacity=".25"/>
+</svg>

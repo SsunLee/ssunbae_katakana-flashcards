@@ -24,6 +24,8 @@ import { APP_VERSION } from '@/app/constants/appConfig';
 // --- 페이지 전용 데이터 ---
 import { KATAKANA_CHARS } from '@/app/data/katakanaChars';
 
+import { GridCardView } from "@/app/components/GridCardView";
+
 export default function KatakanaCharsPage() {
   const initialDeck = KATAKANA_CHARS;
   const deckType = 'katakana-chars';
@@ -160,6 +162,7 @@ export default function KatakanaCharsPage() {
             ) : (
               current && (
                 <SingleCardView
+                  key={current.id}
                   card={current}
                   deckType={deckType}
                   isFlipped={flipped}
@@ -175,27 +178,20 @@ export default function KatakanaCharsPage() {
                 <EmptyDeckMessage viewMode="grid" /> 
               ) : (
                 <>
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {currentCards.map((card: Word) => (
-                      <div key={card.id} className="w-40 [perspective:1200px] cursor-pointer group" onClick={() => toggleGridCardFlip(card.id)}>
-                        <div className="relative h-48 w-full transition-transform duration-500 [transform-style:preserve-3d] rounded-lg" style={{ transform: flippedStates[card.id] ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
-                          {/* Grid Card Front */}
-                          <div className="absolute inset-0 bg-slate-800/60 flex flex-col items-center justify-center text-center p-2 rounded-lg border border-white/10 [backface-visibility:hidden]">
-                            <Button type="button" size="icon" variant="secondary" onClick={(e) => { e.stopPropagation(); toggleFav(card.id); }} className="absolute top-2 right-2 h-7 w-7 rounded-full bg-black/20 hover:bg-black/30 border-none" title={favs[card.id] ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
-                              <span className="text-md flex items-center justify-center w-full h-full">{favs[card.id] ? "⭐" : "☆"}</span>
-                            </Button>
-                              <div className="text-6xl font-semibold break-all px-2">{card.katakana}</div>
-                          </div>
-                          {/* Grid Card Back */}
-                          <div className="absolute inset-0 bg-slate-800/80 flex flex-col items-center justify-center text-center p-2 rounded-lg border border-white/10 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                                <div className="text-5xl font-semibold break-all">{card.furigana}</div>
-                                <div className="text-2xl mt-1">{card.emoji}</div>
-                                <div className="text-sm text-white/70 mt-1 text-center">{card.answer}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                    <GridCardView
+                        variant="chars" // ← 글자 모드
+                        cards={currentCards}
+                        favs={favs}
+                        flippedStates={flippedStates}
+                        onToggleFav={(id) => toggleFav(id as number)}
+                        onToggleCardFlip={toggleGridCardFlip}
+                        page={{
+                        current: currentPage,
+                        total: totalPages,
+                        onPrev: goToPrevPage,
+                        onNext: goToNextPage,
+                        }}
+                    />
                   {totalPages > 1 && (
                     <div className="mt-6 flex items-center justify-center gap-4 text-white">
                       <Button onClick={goToPrevPage} disabled={currentPage === 1} size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10">이전</Button>
