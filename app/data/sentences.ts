@@ -3,7 +3,7 @@
 export interface KanjiDetail {
   kanji: string;
   meaning: string;
-  descriptions: string[]; // ✨ 'descriptions' (복수형)가 올바른 속성명입니다.
+  descriptions: string[];
 }
 
 export interface Sentence {
@@ -17,6 +17,7 @@ export interface Sentence {
 }
 
 export const SENTENCES: Sentence[] = [
+  // 기존 문장 1-15
   {
     id: 1,
     sentence: "今日はいい天気ですね。",
@@ -129,7 +130,7 @@ export const SENTENCES: Sentence[] = [
     romaji: "sore wa omoshiroi desu ne.",
     translation: "그것은 재미있네요.",
     kanjiDetails: [
-        { kanji: '面白い', meaning: '재미있다', descriptions: ['흥미롭고 즐겁다'] },
+        { kanji: '面白', meaning: '재미있다', descriptions: ['흥미롭고 즐겁다'] },
     ],
   },
   {
@@ -152,7 +153,7 @@ export const SENTENCES: Sentence[] = [
     romaji: "otetsudai shimashō ka.",
     translation: "도와드릴까요?",
     kanjiDetails: [
-        { kanji: '手伝い', meaning: '도움', descriptions: ['남의 일을 거들어 주는 것'] },
+        { kanji: '手伝', meaning: '도움', descriptions: ['남의 일을 거들어 주는 것'] },
     ],
   },
   {
@@ -164,7 +165,7 @@ export const SENTENCES: Sentence[] = [
     translation: "고양이를 좋아합니다.",
     kanjiDetails: [
         { kanji: '猫', meaning: '고양이', descriptions: ['포유류의 한 종류'] },
-        { kanji: '好き', meaning: '좋아함', descriptions: ['마음에 들어 즐기는 마음'] },
+        { kanji: '好', meaning: '좋아함', descriptions: ['마음에 들어 즐기는 마음'] },
     ],
   },
   {
@@ -190,5 +191,168 @@ export const SENTENCES: Sentence[] = [
         { kanji: '趣味', meaning: '취미', descriptions: ['전문이 아닌 즐거움을 위해 하는 일'] },
     ],
   },
+  // --- ✨ 추가된 문장 16-30 ---
+  {
+    id: 16,
+    sentence: "図書館は静かです。",
+    reading: [{text:"図書館", furigana:"としょかん"}, "は", {text:"静", furigana:"しず"}, "かです。"],
+    furigana: "としょかんはしずかです。",
+    romaji: "toshokan wa shizuka desu.",
+    translation: "도서관은 조용합니다.",
+    kanjiDetails: [
+        { kanji: '図書館', meaning: '도서관', descriptions: ['책을 모아두고 빌려주는 곳'] },
+        { kanji: '静', meaning: '조용함', descriptions: ['소리가 나지 않아 잠잠한 상태'] },
+    ],
+  },
+  {
+    id: 17,
+    sentence: "これはいくらですか。",
+    reading: ["これはいくらですか。"],
+    furigana: "これはいくらですか。",
+    romaji: "kore wa ikura desu ka.",
+    translation: "이것은 얼마입니까?",
+    kanjiDetails: [],
+  },
+  {
+    id: 18,
+    sentence: "トイレはどこですか。",
+    reading: ["トイレはどこですか。"],
+    furigana: "トイレはどこですか。",
+    romaji: "toire wa doko desu ka.",
+    translation: "화장실은 어디입니까?",
+    kanjiDetails: [],
+  },
+  {
+    id: 19,
+    sentence: "いただきます。",
+    reading: ["いただきます。"],
+    furigana: "いただきます。",
+    romaji: "itadakimasu.",
+    translation: "잘 먹겠습니다.",
+    kanjiDetails: [],
+  },
+  {
+    id: 20,
+    sentence: "ごちそうさまでした。",
+    reading: ["ごちそうさまでした。"],
+    furigana: "ごちそうさまでした。",
+    romaji: "gochisōsama deshita.",
+    translation: "잘 먹었습니다.",
+    kanjiDetails: [],
+  },
+  {
+    id: 21,
+    sentence: "始めましょう。",
+    reading: [{text:"始", furigana:"はじ"}, "めましょう。"],
+    furigana: "はじめましょう。",
+    romaji: "hajimemashō.",
+    translation: "시작합시다.",
+    kanjiDetails: [
+        { kanji: '始', meaning: '시작', descriptions: ['어떤 일이나 행동의 처음'] },
+    ],
+  },
+  {
+    id: 22,
+    sentence: "もう一度お願いします。",
+    reading: [{text:"一度", furigana:"いちど"}, {text:"願", furigana:"ねが"}, "いします。"],
+    furigana: "もういちどおねがいします。",
+    romaji: "mō ichido onegai shimasu.",
+    translation: "다시 한번 부탁합니다.",
+    kanjiDetails: [
+        { kanji: '一度', meaning: '한 번', descriptions: ['횟수가 하나임'] },
+        { kanji: '願', meaning: '부탁', descriptions: ['바라는 바를 청함'] },
+    ],
+  },
+  {
+    id: 23,
+    sentence: "ゆっくり話してください。",
+    reading: ["ゆっくり", {text:"話", furigana:"はな"}, "してください。"],
+    furigana: "ゆっくりはなしてください。",
+    romaji: "yukkuri hanashite kudasai.",
+    translation: "천천히 말해주세요.",
+    kanjiDetails: [
+        { kanji: '話', meaning: '말해', descriptions: ['생각이나 느낌을 말로 나타내다'] },
+    ],
+  },
+  {
+    id: 24,
+    sentence: "分かりましたか。",
+    reading: [{text:"分", furigana:"わ"}, "かりましたか。"],
+    furigana: "わかりましたか。",
+    romaji: "wakarimashita ka.",
+    translation: "알겠습니까?",
+    kanjiDetails: [
+        { kanji: '分', meaning: '앎', descriptions: ['내용을 이해함'] },
+    ],
+  },
+  {
+    id: 25,
+    sentence: "はい、分かりました。",
+    reading: ["はい、", {text:"分", furigana:"わ"}, "かりました。"],
+    furigana: "はい、わかりました。",
+    romaji: "hai, wakarimashita.",
+    translation: "네, 알겠습니다.",
+    kanjiDetails: [
+        { kanji: '分', meaning: '앎', descriptions: ['내용을 이해함'] },
+    ],
+  },
+  {
+    id: 26,
+    sentence: "いいえ、分かりません。",
+    reading: ["いいえ、", {text:"分", furigana:"わ"}, "かりません。"],
+    furigana: "いいえ、わかりません。",
+    romaji: "iie, wakarimasen.",
+    translation: "아니요, 모르겠습니다.",
+    kanjiDetails: [
+        { kanji: '分', meaning: '앎', descriptions: ['내용을 이해함'] },
+    ],
+  },
+  {
+    id: 27,
+    sentence: "傘を持っていますか。",
+    reading: [{text:"傘", furigana:"かさ"}, "を", {text:"持", furigana:"も"}, "っていますか。"],
+    furigana: "かさをもっていますか。",
+    romaji: "kasa o motte imasu ka.",
+    translation: "우산을 가지고 있습니까?",
+    kanjiDetails: [
+        { kanji: '傘', meaning: '우산', descriptions: ['비나 눈을 막기 위해 쓰는 물건'] },
+        { kanji: '持', meaning: '가지고', descriptions: ['손에 쥐거나 몸에 지니다'] },
+    ],
+  },
+  {
+    id: 28,
+    sentence: "電話番号は何番ですか。",
+    reading: [{text:"電話番号", furigana:"でんわばんごう"}, "は", {text:"何番", furigana:"なんばん"}, "ですか。"],
+    furigana: "でんわばんごうはなんばんですか。",
+    romaji: "denwa bangō wa nanban desu ka.",
+    translation: "전화번호는 몇 번입니까?",
+    kanjiDetails: [
+        { kanji: '電話番号', meaning: '전화번호', descriptions: ['전화를 걸기 위한 숫자 조합'] },
+        { kanji: '何番', meaning: '몇 번', descriptions: ['순서나 번호를 물을 때 사용'] },
+    ],
+  },
+  {
+    id: 29,
+    sentence: "水を一杯ください。",
+    reading: [{text:"水", furigana:"みず"}, "を", {text:"一杯", furigana:"いっぴ"}, "ください。"],
+    furigana: "みずをいっぱいください。",
+    romaji: "mizu o ippai kudasai.",
+    translation: "물 한 잔 주세요.",
+    kanjiDetails: [
+        { kanji: '水', meaning: '물', descriptions: ['생물이 살아가는 데 필수적인 액체'] },
+        { kanji: '一杯', meaning: '한 잔', descriptions: ['잔이나 그릇에 가득 찬 분량'] },
+    ],
+  },
+  {
+    id: 30,
+    sentence: "会議は三時からです。",
+    reading: [{text:"会議", furigana:"かいぎ"}, "は", {text:"三時", furigana:"さんじ"}, "からです。"],
+    furigana: "かいぎはさんじからです。",
+    romaji: "kaigi wa sanji kara desu.",
+    translation: "회의는 세 시부터입니다.",
+    kanjiDetails: [
+        { kanji: '会議', meaning: '회의', descriptions: ['어떤 문제에 대해 의논하는 모임'] },
+        { kanji: '三時', meaning: '세 시', descriptions: ['시간의 한 시점'] },
+    ],
+  },
 ];
-
