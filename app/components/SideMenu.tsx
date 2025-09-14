@@ -44,7 +44,7 @@ const menuConfig: MenuGroup[] = [
       { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "/icons/jp_word.png" },
       { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "/icons/jp_katakana.png" },
       { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
-      { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸", disabled: true },
+      { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
       { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: true },
     ],
   },
@@ -130,21 +130,29 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-
+                  {/* --- 메뉴 타이틀 영역 --- */}
                   <AccordionTrigger className="text-sm font-semibold text-slate-300 hover:no-underline hover:text-white disabled:opacity-50 px-2 py-3">
                     <MenuIcon icon={lang.icon} size={18} />
                     <span>{lang.language}</span>
                   </AccordionTrigger>
-
-
-                <AccordionContent className="pl-3 space-y-1">
+                  {/* --- 메뉴 아이템 목록 --- */}
+                <AccordionContent 
+                  className="
+                    pl-3 pr-1 pb-2 pt-0
+                    data-[state=open]:pt-3 
+                    data-[state=open]:border-t data-[state=open]:border-slate-800/60 
+                  "
+                >
+                  {/* --- 각 메뉴 아이템 --- */}
+                  <div className= "space-y-0">
                   {lang.items.map((item) => (
                       <Button
                         key={item.href}
                         variant="ghost"
                         disabled={item.disabled}
                         onClick={() => handleNavigate(item.href)}
-                        className={`w-full justify-start text-sm h-auto transition-all duration-200 p-3 ${
+                        className={`w-full p-3 inline-flex items-center gap-2 justify-end
+                          pr-3 sm:pr-8  ${
                           pathname === item.href
                             ? "bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10"
                             : "text-slate-400 hover:bg-slate-800 hover:text-white rounded-md"
@@ -155,6 +163,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                       </Button>
 
                   ))}
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             ))}
