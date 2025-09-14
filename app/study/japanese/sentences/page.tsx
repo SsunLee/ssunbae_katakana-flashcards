@@ -13,12 +13,12 @@ import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
-import { SentenceCardView } from "@/app/components/SentenceCardView"; // 새로 추가
+import { SentenceCardView } from "@/app/components/SentenceCardView";
 
 // 데이터/훅/상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
-import { SENTENCES, type Sentence } from "@/app/data/sentences"; // 새로 추가
+import { SENTENCES, type Sentence } from "@/app/data/sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { useAuthModal } from "@/app/context/AuthModalContext";
@@ -31,22 +31,15 @@ type ViewMode = "single" | "grid";
 export default function SentencesPage() {
   /** 고정값 */
   const initialDeck = SENTENCES;
-  const deckType = "sentences"; // deckType 변경
-  const pageLabel = "어려운 문장"; // 페이지 라벨 변경
-
+  const deckType = "sentences";
+  
   /** 사용자/모달 */
   const { user } = useAuth();
   const { open } = useAuthModal();
 
-  /** Firestore 연동 덱 상태 (즐겨찾기까지 포함) */
-  const {
-    deck,
-    setDeck,
-    favs,
-    toggleFav,
-    shuffleDeck,
-    resetDeckToInitial,
-  } = useStudyDeck<Sentence>({ user, deckType, initialDeck });
+  /** Firestore 연동 덱 상태 */
+  const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
+    useStudyDeck<Sentence>({ user, deckType, initialDeck });
 
   /** 뷰 상태 */
   const [index, setIndex] = useState(0);
@@ -57,12 +50,7 @@ export default function SentencesPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
-  const [fontSize, setFontSize] = useState(32); // 폰트 크기 상태 추가
-
-  /** 단어 생성 (AI) - 이 페이지에서는 비활성화하거나 문장 생성으로 변경 필요 */
-  const [topic, setTopic] = useState("일상회화");
-  const [wordCount, setWordCount] = useState<number>(5);
-  const [loadingImport, setLoadingImport] = useState(false);
+  const [sentenceFontSize, setSentenceFontSize] = useState(28);
 
   /** 그리드 카드 뒤집기 */
   const toggleGridCardFlip = (id: number) =>
@@ -85,17 +73,6 @@ export default function SentencesPage() {
 
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
-
-  /** AI 생성 기능 (주석 처리 또는 문장 생성으로 로직 변경 필요) */
-  async function importSentences(topic: string, count: number) {
-    alert("문장 생성 기능은 아직 구현되지 않았습니다.");
-    // setLoadingImport(true);
-    // try {
-    //   const newDeck = await fetchGeneratedSentences(topic, count);
-    //   setDeck(newDeck);
-    //   ...
-    // }
-  }
 
   /** 단일 카드 조작 */
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
@@ -123,22 +100,11 @@ export default function SentencesPage() {
   };
 
   /** 음성(TTS) */
-  const {
-    isSupported: isTtsSupported,
-    ready: ttsReady,
-    speakJa,
-    selectedVoice,
-    voices,
-    selectVoice,
-    isSafari,
-  } = useJaSpeech();
+  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
 
   /** 현재 카드 & 폰트 */
   const current = studyDeck[index] ?? null;
-  const fontStack = useMemo(
-    () => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"],
-    [fontFamily]
-  );
+  const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"], [fontFamily]);
 
   /** 키보드 단축키 */
   useEffect(() => {
@@ -176,7 +142,7 @@ export default function SentencesPage() {
               size="sm"
               variant="outline"
               className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => speakJa(current?.sentence || "")}
+              onClick={() => speakJa(current?.furigana || "")}
               disabled={!ttsReady || !current}
             >
               🔊 듣기 (문장)
@@ -194,13 +160,9 @@ export default function SentencesPage() {
             isSafari={isSafari}
             fontFamily={fontFamily}
             setFontFamily={setFontFamily}
-            topic={topic}
-            setTopic={setTopic}
-            wordCount={wordCount}
-            setWordCount={setWordCount}
-            loadingImport={loadingImport}
-            importWordsFromServer={importSentences} // 함수 교체
             resetDeck={reset}
+            sentenceFontSize={sentenceFontSize}
+            setSentenceFontSize={setSentenceFontSize}
           />
         </div>
       )}
@@ -211,47 +173,42 @@ export default function SentencesPage() {
             <EmptyDeckMessage viewMode="single" />
           ) : (
             current && (
-              <SentenceCardView // SingleCardView를 SentenceCardView로 교체
+              <SentenceCardView
                 key={current.id}
                 card={current}
                 isFlipped={flipped}
                 isFav={!!favs[current.id]}
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
+                sentenceFontSize={sentenceFontSize}
               />
             )
           )
         ) : (
-          <>
-            {studyDeck.length === 0 ? (
-              <EmptyDeckMessage viewMode="grid" />
+            studyDeck.length === 0 ? (
+                <EmptyDeckMessage viewMode="grid" />
             ) : (
-                // GridCardView는 단어에 최적화되어 있으므로, 문장용 variant를 추가하거나
-                // 간단하게 문장만 표시하도록 수정이 필요할 수 있습니다.
-              <GridCardView
-                variant="words" // 'sentences' variant가 없으므로 'words'로 변경하여 타입 오류 해결
-                cards={currentCards.map(c => ({
-                  id: c.id,
-                  // GridCardView의 `cards` prop은 `Word` 타입 객체를 기대합니다.
-                  // `Sentence` 타입의 데이터를 `Word` 타입의 구조로 매핑해줍니다.
-                  katakana: c.sentence, // `katakana`는 카드 앞면의 주 텍스트로 사용됩니다.
-                  furigana: c.furigana,   // `furigana`는 보조 텍스트로 사용됩니다.
-                  answer: c.translation,  // `answer`는 카드 뒷면의 텍스트로 사용됩니다.
-                  emoji: '文',             // `emoji` 속성이 필요하므로 기본값을 추가합니다.
-                }))}
-                favs={favs}
-                flippedStates={flippedStates}
-                onToggleFav={(id) => toggleFav(id as number)}
-                onToggleCardFlip={toggleGridCardFlip}
-                page={{
-                  current: currentPage,
-                  total: totalPages,
-                  onPrev: goToPrevPage,
-                  onNext: goToNextPage,
-                }}
-              />
-            )}
-          </>
+                <GridCardView
+                    variant="words"
+                    cards={currentCards.map((c) => ({
+                        id: c.id,
+                        katakana: c.sentence,
+                        furigana: c.furigana,
+                        answer: c.translation,
+                        emoji: '📄',
+                    }))}
+                    favs={favs}
+                    flippedStates={flippedStates}
+                    onToggleFav={(id) => toggleFav(id as number)}
+                    onToggleCardFlip={toggleGridCardFlip}
+                    page={{
+                        current: currentPage,
+                        total: totalPages,
+                        onPrev: goToPrevPage,
+                        onNext: goToNextPage,
+                    }}
+                />
+            )
         )}
       </main>
 
@@ -290,15 +247,14 @@ export default function SentencesPage() {
 
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-          <li>카드 뒷면의 한자에 마우스를 올리면 뜻과 예문을 볼 수 있습니다.</li>
-          <li>설정(⚙️)에서 폰트, TTS 음성을 변경할 수 있습니다.</li>
+        <li>⚙️설정에서 TTS Voice, Font, 문장 폰트 크기를 조절할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
       </footer>
 
       <div className="mt-4 text-center">
         <span className="text-white/40 text-xs">
-          문장 공부 v{APP_VERSION}{" "}
+          일본어 공부 v{APP_VERSION}{" "}
           <a
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
             target="_blank"
@@ -312,5 +268,4 @@ export default function SentencesPage() {
     </div>
   );
 }
-
 

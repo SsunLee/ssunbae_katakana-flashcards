@@ -44,7 +44,7 @@ const menuConfig: MenuGroup[] = [
       { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "/icons/jp_word.png" },
       { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "/icons/jp_katakana.png" },
       { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
-      { href: "/study/japanese/sentences", label: "일본어 문장 공부(개발 중)", icon: "🌸" },
+      { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
       { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: true },
     ],
   },
