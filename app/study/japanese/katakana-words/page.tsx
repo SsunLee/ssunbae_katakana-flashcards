@@ -1,155 +1,198 @@
 // app/study/japanese/katakana-words/page.tsx
-'use client';
+"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useAuth } from '@/app/AuthContext';
-import { SettingsDialog } from '@/app/components/SettingsDialog';
+import { useAuth } from "@/app/AuthContext";
+
+// UI
+import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { Button } from "@/app/components/ui/button";
 import { Switch } from "@/app/components/ui/switch";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
 import { SingleCardView } from "@/app/components/SingleCardView";
-import { GridCardView } from "@/app/components/GridCardView";  // ★ 추가
-import { type Word } from '@/app/data/words';
-import { useJaSpeech } from '@/app/hooks/useJaSpeech';
-import { useFlashcardDeck } from '@/app/hooks/useFlashcardDeck';
-// import { kanaToRomaji } from '@/app/utils/kana'; // ✂️ 삭제
+import { GridCardView } from "@/app/components/GridCardView";
+import CardControls from "@/app/components/controls/CardControls";
+import { WelcomeBanner } from "@/app/components/WelcomeBanner";
+import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+
+
+// 데이터/훅/상수
+import { useJaSpeech } from "@/app/hooks/useJaSpeech";
+import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
-import { generateRandomNickname } from '@/app/utils/nickname';
-import { APP_VERSION } from '@/app/constants/appConfig';
+import { generateRandomNickname } from "@/app/utils/nickname";
+import { APP_VERSION } from "@/app/constants/appConfig";
 import { fetchGeneratedWords } from "@/app/services/wordService";
-import { WORDS as KATAKANA_WORDS } from '@/app/data/words';
-import { useAuthModal } from '@/app/context/AuthModalContext';
+import { useAuthModal } from "@/app/context/AuthModalContext";
+
+/** 페이지 공통 상수/타입 */
+const CARDS_PER_PAGE = 10 as const;
+type ViewMode = "single" | "grid";
 
 export default function KatakanaWordsPage() {
-  const { open, setPage } = useAuthModal();
+  /** 고정값 */
   const initialDeck = KATAKANA_WORDS;
-  const deckType = 'katakana-words';
+  const deckType = "katakana-words";
+  const pageLabel = "가타카나 단어";
+
+  /** 사용자/모달 */
   const { user } = useAuth();
+  const { open } = useAuthModal();
 
+  /** Firestore 연동 덱 상태 (즐겨찾기까지 포함) */
   const {
-    deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial,
-  } = useFlashcardDeck({ user, deckType, initialDeck });
+    deck,
+    setDeck,
+    favs,
+    toggleFav,
+    shuffleDeck,
+    resetDeckToInitial,
+  } = useStudyDeck<Word>({ user, deckType, initialDeck });
 
+  /** 뷰 상태 */
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [guestNickname] = useState(() => generateRandomNickname());
-  // const [filters, setFilters] = useState({ gojuon: true, dakuten: true, handakuten: false, yoon: false }); // (현재 미사용이면 유지 or 제거)
-  const [topic, setTopic] = useState('여행');
-  const [wordCount, setWordCount] = useState<number>(10);
-  const [viewMode, setViewMode] = useState<'single' | 'grid'>('single');
-  const [flippedStates, setFlippedStates] = useState<Record<number | string, boolean>>({});
+  const [viewMode, setViewMode] = useState<ViewMode>("single");
+  const [flippedStates, setFlippedStates] = useState<Record<number, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
-  const CARDS_PER_PAGE = 10;
-  const [loadingImport, setLoadingImport] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [onlyFavs, setOnlyFavs] = useState<boolean>(false);
-  const [fontFamily, setFontFamily] = useState<string>('Noto Sans JP');
+  const [onlyFavs, setOnlyFavs] = useState(false);
+  const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
 
-  const toggleGridCardFlip = (cardId: number | string) =>
-    setFlippedStates(prev => ({ ...prev, [cardId]: !prev[cardId] }));
+  /** 단어 생성 (AI) */
+  const [topic, setTopic] = useState("여행");
+  const [wordCount, setWordCount] = useState<number>(10);
+  const [loadingImport, setLoadingImport] = useState(false);
 
+  /** 그리드 카드 뒤집기 */
+  const toggleGridCardFlip = (id: number) =>
+    setFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  /** 즐겨찾기 필터 적용된 학습 덱 */
   const studyDeck = useMemo(() => {
-    const baseDeck = deck;
-    return onlyFavs ? baseDeck.filter((w: Word) => favs[w.id]) : baseDeck;
+    return onlyFavs ? deck.filter((w) => favs[w.id]) : deck;
   }, [deck, onlyFavs, favs]);
 
-  const { currentCards, totalPages } = useMemo(() => ({
-    currentCards: studyDeck.slice((currentPage - 1) * CARDS_PER_PAGE, currentPage * CARDS_PER_PAGE),
-    totalPages: Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1,
-  }), [currentPage, studyDeck]);
+  /** 그리드 페이징 계산 */
+  const { currentCards, totalPages } = useMemo(() => {
+    const total = Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1;
+    const start = (currentPage - 1) * CARDS_PER_PAGE;
+    return {
+      currentCards: studyDeck.slice(start, start + CARDS_PER_PAGE),
+      totalPages: total,
+    };
+  }, [currentPage, studyDeck]);
 
-  const goToNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
-  const goToPrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+  const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
+  const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
 
+  /** 서버에서 단어 가져오기 */
   async function importWords(topic: string, count: number) {
     setLoadingImport(true);
     try {
       const newDeck = await fetchGeneratedWords(topic, count);
       setDeck(newDeck);
+      // 학습 포인터 초기화
       setIndex(0);
       setFlipped(false);
       setFlippedStates({});
       setCurrentPage(1);
       alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 불러왔습니다!`);
     } catch {
-      alert('단어 불러오기에 실패했습니다. 다시 시도해주세요.');
+      alert("단어 불러오기에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setLoadingImport(false);
     }
   }
 
-  const onFlip = useCallback(() => setFlipped(f => !f), []);
+  /** 단일 카드 조작 */
+  const onFlip = useCallback(() => setFlipped((f) => !f), []);
   const next = useCallback(() => {
-    setIndex(i => (i + 1) % Math.max(1, studyDeck.length));
-    setFlipped(false);
+    setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
+    setFlipped(false); // 잔상 방지
   }, [studyDeck.length]);
   const prev = useCallback(() => {
-    setIndex(i => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
+    setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
     setFlipped(false);
   }, [studyDeck.length]);
 
-  const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
-  const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
+  /** 덱 조작 */
+  const shuffle = () => {
+    shuffleDeck();
+    setIndex(0);
+    setFlipped(false);
+  };
+  const reset = () => {
+    resetDeckToInitial();
+    setIndex(0);
+    setFlipped(false);
+    setFlippedStates({});
+    setCurrentPage(1);
+  };
 
+  /** 음성(TTS) */
   const {
-    isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari
+    isSupported: isTtsSupported,
+    ready: ttsReady,
+    speakJa,
+    selectedVoice,
+    voices,
+    selectVoice,
+    isSafari,
   } = useJaSpeech();
 
+  /** 현재 카드 & 폰트 */
   const current = studyDeck[index] ?? null;
-  const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"], [fontFamily]);
+  const fontStack = useMemo(
+    () => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"],
+    [fontFamily]
+  );
 
+  /** 키보드 단축키 */
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
-      if (viewMode === "single") {
-        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onFlip(); }
-        if (event.key === "ArrowRight") next();
-        if (event.key === "ArrowLeft") prev();
-      }
+    const handler = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (viewMode !== "single") return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onFlip();
+      } else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
-      {/* Header and Banners */}
-      <header className="w-full max-w-md max-auto mb-6">
-        <div className="text-sm text-white/80 bg-slate-800/50 border border-white/10 rounded-lg p-4 text-center">
-          <p>
-            <strong>{user?.nickname || guestNickname}</strong>님, 환영합니다!
-            <br />
-            아래 카드를 클릭하여 가타카나 학습을 시작하세요.
-          </p>
-        </div>
+    <div
+      className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6"
+      style={{ fontFamily: fontStack }}
+    >
+      {/* 환영 배너 */}
+      <header className="w-full max-w-md mx-auto mb-6">
+            <WelcomeBanner
+              name={user?.nickname || guestNickname}
+              subtitle={`아래 카드를 클릭하여 ${pageLabel} 학습을 시작하세요.`}
+            />
       </header>
 
+      {/* 비로그인 안내 카드 */}
       {!user && (
-        <div className="w-full max-w-md mx-auto p-4 mb-6 bg-slate-800/50 border border-white/10 rounded-lg text-sm">
-          <p className="font-semibold text-white">로그인하고 더 많은 기능을 이용해보세요! (무료)</p>
-          <ul className="list-disc list-inside text-white/80 mt-2 space-y-1">
-            <li>나만의 단어장 클라우드 저장</li>
-            <li>즐겨찾기 목록 동기화</li>
-            <li>여러 장 모아보기 & 단어 생성 기능</li>
-            <li>Open AI 를 이용한 AI 단어 가져오기</li>
-          </ul>
-          <Button
-            size="sm"
-            onClick={() => { setPage("login"); open(); }}
-            className="w-full text-white/100 mt-4 bg-blue-600 hover:bg-blue-500"
-          >
-            <span className="font-bold">로그인 / 회원가입</span>
-          </Button>
-        </div>
+          <LoginPromptCard
+            onLoginClick={() => open("login")}  // 기존 setPage+open 대신 한 줄
+            // 필요 시 features, title, ctaLabel 커스터마이즈 가능
+          />
       )}
 
-      {/* Top Controls */}
+      {/* 상단 컨트롤: 진행률 / 듣기 / 설정 */}
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
           <span className="text-white/70">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
+
           {isTtsSupported && (
             <Button
               size="sm"
@@ -161,6 +204,7 @@ export default function KatakanaWordsPage() {
               🔊 듣기 (ふりがな)
             </Button>
           )}
+
           <SettingsDialog
             open={showSettings}
             onOpenChange={setShowSettings}
@@ -173,18 +217,20 @@ export default function KatakanaWordsPage() {
             isSafari={isSafari}
             fontFamily={fontFamily}
             setFontFamily={setFontFamily}
+            // AI 단어 생성
             topic={topic}
             setTopic={setTopic}
             wordCount={wordCount}
             setWordCount={setWordCount}
             loadingImport={loadingImport}
             importWordsFromServer={importWords}
+            // 저장본 복원
             resetDeck={reset}
           />
         </div>
       )}
 
-      {/* Main Content Area */}
+      {/* 메인 카드 영역 */}
       <main className="w-full max-w-5xl select-none">
         {viewMode === "single" ? (
           studyDeck.length === 0 ? (
@@ -192,7 +238,7 @@ export default function KatakanaWordsPage() {
           ) : (
             current && (
               <SingleCardView
-                key={current.id}
+                key={current.id} // 카드 교체 시 애니메이션 꼬임 방지
                 card={current}
                 deckType={deckType}
                 isFlipped={flipped}
@@ -208,7 +254,7 @@ export default function KatakanaWordsPage() {
               <EmptyDeckMessage viewMode="grid" />
             ) : (
               <GridCardView
-                variant="words"              
+                variant="words"
                 cards={currentCards}
                 favs={favs}
                 flippedStates={flippedStates}
@@ -226,57 +272,21 @@ export default function KatakanaWordsPage() {
         )}
       </main>
 
-      {/* Bottom Controls */}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
-        {viewMode === "single" && (
-          <>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={prev}
-            >
-              <ChevronLeft className="mr-1 h-4 w-4" />
-              이전
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={next}
-            >
-              다음
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={shuffle}
-              title="카드를 섞습니다"
-            >
-              섞기
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={reset}
-              title="처음 상태로 되돌립니다"
-            >
-              리셋
-            </Button>
-          </>
-        )}
-      </div>
+      {/* 하단 컨트롤(단일 카드 모드) */}
+      {viewMode === "single" && (
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+          <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
+        </div>
+      )}
 
+      {/* 보기 전환 & Only Favs */}
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
           <Button
             variant="outline"
             className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => {
-              setViewMode((prev) => (prev === "single" ? "grid" : "single"));
+              setViewMode((p) => (p === "single" ? "grid" : "single"));
               setFlipped(false);
             }}
           >
@@ -297,7 +307,7 @@ export default function KatakanaWordsPage() {
         </label>
       </div>
 
-      {/* Footer */}
+      {/* 안내/버전 */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
@@ -306,10 +316,9 @@ export default function KatakanaWordsPage() {
         </ul>
       </footer>
 
-      {/* Version Info */}
       <div className="mt-4 text-center">
         <span className="text-white/40 text-xs">
-          가타카나 공부 v{APP_VERSION} |
+          가타카나 공부 v{APP_VERSION}{" "}
           <a
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
             target="_blank"
