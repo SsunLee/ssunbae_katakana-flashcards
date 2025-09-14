@@ -1,54 +1,64 @@
 // app/components/FuriganaText.tsx
 "use client";
 
-import React from "react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
-import type { FuriPart} from "@/app/data/sentences";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/app/components/ui/tooltip";
+import { type Sentence } from "@/app/data/sentences";
 
-export function joinSurface(parts: FuriPart[]) {
-    return parts.map(p => p.text).join('');
+type FuriganaTextProps = {
+  reading: Sentence["reading"];
+  kanjiDetails: Sentence["kanjiDetails"];
+};
+
+// ruby 태그와 툴팁을 사용하여 후리가나 텍스트를 렌더링하는 컴포넌트
+export function FuriganaText({ reading, kanjiDetails }: FuriganaTextProps) {
+  // 한자(kanji)를 키로 사용하여 KanjiDetail 객체에 빠르게 접근할 수 있는 맵을 생성합니다.
+  const kanjiMap = new Map(kanjiDetails.map((kd) => [kd.kanji, kd]));
+
+  return (
+    <TooltipProvider delayDuration={100}>
+      <div className="flex flex-wrap items-end justify-center">
+        {reading.map((segment, index) => {
+          // 후리가나가 있는 세그먼트(한자)인 경우
+          if (segment.furigana) {
+            const detail = kanjiMap.get(segment.text);
+            return (
+              <Tooltip key={index}>
+                <TooltipTrigger asChild>
+                  <ruby className="cursor-pointer hover:text-sky-300 transition-colors mx-0.5">
+                    {segment.text}
+                    <rt className="text-sm select-none">{segment.furigana}</rt>
+                  </ruby>
+                </TooltipTrigger>
+                {/* 툴팁 내용 */}
+                {detail && (
+                  <TooltipContent
+                    side="bottom"
+                    className="bg-slate-900 border-sky-500/50 text-white"
+                  >
+                    <div className="p-2 text-left">
+                      <p className="text-lg font-bold">
+                        {detail.kanji} : {detail.meaning} ({detail.reading})
+                      </p>
+                      <ul className="mt-2 list-disc pl-5 space-y-1">
+                        {detail.examples.map((ex, i) => (
+                          <li key={i}>{ex}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            );
+          }
+          // 후리가나가 없는 일반 텍스트 세그먼트
+          return <span key={index}>{segment.text}</span>;
+        })}
+      </div>
+    </TooltipProvider>
+  );
 }
-
-export function FuriganaText({
-    parts,
-    withTooltips  = false,
-    className = "",
-}: { parts: FuriPart[]; withTooltips ?: boolean; className?: string }) {
-    return (
-        <div className={`flex flex-wrap justify-center gap-x-1 ${className}`}>
-             {parts.map((p, i) => {
-                const ruby = (
-                <ruby className="leading-[1.15]">
-                    <span className="align-middle">{p.text}</span>
-                    {p.rt && <rt className="block text-sm text-white/70 -mt-1">{p.rt}</rt>}
-                </ruby>
-                );
-
-                if (withTooltips  && p.rt && p.gloss && p.gloss.length > 0) {
-                    // 카드 뒷면에서만 툴팁
-                    return (
-                        <HoverCard key={i} openDelay={120} closeDelay={80}>
-                            <HoverCardTrigger asChild>
-                                <span 
-                                    onClick={(e) => e.stopPropagation() } // 클릭 이벤트 전파 방지
-                                    className="cursor-help inline-block px-1 rounded hover:bg-white/10"
-                                    >
-                                    {ruby}
-                                </span>
-                            </HoverCardTrigger>
-                            <HoverCardContent 
-                                onClick={(e) => e.stopPropagation() } // 클릭 이벤트 전파 방지
-                                className="w-64 bg-slate-900/95 border-white/10 text-white">
-                                    <div className="text-lg font-semibold mb-1">{p.text} ・ {p.gloss[0]}</div>
-                                    <ol className="list-decimal list-inside space-y-1 text-sm text-white/80">
-                                    {p.gloss.slice(1).map((g, idx) => <li key={idx}>{g}</li>)}
-                                    </ol>
-                            </HoverCardContent>
-                        </HoverCard>
-                    ); // return
-                }
-                return <span key={i} className="px-5">{ruby}</span>;
-            })}
-        </div>
-    ); // return
- } // FuriganaText

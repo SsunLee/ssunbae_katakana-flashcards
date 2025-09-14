@@ -1,113 +1,486 @@
 // app/data/sentences.ts
 
-export type FuriPart = {
-  /** 표면 문자(칸지/가나 조각) */
-  text: string;
-  /** 칸지일 때만: 위에 얹을 히라가나 */
-  rt?: string;
-  /** 툴팁 설명: [제목, 설명1, 설명2, ...] */
-  gloss?: string[];
-};
+// 한자 툴팁에 표시될 정보 타입
+export interface KanjiDetail {
+  kanji: string; // 한자
+  reading: string; // 읽는 법 (히라가나)
+  meaning: string; // 대표 뜻 (예: '원할 원')
+  examples: string[]; // 뜻 풀이 또는 예문 배열
+}
 
-export type SentenceCard = {
-  id: number;            // 고유 ID
-  parts: FuriPart[];     // 문장 구성(칸지만 rt/gloss)
-  romaji: string;        // 로마자
-};
+// 문장 카드 데이터 타입
+export interface Sentence {
+  id: number;
+  sentence: string; // 한자가 포함된 원본 문장 (카드 앞면)
+  // [ { text: '漢字', furigana: 'かんじ' }, { text: 'の' } ] 형식
+  // furigana가 있으면 ruby 태그로, 없으면 일반 텍스트로 렌더링됩니다.
+  reading: { text: string; furigana?: string }[];
+  furigana: string; // 문장 전체의 후리가나 (카드 뒷면)
+  translation: string; // 한글 번역 (카드 뒷면)
+  kanjiDetails: KanjiDetail[]; // 문장에 포함된 한자 상세 정보 배열
+}
 
-export const JP_SENTENCES: SentenceCard[] = [
+// 초기 학습 데이터
+export const SENTENCES: Sentence[] = [
   {
     id: 1,
-    parts: [
-      { text: "お" },
-      { text: "願", rt: "ねが", gloss: ["願 · 원할 원", "원하다(願-), 바라다", "(소원을) 빌다, 기원하다", "마음에 품다"] },
-      { text: "いします" },
+    sentence: "ご注文は以上でよろしかったでしょうか。",
+    reading: [
+      { text: "注", furigana: "ちゅう" },
+      { text: "文", furigana: "もん" },
+      { text: "は" },
+      { text: "以", furigana: "い" },
+      { text: "上", furigana: "じょう" },
+      { text: "でよろしかったでしょうか。" },
     ],
-    romaji: "onegaishimasu",
+    furigana: "ちゅうもんはいじょうでよろしかったでしょうか。",
+    translation: "주문은 이상으로 괜찮으신가요?",
+    kanjiDetails: [
+      {
+        kanji: "注",
+        reading: "ちゅう",
+        meaning: "부을 주",
+        examples: [
+          "1. 붓다, 따르다",
+          "2. 집중하다 (例: 注意, ちゅうい)",
+          "3. 기록하다, 쓰다",
+        ],
+      },
+      {
+        kanji: "文",
+        reading: "もん",
+        meaning: "글월 문",
+        examples: [
+          "1. 글, 문장 (例: 文章, ぶんしょう)",
+          "2. 학문, 지식",
+          "3. 주문 (例: 注文, ちゅうもん)",
+        ],
+      },
+      {
+        kanji: "以",
+        reading: "い",
+        meaning: "써 이",
+        examples: ["1. ~로써, ~부터", "2. 기준점을 나타냄 (例: 以上, いじょう)"],
+      },
+      {
+        kanji: "上",
+        reading: "じょう",
+        meaning: "윗 상",
+        examples: [
+          "1. 위, 윗부분 (うえ)",
+          "2. 정도가 높음 (例: 上手, じょうず)",
+          "3. 어떤 범위의 끝 (例: 以上, いじょう)",
+        ],
+      },
+    ],
   },
   {
     id: 2,
-    parts: [{ text: "ありがとう" }, { text: "ございます" }],
-    romaji: "arigatou gozaimasu",
+    sentence: "誠に申し訳ございませんが、ただいま満席でございます。",
+    reading: [
+      { text: "誠", furigana: "まこと" },
+      { text: "に" },
+      { text: "申", furigana: "もう" },
+      { text: "し" },
+      { text: "訳", furigana: "わけ" },
+      { text: "ございませんが、ただいま" },
+      { text: "満", furigana: "まん" },
+      { text: "席", furigana: "せき" },
+      { text: "でございます。" },
+    ],
+    furigana:
+      "まことにもうしわけございませんが、ただいままんせきでございます。",
+    translation: "대단히 죄송합니다만, 지금 만석입니다.",
+    kanjiDetails: [
+      {
+        kanji: "誠",
+        reading: "まこと",
+        meaning: "정성 성",
+        examples: ["1. 진실, 사실", "2. 정성, 성의"],
+      },
+      {
+        kanji: "申",
+        reading: "もう",
+        meaning: "펼 신",
+        examples: ["1. 말하다의 겸양어 (申す, もうす)", "2. 신청하다"],
+      },
+      {
+        kanji: "訳",
+        reading: "わけ",
+        meaning: "번역할 역",
+        examples: ["1. 이유, 까닭", "2. 의미, 뜻", "3. 변명, 해명 (言い訳, いいわけ)"],
+      },
+      {
+        kanji: "満",
+        reading: "まん",
+        meaning: "찰 만",
+        examples: ["1. 가득 참", "2. 만족하다 (満足, まんぞく)"],
+      },
+      {
+        kanji: "席",
+        reading: "せき",
+        meaning: "자리 석",
+        examples: ["1. 앉는 자리", "2. 출석 (出席, しゅっせき)"],
+      },
+    ],
   },
   {
     id: 3,
-    parts: [{ text: "大丈夫", rt: "だいじょうぶ", gloss: ["大丈夫 · 괜찮다", "문제없음/멀쩡함을 뜻함"] }, { text: "です" }],
-    romaji: "daijoubu desu",
+    sentence: "お会計はご一緒でよろしいですか。",
+    reading: [
+      { text: "お" },
+      { text: "会", furigana: "かい" },
+      { text: "計", furigana: "けい" },
+      { text: "はご" },
+      { text: "一", furigana: "いっ" },
+      { text: "緒", furigana: "しょ" },
+      { text: "でよろしいですか。" },
+    ],
+    furigana: "おかいけいはごいっしょでよろしいですか。",
+    translation: "계산은 함께 해드릴까요?",
+    kanjiDetails: [
+      {
+        kanji: "会",
+        reading: "かい",
+        meaning: "모일 회",
+        examples: ["1. 만나다 (会う, あう)", "2. 모임 (会議, かいぎ)", "3. 회계 (会計, かいけい)"],
+      },
+      {
+        kanji: "計",
+        reading: "けい",
+        meaning: "셀 계",
+        examples: ["1. 세다, 측정하다 (計る, はかる)", "2. 계획 (計画, けいかく)"],
+      },
+      {
+        kanji: "一",
+        reading: "いっ",
+        meaning: "한 일",
+        examples: ["1. 하나 (ひとつ)", "2. 함께 (一緒, いっしょ)"],
+      },
+      {
+        kanji: "緒",
+        reading: "しょ",
+        meaning: "실마리 서",
+        examples: ["1. 감정 (情緒, じょうちょ)", "2. 내정 (内緒, ないしょ)"],
+      },
+    ],
   },
   {
     id: 4,
-    parts: [{ text: "初", rt: "はじ", gloss: ["初 · 처음 초", "처음/첫- 을 뜻함"] }, { text: "めまして" }],
-    romaji: "hajimemashite",
+    sentence: "この度は誠にありがとうございました。",
+    reading: [
+      { text: "この" },
+      { text: "度", furigana: "たび" },
+      { text: "は" },
+      { text: "誠", furigana: "まこと" },
+      { text: "にありがとうございました。" },
+    ],
+    furigana: "このたびはまことにありがとうございました。",
+    translation: "이번에는 정말 감사했습니다.",
+    kanjiDetails: [
+      {
+        kanji: "度",
+        reading: "たび",
+        meaning: "법도 도",
+        examples: ["1. ~번, ~회 (例: 一度, いちど)", "2. 때, 경우 (この度, このたび)"],
+      },
+      {
+        kanji: "誠",
+        reading: "まこと",
+        meaning: "정성 성",
+        examples: ["1. 진실, 사실", "2. 정성, 성의"],
+      },
+    ],
   },
   {
     id: 5,
-    parts: [{ text: "駅", rt: "えき", gloss: ["駅 · 역", "기차역"] }, { text: "はどこですか" }],
-    romaji: "eki wa doko desu ka",
+    sentence: "電車が遅延しております。",
+    reading: [
+      { text: "電", furigana: "でん" },
+      { text: "車", furigana: "しゃ" },
+      { text: "が" },
+      { text: "遅", furigana: "ち" },
+      { text: "延", furigana: "えん" },
+      { text: "しております。" },
+    ],
+    furigana: "でんしゃがちえんしております。",
+    translation: "전철이 지연되고 있습니다.",
+    kanjiDetails: [
+      {
+        kanji: "電",
+        reading: "でん",
+        meaning: "번개 전",
+        examples: ["1. 전기 (電気, でんき)", "2. 전차 (電車, でんしゃ)"],
+      },
+      {
+        kanji: "車",
+        reading: "しゃ",
+        meaning: "수레 차",
+        examples: ["1. 자동차 (車, くるま)", "2. 자전거 (自転車, じてんしゃ)"],
+      },
+      {
+        kanji: "遅",
+        reading: "ち",
+        meaning: "더딜 지",
+        examples: ["1. 늦다 (遅れる, おくれる)", "2. 느리다 (遅い, おそい)"],
+      },
+      {
+        kanji: "延",
+        reading: "えん",
+        meaning: "끌 연",
+        examples: ["1. 연장하다 (延長, えんちょう)", "2. 연기하다 (延期, えんき)"],
+      },
+    ],
   },
   {
     id: 6,
-    parts: [{ text: "トイレ" }, { text: "はどこですか" }],
-    romaji: "toire wa doko desu ka",
+    sentence: "道に迷ってしまいました。",
+    reading: [{ text: "道", furigana: "みち" }, { text: "に" }, { text: "迷", furigana: "まよ" }, { text: "ってしまいました。" }],
+    furigana: "みちにまよってしまいました。",
+    translation: "길을 잃어버렸습니다.",
+    kanjiDetails: [
+      {
+        kanji: "道",
+        reading: "みち",
+        meaning: "길 도",
+        examples: ["1. 길, 도로", "2. 방법 (方法, ほうほう)", "3. 유도 (柔道, じゅうどう)"],
+      },
+      {
+        kanji: "迷",
+        reading: "まよ",
+        meaning: "미혹할 미",
+        examples: ["1. 헤매다 (迷う, まよう)", "2. 미로 (迷路, めいろ)", "3. 폐, 민폐 (迷惑, めいわく)"],
+      },
+    ],
   },
   {
     id: 7,
-    parts: [
-      { text: "写", rt: "しゃ", gloss: ["写 · 베낄 사", "복사/비추다의 뜻"] },
-      { text: "真", rt: "しん", gloss: ["真 · 참 진", "참됨/진실"] },
+    sentence: "お名前と電話番号を教えていただけますか。",
+    reading: [
+      { text: "お" },
+      { text: "名", furigana: "な" },
+      { text: "前", furigana: "まえ" },
+      { text: "と" },
+      { text: "電", furigana: "でん" },
+      { text: "話", furigana: "わ" },
+      { text: "番", furigana: "ばん" },
+      { text: "号", furigana: "ごう" },
       { text: "を" },
-      { text: "撮", rt: "と", gloss: ["撮 · 찍다", "사진을 찍다(撮る)"] },
-      { text: "ってもいいですか" },
+      { text: "教", furigana: "おし" },
+      { text: "えていただけますか。" },
     ],
-    romaji: "shashin wo totte mo ii desu ka",
+    furigana: "おなまえとでんわばんごうをおしえていただけますか。",
+    translation: "성함과 전화번호를 알려주시겠어요?",
+    kanjiDetails: [
+      { kanji: "名", reading: "な", meaning: "이름 명", examples: ["1. 이름 (名前, なまえ)", "2. 유명 (有名, ゆうめい)"] },
+      { kanji: "前", reading: "まえ", meaning: "앞 전", examples: ["1. 앞, 이전", "2. 오전 (午前, ごぜん)"] },
+      { kanji: "電", reading: "でん", meaning: "번개 전", examples: ["1. 전기 (電気, でんき)", "2. 전화 (電話, でんわ)"] },
+      { kanji: "話", reading: "わ", meaning: "말씀 화", examples: ["1. 이야기하다 (話す, はなす)", "2. 대화 (会話, かいわ)"] },
+      { kanji: "番", reading: "ばん", meaning: "차례 번", examples: ["1. 순서, 차례", "2. 번호 (番号, ばんごう)"] },
+      { kanji: "号", reading: "ごう", meaning: "이름 호", examples: ["1. 번호 (番号, ばんごう)", "2. 신호 (信号, しんごう)"] },
+      { kanji: "教", reading: "おし", meaning: "가르칠 교", examples: ["1. 가르치다 (教える, おしえる)", "2. 교육 (教育, きょういく)"] },
+    ],
   },
   {
     id: 8,
-    parts: [{ text: "ゆっくり" }, { text: "話", rt: "はな", gloss: ["話 · 말할 화", "대화/이야기"] }, { text: "してください" }],
-    romaji: "yukkuri hanashite kudasai",
+    sentence: "日本では地震が頻繁に発生します。",
+    reading: [
+      { text: "日", furigana: "に" },
+      { text: "本", furigana: "ほん" },
+      { text: "では" },
+      { text: "地", furigana: "じ" },
+      { text: "震", furigana: "しん" },
+      { text: "が" },
+      { text: "頻", furigana: "ひん" },
+      { text: "繁", furigana: "ぱん" },
+      { text: "に" },
+      { text: "発", furigana: "はっ" },
+      { text: "生", furigana: "せい" },
+      { text: "します。" },
+    ],
+    furigana: "にほんではじしんがひんぱんにはっせいします。",
+    translation: "일본에서는 지진이 빈번하게 발생합니다.",
+    kanjiDetails: [
+      { kanji: "日", reading: "に", meaning: "날 일", examples: ["1. 해, 날", "2. 일본 (日本, にほん)"] },
+      { kanji: "本", reading: "ほん", meaning: "근본 본", examples: ["1. 책", "2. 근본"] },
+      { kanji: "地", reading: "じ", meaning: "땅 지", examples: ["1. 땅", "2. 지진 (地震, じしん)"] },
+      { kanji: "震", reading: "しん", meaning: "벼락 진", examples: ["1. 흔들리다 (震える, ふるえる)", "2. 지진 (地震, じしん)"] },
+      { kanji: "頻", reading: "ひん", meaning: "자주 빈", examples: ["1. 빈번 (頻繁, ひんぱん)"] },
+      { kanji: "繁", reading: "ぱん", meaning: "번성할 번", examples: ["1. 번성하다", "2. 복잡하다"] },
+      { kanji: "発", reading: "はっ", meaning: "필 발", examples: ["1. 출발 (出発, しゅっぱつ)", "2. 발생 (発生, はっせい)"] },
+      { kanji: "生", reading: "せい", meaning: "날 생", examples: ["1. 살다 (生きる, いきる)", "2. 학생 (学生, がくせい)"] },
+    ],
   },
   {
     id: 9,
-    parts: [{ text: "病院", rt: "びょういん", gloss: ["病院 · 병원", "의료 기관"] }, { text: "はどこですか" }],
-    romaji: "byouin wa doko desu ka",
+    sentence: "健康のため、毎日運動した方がいいですよ。",
+    reading: [
+      { text: "健", furigana: "けん" },
+      { text: "康", furigana: "こう" },
+      { text: "のため、" },
+      { text: "毎", furigana: "まい" },
+      { text: "日", furigana: "にち" },
+      { text: "運", furigana: "うん" },
+      { text: "動", furigana: "どう" },
+      { text: "した" },
+      { text: "方", furigana: "ほう" },
+      { text: "がいいですよ。" },
+    ],
+    furigana: "けんこうのため、まいにちうんどうしたほうがいいですよ。",
+    translation: "건강을 위해 매일 운동하는 편이 좋아요.",
+    kanjiDetails: [
+      { kanji: "健", reading: "けん", meaning: "튼튼할 건", examples: ["1. 건강 (健康, けんこう)"] },
+      { kanji: "康", reading: "こう", meaning: "편안할 강", examples: ["1. 건강 (健康, けんこう)"] },
+      { kanji: "毎", reading: "まい", meaning: "매양 매", examples: ["1. 매일 (毎日, まいにち)", "2. 매주 (毎週, まいしゅう)"] },
+      { kanji: "日", reading: "にち", meaning: "날 일", examples: ["1. 하루, 날", "2. 일요일 (日曜日, にちようび)"] },
+      { kanji: "運", reading: "うん", meaning: "옮길 운", examples: ["1. 운 (運, うん)", "2. 운동 (運動, うんどう)"] },
+      { kanji: "動", reading: "どう", meaning: "움직일 동", examples: ["1. 움직이다 (動く, うごく)", "2. 동물 (動物, どうぶつ)"] },
+      { kanji: "方", reading: "ほう", meaning: "모 방", examples: ["1. 방향 (方向, ほうこう)", "2. ~편이 (～方がいい)"] },
+    ],
   },
   {
     id: 10,
-    parts: [
-      { text: "予", rt: "よ", gloss: ["予 · 미리 예", "사전/미리"] },
-      { text: "約", rt: "やく", gloss: ["約 · 약속할 약", "약속/예약"] },
+    sentence: "この荷物を預かっていただけませんか。",
+    reading: [
+      { text: "この" },
+      { text: "荷", furigana: "に" },
+      { text: "物", furigana: "もつ" },
       { text: "を" },
-      { text: "お" },
-      { text: "願", rt: "ねが", gloss: ["願 · 원할 원", "부탁/요청"] },
-      { text: "いします" },
+      { text: "預", furigana: "あず" },
+      { text: "かっていただけませんか。" },
     ],
-    romaji: "yoyaku wo onegaishimasu",
+    furigana: "このにもつをあずかっていただけませんか。",
+    translation: "이 짐을 맡아주시겠어요?",
+    kanjiDetails: [
+      { kanji: "荷", reading: "に", meaning: "짐 하", examples: ["1. 짐 (荷物, にもつ)"] },
+      { kanji: "物", reading: "もつ", meaning: "만물 물", examples: ["1. 물건 (物, もの)", "2. 동물 (動物, どうぶつ)"] },
+      { kanji: "預", reading: "あず", meaning: "맡길 예", examples: ["1. 맡기다 (預ける, あずける)", "2. 예금 (預金, よきん)"] },
+    ],
   },
   {
     id: 11,
-    parts: [
-      { text: "電車", rt: "でんしゃ", gloss: ["電車 · 전차", "기차/지하철"] },
+    sentence: "彼は約束の時間に必ず来ます。",
+    reading: [
+      { text: "彼", furigana: "かれ" },
       { text: "は" },
-      { text: "何時", rt: "なんじ", gloss: ["何時 · 몇 시", "시간을 물을 때"] },
+      { text: "約", furigana: "やく" },
+      { text: "束", furigana: "そく" },
+      { text: "の" },
+      { text: "時", furigana: "じ" },
+      { text: "間", furigana: "かん" },
       { text: "に" },
-      { text: "来", rt: "き", gloss: ["来 · 올 래", "오다(来る)"] },
-      { text: "ますか" },
+      { text: "必", furigana: "かなら" },
+      { text: "ず" },
+      { text: "来", furigana: "き" },
+      { text: "ます。" },
     ],
-    romaji: "densha wa nanji ni kimasu ka",
+    furigana: "かれはやくそくのじかんにかならずきます。",
+    translation: "그는 약속 시간에 반드시 와요.",
+    kanjiDetails: [
+      { kanji: "彼", reading: "かれ", meaning: "저 피", examples: ["1. 그", "2. 그녀 (彼女, かのじょ)"] },
+      { kanji: "約", reading: "やく", meaning: "맺을 약", examples: ["1. 약속 (約束, やくそく)", "2. 약 (約, やく)"] },
+      { kanji: "束", reading: "そく", meaning: "묶을 속", examples: ["1. 묶음 (束, たば)", "2. 약속 (約束, やくそく)"] },
+      { kanji: "時", reading: "じ", meaning: "때 시", examples: ["1. 시간 (時間, じかん)", "2. 시계 (時計, とけい)"] },
+      { kanji: "間", reading: "かん", meaning: "사이 간", examples: ["1. 사이 (間, あいだ)", "2. 인간 (人間, にんげん)"] },
+      { kanji: "必", reading: "かなら", meaning: "반드시 필", examples: ["1. 반드시 (必ず, かならず)", "2. 필요 (必要, ひつよう)"] },
+      { kanji: "来", reading: "き", meaning: "올 래", examples: ["1. 오다 (来る, くる)", "2. 내년 (来年, らいねん)"] },
+    ],
   },
   {
     id: 12,
-    parts: [{ text: "助", rt: "たす", gloss: ["助 · 도울 조", "도움/구조"] }, { text: "けてください" }],
-    romaji: "tasukete kudasai",
+    sentence: "会議の資料を準備してください。",
+    reading: [
+      { text: "会", furigana: "かい" },
+      { text: "議", furigana: "ぎ" },
+      { text: "の" },
+      { text: "資", furigana: "し" },
+      { text: "料", furigana: "りょう" },
+      { text: "を" },
+      { text: "準", furigana: "じゅん" },
+      { text: "備", furigana: "び" },
+      { text: "してください。" },
+    ],
+    furigana: "かいぎのしりょうをじゅんびしてください。",
+    translation: "회의 자료를 준비해 주세요.",
+    kanjiDetails: [
+      { kanji: "会", reading: "かい", meaning: "모일 회", examples: ["1. 만나다 (会う, あう)", "2. 회의 (会議, かいぎ)"] },
+      { kanji: "議", reading: "ぎ", meaning: "의논할 의", examples: ["1. 의논 (議論, ぎろん)", "2. 국회 (国会, こっかい)"] },
+      { kanji: "資", reading: "し", meaning: "재물 자", examples: ["1. 자원 (資源, しげん)", "2. 자료 (資料, しりょう)"] },
+      { kanji: "料", reading: "りょう", meaning: "헤아릴 료", examples: ["1. 요리 (料理, りょうり)", "2. 무료 (無料, むりょう)"] },
+      { kanji: "準", reading: "じゅん", meaning: "준할 준", examples: ["1. 준비 (準備, じゅんび)", "2. 수준 (水準, すいじゅん)"] },
+      { kanji: "備", reading: "び", meaning: "갖출 비", examples: ["1. 설비 (設備, せつび)", "2. 준비 (準備, じゅんび)"] },
+    ],
   },
   {
     id: 13,
-    parts: [{ text: "郵便局", rt: "ゆうびんきょく", gloss: ["郵便局 · 우편국", "우체국"] }, { text: "はどこですか" }],
-    romaji: "yuubinkyoku wa doko desu ka",
+    sentence: "昨日、久しぶりに故郷の友達に会いました。",
+    reading: [
+      { text: "昨", furigana: "きのう" },
+      { text: "、" },
+      { text: "久", furigana: "ひさ" },
+      { text: "しぶりに" },
+      { text: "故", furigana: "こ" },
+      { text: "郷", furigana: "きょう" },
+      { text: "の" },
+      { text: "友", furigana: "とも" },
+      { text: "達", furigana: "だち" },
+      { text: "に" },
+      { text: "会", furigana: "あ" },
+      { text: "いました。" },
+    ],
+    furigana: "きのう、ひさしぶりにこきょうのともだちにあいました。",
+    translation: "어제 오랜만에 고향 친구를 만났습니다.",
+    kanjiDetails: [
+      { kanji: "昨", reading: "きのう", meaning: "어제 작", examples: ["1. 어제 (昨日, きのう)", "2. 작년 (昨年, さくねん)"] },
+      { kanji: "久", reading: "ひさ", meaning: "오랠 구", examples: ["1. 오랜만 (久しぶり, ひさしぶり)", "2. 영구 (永久, えいきゅう)"] },
+      { kanji: "故", reading: "こ", meaning: "옛 고", examples: ["1. 고향 (故郷, こきょう)", "2. 사고 (事故, じこ)"] },
+      { kanji: "郷", reading: "きょう", meaning: "시골 향", examples: ["1. 고향 (故郷, こきょう)"] },
+      { kanji: "友", reading: "とも", meaning: "벗 우", examples: ["1. 친구 (友達, ともだち)", "2. 우정 (友情, ゆうじょう)"] },
+      { kanji: "達", reading: "だち", meaning: "이를 달", examples: ["1. 친구들 (友達, ともだち)", "2. 도달 (到達, とうたつ)"] },
+      { kanji: "会", reading: "あ", meaning: "모일 회", examples: ["1. 만나다 (会う, あう)", "2. 회사 (会社, かいしゃ)"] },
+    ],
   },
   {
     id: 14,
-    parts: [{ text: "出", rt: "で", gloss: ["出 · 날 출", "나가다/나오다"] }, { text: "口", rt: "ぐち", gloss: ["口 · 입 구", "입구/출구"] }, { text: "はどこですか" }],
-    romaji: "deguchi wa doko desu ka",
+    sentence: "新しい挑戦を恐れてはいけません。",
+    reading: [
+      { text: "新", furigana: "あたら" },
+      { text: "しい" },
+      { text: "挑", furigana: "ちょう" },
+      { text: "戦", furigana: "せん" },
+      { text: "を" },
+      { text: "恐", furigana: "おそ" },
+      { text: "れてはいけません。" },
+    ],
+    furigana: "あたらしいちょうせんをおそれてはいけません。",
+    translation: "새로운 도전을 두려워해서는 안 됩니다.",
+    kanjiDetails: [
+      { kanji: "新", reading: "あたら", meaning: "새 신", examples: ["1. 새롭다 (新しい, あたらしい)", "2. 신문 (新聞, しんぶん)"] },
+      { kanji: "挑", reading: "ちょう", meaning: "돋울 도", examples: ["1. 도전 (挑戦, ちょうせん)"] },
+      { kanji: "戦", reading: "せん", meaning: "싸움 전", examples: ["1. 싸움 (戦い, たたかい)", "2. 전쟁 (戦争, せんそう)"] },
+      { kanji: "恐", reading: "おそ", meaning: "두려울 공", examples: ["1. 두려워하다 (恐れる, おそれる)", "2. 아마도 (恐らく, おそらく)"] },
+    ],
+  },
+  {
+    id: 15,
+    sentence: "ご迷惑をおかけして申し訳ありません。",
+    reading: [
+      { text: "ご" },
+      { text: "迷", furigana: "めい" },
+      { text: "惑", furigana: "わく" },
+      { text: "をおかけして" },
+      { text: "申", furigana: "もう" },
+      { text: "し" },
+      { text: "訳", furigana: "わけ" },
+      { text: "ありません。" },
+    ],
+    furigana: "ごめいわくをおかけしてもうしわけありません。",
+    translation: "폐를 끼쳐드려 죄송합니다.",
+    kanjiDetails: [
+      { kanji: "迷", reading: "めい", meaning: "미혹할 미", examples: ["1. 헤매다 (迷う, まよう)", "2. 폐, 민폐 (迷惑, めいわく)"] },
+      { kanji: "惑", reading: "わく", meaning: "미혹할 혹", examples: ["1. 유혹 (誘惑, ゆうわく)", "2. 행성 (惑星, わくせい)"] },
+      { kanji: "申", reading: "もう", meaning: "펼 신", examples: ["1. 말하다의 겸양어 (申す, もうす)", "2. 신청 (申込, もうしこみ)"] },
+      { kanji: "訳", reading: "わけ", meaning: "번역할 역", examples: ["1. 이유, 사정 (訳, わけ)", "2. 변명 (言い訳, いいわけ)"] },
+    ],
   },
 ];
