@@ -36,7 +36,6 @@ export function FuriganaText({
                                     {ruby}
                                 </span>
                             </HoverCardTrigger>
-                            /* --- 툴팁 내용 --- */
                             <HoverCardContent 
                                 onClick={(e) => e.stopPropagation() } // 클릭 이벤트 전파 방지
                                 className="w-64 bg-slate-900/95 border-white/10 text-white">

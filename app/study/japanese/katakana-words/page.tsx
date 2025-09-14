@@ -21,10 +21,11 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
-import { generateRandomNickname } from "@/app/utils/nickname";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { fetchGeneratedWords } from "@/app/services/wordService";
 import { useAuthModal } from "@/app/context/AuthModalContext";
+import { STUDY_LABELS } from "@/app/constants/studyLabels";
+
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -53,7 +54,6 @@ export default function KatakanaWordsPage() {
   /** 뷰 상태 */
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [guestNickname] = useState(() => generateRandomNickname());
   const [viewMode, setViewMode] = useState<ViewMode>("single");
   const [flippedStates, setFlippedStates] = useState<Record<number, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -171,11 +171,8 @@ export default function KatakanaWordsPage() {
       style={{ fontFamily: fontStack }}
     >
       {/* 환영 배너 */}
-      <header className="w-full max-w-md mx-auto mb-6">
-            <WelcomeBanner
-              name={user?.nickname || guestNickname}
-              subtitle={`아래 카드를 클릭하여 ${pageLabel} 학습을 시작하세요.`}
-            />
+      <header className="w-full max-w-md mx-auto mb-1">
+            <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
       </header>
 
       {/* 비로그인 안내 카드 */}
