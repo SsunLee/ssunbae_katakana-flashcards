@@ -11,9 +11,11 @@ interface SentenceCardViewProps {
   isFav: boolean;
   onFlip: () => void;
   onToggleFav: () => void;
+  // --- ✨ 폰트 크기 prop 추가 ---
+  sentenceFontSize: number;
 }
 
-export const SentenceCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav }: SentenceCardViewProps) => {
+export const SentenceCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav, sentenceFontSize }: SentenceCardViewProps) => {
   return (
     <div className="[perspective:1200px] w-full max-w-md mx-auto">
       <div
@@ -42,22 +44,24 @@ export const SentenceCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav }
             </span>
           </Button>
           <div className="text-sm text-white/60 mb-4">카드를 클릭하여 뜻을 확인하세요</div>
-          <p className="text-2xl md:text-3xl font-semibold leading-relaxed text-center tracking-wide">
+          <p 
+            className="font-semibold leading-relaxed text-center tracking-wide"
+            style={{ fontSize: `${sentenceFontSize}px` }}
+          >
             {card.sentence}
           </p>
         </div>
 
         {/* Back */}
         <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-          {/* Sentence part */}
           <div className="w-full text-center">
-            <FuriganaText reading={card.reading} kanjiDetails={card.kanjiDetails} />
+            <FuriganaText 
+              reading={card.reading} 
+              kanjiDetails={card.kanjiDetails} 
+              fontSize={sentenceFontSize}
+            />
           </div>
-
-          {/* Divider */}
           <div className="w-full h-[1px] bg-white/10 my-4"></div>
-
-          {/* Translations part */}
           <div className="w-full text-center space-y-1">
             <p className="text-base text-white/80 tracking-wide">{card.furigana}</p>
             <p className="text-sm text-white/60 tracking-wide">({card.romaji})</p>
@@ -68,3 +72,4 @@ export const SentenceCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav }
     </div>
   );
 };
+
