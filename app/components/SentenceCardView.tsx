@@ -1,7 +1,9 @@
 // app/components/SentenceCardView.tsx
-import { type Sentence } from "@/app/data/sentences";
-import { Star } from "lucide-react";
+
+import React from "react";
+import { type Sentence } from "../data/sentences";
 import { FuriganaText } from "./FuriganaText";
+import { Button } from "./ui/button";
 
 interface SentenceCardViewProps {
   card: Sentence;
@@ -11,73 +13,58 @@ interface SentenceCardViewProps {
   onToggleFav: () => void;
 }
 
-export function SentenceCardView({
-  card,
-  isFlipped,
-  isFav,
-  onFlip,
-  onToggleFav,
-}: SentenceCardViewProps) {
+export const SentenceCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav }: SentenceCardViewProps) => {
   return (
-    <div
-      className="w-full max-w-md h-80 rounded-2xl mx-auto cursor-pointer"
-      onClick={onFlip}
-      style={{ perspective: "1000px" }}
-    >
+    <div className="[perspective:1200px] w-full max-w-md mx-auto">
       <div
-        className="relative w-full h-full transition-transform duration-500"
-        style={{
-          transformStyle: "preserve-3d",
-          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-        }}
+        role="button"
+        tabIndex={0}
+        aria-label="flip card"
+        onClick={onFlip}
+        className="relative h-64 md:h-72 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
+        style={{ transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
-        {/* 카드 앞면 */}
-        <div
-          className="absolute w-full h-full bg-slate-800/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center border border-white/10 shadow-lg"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <button
+        {/* Front */}
+        <div className="absolute inset-0 bg-slate-800/60 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center p-6 [backface-visibility:hidden]">
+          <Button
+            type="button"
+            size="icon"
+            variant="secondary"
             onClick={(e) => {
               e.stopPropagation();
               onToggleFav();
             }}
-            className="absolute top-4 right-4 text-white/50 hover:text-yellow-400 transition-colors"
-            aria-label="Toggle favorite"
+            className="absolute top-4 right-4 h-9 w-9 rounded-full bg-white/10 hover:bg-white/15 border border-white/10"
+            title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}
           >
-            <Star fill={isFav ? "#FFC700" : "none"} />
-          </button>
-          <h2 className="text-3xl lg:text-4xl font-semibold tracking-wide">
+            <span className="text-xl flex items-center justify-center w-full h-full">
+              {isFav ? "⭐" : "☆"}
+            </span>
+          </Button>
+          <div className="text-sm text-white/60 mb-4">카드를 클릭하여 뜻을 확인하세요</div>
+          <p className="text-2xl md:text-3xl font-semibold leading-relaxed text-center tracking-wide">
             {card.sentence}
-          </h2>
+          </p>
         </div>
 
-        {/* 카드 뒷면 */}
-        <div
-          className="absolute w-full h-full bg-slate-800/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-4 text-center border border-white/10 shadow-lg"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-          }}
-        >
-          <div className="w-full space-y-3">
-            {/* 후리가나 + 툴팁 텍스트 */}
-            <div className="text-2xl lg:text-3xl font-medium">
-              <FuriganaText
-                reading={card.reading}
-                kanjiDetails={card.kanjiDetails}
-              />
-            </div>
-            {/* 구분선 */}
-            <hr className="border-white/20 w-3/4 mx-auto" />
-            {/* 전체 후리가나 */}
-            <p className="text-base text-sky-300/80">{card.furigana}</p>
-            {/* 한글 번역 */}
-            <p className="text-lg font-bold text-white/90">
-              {card.translation}
-            </p>
+        {/* Back */}
+        <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+          {/* Sentence part */}
+          <div className="w-full text-center">
+            <FuriganaText reading={card.reading} kanjiDetails={card.kanjiDetails} />
+          </div>
+
+          {/* Divider */}
+          <div className="w-full h-[1px] bg-white/10 my-4"></div>
+
+          {/* Translations part */}
+          <div className="w-full text-center space-y-1">
+            <p className="text-base text-white/80 tracking-wide">{card.furigana}</p>
+            <p className="text-sm text-white/60 tracking-wide">({card.romaji})</p>
+            <p className="text-lg font-bold text-cyan-300">{card.translation}</p>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
