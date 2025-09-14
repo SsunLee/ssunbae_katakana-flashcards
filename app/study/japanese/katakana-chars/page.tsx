@@ -22,9 +22,9 @@ import type { Word } from "@/app/data/words";
 import { KATAKANA_CHARS } from "@/app/data/katakanaChars";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
-import { generateRandomNickname } from "@/app/utils/nickname";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
+import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -65,7 +65,6 @@ export default function KatakanaCharsPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
-  const [guestNickname] = useState(() => generateRandomNickname());
 
 
   /** 문자군 필터 */
@@ -184,11 +183,8 @@ export default function KatakanaCharsPage() {
     <div className="w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
 
       {/* 환영 배너 */}
-      <header className="w-full max-w-md mx-auto mb-6">
-            <WelcomeBanner
-              name={user?.nickname || guestNickname}
-              subtitle={`아래 카드를 클릭하여 ${pageLabel} 학습을 시작하세요.`}
-            />
+      <header className="w-full max-w-md mx-auto mb-1">
+            <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
       </header>
 
       {/* 비로그인 안내 카드 */}
