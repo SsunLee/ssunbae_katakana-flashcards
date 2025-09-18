@@ -52,8 +52,8 @@ const menuConfig: MenuGroup[] = [
     language: "영어 공부",
     value: "english",
     icon: "🇺🇸",
-    disabled: true,
-    items: [{ href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: true }],
+    disabled: false,
+    items: [{ href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false }],
   },
   {
     language: "스페인어 공부",

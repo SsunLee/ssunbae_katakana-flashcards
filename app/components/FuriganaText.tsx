@@ -1,7 +1,6 @@
 // app/components/FuriganaText.tsx
 
 import React from "react";
-// --- ✨ Tooltip 대신 Popover를 import 합니다 ---
 import {
   Popover,
   PopoverContent,
@@ -32,10 +31,8 @@ export function FuriganaText({ reading, kanjiDetails, fontSize }: FuriganaTextPr
         }
         const detail = kanjiMap.get(part.text);
         return (
-          // --- ✨ Tooltip을 Popover로 교체합니다 ---
           <Popover key={i}>
             <PopoverTrigger asChild>
-              {/* --- ✨ onClick 이벤트 전파를 막는 로직 추가 --- */}
               <ruby 
                 className="cursor-pointer hover:text-cyan-300 transition-colors"
                 onClick={(e) => e.stopPropagation()}
@@ -47,15 +44,19 @@ export function FuriganaText({ reading, kanjiDetails, fontSize }: FuriganaTextPr
             {detail && (
               <PopoverContent 
                 className="bg-slate-900 border-slate-700 text-white w-auto"
-                onClick={(e) => e.stopPropagation()} // Popover 내부 클릭도 전파 방지
+                onClick={(e) => e.stopPropagation()}
               >
+                {/* --- ✨ 팝업 UI를 새 디자인에 맞게 수정 --- */}
                 <div className="p-2 text-left">
                   <p className="text-lg font-bold">{detail.kanji} : {detail.meaning}</p>
-                  <ul className="list-disc list-inside mt-1 text-sm text-white/80">
-                    {detail.descriptions.map((desc, idx) => (
-                      <li key={idx}>{desc}</li>
-                    ))}
-                  </ul>
+                  {/* --- ✨ usages가 있을 때만 목록을 렌더링하도록 수정 --- */}
+                  {detail.usages && detail.usages.length > 0 && (
+                    <ol className="list-decimal list-inside mt-2 pl-2 text-sm text-white/90 space-y-1">
+                      {detail.usages.map((usage, idx) => (
+                        <li key={idx}>{usage}</li>
+                      ))}
+                    </ol>
+                  )}
                 </div>
               </PopoverContent>
             )}
