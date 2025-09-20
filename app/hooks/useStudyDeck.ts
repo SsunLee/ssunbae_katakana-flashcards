@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebase";          
+import { db } from "@/app/lib/firebase";          
 import type { UserProfile } from "@/app/AuthContext";
 
 export type HasId = { id: number };

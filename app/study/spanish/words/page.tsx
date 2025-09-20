@@ -1,4 +1,3 @@
-// app/study/spanish/words/page.tsx
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -22,6 +21,8 @@ import { useEsSpeech } from "@/app/hooks/useEsSpeech";
 import { SPANISH_WORDS, type SpanishWord } from "@/app/data/spanish-words";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
+import { fetchGeneratedContent } from "@/app/services/wordService";
+import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
 const CARDS_PER_PAGE = 10;
 type ViewMode = "single" | "grid";
@@ -33,7 +34,7 @@ export default function SpanishWordsPage() {
   const { user } = useAuth();
   const { open } = useAuthModal();
 
-  const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } = useStudyDeck<SpanishWord>({ user, deckType, initialDeck });
+  const { deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial } = useStudyDeck<SpanishWord>({ user, deckType, initialDeck });
 
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -44,6 +45,10 @@ export default function SpanishWordsPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Lato");
   const [wordFontSize, setWordFontSize] = useState(48);
+  
+  const [topic, setTopic] = useState("일상 회화");
+  const [wordCount, setWordCount] = useState<number>(10);
+  const [loadingImport, setLoadingImport] = useState(false);
 
   const { isSupported: isTtsSupported, ready: ttsReady, speakEs, selectedVoice, voices, selectVoice, isSafari } = useEsSpeech();
 
@@ -78,6 +83,26 @@ export default function SpanishWordsPage() {
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
 
+  async function importContent(topic: string, count: number) {
+    setLoadingImport(true);
+    try {
+      const newDeck = await fetchGeneratedContent(deckType, topic, count);
+      setDeck(newDeck as SpanishWord[]);
+      setIndex(0);
+      setFlipped(false);
+      setFlippedStates({});
+      setCurrentPage(1);
+      alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 생성했습니다!`);
+    } catch (error) {
+      // --- ✨ 개선된 에러 핸들링 ---
+      // error가 Error 인스턴스인지 확인하고, 아니라면 기본 메시지를 사용합니다.
+      const message = error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.";
+      alert(`단어 생성에 실패했습니다.\n\n오류: ${message}`);
+    } finally {
+      setLoadingImport(false);
+    }
+  }
+
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
 
@@ -96,7 +121,7 @@ export default function SpanishWordsPage() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
-        <WelcomeBanner name={user?.nickname} subject={"스페인어 단어"}/>
+        <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
       </header>
 
       {!user && <LoginPromptCard onLoginClick={() => open("login")} />}
@@ -128,6 +153,12 @@ export default function SpanishWordsPage() {
             wordFontSize={wordFontSize}
             setWordFontSize={setWordFontSize}
             resetDeck={reset}
+            topic={topic}
+            setTopic={setTopic}
+            wordCount={wordCount}
+            setWordCount={setWordCount}
+            loadingImport={loadingImport}
+            importContent={importContent}
           />
         </div>
       )}
@@ -150,7 +181,7 @@ export default function SpanishWordsPage() {
           studyDeck.length === 0 ? <EmptyDeckMessage viewMode="grid" /> : (
             <GridCardView
               variant="words"
-              cards={currentCards.map(c => ({ id: c.id, katakana: c.word, furigana: c.pronunciation || "", answer: c.meaning, emoji: '💃' }))}
+              cards={currentCards.map(c => ({ id: c.id, katakana: c.word, furigana: "", answer: c.meaning, emoji: '💃' }))}
               favs={favs}
               flippedStates={flippedStates}
               onToggleFav={(id) => toggleFav(id as number)}
@@ -181,14 +212,16 @@ export default function SpanishWordsPage() {
 
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-            <li>Ajusta la Voz de TTS y la Fuente en el panel de Configuración.</li>
-            <li>Teclado: <kbd>Enter</kbd> para voltear, <kbd>←/→</kbd> para anterior/siguiente.</li>
+          <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
+          <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
+          <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">Estudio de español v{APP_VERSION}</span>
+        <span className="text-white/40 text-xs">스페인어 공부 v{APP_VERSION}</span>
       </div>
     </div>
   );
 }
+

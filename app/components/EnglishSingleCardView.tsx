@@ -54,8 +54,8 @@ export const EnglishSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggle
         {/* Back */}
         <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
           <div className="text-center w-full">
-            <p className="text-sm text-white/60 mb-2">Meaning & Example</p>
-            {/* --- ✨ 폰트 크기 적용 --- */}
+            <p className="text-sm text-white/60 mb-2">카드를 눌러 정답을 확인하세요</p>
+            {/* --- 폰트 크기 적용 --- */}
             <p 
               className="font-bold text-cyan-300"
               style={{ fontSize: `${wordFontSize * 0.8}px` }} // 뒷면은 앞면보다 약간 작게

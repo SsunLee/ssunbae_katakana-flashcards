@@ -23,6 +23,7 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
+import { fetchGeneratedContent } from "@/app/services/wordService";
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -38,7 +39,7 @@ export default function SentencesPage() {
   const { open } = useAuthModal();
 
   /** Firestore 연동 덱 상태 */
-  const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
+  const { deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
     useStudyDeck<Sentence>({ user, deckType, initialDeck });
 
   /** 뷰 상태 */
@@ -51,6 +52,11 @@ export default function SentencesPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
   const [sentenceFontSize, setSentenceFontSize] = useState(28);
+
+  // --- ✨ AI 연동을 위한 상태 추가 ---
+  const [topic, setTopic] = useState("여행");
+  const [wordCount, setWordCount] = useState<number>(10);
+  const [loadingImport, setLoadingImport] = useState(false);
 
   /** 그리드 카드 뒤집기 */
   const toggleGridCardFlip = (id: number) =>
@@ -98,6 +104,24 @@ export default function SentencesPage() {
     setFlippedStates({});
     setCurrentPage(1);
   };
+
+  // --- ✨ AI 콘텐츠 가져오기 함수 (수정됨) ---
+  async function importContent(topic: string, count: number) {
+    setLoadingImport(true);
+    try {
+      const newDeck = await fetchGeneratedContent(deckType, topic, count);
+      setDeck(newDeck as Sentence[]); // 타입을 Sentence[]로 정확히 지정
+      setIndex(0);
+      setFlipped(false);
+      setFlippedStates({});
+      setCurrentPage(1);
+      alert(`'${topic}' 주제의 새 문장 ${newDeck.length}개를 생성했습니다!`);
+    } catch (error) {
+      alert("문장 생성에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setLoadingImport(false);
+    }
+  }
 
   /** 음성(TTS) */
   const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
@@ -148,6 +172,7 @@ export default function SentencesPage() {
               🔊 듣기 (문장)
             </Button>
           )}
+          {/* --- ✨ SettingsDialog에 AI 관련 props 전달 (수정됨) --- */}
           <SettingsDialog
             open={showSettings}
             onOpenChange={setShowSettings}
@@ -163,6 +188,12 @@ export default function SentencesPage() {
             resetDeck={reset}
             sentenceFontSize={sentenceFontSize}
             setSentenceFontSize={setSentenceFontSize}
+            topic={topic}
+            setTopic={setTopic}
+            wordCount={wordCount}
+            setWordCount={setWordCount}
+            loadingImport={loadingImport}
+            importContent={importContent}
           />
         </div>
       )}
@@ -185,29 +216,29 @@ export default function SentencesPage() {
             )
           )
         ) : (
-            studyDeck.length === 0 ? (
-                <EmptyDeckMessage viewMode="grid" />
-            ) : (
-                <GridCardView
-                    variant="words"
-                    cards={currentCards.map((c) => ({
-                        id: c.id,
-                        katakana: c.sentence,
-                        furigana: c.furigana,
-                        answer: c.translation,
-                        emoji: '📄',
-                    }))}
-                    favs={favs}
-                    flippedStates={flippedStates}
-                    onToggleFav={(id) => toggleFav(id as number)}
-                    onToggleCardFlip={toggleGridCardFlip}
-                    page={{
-                        current: currentPage,
-                        total: totalPages,
-                        onPrev: goToPrevPage,
-                        onNext: goToNextPage,
-                    }}
-                />
+          studyDeck.length === 0 ? (
+              <EmptyDeckMessage viewMode="grid" />
+          ) : (
+              <GridCardView
+                variant="words"
+                cards={currentCards.map((c) => ({
+                  id: c.id,
+                  katakana: c.sentence,
+                  furigana: c.furigana,
+                  answer: c.translation,
+                  emoji: '📄',
+                }))}
+                favs={favs}
+                flippedStates={flippedStates}
+                onToggleFav={(id) => toggleFav(id as number)}
+                onToggleCardFlip={toggleGridCardFlip}
+                page={{
+                  current: currentPage,
+                  total: totalPages,
+                  onPrev: goToPrevPage,
+                  onNext: goToNextPage,
+                }}
+              />
             )
         )}
       </main>

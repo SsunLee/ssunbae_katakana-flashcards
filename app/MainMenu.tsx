@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, signOut } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth } from './lib/firebase';
 import { Button } from './components/ui/button';
 
 interface MainMenuProps {

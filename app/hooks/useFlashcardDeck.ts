@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../lib/firebase';
 import { type Word } from '../data/words';
 import { type UserProfile } from '../AuthContext';
 

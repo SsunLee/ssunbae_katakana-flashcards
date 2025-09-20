@@ -1,4 +1,5 @@
 // app/components/SpanishSingleCardView.tsx
+
 "use client";
 
 import React from 'react';
@@ -37,7 +38,7 @@ export const SpanishSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggle
           >
             <span className="text-xl flex items-center justify-center w-full h-full">{isFav ? "⭐" : "☆"}</span>
           </Button>
-          <div className="text-sm text-white/60 mb-2">Haz clic para ver el significado</div>
+          <div className="text-sm text-white/60 mb-2">카드를 눌러 정답을 확인하세요.</div>
           <div className="text-center w-full">
             <p 
               className="font-semibold leading-snug break-all"
@@ -45,19 +46,22 @@ export const SpanishSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggle
             >
               {card.word}
             </p>
-            {card.pronunciation && <p className="mt-2 text-lg text-white/70">[{card.pronunciation}]</p>}
           </div>
         </div>
         
         {/* Back */}
         <div className="absolute inset-0 bg-slate-800/80 backdrop-blur rounded-2xl shadow-xl border border-white/10 flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
           <div className="text-center w-full">
-            <p className="text-sm text-white/60 mb-2">Significado y Ejemplo</p>
+            <p className="text-sm text-white/60 mb-2">정답</p>
+            {/* --- ✨ 수정된 뒷면 레이아웃 --- */}
             <p 
               className="font-bold text-cyan-300"
               style={{ fontSize: `${wordFontSize * 0.8}px` }}
             >
               {card.meaning}
+            </p>
+            <p className="text-base text-white/70 mt-1">
+              ({card.pronunciation})
             </p>
             <div className="w-full h-[1px] bg-white/10 my-4"></div>
             <div className="space-y-1 text-base text-white/90">
@@ -70,3 +74,4 @@ export const SpanishSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggle
     </div>
   );
 };
+
