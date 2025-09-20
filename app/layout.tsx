@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     icon: '/favicon.ico', // public 폴더에 있는 파일 경로
     apple: '/logo.svg', // public 폴더에 있는 파일 경로
   },
+
+  other: {
+    'google-adsense-account': 'ca-pub-3025305005440839',
+  },
+
 };
 // 3. RootLayout 컴포넌트
     export default function RootLayout({
