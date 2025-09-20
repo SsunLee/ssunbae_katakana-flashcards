@@ -52,6 +52,10 @@ export function SettingsDialog({
 
   const showWordImport = deckType.endsWith('-words');
   const isEnglishMode = deckType.startsWith('english');
+  const isSpanishMode = deckType.startsWith('spanish');
+  // --- ✨ 문장 모드인지 확인하는 변수 추가 ---
+  const isSentenceMode = deckType.endsWith('-sentences') || deckType === 'sentences';
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,14 +101,20 @@ export function SettingsDialog({
                 <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
                   {isEnglishMode ? (
                     <>
-                      <SelectItem className="text-white" value="Inter">Inter (기본)</SelectItem>
+                      <SelectItem className="text-white" value="Inter">Inter</SelectItem>
                       <SelectItem className="text-white" value="Roboto">Roboto</SelectItem>
                       <SelectItem className="text-white" value="Lato">Lato</SelectItem>
                       <SelectItem className="text-white" value="Times New Roman">Times New Roman</SelectItem>
                     </>
-                  ) : (
+                  ) : isSpanishMode ? (
                     <>
-                      <SelectItem className="text-white" value="Noto Sans JP">Noto Sans JP (기본)</SelectItem>
+                      <SelectItem className="text-white" value="Lato">Lato (기본)</SelectItem>
+                      <SelectItem className="text-white" value="Merriweather">Merriweather</SelectItem>
+                      <SelectItem className="text-white" value="Roboto">Roboto</SelectItem>
+                    </>
+                  ) : ( // Japanese
+                    <>
+                      <SelectItem className="text-white" value="Noto Sans JP">Noto Sans JP</SelectItem>
                       <SelectItem className="text-white" value="Zen Kaku Gothic New">Zen Kaku Gothic New</SelectItem>
                       <SelectItem className="text-white" value="Noto Serif JP">Noto Serif JP</SelectItem>
                       <SelectItem className="text-white" value="Kosugi Maru">Kosugi Maru</SelectItem>
@@ -114,8 +124,7 @@ export function SettingsDialog({
             </Select>
           </div>
 
-          {/* --- ✨ 영어 단어 크기 조절 슬라이더 추가 --- */}
-          {deckType === 'english-words' && wordFontSize && setWordFontSize && (
+          {(deckType === 'english-words' || deckType === 'spanish-words') && wordFontSize && setWordFontSize && (
             <div className="mt-4 border-t border-white/10 pt-4">
               <label htmlFor="word-font-size" className="block text-sm text-white/70 mb-1">
                 단어 크기
@@ -135,7 +144,8 @@ export function SettingsDialog({
             </div>
           )}
 
-          {deckType === 'sentences' && sentenceFontSize && setSentenceFontSize && (
+          {/* --- ✨ 문장 크기 조절 슬라이더 조건 수정 --- */}
+          {isSentenceMode && sentenceFontSize && setSentenceFontSize && (
             <div className="mt-4 border-t border-white/10 pt-4">
               <label htmlFor="font-size" className="block text-sm text-white/70 mb-1">문장 크기</label>
               <div className="flex items-center gap-4">
@@ -154,41 +164,9 @@ export function SettingsDialog({
           )}
 
           {showWordImport && topic !== undefined && setTopic && wordCount !== undefined && setWordCount && loadingImport !== undefined && importWordsFromServer && (
-            <>
-              {user ? (
-                <>
-                  <div className="mt-4 border-t border-white/10 pt-4">
-                    <label className="block text-sm text-white/70 mb-1">새로운 단어 주제</label>
-                    <input type="text" value={topic} onChange={(e) => setTopic(e.target.value)} className="w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="예: 여행, 음식..." />
-                  </div>
-                  <div className="mt-2 text-sm text-white/70">
-                    <label className="block text-sm text-white/70 mb-1">생성할 단어 개수</label>
-                    <Select value={String(wordCount)} onValueChange={(value) => setWordCount(Number(value))}>
-                        <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white"><SelectValue placeholder="단어 개수 선택" /></SelectTrigger>
-                        <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                            <SelectItem className="text-white" value="5">5개</SelectItem>
-                            <SelectItem className="text-white" value="10">10개</SelectItem>
-                            <SelectItem className="text-white" value="15">15개</SelectItem>
-                            <SelectItem className="text-white" value="20">20개</SelectItem>
-                        </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="mt-4 flex gap-2">
-                    <Button size="sm" className="text-white bg-white/10 border-white/10 hover:bg-white/15" variant="outline" disabled={loadingImport} onClick={() => importWordsFromServer(topic, wordCount)} title="서버에서 새 단어를 불러옵니다">
-                      {loadingImport ? '가져오는 중…' : '단어 가져오기'}
-                    </Button>
-                    <Button size="sm" className="text-white bg-white/10 border-white/10 hover:bg-white/15" variant="outline" onClick={() => { resetDeck(); alert('덱을 기본값으로 복원했습니다.'); }}>
-                      저장본 복원
-                    </Button>
-                  </div>
-                  <div className="mt-3 text-sm text-white/70">* '단어 가져오기'는 OpenAI API를 사용합니다.</div>
-                </>
-              ) : (
-                <div className="mt-4 border-t border-white/10 pt-4 text-center text-white/70">
-                  단어를 생성하려면 로그인이 필요합니다.
-                </div>
-              )}
-            </>
+             <div className="mt-4 border-t border-white/10 pt-4 text-center text-white/70">
+                '단어 가져오기' 기능은 현재 일본어 학습에서만 지원됩니다.
+             </div>
           )}
         </div>
       </DialogContent>
