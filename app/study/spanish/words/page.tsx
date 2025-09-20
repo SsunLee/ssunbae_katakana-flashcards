@@ -1,0 +1,194 @@
+// app/study/spanish/words/page.tsx
+"use client";
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/app/AuthContext";
+import { useAuthModal } from "@/app/context/AuthModalContext";
+
+// UI Components
+import { SettingsDialog } from "@/app/components/SettingsDialog";
+import { Button } from "@/app/components/ui/button";
+import { Switch } from "@/app/components/ui/switch";
+import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
+import { SpanishSingleCardView } from "@/app/components/SpanishSingleCardView";
+import { GridCardView } from "@/app/components/GridCardView";
+import CardControls from "@/app/components/controls/CardControls";
+import { WelcomeBanner } from "@/app/components/WelcomeBanner";
+import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+
+// Data, Hooks, Constants
+import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useEsSpeech } from "@/app/hooks/useEsSpeech";
+import { SPANISH_WORDS, type SpanishWord } from "@/app/data/spanish-words";
+import { FONT_STACKS } from "@/app/constants/fonts";
+import { APP_VERSION } from "@/app/constants/appConfig";
+
+const CARDS_PER_PAGE = 10;
+type ViewMode = "single" | "grid";
+
+export default function SpanishWordsPage() {
+  const initialDeck = SPANISH_WORDS;
+  const deckType = "spanish-words"; 
+
+  const { user } = useAuth();
+  const { open } = useAuthModal();
+
+  const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } = useStudyDeck<SpanishWord>({ user, deckType, initialDeck });
+
+  const [index, setIndex] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("single");
+  const [flippedStates, setFlippedStates] = useState<Record<number, boolean>>({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
+  const [onlyFavs, setOnlyFavs] = useState(false);
+  const [fontFamily, setFontFamily] = useState<string>("Lato");
+  const [wordFontSize, setWordFontSize] = useState(48);
+
+  const { isSupported: isTtsSupported, ready: ttsReady, speakEs, selectedVoice, voices, selectVoice, isSafari } = useEsSpeech();
+
+  const toggleGridCardFlip = (id: number) => setFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  const studyDeck = useMemo(() => {
+    return onlyFavs ? deck.filter((w) => favs[w.id]) : deck;
+  }, [deck, onlyFavs, favs]);
+
+  const { currentCards, totalPages } = useMemo(() => {
+    const total = Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1;
+    const start = (currentPage - 1) * CARDS_PER_PAGE;
+    return {
+      currentCards: studyDeck.slice(start, start + CARDS_PER_PAGE),
+      totalPages: total,
+    };
+  }, [currentPage, studyDeck]);
+
+  const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
+  const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
+
+  const onFlip = useCallback(() => setFlipped((f) => !f), []);
+  const next = useCallback(() => {
+    setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
+    setFlipped(false);
+  }, [studyDeck.length]);
+  const prev = useCallback(() => {
+    setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
+    setFlipped(false);
+  }, [studyDeck.length]);
+
+  const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
+  const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
+
+  const current = studyDeck[index] ?? null;
+  const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (viewMode !== "single") return;
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onFlip(); } 
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [viewMode, onFlip, next, prev]);
+
+  return (
+    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
+      <header className="w-full max-w-md mx-auto mb-1">
+        <WelcomeBanner name={user?.nickname} subject={"스페인어 단어"}/>
+      </header>
+
+      {!user && <LoginPromptCard onLoginClick={() => open("login")} />}
+
+      {viewMode === "single" && (
+        <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
+          <span className="text-white/70">
+            ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
+          </span>
+          
+          {isTtsSupported && (
+            <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakEs(current?.word || "")} disabled={!ttsReady || !current}>
+              🔊 듣기 (Palabra)
+            </Button>
+          )}
+
+          <SettingsDialog
+            open={showSettings}
+            onOpenChange={setShowSettings}
+            user={user}
+            deckType={deckType}
+            isTtsSupported={isTtsSupported}
+            selectedVoice={selectedVoice}
+            selectVoice={selectVoice}
+            voices={voices}
+            isSafari={isSafari}
+            fontFamily={fontFamily}
+            setFontFamily={setFontFamily}
+            wordFontSize={wordFontSize}
+            setWordFontSize={setWordFontSize}
+            resetDeck={reset}
+          />
+        </div>
+      )}
+
+      <main className="w-full max-w-5xl select-none">
+        {viewMode === "single" ? (
+          studyDeck.length === 0 ? <EmptyDeckMessage viewMode="single" /> : (
+            current && 
+            <SpanishSingleCardView 
+              key={current.id} 
+              card={current} 
+              isFlipped={flipped} 
+              isFav={!!favs[current.id]} 
+              onFlip={onFlip} 
+              onToggleFav={() => toggleFav(current.id)}
+              wordFontSize={wordFontSize}
+            />
+          )
+        ) : (
+          studyDeck.length === 0 ? <EmptyDeckMessage viewMode="grid" /> : (
+            <GridCardView
+              variant="words"
+              cards={currentCards.map(c => ({ id: c.id, katakana: c.word, furigana: c.pronunciation || "", answer: c.meaning, emoji: '💃' }))}
+              favs={favs}
+              flippedStates={flippedStates}
+              onToggleFav={(id) => toggleFav(id as number)}
+              onToggleCardFlip={toggleGridCardFlip}
+              page={{ current: currentPage, total: totalPages, onPrev: goToPrevPage, onNext: goToNextPage }}
+            />
+          )
+        )}
+      </main>
+
+      {viewMode === "single" && (
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+          <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
+        </div>
+      )}
+
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
+        {user && (
+          <Button variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
+            {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
+          </Button>
+        )}
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border-white/10 bg-white/5">
+          <span className="text-white/80 font-semibold">⭐ Only</span>
+          <Switch checked={onlyFavs} onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); setCurrentPage(1); }} />
+        </label>
+      </div>
+
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+        <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
+            <li>Ajusta la Voz de TTS y la Fuente en el panel de Configuración.</li>
+            <li>Teclado: <kbd>Enter</kbd> para voltear, <kbd>←/→</kbd> para anterior/siguiente.</li>
+        </ul>
+      </footer>
+
+      <div className="mt-4 text-center">
+        <span className="text-white/40 text-xs">Estudio de español v{APP_VERSION}</span>
+      </div>
+    </div>
+  );
+}

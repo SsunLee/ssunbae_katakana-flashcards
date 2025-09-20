@@ -59,8 +59,11 @@ const menuConfig: MenuGroup[] = [
     language: "스페인어 공부",
     value: "spanish",
     icon: "🇪🇸",
-    disabled: true,
-    items: [{ href: "/study/spanish/words", label: "단어 공부", icon: "💃", disabled: true }],
+    disabled: false,
+    items: [
+      { href: "/study/spanish/words", label: "스페인어 단어 공부", icon: "/icons/es_word.png", disabled: false },
+      { href: "/study/spanish/sentences", label: "스페인어 문장 공부", icon: "/icons/es_sentences.png", disabled: false }
+    ],
   },
 ];
 
