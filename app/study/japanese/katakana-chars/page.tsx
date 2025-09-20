@@ -3,6 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/app/AuthContext";
+import { useAuthModal } from "@/app/context/AuthModalContext";
 
 // UI
 import { SettingsDialog } from "@/app/components/SettingsDialog";
@@ -15,6 +16,7 @@ import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+import { useStudyFontSize } from "@/app/hooks/useStudyFontSize";
 
 
 // 데이터/훅/상수
@@ -25,6 +27,9 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
+
+import { fetchGeneratedContent } from "@/app/services/wordService";
+
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -38,15 +43,28 @@ const FILTER_LABELS: Record<FilterKey, string> = {
   yoon: "요음",
 };
 
+function useMounted() {
+  const [m, setM] = useState(false);
+  useEffect(() => setM(true), []);
+  return m;
+}
+
 export default function KatakanaCharsPage() {
   /** 고정값 */
   const initialDeck = KATAKANA_CHARS;
   const deckType = "katakana-chars";
   const pageLabel = "가타카나 글자";
 
-
-  /** 사용자 */
+    const [charFontSize, setCharFontSize] = useState(96);
+  
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);  
+  
+    /** 사용자 */
   const { user } = useAuth();
+  const { open } = useAuthModal();
 
   /** Firestore 연동 제네릭 훅 */
   const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
@@ -66,6 +84,10 @@ export default function KatakanaCharsPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
 
+  // --- ✨ AI 연동을 위한 상태 추가 ---
+  const [topic, setTopic] = useState("일상 회화");
+  const [wordCount, setWordCount] = useState<number>(10);
+  const [loadingImport, setLoadingImport] = useState(false);
 
   /** 문자군 필터 */
   const [filters, setFilters] = useState<Record<FilterKey, boolean>>({
@@ -179,6 +201,11 @@ export default function KatakanaCharsPage() {
     return () => window.removeEventListener("keydown", h);
   }, [viewMode, onFlip, next, prev]);
 
+    // tts 지원 여부
+    const mounted = useMounted();
+    const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+
+
   return (
     <div className="w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
 
@@ -202,12 +229,12 @@ export default function KatakanaCharsPage() {
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
-          {isTtsSupported && (
+          {mounted && canTts && (
             <Button
               size="sm"
               variant="outline"
               className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => speakJa(current?.furigana || "")}
+              onClick={() => speakJa(current?.katakana || "")}
               disabled={!ttsReady || !current}
             >
               🔊 듣기 (ふりがな)
@@ -231,7 +258,8 @@ export default function KatakanaCharsPage() {
             wordCount={0}
             setWordCount={() => {}}
             loadingImport={false}
-            importWordsFromServer={() => {}}
+            wordFontSize={charFontSize}
+            setWordFontSize={setCharFontSize}
             resetDeck={reset}
           />
         </div>
@@ -262,6 +290,7 @@ export default function KatakanaCharsPage() {
                 isFav={!!favs[current.id]}
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
+                fontSize={charFontSize}
               />
             )
           )
@@ -325,7 +354,8 @@ export default function KatakanaCharsPage() {
       {/* 안내/버전 */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-          <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
+          <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
+          <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
       </footer>

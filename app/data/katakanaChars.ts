@@ -1,9 +1,14 @@
-import type { Word } from './words';
+export interface katakanaChars {
+  id: number;
+  katakana: string;
+  furigana: string;
+  answer: string;   // English
+  emoji: string;
+}
 
-// Word 타입에 type 속성을 추가하는 것을 잊지 마세요.
-// 예: export type Word = { ...; type?: string; };
 
-export const KATAKANA_CHARS: (Word & { type: string })[] = [
+
+export const KATAKANA_CHARS: (katakanaChars & { type: string })[] = [
   // ==========================================================
   // Gojūon (50음도)
   // ==========================================================

@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from './firebase';
+import { auth, db } from './lib/firebase';
 
 // 앱 전체에서 사용할 사용자 정보 타입을 정의합니다. (Firebase 정보 + Firestore 닉네임)
 export interface UserProfile {

@@ -1,8 +1,10 @@
 // app/study/japanese/hiragana-chars/page.tsx
+
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/app/AuthContext";
+import { useAuthModal } from "@/app/context/AuthModalContext";
 
 // UI & 컴포넌트
 import { SettingsDialog } from "@/app/components/SettingsDialog";
@@ -16,7 +18,6 @@ import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 
-
 // 데이터 & 훅 & 상수
 import type { Word } from "@/app/data/words";
 import { HIRAGANA_CHARS } from "@/app/data/hiraganaChars";
@@ -25,6 +26,8 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
+import { useMounted } from "@/app/hooks/useMounted";
+
 
 /** 페이지 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -39,23 +42,19 @@ const FILTER_LABELS: Record<FilterKey, string> = {
 };
 
 export default function HiraganaCharsPage() {
-  /** 고정값 */
   const initialDeck = HIRAGANA_CHARS;
   const deckType = "hiragana-chars";
-  const pageLabel = "가타카나 글자";
 
-  /** 사용자 */
   const { user } = useAuth();
+  const { open } = useAuthModal();
 
-  /** Firestore 연동되는 공용 제네릭 훅 */
   const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
     useStudyDeck<Word & { type: string }>({
       user,
       deckType,
-      initialDeck, // 동일 상수 재사용
+      initialDeck,
     });
 
-  /** 뷰 상태 */
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("single");
@@ -64,9 +63,8 @@ export default function HiraganaCharsPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
+  const [charFontSize, setCharFontSize] = useState(96);
 
-
-  /** 문자군 필터 */
   const [filters, setFilters] = useState<Record<FilterKey, boolean>>({
     gojuon: true,
     dakuten: true,
@@ -74,29 +72,23 @@ export default function HiraganaCharsPage() {
     yoon: false,
   });
 
-  /** 필터 토글 */
   const handleFilterChange = (k: FilterKey) =>
     setFilters((prev) => ({ ...prev, [k]: !prev[k] }));
 
-  /** 그리드 카드 뒤집기 */
   const toggleGridCardFlip = (id: number) =>
     setFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
 
-  /** (성능) 초기 덱에서 id→type 매핑 미리 구성 */
   const idToType = useMemo(() => {
     return new Map(initialDeck.map((c) => [c.id, c.type as FilterKey]));
   }, [initialDeck]);
 
-  /** (성능) 활성 필터 집합 */
   const activeFilters = useMemo(() => {
     return new Set(
       (Object.keys(filters) as FilterKey[]).filter((k) => filters[k])
     );
   }, [filters]);
 
-  /** 필터 + 즐겨찾기 적용된 최종 덱 */
   const studyDeck = useMemo(() => {
-    // 활성 필터가 하나도 없으면 빈 배열 (명시적)
     const base =
       activeFilters.size > 0
         ? deck.filter((card) => {
@@ -107,7 +99,6 @@ export default function HiraganaCharsPage() {
     return onlyFavs ? base.filter((w) => favs[w.id]) : base;
   }, [deck, favs, onlyFavs, activeFilters, idToType]);
 
-  /** 그리드 페이징 계산 */
   const { currentCards, totalPages } = useMemo(() => {
     const total = Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1;
     const start = (currentPage - 1) * CARDS_PER_PAGE;
@@ -117,22 +108,19 @@ export default function HiraganaCharsPage() {
     };
   }, [currentPage, studyDeck]);
 
-  /** 페이지 이동 */
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
 
-  /** 카드 플립/이동 */
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
-    setFlipped(false); // 잔상 방지
+    setFlipped(false);
   }, [studyDeck.length]);
   const prev = useCallback(() => {
     setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
     setFlipped(false);
   }, [studyDeck.length]);
 
-  /** 덱 조작 */
   const shuffle = () => {
     shuffleDeck();
     setIndex(0);
@@ -146,27 +134,10 @@ export default function HiraganaCharsPage() {
     setCurrentPage(1);
   };
 
-  /** 음성(TTS) */
-  const {
-    isSupported: isTtsSupported,
-    ready: ttsReady,
-    speakJa,
-    selectedVoice,
-    voices,
-    selectVoice,
-    isSafari,
-  } = useJaSpeech();
-
-  /** 글꼴 스택 */
-  const fontStack = useMemo(
-    () => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"],
-    [fontFamily]
-  );
-
-  /** 현재 카드 */
+  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
+  const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"], [fontFamily]);
   const current = studyDeck[index] ?? null;
 
-  /** 키보드 단축키 (Enter/Space 플립, ←/→ 이동) */
   const handleKeydown = useCallback(
     (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -188,37 +159,41 @@ export default function HiraganaCharsPage() {
     return () => window.removeEventListener("keydown", handleKeydown);
   }, [handleKeydown]);
 
+    // tts 지원 여부
+    const mounted = useMounted();
+    // 브라우저 API는 mounted 이후에만 체크
+    const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+
+
   return (
-    <div className="w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
-      {/* 환영 배너 */}
+    <div className="w-full min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
             <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
       </header>
-      {/* 비로그인 안내 카드 */}
       {!user && (
           <LoginPromptCard
             onLoginClick={() => open("login")} 
           />
       )}
-      {/* 상단 컨트롤: 진행률 / 듣기 / 설정 */}
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
           <span className="text-white/70">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
-          {isTtsSupported && (
+          
+         { canTts &&  (
             <Button
               size="sm"
               variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => speakJa(current?.furigana || "")}
+              className="border-white/10 bg-white/5 hover-bg-white/10"
+              // --- ✨ 히라가나 글자를 직접 읽도록 수정 ---
+              onClick={() => speakJa(current?.katakana || "")}
               disabled={!ttsReady || !current}
             >
-              🔊 듣기 (ふりがな)
+              🔊 듣기 (히라가나)
             </Button>
           )}
-
           <SettingsDialog
             open={showSettings}
             onOpenChange={setShowSettings}
@@ -231,18 +206,13 @@ export default function HiraganaCharsPage() {
             isSafari={isSafari}
             fontFamily={fontFamily}
             setFontFamily={setFontFamily}
-            topic=""
-            setTopic={() => {}}
-            wordCount={0}
-            setWordCount={() => {}}
-            loadingImport={false}
-            importWordsFromServer={() => {}}
+            wordFontSize={charFontSize}
+            setWordFontSize={setCharFontSize}
             resetDeck={reset}
           />
         </div>
       )}
 
-      {/* 문자군 필터 */}
       <div className="w-full max-w-md mx-auto mb-4 p-3 bg-slate-800/50 rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
         {(Object.keys(FILTER_LABELS) as FilterKey[]).map((k) => (
           <label key={k} className="flex items-center space-x-2">
@@ -252,7 +222,6 @@ export default function HiraganaCharsPage() {
         ))}
       </div>
 
-      {/* 메인 카드 영역 */}
       <main className="w-full max-w-5xl select-none">
         {viewMode === "single" ? (
           studyDeck.length === 0 ? (
@@ -260,13 +229,14 @@ export default function HiraganaCharsPage() {
           ) : (
             current && (
               <SingleCardView
-                key={current.id}       // 카드 변경 시 플립 잔상/애니메이션 꼬임 방지
+                key={current.id}
                 card={current}
                 deckType={deckType}
                 isFlipped={flipped}
                 isFav={!!favs[current.id]}
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
+                fontSize={charFontSize}
               />
             )
           )
@@ -276,7 +246,7 @@ export default function HiraganaCharsPage() {
               <EmptyDeckMessage viewMode="grid" />
             ) : (
               <GridCardView
-                variant="chars"                // 글자 전용 그리드 스타일
+                variant="chars"
                 cards={currentCards}
                 favs={favs}
                 flippedStates={flippedStates}
@@ -294,12 +264,12 @@ export default function HiraganaCharsPage() {
         )}
       </main>
 
-      {/* 하단 컨트롤(단일 카드 모드) */}
       {viewMode === "single" && (
-        <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
+         <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
+        </div>
       )}
 
-      {/* 보기 전환 & Only Favs */}
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
           <Button
@@ -327,7 +297,6 @@ export default function HiraganaCharsPage() {
         </label>
       </div>
 
-      {/* 안내/버전 */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
@@ -341,3 +310,4 @@ export default function HiraganaCharsPage() {
     </div>
   );
 }
+

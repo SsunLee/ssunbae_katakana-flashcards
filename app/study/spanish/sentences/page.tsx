@@ -22,6 +22,8 @@ import { useEsSpeech } from "@/app/hooks/useEsSpeech";
 import { SPANISH_SENTENCES, type SpanishSentence } from "@/app/data/spanish-sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
+// --- ✨ AI 서비스 import ---
+import { fetchGeneratedContent } from "@/app/services/wordService";
 
 const CARDS_PER_PAGE = 10;
 type ViewMode = "single" | "grid";
@@ -33,7 +35,7 @@ export default function SpanishSentencesPage() {
   const { user } = useAuth();
   const { open } = useAuthModal();
 
-  const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } = useStudyDeck<SpanishSentence>({ user, deckType, initialDeck });
+  const { deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial } = useStudyDeck<SpanishSentence>({ user, deckType, initialDeck });
 
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -44,6 +46,11 @@ export default function SpanishSentencesPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Lato");
   const [sentenceFontSize, setSentenceFontSize] = useState(32);
+  
+  // --- ✨ AI 연동을 위한 상태 추가 ---
+  const [topic, setTopic] = useState("일상 회화");
+  const [wordCount, setWordCount] = useState<number>(10);
+  const [loadingImport, setLoadingImport] = useState(false);
 
   const { isSupported: isTtsSupported, ready: ttsReady, speakEs, selectedVoice, voices, selectVoice, isSafari } = useEsSpeech();
 
@@ -77,6 +84,24 @@ export default function SpanishSentencesPage() {
 
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
+
+  // --- ✨ AI 콘텐츠 가져오기 함수 ---
+  async function importContent(topic: string, count: number) {
+    setLoadingImport(true);
+    try {
+      const newDeck = await fetchGeneratedContent(deckType, topic, count);
+      setDeck(newDeck as SpanishSentence[]);
+      setIndex(0);
+      setFlipped(false);
+      setFlippedStates({});
+      setCurrentPage(1);
+      alert(`'${topic}' 주제의 새 문장 ${newDeck.length}개를 생성했습니다!`);
+    } catch (error) {
+      alert("문장 생성에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setLoadingImport(false);
+    }
+  }
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
@@ -128,6 +153,13 @@ export default function SpanishSentencesPage() {
             sentenceFontSize={sentenceFontSize}
             setSentenceFontSize={setSentenceFontSize}
             resetDeck={reset}
+            // --- ✨ AI 관련 props 전달 ---
+            topic={topic}
+            setTopic={setTopic}
+            wordCount={wordCount}
+            setWordCount={setWordCount}
+            loadingImport={loadingImport}
+            importContent={importContent}
           />
         </div>
       )}
@@ -173,17 +205,17 @@ export default function SpanishSentencesPage() {
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border-white/10 bg-white/5">
           <span className="text-white/80 font-semibold">⭐ Only</span>
           <Switch checked={onlyFavs} onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); setCurrentPage(1); }} />
         </label>
       </div>
 
-      {/* --- ✨ 푸터 내용을 한국어로 수정 --- */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-            <li>⚙️설정에서 TTS Voice, Font, 문장 폰트 크기를 조절할 수 있습니다.</li>
-            <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
+          <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
+          <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
+          <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
       </footer>
 

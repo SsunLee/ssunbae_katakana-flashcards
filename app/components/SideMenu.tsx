@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
-import { auth } from "@/app/firebase";
+import { auth } from "@/app/lib/firebase";
 import { LogOut, UserCircle2, BookOpen } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
@@ -45,7 +45,7 @@ const menuConfig: MenuGroup[] = [
       { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "/icons/jp_katakana.png" },
       { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
       { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
-      { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: true },
+      { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: false },
     ],
   },
   {

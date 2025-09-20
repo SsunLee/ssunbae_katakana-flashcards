@@ -22,7 +22,7 @@ import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
-import { fetchGeneratedWords } from "@/app/services/wordService";
+import { fetchGeneratedContent } from "@/app/services/wordService";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
@@ -36,6 +36,8 @@ export default function KatakanaWordsPage() {
   const initialDeck = KATAKANA_WORDS;
   const deckType = "katakana-words";
   const pageLabel = "가타카나 단어";
+
+  const [wordFontSize, setwordFontSize] = useState(50);
 
   /** 사용자/모달 */
   const { user } = useAuth();
@@ -61,8 +63,11 @@ export default function KatakanaWordsPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
 
+
+  
   /** 단어 생성 (AI) */
-  const [topic, setTopic] = useState("여행");
+  // --- ✨ AI 연동을 위한 상태 추가 ---
+  const [topic, setTopic] = useState("일상 회화");
   const [wordCount, setWordCount] = useState<number>(10);
   const [loadingImport, setLoadingImport] = useState(false);
 
@@ -88,24 +93,24 @@ export default function KatakanaWordsPage() {
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
 
-  /** 서버에서 단어 가져오기 */
-  async function importWords(topic: string, count: number) {
+  // --- ✨ AI 콘텐츠 가져오기 함수 ---
+  async function importContent(topic: string, count: number) {
     setLoadingImport(true);
     try {
-      const newDeck = await fetchGeneratedWords(topic, count);
-      setDeck(newDeck);
-      // 학습 포인터 초기화
+      const newDeck = await fetchGeneratedContent(deckType, topic, count);
+      setDeck(newDeck as Word[]);
       setIndex(0);
       setFlipped(false);
       setFlippedStates({});
       setCurrentPage(1);
-      alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 불러왔습니다!`);
-    } catch {
-      alert("단어 불러오기에 실패했습니다. 다시 시도해주세요.");
+      alert(`'${topic}' 주제의 새 문장 ${newDeck.length}개를 생성했습니다!`);
+    } catch (error) {
+      alert("문장 생성에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setLoadingImport(false);
     }
   }
+
 
   /** 단일 카드 조작 */
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
@@ -220,8 +225,9 @@ export default function KatakanaWordsPage() {
             wordCount={wordCount}
             setWordCount={setWordCount}
             loadingImport={loadingImport}
-            importWordsFromServer={importWords}
-            // 저장본 복원
+            importContent={importContent}
+            wordFontSize={wordFontSize}
+            setWordFontSize={setwordFontSize}
             resetDeck={reset}
           />
         </div>
@@ -242,6 +248,7 @@ export default function KatakanaWordsPage() {
                 isFav={!!favs[current.id]}
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
+                fontSize={wordFontSize}
               />
             )
           )
@@ -307,8 +314,8 @@ export default function KatakanaWordsPage() {
       {/* 안내/버전 */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-          <li>설정 패널에서 변경한 <b>TTS Voice</b>와 <b>Font</b>는 즉시 적용됩니다. (브라우저에 저장)</li>
-          <li>단어를 추가/수정하려면 ⚙️설정 → 새로운 단어 주제/개수 설정 후 <b>단어 가져오기</b>를 클릭하세요.</li>
+          <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
+          <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
         </ul>
       </footer>

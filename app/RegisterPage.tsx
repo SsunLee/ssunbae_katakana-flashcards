@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
-import { auth, db } from './firebase';
+import { auth, db } from './lib/firebase';
 import { Button } from "./components/ui/button";
 
 interface RegisterPageProps {

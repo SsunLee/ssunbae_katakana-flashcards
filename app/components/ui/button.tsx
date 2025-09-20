@@ -1,9 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium " +
     "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring " +
     "focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
@@ -31,18 +33,22 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
-    return (
-      <Comp
-        ref={ref}
-        className={cn(buttonVariants({ variant, size, className }))}
-        {...props}
-      />
-    );
+    const classes = cn(buttonVariants({ variant, size, className }));
+
+    if (asChild) {
+      // SSR/CSR에서 항상 같은 트리: <span><Slot .../></span>
+      // 버튼 역할이 필요한 경우 container에 role/aria를 줄 수도 있음.
+      return (
+        <span className={classes}>
+          <Slot {...(props as any)} />
+        </span>
+      );
+    }
+
+    return <button ref={ref} className={classes} {...props} />;
   }
 );
 Button.displayName = "Button";
-
-export { Button, buttonVariants };
