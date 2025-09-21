@@ -22,8 +22,10 @@ import { useEsSpeech } from "@/app/hooks/useEsSpeech";
 import { SPANISH_SENTENCES, type SpanishSentence } from "@/app/data/spanish-sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
-// --- ✨ AI 서비스 import ---
+
 import { fetchGeneratedContent } from "@/app/services/wordService";
+
+import { useMounted } from '@/app/hooks/useMounted';
 
 const CARDS_PER_PAGE = 10;
 type ViewMode = "single" | "grid";
@@ -118,6 +120,12 @@ export default function SpanishSentencesPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+
+  // tts 지원 여부
+  const mounted = useMounted();
+  // 브라우저 API는 mounted 이후에만 체크
+  const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
@@ -132,11 +140,23 @@ export default function SpanishSentencesPage() {
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
           
-          {isTtsSupported && (
+          {canTts && (
             <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakEs(current?.sentence || "")} disabled={!ttsReady || !current}>
               🔊 듣기 (Oración)
             </Button>
           )}
+
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-white/10 bg-white/5 hover:bg-white/10"
+            onClick={() => setShowSettings(true)}
+            aria-haspopup="dialog"
+            aria-expanded={showSettings}
+            title="설정"
+            >
+            ⚙️ 설정
+          </Button>
 
           <SettingsDialog
             open={showSettings}

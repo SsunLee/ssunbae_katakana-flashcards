@@ -1,0 +1,21 @@
+{
+  "name": "ssunbae-edu",
+  "short_name": "ssunbae",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0B1220",
+  "background_color": "#0B1220",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

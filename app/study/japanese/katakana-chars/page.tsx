@@ -29,7 +29,7 @@ import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
 import { fetchGeneratedContent } from "@/app/services/wordService";
-
+import { useMounted } from "@/app/hooks/useMounted";
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -43,11 +43,7 @@ const FILTER_LABELS: Record<FilterKey, string> = {
   yoon: "요음",
 };
 
-function useMounted() {
-  const [m, setM] = useState(false);
-  useEffect(() => setM(true), []);
-  return m;
-}
+
 
 export default function KatakanaCharsPage() {
   /** 고정값 */
@@ -241,27 +237,34 @@ export default function KatakanaCharsPage() {
             </Button>
           )}
 
+           <Button
+            size="sm"
+            variant="outline"
+            className="border-white/10 bg-white/5 hover:bg-white/10"
+            onClick={() => setShowSettings(true)}
+            aria-haspopup="dialog"
+            aria-expanded={showSettings}
+            title="설정"
+            >
+            ⚙️ 설정
+          </Button>
+
           <SettingsDialog
-            open={showSettings}
-            onOpenChange={setShowSettings}
-            user={user}
-            deckType={deckType}
-            isTtsSupported={isTtsSupported}
-            selectedVoice={selectedVoice}
-            selectVoice={selectVoice}
-            voices={voices}
-            isSafari={isSafari}
-            fontFamily={fontFamily}
-            setFontFamily={setFontFamily}
-            topic=""
-            setTopic={() => {}}
-            wordCount={0}
-            setWordCount={() => {}}
-            loadingImport={false}
-            wordFontSize={charFontSize}
-            setWordFontSize={setCharFontSize}
-            resetDeck={reset}
-          />
+                open={showSettings}
+                onOpenChange={setShowSettings}
+                user={user}
+                deckType={deckType}
+                isTtsSupported={isTtsSupported}
+                selectedVoice={selectedVoice}
+                selectVoice={selectVoice}
+                voices={voices}
+                isSafari={isSafari}
+                fontFamily={fontFamily}
+                setFontFamily={setFontFamily}
+                wordFontSize={charFontSize}
+                setWordFontSize={setCharFontSize}
+                resetDeck={reset}
+              />
         </div>
       )}
 
