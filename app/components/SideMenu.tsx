@@ -1,7 +1,8 @@
-// src/components/SideMenu.tsx
+// app/components/SideMenu.tsx
+
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
@@ -10,7 +11,7 @@ import { LogOut, UserCircle2, BookOpen } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Button } from "./ui/button";
 
@@ -37,7 +38,7 @@ type MenuGroup = {
 
 const menuConfig: MenuGroup[] = [
   {
-    language: " 일본어 공부",
+    language: "일본어 공부",
     value: "japanese",
     icon: "🇯🇵",
     items: [
@@ -67,12 +68,8 @@ const menuConfig: MenuGroup[] = [
   },
 ];
 
-// 파일 상단 import 유지: import Image from "next/image";
-
-// 이모지/이미지 모두 처리
 const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
   if (!icon) return null;
-  // public/ 이하 정적 파일이면 "/..." 로 시작
   const isImage = icon.startsWith("/");
   return isImage ? (
     <Image
@@ -86,7 +83,6 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
     <span className="mr-2 inline-block align-[-2px] font-emoji text-[16px]">{icon}</span>
   );
 };
-
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const { user } = useAuth();
@@ -104,50 +100,63 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
     onClose();
   };
 
-  // Sheet 닫고 → 다음 틱에 모달 열기(포커스/오버레이 충돌 방지)
   const openAuthFromSheet = (p: "login" | "register" = "login") => {
     onClose();
     setTimeout(() => open(p), 0);
   };
 
-  // 현재 경로가 속한 그룹을 기본 확장
-  const defaultAccordionValue =
-    menuConfig.find((lang) =>
+  const defaultAccordionValue = useMemo(() => {
+    return menuConfig.find((lang) =>
       lang.items.some((item) => pathname.startsWith(item.href.substring(0, item.href.lastIndexOf("/"))))
     )?.value ?? undefined;
+  }, [pathname]);
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
       <SheetContent
         side="left"
-        className="w-[300px] bg-slate-950 border-r border-slate-800 text-slate-200 p-0 flex flex-col"
+        className="w-[300px] bg-slate-950 border-r border-slate-800 text-slate-200 p-0 flex flex-col [&>button]:hidden"
       >
-        <SheetHeader className="p-6 border-b border-slate-800">
-          <SheetTitle className="text-white text-lg flex items-center gap-3">
-            <BookOpen className="text-blue-400" />
-            <span>학습 메뉴</span>
-          </SheetTitle>
-        </SheetHeader>
+        {/* 안전 영역을 고려한 상단 패딩과 헤더 */}
+        <div 
+          className="pt-[env(safe-area-inset-top)] bg-slate-950"
+          style={{ paddingTop: 'max(env(safe-area-inset-top), 16px)' }}
+        >
+          <SheetHeader className="px-6 pt-4 pb-6 border-b border-slate-800 flex-shrink-0">
+            <div className="flex items-center justify-between">
+              <SheetTitle className="text-white text-lg flex items-center gap-3">
+                <BookOpen className="text-blue-400" />
+                <span>학습 메뉴</span>
+              </SheetTitle>
+              <button 
+                onClick={onClose}
+                className="text-slate-400 hover:text-white transition-colors p-1 -mr-1"
+                aria-label="메뉴 닫기"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <SheetDescription className="sr-only">
+              언어별 학습 메뉴를 선택할 수 있습니다. 일본어, 영어, 스페인어 공부 메뉴가 있습니다.
+            </SheetDescription>
+          </SheetHeader>
+        </div>
 
+        {/* 메인 콘텐츠 영역 */}
         <div className="flex-grow p-3 overflow-y-auto">
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-                  {/* --- 메뉴 타이틀 영역 --- */}
                   <AccordionTrigger className="text-sm font-semibold text-slate-300 hover:no-underline hover:text-white disabled:opacity-50 px-2 py-3">
                     <MenuIcon icon={lang.icon} size={18} />
                     <span>{lang.language}</span>
                   </AccordionTrigger>
-                  {/* --- 메뉴 아이템 목록 --- */}
                 <AccordionContent 
-                  className="
-                    pl-3 pr-1 pb-2 pt-0
-                    data-[state=open]:pt-3 
-                    data-[state=open]:border-t data-[state=open]:border-slate-800/60 
-                  "
+                  className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-slate-800/60"
                 >
-                  {/* --- 각 메뉴 아이템 --- */}
-                  <div className= "space-y-0">
+                  <div className="space-y-0">
                   {lang.items.map((item) => (
                       <Button
                         key={item.href}
@@ -173,7 +182,11 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           </Accordion>
         </div>
 
-        <div className="flex-shrink-0 p-6 border-t border-slate-800">
+        {/* 하단 사용자 정보 영역 - 안전 영역 고려 */}
+        <div 
+          className="flex-shrink-0 p-6 border-t border-slate-800 pb-[env(safe-area-inset-bottom)]"
+          style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 24px)' }}
+        >
           {user ? (
             <div className="flex flex-col items-start gap-4">
               <div className="flex items-center gap-3">

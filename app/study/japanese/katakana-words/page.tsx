@@ -26,6 +26,9 @@ import { fetchGeneratedContent } from "@/app/services/wordService";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
+import { useMounted } from '@/app/hooks/useMounted';
+
+
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
@@ -170,6 +173,12 @@ export default function KatakanaWordsPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+
+  // tts 지원 여부
+  const mounted = useMounted();
+  // 브라우저 API는 mounted 이후에만 체크
+  const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+
   return (
     <div
       className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6"
@@ -195,17 +204,31 @@ export default function KatakanaWordsPage() {
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
-          {isTtsSupported && (
+          {canTts && (
             <Button
               size="sm"
               variant="outline"
               className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => speakJa(current?.furigana || "")}
-              disabled={!ttsReady || !current}
+              onClick={() => setShowSettings(true)}
+              aria-haspopup="dialog"
+              aria-expanded={showSettings}
             >
               🔊 듣기 (ふりがな)
             </Button>
           )}
+          
+          {/* ✅ 설정 버튼: 항상 렌더 → SSR/CSR 동일 */}
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-white/10 bg-white/5 hover:bg-white/10"
+            onClick={() => setShowSettings(true)}
+            aria-haspopup="dialog"
+            aria-expanded={showSettings}
+            title="설정"
+          >
+            ⚙️ 설정
+          </Button>
 
           <SettingsDialog
             open={showSettings}

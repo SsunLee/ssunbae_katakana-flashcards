@@ -194,6 +194,19 @@ export default function HiraganaCharsPage() {
               🔊 듣기 (히라가나)
             </Button>
           )}
+
+          <Button
+            size="sm"
+            variant="outline"
+            className="border-white/10 bg-white/5 hover:bg-white/10"
+            onClick={() => setShowSettings(true)}
+            aria-haspopup="dialog"
+            aria-expanded={showSettings}
+            title="설정"
+            >
+            ⚙️ 설정
+          </Button>
+
           <SettingsDialog
             open={showSettings}
             onOpenChange={setShowSettings}

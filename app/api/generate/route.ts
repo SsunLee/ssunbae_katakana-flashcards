@@ -8,6 +8,18 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// CORS 헤더
+const CORS_HEADERS = {
+  // 보안상 운영 배포 시에는 정확히 지정: 'capacitor://localhost'
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'content-type, authorization',
+  'Access-Control-Max-Age': '86400',
+};
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
 function isOpenAIError(error: any): error is APIError {
     return error instanceof APIError;
 }
@@ -16,9 +28,11 @@ export async function POST(request: Request) {
   console.log("\n--- [AI Generation] API 요청 시작 ---");
   
   try {
-    if (!process.env.OPENAI_API_KEY || !process.env.OPENAI_API_KEY.startsWith('sk-')) {
-      console.error("❌ [AI Generation] 오류: OPENAI_API_KEY가 .env.local 파일에 설정되지 않았거나 유효하지 않습니다.");
-      throw new Error("서버에 OpenAI API 키가 설정되지 않았습니다.");
+    if (!process.env.OPENAI_API_KEY?.startsWith('sk-')) {
+      return NextResponse.json(
+        { error: 'Server API key missing', details: 'OPENAI_API_KEY not set' },
+        { status: 500, headers: CORS_HEADERS }
+      );
     }
 
     const { deckType, topic, count } = await request.json();
