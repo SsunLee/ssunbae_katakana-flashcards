@@ -1,84 +1,86 @@
+// app/AuthContext.tsx
 "use client";
 
-import React, {
-  createContext, useContext, useState, useEffect, ReactNode,
-} from "react";
-import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "./lib/firebase";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { getAuth, onAuthStateChanged, User, updateProfile } from 'firebase/auth';
+import { app } from './lib/firebase';
 
 export interface UserProfile {
   uid: string;
   email: string | null;
-  nickname: string;
+  nickname: string | null;
 }
 
 interface AuthContextType {
   user: UserProfile | null;
   loading: boolean;
-  updateUser: (newProfileData: Partial<UserProfile>) => void;
+  updateUser: (newProfile: Partial<UserProfile>) => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({ user: null, loading: true, updateUser: async () => {} });
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 인증 상태 변화 구독
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
-      setLoading(true); // 이벤트 들어오는 즉시 로딩 시작(안전)
-      if (!firebaseUser) {
+    console.log("🕵️ [AuthContext] AuthProvider가 마운트되었습니다. Firebase 인증 리스너를 설정합니다.");
+    const auth = getAuth(app);
+    
+    // onAuthStateChanged는 Firebase의 인증 상태 변경(로그인, 로그아웃)을 실시간으로 감지합니다.
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: User | null) => {
+      console.log("👀 [AuthContext] 인증 상태 변경 감지!", firebaseUser ? `로그인된 사용자: ${firebaseUser.uid}` : "사용자 로그아웃됨");
+      if (firebaseUser) {
+        // 사용자가 로그인된 상태일 때
+        console.log("✅ [AuthContext] 사용자 정보를 앱 상태에 설정합니다.");
+        setUser({
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          nickname: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '사용자',
+        });
+      } else {
+        // 사용자가 로그아웃된 상태일 때
+        console.log("❌ [AuthContext] 사용자 정보를 앱 상태에서 제거합니다.");
         setUser(null);
-        setLoading(false);
-        return;
       }
-
-      try {
-        // Firestore 프로필 로드
-        const userDocRef = doc(db, "users", firebaseUser.uid);
-        const snap = await getDoc(userDocRef);
-
-        const nickname =
-          snap.exists() ? (snap.data() as any).nickname ?? "사용자" : "사용자";
-
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          nickname,
-        });
-      } catch (e) {
-        // ❗️getDoc 실패해도 UI가 멈추지 않도록 최소 정보로 세팅
-        console.error("[Auth] failed to load user profile:", e);
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          nickname: "사용자",
-        });
-      } finally {
-        setLoading(false); // 항상 종료
-      }
+      console.log("🔄 [AuthContext] 인증 로딩 상태를 false로 변경합니다.");
+      setLoading(false);
     });
 
-    return () => unsubscribe();
+    // 컴포넌트가 사라질 때 감시를 중단하여 메모리 누수를 방지합니다.
+    return () => {
+      console.log("🧹 [AuthContext] AuthProvider가 언마운트됩니다. 리스너를 정리합니다.");
+      unsubscribe();
+    };
   }, []);
 
-  const updateUser = (newProfileData: Partial<UserProfile>) => {
-    setUser((cur) => (cur ? { ...cur, ...newProfileData } : cur));
+  const updateUser = async (newProfile: Partial<UserProfile>) => {
+    const auth = getAuth(app);
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      try {
+        await updateProfile(currentUser, {
+          displayName: newProfile.nickname
+        });
+        setUser(prevUser => prevUser ? { ...prevUser, ...newProfile } : null);
+      } catch (error) {
+        console.error("Error updating profile:", error);
+        throw error;
+      }
+    }
   };
 
+  const value = { user, loading, updateUser };
+
   return (
-    <AuthContext.Provider value={{ user, loading, updateUser }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (ctx === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return ctx;
+  return useContext(AuthContext);
 };
+

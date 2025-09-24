@@ -168,7 +168,7 @@ export default function HiraganaCharsPage() {
   return (
     <div className="w-full min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
-            <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
+        <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
       {!user && (
           <LoginPromptCard

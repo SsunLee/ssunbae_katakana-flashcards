@@ -127,7 +127,8 @@ export default function EnglishWordsPage() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
-        <WelcomeBanner name={user?.nickname} subject={"영어 단어"}/>
+        <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
+
       </header>
 
       {!user && <LoginPromptCard onLoginClick={() => open("login")} />}

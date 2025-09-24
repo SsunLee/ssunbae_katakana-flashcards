@@ -22,6 +22,7 @@ import { useEsSpeech } from "@/app/hooks/useEsSpeech";
 import { SPANISH_SENTENCES, type SpanishSentence } from "@/app/data/spanish-sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
+import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
 import { fetchGeneratedContent } from "@/app/services/wordService";
 
@@ -129,7 +130,7 @@ export default function SpanishSentencesPage() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
-        <WelcomeBanner name={user?.nickname} subject={"스페인어 문장"}/>
+        <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
 
       {!user && <LoginPromptCard onLoginClick={() => open("login")} />}

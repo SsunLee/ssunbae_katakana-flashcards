@@ -186,7 +186,7 @@ export default function KatakanaWordsPage() {
     >
       {/* 환영 배너 */}
       <header className="w-full max-w-md mx-auto mb-1">
-            <WelcomeBanner name={user?.nickname} subject={STUDY_LABELS[deckType]}/>
+        <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
 
       {/* 비로그인 안내 카드 */}

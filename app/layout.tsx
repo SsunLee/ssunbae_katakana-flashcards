@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 import './styles/globals.css';
 
+// --- ▼▼▼ AuthProvider를 여기서 import 합니다 ▼▼▼ ---
 import { AuthProvider } from '@/app/AuthContext';
 import { AuthModalProvider } from '@/app/context/AuthModalContext';
 import Providers from './providers';
@@ -47,17 +48,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white">
-          <AuthProvider>
-            <AuthModalProvider>
-              <Providers>
-                {/* --- ▼▼▼ 안전 영역 패딩을 여기에 최종적으로 적용합니다 ▼▼▼ --- */}
-                <div className="pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] h-full">
-                  {children}
-                </div>
-              </Providers>
-            </AuthModalProvider>
-          </AuthProvider>
+        <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white pt-[var(--safe-area-inset-top)] pb-[var(--safe-area-inset-bottom)] pl-[var(--safe-area-inset-left)] pr-[var(--safe-area-inset-right)]">
+            {/* --- ▼▼▼ AuthProvider로 전체 앱을 감싸줍니다 ▼▼▼ --- */}
+            <AuthProvider>
+              <AuthModalProvider>
+                <Providers>
+                    {children}
+                </Providers>
+              </AuthModalProvider>
+            </AuthProvider>
         </div>
       </body>
     </html>

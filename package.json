@@ -30,9 +30,9 @@
     "@vercel/node": "^5.3.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "firebase": "^12.2.1",
+    "firebase": "^11.10.0",
     "lucide-react": "^0.542.0",
-    "next": "^15.5.3",
+    "next": "^15.5.4",
     "openai": "^5.18.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -49,12 +49,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    
     "mobile:build": "BUILD_FOR_MOBILE=true next build",
     "mobile:ios": "npm run mobile:build && npx cap copy ios && npx cap sync ios && npx cap open ios",
     "mobile:android": "npm run mobile:build && npx cap copy android && npx cap sync android && npx cap open android"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.4.3",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.35.0",
@@ -66,4 +66,3 @@
     "node": "20.x"
   }
 }
-
