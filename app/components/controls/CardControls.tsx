@@ -1,3 +1,5 @@
+// app/components/controls/CardControls.tsx
+
 "use client";
 
 import { Button } from "@/app/components/ui/button";

@@ -1,3 +1,5 @@
+// app/data/spanish-words.ts
+
 export interface SpanishWord {
   id: number;
   word: string;           // 스페인어 단어

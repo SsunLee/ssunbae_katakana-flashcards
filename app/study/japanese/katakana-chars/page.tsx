@@ -225,7 +225,7 @@ export default function KatakanaCharsPage() {
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
-          {mounted && canTts && (
+          {canTts && (
             <Button
               size="sm"
               variant="outline"
