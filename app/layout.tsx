@@ -45,13 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })};`,
           }}
         />
-        <Script
-          id="adsbygoogle-loader"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3025305005440839"
-          strategy="afterInteractive"
-          async
-          crossOrigin="anonymous"
-        />
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3025305005440839" crossOrigin="anonymous"></script>
       </head>
       <body>
         <div className="h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white pt-[var(--safe-area-inset-top)] pb-[var(--safe-area-inset-bottom)] pl-[var(--safe-area-inset-left)] pr-[var(--safe-area-inset-right)]">
