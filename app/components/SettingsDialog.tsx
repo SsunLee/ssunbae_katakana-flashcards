@@ -81,7 +81,7 @@ export function SettingsDialog({
   return (
     // ✅ 제어형 Dialog: 트리거 버튼은 외부(헤더)에서 관리
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-800/60 border-white/10 text-white rounded-2xl shadow-xl p-0 w-full max-w-lg">
+      <DialogContent className="bg-slate-800/90 border-white/10 text-white rounded-2xl shadow-xl p-0 w-full max-w-lg">
         <div className="p-6">
           <DialogHeader className="mb-4 text-left">
             <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">
