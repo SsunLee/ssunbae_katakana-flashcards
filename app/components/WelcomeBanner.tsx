@@ -14,7 +14,7 @@ type WelcomeBannerProps = {
   className?: string;
 
   /** 게스트 닉네임을 localStorage에 저장/복원할지 */
-  persistGuest?: boolean;     // default: true
+  persistGuest?: boolean;      // default: true
   /** 저장 키 커스터마이즈 */
   storageKey?: string;        // default: "ssunbae-guest-name"
 };
@@ -30,12 +30,10 @@ export function WelcomeBanner({
   const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
-    // 로그인 닉네임이 있으면 게스트 이름 생성/복원 불필요
     if (name && name.trim()) {
       setGuestName("");
       return;
     }
-    // 게스트인 경우: 로컬스토리지에서 복원하거나 새로 생성
     try {
       if (persistGuest) {
         const saved = localStorage.getItem(storageKey);
@@ -50,7 +48,6 @@ export function WelcomeBanner({
         setGuestName(generateRandomNickname());
       }
     } catch {
-      // (브라우저 제한 등) 실패 시에도 보장
       setGuestName(generateRandomNickname());
     }
   }, [name, persistGuest, storageKey]);
@@ -64,9 +61,9 @@ export function WelcomeBanner({
 
   return (
     <header className={`w-full max-w-md mx-auto mb-6 ${className}`}>
-      <div className="text-sm text-white/80 bg-slate-800/50 border border-white/10 rounded-lg p-4 text-center">
+      <div className="text-sm text-muted-foreground bg-card/50 border border-border rounded-lg p-4 text-center">
         <p>
-          <strong>{displayName}</strong>님, 환영합니다!
+          <strong className="font-semibold text-foreground">{displayName}</strong>님, 환영합니다!
           <br />
           {finalSubtitle}
         </p>

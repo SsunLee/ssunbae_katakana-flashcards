@@ -113,13 +113,20 @@ export default function SentencesPage() {
   }, [viewMode, onFlip, next, prev]);
 
 
-  // tts 지원 여부
   const mounted = useMounted();
-  const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+  // 로딩 상태 UI
+  if (!mounted) {
+    return (
+        <div className="min-h-screen w-full bg-background flex items-center justify-center">
+            <span className="text-foreground">로딩 중...</span>
+        </div>
+    );
+  }
 
   return (
+    // ✅ 배경 스타일 제거, 상위 레이아웃에 위임
     <div
-      className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6"
+      className="min-h-screen w-full flex flex-col items-center p-6"
       style={{ fontFamily: fontStack }}
     >
       <header className="w-full max-w-md mx-auto mb-1">
@@ -130,15 +137,15 @@ export default function SentencesPage() {
 
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          {/* ✅ 테마에 맞게 텍스트 색상 변경 */}
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
           
-          {canTts && (
+          {mounted && (
             <Button
               size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
+              variant="outline" // ✅ variant="outline"으로 변경
               onClick={() => speakJa(current?.furigana || "")}
               disabled={!ttsReady || !current}
             >
@@ -147,8 +154,7 @@ export default function SentencesPage() {
           )}
            <Button
             size="sm"
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline"으로 변경
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -230,8 +236,7 @@ export default function SentencesPage() {
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
           <Button
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline"으로 변경
             onClick={() => {
               setViewMode((p) => (p === "single" ? "grid" : "single"));
               setFlipped(false);
@@ -240,8 +245,9 @@ export default function SentencesPage() {
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        {/* ✅ 테마에 맞게 스타일 변경 */}
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch
             checked={onlyFavs}
             onCheckedChange={(on) => {
@@ -254,7 +260,8 @@ export default function SentencesPage() {
         </label>
       </div>
 
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      {/* ✅ 테마에 맞게 스타일 변경 */}
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
         <li>⚙️설정에서 TTS Voice, Font, 문장 폰트 크기를 조절할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
@@ -262,13 +269,14 @@ export default function SentencesPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">
+        {/* ✅ 테마에 맞게 스타일 변경 */}
+        <span className="text-muted-foreground/60 text-xs">
           일본어 공부 v{APP_VERSION}{" "}
           <a
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white/60 ml-1"
+            className="hover:text-foreground/80 ml-1"
           >
             쑨쑨배의 Github
           </a>
@@ -277,4 +285,3 @@ export default function SentencesPage() {
     </div>
   );
 }
-

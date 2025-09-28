@@ -25,7 +25,7 @@ import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useContentImporter } from "@/app/hooks/useContentImporter";
 import { fetchGeneratedContent } from "@/app/services/wordService";
-
+import { useMounted } from "@/app/hooks/useMounted";
 import { ERROR_MESSAGES } from "@/app/constants/message";
 
 const CARDS_PER_PAGE = 10;
@@ -48,15 +48,10 @@ export default function EnglishWordsPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Inter");
-  // --- ✨ 영어 단어 폰트 크기 상태 추가 ---
-  const [wordFontSize, setWordFontSize] = useState(48); // 기본값 48px
-
-
-
+  const [wordFontSize, setWordFontSize] = useState(48);
   
   const { isSupported: isTtsSupported, ready: ttsReady, speakEn, selectedVoice, voices, selectVoice, isSafari } = useEnSpeech();
 
-  // --- ✨ AI 연동을 위한 상태 추가 ---
   const [topic, setTopic] = useState("일상 회화");
   const [wordCount, setWordCount] = useState<number>(10);
   const [loadingImport, setLoadingImport] = useState(false);
@@ -92,7 +87,6 @@ export default function EnglishWordsPage() {
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
 
-  // AI 콘텐츠 가져오기 함수 
   const { importContent } = useContentImporter<EnglishWord>({
     deckType,
     setDeck,
@@ -104,7 +98,6 @@ export default function EnglishWordsPage() {
     fetchGeneratedContent,
     errorFallback: ERROR_MESSAGES.CONTENT_GENERATION_FAILED,
   });
-
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
@@ -121,30 +114,33 @@ export default function EnglishWordsPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+  const mounted = useMounted();
+  if (!mounted) {
+    return null; // or a loading spinner
+  }
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
+    <div className="min-h-screen w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
         <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
-
       </header>
 
       {!user && <LoginPromptCard onLoginClick={() => open("login")} />}
 
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
           
           {isTtsSupported && (
-            <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakEn(current?.word || "")} disabled={!ttsReady || !current}>
+            <Button size="sm" variant="outline" onClick={() => speakEn(current?.word || "")} disabled={!ttsReady || !current}>
               🔊 듣기 (Word)
             </Button>
           )}
           <Button
             size="sm"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -171,7 +167,6 @@ export default function EnglishWordsPage() {
             loadingImport={loadingImport}
             importContent={importContent}
             resetDeck={reset}
-            // --- ✨ 영어 단어 폰트 크기 상태 전달 ---
             wordFontSize={wordFontSize}
             setWordFontSize={setWordFontSize}
           />
@@ -215,18 +210,17 @@ export default function EnglishWordsPage() {
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
-          <Button variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
+          <Button variant="outline" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border
--white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch checked={onlyFavs} onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); setCurrentPage(1); }} />
         </label>
       </div>
 
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
           <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
@@ -235,9 +229,8 @@ export default function EnglishWordsPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">영어 공부 v{APP_VERSION}</span>
+        <span className="text-muted-foreground/60 text-xs">영어 공부 v{APP_VERSION}</span>
       </div>
     </div>
   );
 }
-

@@ -50,7 +50,6 @@ export default function SpanishSentencesPage() {
   const [fontFamily, setFontFamily] = useState<string>("Lato");
   const [sentenceFontSize, setSentenceFontSize] = useState(32);
   
-  // --- ✨ AI 연동을 위한 상태 추가 ---
   const [topic, setTopic] = useState("일상 회화");
   const [wordCount, setWordCount] = useState<number>(10);
   const [loadingImport, setLoadingImport] = useState(false);
@@ -87,7 +86,7 @@ export default function SpanishSentencesPage() {
 
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
-  // AI 콘텐츠 가져오기 함수 
+  
   const { importContent } = useContentImporter<SpanishSentence>({
     deckType,
     setDeck,
@@ -115,14 +114,11 @@ export default function SpanishSentencesPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
-
-  // tts 지원 여부
   const mounted = useMounted();
-  // 브라우저 API는 mounted 이후에만 체크
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
+    <div className="min-h-screen w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
         <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
@@ -131,12 +127,12 @@ export default function SpanishSentencesPage() {
 
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
           
           {canTts && (
-            <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakEs(current?.sentence || "")} disabled={!ttsReady || !current}>
+            <Button size="sm" variant="outline" onClick={() => speakEs(current?.sentence || "")} disabled={!ttsReady || !current}>
               🔊 듣기 (Oración)
             </Button>
           )}
@@ -144,7 +140,6 @@ export default function SpanishSentencesPage() {
           <Button
             size="sm"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -168,7 +163,6 @@ export default function SpanishSentencesPage() {
             sentenceFontSize={sentenceFontSize}
             setSentenceFontSize={setSentenceFontSize}
             resetDeck={reset}
-            // --- ✨ AI 관련 props 전달 ---
             topic={topic}
             setTopic={setTopic}
             wordCount={wordCount}
@@ -216,17 +210,17 @@ export default function SpanishSentencesPage() {
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
-          <Button variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
+          <Button variant="outline" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border-white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch checked={onlyFavs} onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); setCurrentPage(1); }} />
         </label>
       </div>
 
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
           <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
@@ -235,9 +229,8 @@ export default function SpanishSentencesPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">스페인어 공부 v{APP_VERSION}</span>
+        <span className="text-muted-foreground/60 text-xs">스페인어 공부 v{APP_VERSION}</span>
       </div>
     </div>
   );
 }
-

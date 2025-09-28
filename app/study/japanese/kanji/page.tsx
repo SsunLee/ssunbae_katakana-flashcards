@@ -97,14 +97,11 @@ export default function KanjiPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
-
-  // tts 지원 여부
   const mounted = useMounted();
-  // 브라우저 API는 mounted 이후에만 체크
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
+    <div className="min-h-screen w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
         <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
@@ -113,16 +110,16 @@ export default function KanjiPage() {
 
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
           
           {canTts && (
             <div className="flex items-center gap-2">
-              <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakJa(current?.onyomi || "")} disabled={!ttsReady || !current || !current.onyomi}>
+              <Button size="sm" variant="outline" onClick={() => speakJa(current?.onyomi || "")} disabled={!ttsReady || !current || !current.onyomi}>
                 🔊 음독
               </Button>
-              <Button size="sm" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => speakJa(current?.kunyomi || "")} disabled={!ttsReady || !current || !current.kunyomi}>
+              <Button size="sm" variant="outline" onClick={() => speakJa(current?.kunyomi || "")} disabled={!ttsReady || !current || !current.kunyomi}>
                 🔊 훈독
               </Button>
             </div>
@@ -131,7 +128,6 @@ export default function KanjiPage() {
           <Button
             size="sm"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -196,17 +192,17 @@ export default function KanjiPage() {
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
-          <Button variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
+          <Button variant="outline" onClick={() => { setViewMode((p) => (p === "single" ? "grid" : "single")); setFlipped(false); }}>
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch checked={onlyFavs} onCheckedChange={(on) => { setOnlyFavs(on); setIndex(0); setFlipped(false); setCurrentPage(1); }} />
         </label>
       </div>
 
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>⚙️설정에서 TTS Voice, Font, 한자 폰트 크기를 조절할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
@@ -216,9 +212,8 @@ export default function KanjiPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">한자 공부 v{APP_VERSION}</span>
+        <span className="text-muted-foreground/60 text-xs">한자 공부 v{APP_VERSION}</span>
       </div>
     </div>
   );
 }
-

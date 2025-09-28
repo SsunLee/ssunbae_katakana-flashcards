@@ -16,19 +16,13 @@ interface GridCardViewProps {
   flippedStates: Record<CardId, boolean>;
   onToggleFav: (id: CardId) => void;
   onToggleCardFlip: (id: CardId) => void;
-
-  // 어떤 표시 모드인지
-  variant?: Variant; // 기본값: "words"
-
-  // 페이지네이션 (옵션)
+  variant?: Variant;
   page?: {
     current: number;
     total: number;
     onPrev: () => void;
     onNext: () => void;
   };
-
-  // 완전 커스텀하고 싶을 때(옵션). 제공되면 variant보다 우선합니다.
   renderFront?: (card: Word) => React.ReactNode;
   renderBack?: (card: Word) => React.ReactNode;
 }
@@ -46,39 +40,38 @@ export function GridCardView({
 }: GridCardViewProps) {
   const defaultFront = (card: Word) => {
     if (variant === "chars") {
-      // 가타카나 '글자' 모드 (front: 카타카나 크게)
       return (
         <>
           <div className="text-6xl font-semibold break-all px-2">{card.katakana}</div>
         </>
       );
     }
-    // '단어' 모드 (front: 카타카나 + 후리가나)
     return (
       <>
         <div className="text-2xl font-semibold break-all px-2">{card.katakana}</div>
-        <div className="text-sm text-white/70 mt-1">{card.furigana}</div>
+        {/* ✅ 테마에 맞게 텍스트 색상 변경 */}
+        <div className="text-sm text-muted-foreground mt-1">{card.furigana}</div>
       </>
     );
   };
 
   const defaultBack = (card: Word) => {
     if (variant === "chars") {
-      // 글자 모드 (back: 후리가나 크게 + 이모지 + 정답 작은 글자)
       return (
         <>
           <div className="text-5xl font-semibold break-all">{card.furigana}</div>
           <div className="text-2xl mt-1">{card.emoji}</div>
-          <div className="text-sm text-white/70 mt-1 text-center">{card.answer}</div>
+          {/* ✅ 테마에 맞게 텍스트 색상 변경 */}
+          <div className="text-sm text-muted-foreground mt-1 text-center">{card.answer}</div>
         </>
       );
     }
-    // 단어 모드 (back: 정답 크게 + 이모지 + 로마자)
     return (
       <>
         <div className="text-lg font-semibold break-all">{card.answer}</div>
         <div className="text-2xl mt-1">{card.emoji}</div>
-        <div className="text-xs text-white/70 mt-2">({kanaToRomaji(card.furigana)})</div>
+        {/* ✅ 테마에 맞게 텍스트 색상 변경 */}
+        <div className="text-xs text-muted-foreground mt-2">({kanaToRomaji(card.furigana)})</div>
       </>
     );
   };
@@ -97,7 +90,8 @@ export function GridCardView({
               style={{ transform: flippedStates[card.id] ? "rotateY(180deg)" : "rotateY(0deg)" }}
             >
               {/* Front */}
-              <div className="absolute inset-0 bg-slate-800/60 flex flex-col items-center justify-center text-center p-2 rounded-lg border border-white/10 [backface-visibility:hidden]">
+              {/* ✅ 배경, 테두리 색상을 테마에 맞게 변경 */}
+              <div className="absolute inset-0 bg-card flex flex-col items-center justify-center text-center p-2 rounded-lg border border-border [backface-visibility:hidden]">
                 <Button
                   type="button"
                   size="icon"
@@ -106,7 +100,8 @@ export function GridCardView({
                     e.stopPropagation();
                     onToggleFav(card.id);
                   }}
-                  className="absolute top-2 right-2 h-7 w-7 rounded-full bg-black/20 hover:bg-black/30 border-none"
+                  // ✅ variant="secondary"를 사용하므로 직접 스타일링하는 클래스는 제거합니다.
+                  className="absolute top-2 right-2 h-7 w-7 rounded-full"
                   title={favs[card.id] ? "즐겨찾기 해제" : "즐겨찾기 추가"}
                 >
                   <span className="text-md flex items-center justify-center w-full h-full">
@@ -118,7 +113,8 @@ export function GridCardView({
               </div>
 
               {/* Back */}
-              <div className="absolute inset-0 bg-slate-800/80 flex flex-col items-center justify-center text-center p-2 rounded-lg border border-white/10 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              {/* ✅ 배경, 테두리 색상을 테마에 맞게 변경 */}
+              <div className="absolute inset-0 bg-card flex flex-col items-center justify-center text-center p-2 rounded-lg border border-border [transform:rotateY(180deg)] [backface-visibility:hidden]">
                 {renderBack ? renderBack(card) : defaultBack(card)}
               </div>
             </div>
@@ -127,13 +123,13 @@ export function GridCardView({
       </div>
 
       {page && page.total > 1 && (
-        <div className="mt-6 flex items-center justify-center gap-4 text-white">
+        // ✅ 페이지네이션 텍스트 색상 변경
+        <div className="mt-6 flex items-center justify-center gap-4 text-foreground">
           <Button
             onClick={page.onPrev}
             disabled={page.current === 1}
             size="sm"
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline"을 사용하면 클래스 없이도 테마가 적용됩니다.
           >
             이전
           </Button>
@@ -144,8 +140,7 @@ export function GridCardView({
             onClick={page.onNext}
             disabled={page.current === page.total}
             size="sm"
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline"을 사용하면 클래스 없이도 테마가 적용됩니다.
           >
             다음
           </Button>

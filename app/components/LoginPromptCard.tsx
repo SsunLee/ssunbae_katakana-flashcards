@@ -5,10 +5,10 @@ import React from "react";
 import { Button } from "@/app/components/ui/button";
 
 type LoginPromptCardProps = {
-  onLoginClick: () => void;       // 로그인/회원가입 모달 열기
+  onLoginClick: () => void;
   className?: string;
   title?: string;
-  features?: string[];            // 표시할 기능 목록 (원하면 교체)
+  features?: string[];
   ctaLabel?: string;
 };
 
@@ -27,9 +27,9 @@ export function LoginPromptCard({
   ctaLabel = "로그인 / 회원가입",
 }: LoginPromptCardProps) {
   return (
-    <section className={`w-full max-w-md mx-auto p-4 mb-6 bg-slate-800/50 border border-white/10 rounded-lg text-sm ${className}`}>
-      <p className="font-semibold text-white">{title}</p>
-      <ul className="list-disc list-inside text-white/80 mt-2 space-y-1">
+    <section className={`w-full max-w-md mx-auto p-4 mb-6 bg-card/50 border border-border rounded-lg text-sm ${className}`}>
+      <p className="font-semibold text-foreground">{title}</p>
+      <ul className="list-disc list-inside text-muted-foreground mt-2 space-y-1">
         {features.map((f, i) => (
           <li key={i}>{f}</li>
         ))}
@@ -37,7 +37,7 @@ export function LoginPromptCard({
       <Button
         size="sm"
         onClick={onLoginClick}
-        className="w-full text-white mt-4 bg-blue-600 hover:bg-blue-500"
+        className="w-full mt-4" // variant="default" 가 기본 primary 색상을 적용합니다.
       >
         <span className="font-bold">{ctaLabel}</span>
       </Button>

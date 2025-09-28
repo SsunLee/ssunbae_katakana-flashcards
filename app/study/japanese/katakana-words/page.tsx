@@ -42,7 +42,6 @@ export default function KatakanaWordsPage() {
   /** 고정값 */
   const initialDeck = KATAKANA_WORDS;
   const deckType = "katakana-words";
-  const pageLabel = "가타카나 단어";
 
   const [wordFontSize, setwordFontSize] = useState(50);
 
@@ -73,7 +72,6 @@ export default function KatakanaWordsPage() {
 
   
   /** 단어 생성 (AI) */
-  // --- ✨ AI 연동을 위한 상태 추가 ---
   const [topic, setTopic] = useState("일상 회화");
   const [wordCount, setWordCount] = useState<number>(10);
   const [loadingImport, setLoadingImport] = useState(false);
@@ -118,7 +116,7 @@ export default function KatakanaWordsPage() {
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
-    setFlipped(false); // 잔상 방지
+    setFlipped(false);
   }, [studyDeck.length]);
   const prev = useCallback(() => {
     setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
@@ -142,7 +140,6 @@ export default function KatakanaWordsPage() {
   /** 음성(TTS) */
   const {
     isSupported: isTtsSupported,
-    ready: ttsReady,
     speakJa,
     selectedVoice,
     voices,
@@ -173,25 +170,21 @@ export default function KatakanaWordsPage() {
   }, [viewMode, onFlip, next, prev]);
 
 
-  // tts 지원 여부
   const mounted = useMounted();
-  // 브라우저 API는 mounted 이후에만 체크
-  const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
-
-
-  // 서버와 클라이언트 초기 렌더링 시 이 UI가 사용됩니다.
+  
   if (!mounted) {
     return (
-      <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
-        {/* 간단한 로딩 스피너나 메시지를 보여줄 수 있습니다. */}
-        <span className="text-white">로딩 중...</span>
+      // ✅ 로딩 상태도 테마에 맞게 변경
+      <div className="min-h-screen w-full bg-background flex items-center justify-center">
+        <span className="text-foreground">로딩 중...</span>
       </div>
     );
   }
 
   return (
+    // ✅ 배경 그라데이션과 고정 텍스트 색상을 제거합니다. 상위 레이아웃에서 배경과 텍스트 색상을 지정합니다.
     <div
-      className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white flex flex-col items-center p-6"
+      className="min-h-screen w-full flex flex-col items-center p-6"
       style={{ fontFamily: fontStack }}
     >
       {/* 환영 배너 */}
@@ -202,36 +195,32 @@ export default function KatakanaWordsPage() {
       {/* 비로그인 안내 카드 */}
       {!user && (
           <LoginPromptCard
-            onLoginClick={() => open("login")}  // 기존 setPage+open 대신 한 줄
-            // 필요 시 features, title, ctaLabel 커스터마이즈 가능
+            onLoginClick={() => open("login")}
           />
       )}
 
       {/* 상단 컨트롤: 진행률 / 듣기 / 설정 */}
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          {/* ✅ text-muted-foreground로 변경 */}
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
           {mounted && (
             <Button
               size="sm"
-              variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
-              onClick={() => setShowSettings(true)}
-              aria-haspopup="dialog"
-              aria-expanded={showSettings}
+              variant="outline" // ✅ variant="outline"을 사용하면 테마에 따라 스타일이 자동 적용됩니다.
+              onClick={() => speakJa(current?.furigana)}
+              disabled={!isTtsSupported}
             >
               🔊 듣기 (ふりがな)
             </Button>
           )}
           
-          {/* 설정 버튼: 항상 렌더 → SSR/CSR 동일 */}
           <Button
             size="sm"
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline" 사용
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -252,7 +241,6 @@ export default function KatakanaWordsPage() {
             isSafari={isSafari}
             fontFamily={fontFamily}
             setFontFamily={setFontFamily}
-            // AI 단어 생성
             topic={topic}
             setTopic={setTopic}
             wordCount={wordCount}
@@ -274,7 +262,7 @@ export default function KatakanaWordsPage() {
           ) : (
             current && (
               <SingleCardView
-                key={current.id} // 카드 교체 시 애니메이션 꼬임 방지
+                key={current.id}
                 card={current}
                 deckType={deckType}
                 isFlipped={flipped}
@@ -320,8 +308,7 @@ export default function KatakanaWordsPage() {
       <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm">
         {user && (
           <Button
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
+            variant="outline" // ✅ variant="outline" 사용
             onClick={() => {
               setViewMode((p) => (p === "single" ? "grid" : "single"));
               setFlipped(false);
@@ -330,8 +317,9 @@ export default function KatakanaWordsPage() {
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        {/* ✅ 배경, 테두리, 텍스트 색상을 테마에 맞게 변경 */}
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch
             checked={onlyFavs}
             onCheckedChange={(on) => {
@@ -345,7 +333,8 @@ export default function KatakanaWordsPage() {
       </div>
       
       {/* 안내/버전 */}
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      {/* ✅ 배경, 텍스트 색상을 테마에 맞게 변경 */}
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
           <li>{FOOTER_TEXTS.GUIDE_AI_STUDY}</li>
@@ -360,14 +349,15 @@ export default function KatakanaWordsPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">
+        {/* ✅ 텍스트 색상을 테마에 맞게 변경 */}
+        <span className="text-muted-foreground/60 text-xs">
           {FOOTER_TEXTS.APP_INFO(APP_VERSION)}
           {" | "}
           <a
             href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white/60 ml-1"
+            className="hover:text-foreground/80 ml-1"
           >
             {FOOTER_TEXTS.GITHUB_LINK}
           </a>

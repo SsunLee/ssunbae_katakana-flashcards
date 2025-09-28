@@ -1,3 +1,4 @@
+// app/RegisterPage.tsx
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
@@ -6,7 +7,7 @@ import { Button } from "./components/ui/button";
 
 interface RegisterPageProps {
   onSwitchToLogin: () => void;
-  onSuccess: () => void; // 👈 props 타입 추가
+  onSuccess: () => void;
 }
 
 export default function RegisterPage({ onSwitchToLogin, onSuccess }: RegisterPageProps) {
@@ -39,7 +40,7 @@ export default function RegisterPage({ onSwitchToLogin, onSuccess }: RegisterPag
         nickname: nickname,
         email: user.email,
       });
-    onSuccess(); // 👈 회원가입 성공 후 onSuccess 호출
+      onSuccess();
     } catch (err: any) {
       switch (err.code) {
         case 'auth/email-already-in-use':
@@ -62,36 +63,36 @@ export default function RegisterPage({ onSwitchToLogin, onSuccess }: RegisterPag
 
   return (
     <div className="p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center">🦋 회원가입 🦋</h1>
+        <h1 className="text-2xl font-bold text-center text-foreground">🦋 회원가입 🦋</h1>
         <form onSubmit={handleRegister} className="space-y-4">
             <div>
-            <label className="text-sm font-medium">닉네임</label>
-            <input value={nickname} onChange={(e) => setNickname(e.target.value)} required placeholder="사용하실 닉네임을 입력하세요" className="mt-1 w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label className="text-sm font-medium text-muted-foreground">닉네임</label>
+            <input value={nickname} onChange={(e) => setNickname(e.target.value)} required placeholder="사용하실 닉네임을 입력하세요" className="mt-1 w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
             </div>
             <div>
-            <label className="text-sm font-medium">이메일</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com" className="mt-1 w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+            <label className="text-sm font-medium text-muted-foreground">이메일</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com" className="mt-1 w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            {errors.email && <p className="mt-1 text-sm text-destructive">{errors.email}</p>}
             </div>
             <div>
-            <label className="text-sm font-medium">비밀번호</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="비밀번호 (6자리 이상)" className="mt-1 w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password}</p>}
+            <label className="text-sm font-medium text-muted-foreground">비밀번호</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="비밀번호 (6자리 이상)" className="mt-1 w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            {errors.password && <p className="mt-1 text-sm text-destructive">{errors.password}</p>}
             </div>
             <div>
-            <label className="text-sm font-medium">비밀번호 확인</label>
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="비밀번호를 다시 입력하세요" className="mt-1 w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            {errors.confirmPassword && <p className="mt-1 text-sm text-red-500">{errors.confirmPassword}</p>}
+            <label className="text-sm font-medium text-muted-foreground">비밀번호 확인</label>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="비밀번호를 다시 입력하세요" className="mt-1 w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            {errors.confirmPassword && <p className="mt-1 text-sm text-destructive">{errors.confirmPassword}</p>}
             </div>
 
-            {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
-            <Button type="submit" disabled={loading} className="w-full border border-white/20 bg-transparent hover:bg-white/10">
+            {errors.general && <p className="text-destructive text-sm text-center">{errors.general}</p>}
+            <Button type="submit" disabled={loading} className="w-full" variant="default">
             {loading ? '가입 중...' : '회원가입'}
             </Button>
         </form>
-            <p className="text-sm text-center text-white/70">
+            <p className="text-sm text-center text-muted-foreground">
             이미 계정이 있으신가요?{' '}
-            <button onClick={onSwitchToLogin} className="font-medium text-blue-400 hover:underline">
+            <button onClick={onSwitchToLogin} className="font-medium text-primary hover:underline">
             로그인
             </button>
         </p>

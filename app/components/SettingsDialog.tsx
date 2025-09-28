@@ -8,6 +8,9 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from ".
 import { Slider } from "./ui/slider";
 import type { UserProfile } from "../AuthContext";
 
+import { useTheme } from "@/app/context/ThemeContext"; // ✅ 추가
+
+
 const AI_SUPPORTED_DECKS = [
   "english-words",
   "spanish-words",
@@ -78,23 +81,42 @@ export function SettingsDialog({
   else if (isSentenceMode) sizeSliderLabel = "문장 크기";
   else sizeSliderLabel = "단어 크기";
 
+
+  const { theme, setTheme } = useTheme(); // ✅ 추가: 전역 테마 컨텍스트 사용
+
   return (
     // ✅ 제어형 Dialog: 트리거 버튼은 외부(헤더)에서 관리
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-slate-800/90 border-white/10 text-white rounded-2xl shadow-xl p-0 w-full max-w-lg">
-        <div className="p-6">
+      <DialogContent className="bg-card text-card-foreground border border-border rounded-2xl shadow-xl p-0 w-full max-w-lg">        <div className="p-6">
           <DialogHeader className="mb-4 text-left">
-            <DialogTitle className="text-lg font-semibold text-white flex items-center gap-2">
+            <DialogTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
               ⚙️ 설정
             </DialogTitle>
-            <DialogDescription className="text-sm text-white/70">
+            <DialogDescription className="text-sm text-foreground/70">
               학습 환경을 사용자화하세요.
             </DialogDescription>
           </DialogHeader>
 
+          {/* ✅ Theme Settings 섹션 (여기 추가) */}
+          <div className="mb-4 pb-4 border-b ui-divider">
+            <h3 className="text-sm font-semibold opacity-80 mb-2">Theme Settings</h3>
+            <div className="flex items-center gap-3">
+              <span className="w-24 text-sm opacity-80">Theme</span>
+              <Select value={theme} onValueChange={(v) => setTheme(v as "light" | "dark")}>
+                <SelectTrigger className="w-40 bg-muted/60 border text-foreground">
+                  <SelectValue placeholder="Select theme" />
+                </SelectTrigger>
+                <SelectContent className="z-[70] bg-background border">
+                  <SelectItem value="light">White mode</SelectItem>
+                  <SelectItem value="dark">Dark mode</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           {isTtsSupported && (
             <div className="mb-4">
-              <label className="block text-sm text-white/70 mb-1">TTS Voice</label>
+              <label className="block text-sm text-foreground/70 mb-1">TTS Voice</label>
               <Select
                 value={selectedVoice?.name || ""}
                 onValueChange={(val) => {
@@ -103,12 +125,12 @@ export function SettingsDialog({
                 }}
                 disabled={voices.length === 0}
               >
-                <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white text-left">
+                <SelectTrigger className="w-full bg-muted/60 border border-border text-foreground">
                   {selectedVoice ? `${selectedVoice.name} (${selectedVoice.lang})` : "목소리를 찾을 수 없습니다."}
                 </SelectTrigger>
-                <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
+                <SelectContent className="z-[70] bg-background border" position="popper" sideOffset={8}>
                   {voices.map((v) => (
-                    <SelectItem className="text-white" key={v.name} value={v.name}>
+                    <SelectItem key={v.name} value={v.name}>
                       {v.name} ({v.lang})
                     </SelectItem>
                   ))}
@@ -117,10 +139,11 @@ export function SettingsDialog({
             </div>
           )}
 
+          {/* ✅ Font 섹션: 토큰화 */}
           <div className="mb-2">
-            <label className="block text-sm text-white/70 mb-1">Font</label>
+            <label className="block text-sm opacity-80 mb-1">Font</label>
             <Select value={fontFamily} onValueChange={setFontFamily}>
-              <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
+              <SelectTrigger className="w-full bg-muted/60 border text-foreground">
                 <SelectValue placeholder="Select font" />
               </SelectTrigger>
               <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
@@ -174,10 +197,10 @@ export function SettingsDialog({
           {(isCharMode || isKanjiMode || deckType.endsWith("-words")) &&
             wordFontSize &&
             setWordFontSize && (
-              <div className="mt-4 border-t border-white/10 pt-4">
-                <label className="block text-sm text-white/70 mb-1">{sizeSliderLabel}</label>
+              <div className="mt-4 border-t ui-divider pt-4">
+                <label className="block text-sm opacity-80 mb-1">{sizeSliderLabel}</label>
                 <div className="flex items-center gap-4">
-                  <div className="w-full flex-grow bg-slate-900/50 rounded-full border border-white/10 p-1">
+                  <div className="w-full flex-grow bg-muted/50 rounded-full border p-1">
                     <Slider
                       min={isCharMode ? 48 : 24}
                       max={isCharMode ? 128 : 72}
@@ -192,10 +215,10 @@ export function SettingsDialog({
             )}
 
           {isSentenceMode && sentenceFontSize && setSentenceFontSize && (
-            <div className="mt-4 border-t border-white/10 pt-4">
-              <label className="block text-sm text-white/70 mb-1">{sizeSliderLabel}</label>
+            <div className="mt-4 border-t ui-divider pt-4">
+              <label className="block text-sm opacity-80 mb-1">{sizeSliderLabel}</label>
               <div className="flex items-center gap-4">
-                <div className="w-full flex-grow bg-slate-900/50 rounded-full border border-white/10 p-1">
+                <div className="w-full flex-grow bg-muted/50 rounded-full border p-1">
                   <Slider
                     min={18}
                     max={40}

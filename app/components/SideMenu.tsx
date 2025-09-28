@@ -115,22 +115,21 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
     <Sheet open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
       <SheetContent
         side="left"
-        className="w-[300px] bg-slate-950 border-r border-slate-800 text-slate-200 p-0 flex flex-col [&>button]:hidden"
+        className="w-[300px] bg-card border-r border-border text-foreground p-0 flex flex-col [&>button]:hidden"
       >
-        {/* 안전 영역을 고려한 상단 패딩과 헤더 */}
         <div 
-          className="pt-[env(safe-area-inset-top)] bg-slate-950"
+          className="pt-[env(safe-area-inset-top)] bg-card"
           style={{ paddingTop: 'max(env(safe-area-inset-top), 16px)' }}
         >
-          <SheetHeader className="px-6 pt-4 pb-6 border-b border-slate-800 flex-shrink-0">
+          <SheetHeader className="px-6 pt-4 pb-6 border-b border-border flex-shrink-0">
             <div className="flex items-center justify-between">
-              <SheetTitle className="text-white text-lg flex items-center gap-3">
-                <BookOpen className="text-blue-400" />
+              <SheetTitle className="text-foreground text-lg flex items-center gap-3">
+                <BookOpen className="text-primary" />
                 <span>학습 메뉴</span>
               </SheetTitle>
               <button 
                 onClick={onClose}
-                className="text-slate-400 hover:text-white transition-colors p-1 -mr-1"
+                className="text-muted-foreground hover:text-foreground transition-colors p-1 -mr-1"
                 aria-label="메뉴 닫기"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,17 +143,16 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           </SheetHeader>
         </div>
 
-        {/* 메인 콘텐츠 영역 */}
         <div className="flex-grow p-3 overflow-y-auto">
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-                  <AccordionTrigger className="text-sm font-semibold text-slate-300 hover:no-underline hover:text-white disabled:opacity-50 px-2 py-3">
+                  <AccordionTrigger className="text-sm font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-3">
                     <MenuIcon icon={lang.icon} size={18} />
                     <span>{lang.language}</span>
                   </AccordionTrigger>
                 <AccordionContent 
-                  className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-slate-800/60"
+                  className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-border/60"
                 >
                   <div className="space-y-0">
                   {lang.items.map((item) => (
@@ -163,11 +161,10 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                         variant="ghost"
                         disabled={item.disabled}
                         onClick={() => handleNavigate(item.href)}
-                        className={`w-full p-3 inline-flex items-center gap-2 justify-end
-                          pr-3 sm:pr-8  ${
+                        className={`w-full justify-start p-3 text-sm font-medium h-auto ${
                           pathname === item.href
-                            ? "bg-blue-500/10 text-blue-300 font-semibold border-l-4 border-blue-400 rounded-l-none rounded-r-md hover:bg-blue-500/10"
-                            : "text-slate-400 hover:bg-slate-800 hover:text-white rounded-md"
+                            ? "bg-primary/10 text-primary font-semibold"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
                       >
                         <MenuIcon icon={item.icon} />
@@ -182,24 +179,23 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           </Accordion>
         </div>
 
-        {/* 하단 사용자 정보 영역 - 안전 영역 고려 */}
         <div 
-          className="flex-shrink-0 p-6 border-t border-slate-800 pb-[env(safe-area-inset-bottom)]"
+          className="flex-shrink-0 p-6 border-t border-border pb-[env(safe-area-inset-bottom)]"
           style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 24px)' }}
         >
           {user ? (
             <div className="flex flex-col items-start gap-4">
               <div className="flex items-center gap-3">
-                <UserCircle2 className="w-8 h-8 text-slate-500" />
+                <UserCircle2 className="w-8 h-8 text-muted-foreground" />
                 <div>
-                  <p className="font-semibold text-white text-sm">{user.nickname}님</p>
-                  <p className="text-xs text-slate-400">환영합니다!</p>
+                  <p className="font-semibold text-foreground text-sm">{user.nickname}님</p>
+                  <p className="text-xs text-muted-foreground">환영합니다!</p>
                 </div>
               </div>
               <Button
                 onClick={handleLogout}
                 variant="outline"
-                className="w-full text-slate-400 border-slate-700 hover:bg-slate-800 hover:text-red-400"
+                className="w-full"
               >
                 <LogOut className="w-4 h-4 mr-2" />
                 로그아웃
@@ -209,7 +205,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
             <Button
               variant="default"
               onClick={() => openAuthFromSheet("login")}
-              className="w-full text-white bg-blue-600 hover:bg-blue-500 transition-colors"
+              className="w-full"
             >
               로그인 / 회원가입
             </Button>

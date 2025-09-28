@@ -16,8 +16,6 @@ import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
-import { useStudyFontSize } from "@/app/hooks/useStudyFontSize";
-
 
 // 데이터/훅/상수
 import type { Word } from "@/app/data/words";
@@ -27,7 +25,6 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
-
 import { useMounted } from "@/app/hooks/useMounted";
 
 /** 페이지 공통 상수/타입 */
@@ -42,22 +39,14 @@ const FILTER_LABELS: Record<FilterKey, string> = {
   yoon: "요음",
 };
 
-
-
 export default function KatakanaCharsPage() {
   /** 고정값 */
   const initialDeck = KATAKANA_CHARS;
   const deckType = "katakana-chars";
-  const pageLabel = "가타카나 글자";
 
-    const [charFontSize, setCharFontSize] = useState(96);
-  
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);  
-  
-    /** 사용자 */
+  const [charFontSize, setCharFontSize] = useState(96);
+
+  /** 사용자 */
   const { user } = useAuth();
   const { open } = useAuthModal();
 
@@ -78,11 +67,6 @@ export default function KatakanaCharsPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
-
-  // --- ✨ AI 연동을 위한 상태 추가 ---
-  const [topic, setTopic] = useState("일상 회화");
-  const [wordCount, setWordCount] = useState<number>(10);
-  const [loadingImport, setLoadingImport] = useState(false);
 
   /** 문자군 필터 */
   const [filters, setFilters] = useState<Record<FilterKey, boolean>>({
@@ -139,7 +123,7 @@ export default function KatakanaCharsPage() {
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
-    setFlipped(false); // 잔상 방지
+    setFlipped(false);
   }, [studyDeck.length]);
   const prev = useCallback(() => {
     setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
@@ -196,31 +180,22 @@ export default function KatakanaCharsPage() {
     return () => window.removeEventListener("keydown", h);
   }, [viewMode, onFlip, next, prev]);
 
-    // tts 지원 여부
-    const mounted = useMounted();
-    const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
-
+  const mounted = useMounted();
+  const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
 
   return (
-    <div className="w-full flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
-
-      {/* 환영 배너 */}
+    <div className="w-full min-h-screen flex flex-col items-center p-6" style={{ fontFamily: fontStack }}>
       <header className="w-full max-w-md mx-auto mb-1">
         <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
-
-      {/* 비로그인 안내 카드 */}
       {!user && (
           <LoginPromptCard
-            onLoginClick={() => open("login")}  // 기존 setPage+open 대신 한 줄
-            // 필요 시 features, title, ctaLabel 커스터마이즈 가능
+            onLoginClick={() => open("login")}
           />
       )}
-
-      {/* 상단 컨트롤: 진행률 / 듣기 / 설정 */}
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
-          <span className="text-white/70">
+          <span className="text-muted-foreground">
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
@@ -228,7 +203,6 @@ export default function KatakanaCharsPage() {
             <Button
               size="sm"
               variant="outline"
-              className="border-white/10 bg-white/5 hover:bg-white/10"
               onClick={() => speakJa(current?.katakana || "")}
               disabled={!ttsReady || !current}
             >
@@ -239,7 +213,6 @@ export default function KatakanaCharsPage() {
            <Button
             size="sm"
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => setShowSettings(true)}
             aria-haspopup="dialog"
             aria-expanded={showSettings}
@@ -268,7 +241,7 @@ export default function KatakanaCharsPage() {
       )}
 
       {/* 문자군 필터 */}
-      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-slate-800/50 rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
+      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
         {(Object.keys(FILTER_LABELS) as FilterKey[]).map((k) => (
           <label key={k} className="flex items-center space-x-2">
             <Checkbox id={k} checked={filters[k]} onCheckedChange={() => handleFilterChange(k)} />
@@ -285,7 +258,7 @@ export default function KatakanaCharsPage() {
           ) : (
             current && (
               <SingleCardView
-                key={current.id}  // 카드 교체 시 애니메이션 꼬임 방지
+                key={current.id}
                 card={current}
                 deckType={deckType}
                 isFlipped={flipped}
@@ -320,7 +293,6 @@ export default function KatakanaCharsPage() {
         )}
       </main>
 
-      {/* 하단 컨트롤(단일 카드 모드) */}
       {viewMode === "single" && (
         <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
       )}
@@ -330,7 +302,6 @@ export default function KatakanaCharsPage() {
         {user && (
           <Button
             variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10"
             onClick={() => {
               setViewMode((p) => (p === "single" ? "grid" : "single"));
               setFlipped(false);
@@ -339,8 +310,8 @@ export default function KatakanaCharsPage() {
             {viewMode === "single" ? "여러 장 모아보기" : "한 장씩 학습하기"}
           </Button>
         )}
-        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-white/10 bg-white/5">
-          <span className="text-white/80 font-semibold">⭐ Only</span>
+        <label className="flex items-center gap-3 px-3 py-2 rounded-xl border border-border bg-card">
+          <span className="text-foreground font-semibold">⭐ Only</span>
           <Switch
             checked={onlyFavs}
             onCheckedChange={(on) => {
@@ -354,7 +325,7 @@ export default function KatakanaCharsPage() {
       </div>
 
       {/* 안내/버전 */}
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
           <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
@@ -363,7 +334,7 @@ export default function KatakanaCharsPage() {
       </footer>
 
       <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">가타카나 공부 v{APP_VERSION}</span>
+        <span className="text-muted-foreground/60 text-xs">가타카나 공부 v{APP_VERSION}</span>
       </div>
     </div>
   );
