@@ -7,9 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "./ui/select";
 import { Slider } from "./ui/slider";
 import type { UserProfile } from "../AuthContext";
-
-import { useTheme } from "@/app/context/ThemeContext"; // ✅ 추가
-
+import { useTheme } from "@/app/context/ThemeContext";
 
 const AI_SUPPORTED_DECKS = [
   "english-words",
@@ -67,6 +65,8 @@ export function SettingsDialog({
   importContent,
   resetDeck,
 }: SettingsDialogProps) {
+  const { theme, setTheme } = useTheme();
+
   const showContentImport = AI_SUPPORTED_DECKS.includes(deckType);
   const isEnglishMode = deckType.startsWith("english");
   const isSpanishMode = deckType.startsWith("spanish");
@@ -81,32 +81,29 @@ export function SettingsDialog({
   else if (isSentenceMode) sizeSliderLabel = "문장 크기";
   else sizeSliderLabel = "단어 크기";
 
-
-  const { theme, setTheme } = useTheme(); // ✅ 추가: 전역 테마 컨텍스트 사용
-
   return (
-    // ✅ 제어형 Dialog: 트리거 버튼은 외부(헤더)에서 관리
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-card text-card-foreground border border-border rounded-2xl shadow-xl p-0 w-full max-w-lg">        <div className="p-6">
+      <DialogContent className="bg-card text-card-foreground border-border rounded-2xl shadow-xl p-0 w-full max-w-lg">
+        <div className="p-6">
           <DialogHeader className="mb-4 text-left">
             <DialogTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
               ⚙️ 설정
             </DialogTitle>
-            <DialogDescription className="text-sm text-foreground/70">
+            <DialogDescription className="text-sm text-muted-foreground">
               학습 환경을 사용자화하세요.
             </DialogDescription>
           </DialogHeader>
 
-          {/* ✅ Theme Settings 섹션 (여기 추가) */}
+          {/* Theme Settings */}
           <div className="mb-4 pb-4 border-b ui-divider">
-            <h3 className="text-sm font-semibold opacity-80 mb-2">Theme Settings</h3>
+            <h3 className="text-sm font-semibold text-muted-foreground mb-2">Theme Settings</h3>
             <div className="flex items-center gap-3">
-              <span className="w-24 text-sm opacity-80">Theme</span>
+              <span className="w-24 text-sm text-muted-foreground">Theme</span>
               <Select value={theme} onValueChange={(v) => setTheme(v as "light" | "dark")}>
-                <SelectTrigger className="w-40 bg-muted/60 border text-foreground">
+                <SelectTrigger className="w-40 bg-muted/60 border-border text-foreground">
                   <SelectValue placeholder="Select theme" />
                 </SelectTrigger>
-                <SelectContent className="z-[70] bg-background border">
+                <SelectContent className="z-[70]" position="popper">
                   <SelectItem value="light">White mode</SelectItem>
                   <SelectItem value="dark">Dark mode</SelectItem>
                 </SelectContent>
@@ -114,9 +111,10 @@ export function SettingsDialog({
             </div>
           </div>
 
+          {/* TTS Voice */}
           {isTtsSupported && (
             <div className="mb-4">
-              <label className="block text-sm text-foreground/70 mb-1">TTS Voice</label>
+              <label className="block text-sm text-muted-foreground mb-1">TTS Voice</label>
               <Select
                 value={selectedVoice?.name || ""}
                 onValueChange={(val) => {
@@ -125,10 +123,10 @@ export function SettingsDialog({
                 }}
                 disabled={voices.length === 0}
               >
-                <SelectTrigger className="w-full bg-muted/60 border border-border text-foreground">
+                <SelectTrigger className="w-full bg-muted/60 border-border text-foreground">
                   {selectedVoice ? `${selectedVoice.name} (${selectedVoice.lang})` : "목소리를 찾을 수 없습니다."}
                 </SelectTrigger>
-                <SelectContent className="z-[70] bg-background border" position="popper" sideOffset={8}>
+                <SelectContent className="z-[70]" position="popper" sideOffset={8}>
                   {voices.map((v) => (
                     <SelectItem key={v.name} value={v.name}>
                       {v.name} ({v.lang})
@@ -139,86 +137,63 @@ export function SettingsDialog({
             </div>
           )}
 
-          {/* ✅ Font 섹션: 토큰화 */}
+          {/* Font Selection */}
           <div className="mb-2">
-            <label className="block text-sm opacity-80 mb-1">Font</label>
+            <label className="block text-sm text-muted-foreground mb-1">Font</label>
             <Select value={fontFamily} onValueChange={setFontFamily}>
-              <SelectTrigger className="w-full bg-muted/60 border text-foreground">
+              <SelectTrigger className="w-full bg-muted/60 border-border text-foreground">
                 <SelectValue placeholder="Select font" />
               </SelectTrigger>
-              <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
+              <SelectContent className="z-[70]" position="popper" sideOffset={8}>
                 {isEnglishMode ? (
                   <>
-                    <SelectItem className="text-white" value="Inter">
-                      Inter
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Roboto">
-                      Roboto
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Lato">
-                      Lato
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Times New Roman">
-                      Times New Roman
-                    </SelectItem>
+                    <SelectItem value="Inter">Inter</SelectItem>
+                    <SelectItem value="Roboto">Roboto</SelectItem>
+                    <SelectItem value="Lato">Lato</SelectItem>
+                    <SelectItem value="Times New Roman">Times New Roman</SelectItem>
                   </>
                 ) : isSpanishMode ? (
                   <>
-                    <SelectItem className="text-white" value="Lato">
-                      Lato (기본)
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Merriweather">
-                      Merriweather
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Roboto">
-                      Roboto
-                    </SelectItem>
+                    <SelectItem value="Lato">Lato (기본)</SelectItem>
+                    <SelectItem value="Merriweather">Merriweather</SelectItem>
+                    <SelectItem value="Roboto">Roboto</SelectItem>
                   </>
                 ) : (
                   <>
-                    <SelectItem className="text-white" value="Noto Sans JP">
-                      Noto Sans JP
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Zen Kaku Gothic New">
-                      Zen Kaku Gothic New
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Noto Serif JP">
-                      Noto Serif JP
-                    </SelectItem>
-                    <SelectItem className="text-white" value="Kosugi Maru">
-                      Kosugi Maru
-                    </SelectItem>
+                    <SelectItem value="Noto Sans JP">Noto Sans JP</SelectItem>
+                    <SelectItem value="Zen Kaku Gothic New">Zen Kaku Gothic New</SelectItem>
+                    <SelectItem value="Noto Serif JP">Noto Serif JP</SelectItem>
+                    <SelectItem value="Kosugi Maru">Kosugi Maru</SelectItem>
                   </>
                 )}
               </SelectContent>
             </Select>
           </div>
 
-          {(isCharMode || isKanjiMode || deckType.endsWith("-words")) &&
-            wordFontSize &&
-            setWordFontSize && (
-              <div className="mt-4 border-t ui-divider pt-4">
-                <label className="block text-sm opacity-80 mb-1">{sizeSliderLabel}</label>
-                <div className="flex items-center gap-4">
-                  <div className="w-full flex-grow bg-muted/50 rounded-full border p-1">
-                    <Slider
-                      min={isCharMode ? 48 : 24}
-                      max={isCharMode ? 128 : 72}
-                      step={1}
-                      value={[wordFontSize]}
-                      onValueChange={(v) => setWordFontSize(v[0])}
-                    />
-                  </div>
-                  <span className="text-sm w-12 text-center">{wordFontSize}px</span>
+          {/* Font Size Sliders */}
+          {(isCharMode || isKanjiMode || deckType.endsWith("-words")) && wordFontSize && setWordFontSize && (
+            <div className="mt-4 border-t ui-divider pt-4">
+              <label className="block text-sm text-muted-foreground mb-1">{sizeSliderLabel}</label>
+              <div className="flex items-center gap-4">
+                <div className="w-full flex-grow bg-muted/50 rounded-full border border-border p-1">
+                  <Slider
+                    min={isCharMode ? 48 : 24}
+                    max={isCharMode ? 128 : 72}
+                    step={1}
+                    value={[wordFontSize]}
+                    onValueChange={(v) => setWordFontSize(v[0])}
+                  />
                 </div>
+                <span className="text-sm w-12 text-center">{wordFontSize}px</span>
               </div>
-            )}
+            </div>
+          )}
 
           {isSentenceMode && sentenceFontSize && setSentenceFontSize && (
             <div className="mt-4 border-t ui-divider pt-4">
-              <label className="block text-sm opacity-80 mb-1">{sizeSliderLabel}</label>
+              <label className="block text-sm text-muted-foreground mb-1">{sizeSliderLabel}</label>
               <div className="flex items-center gap-4">
-                <div className="w-full flex-grow bg-muted/50 rounded-full border p-1">
+                <div className="w-full flex-grow bg-muted/50 rounded-full border border-border p-1">
                   <Slider
                     min={18}
                     max={40}
@@ -231,80 +206,70 @@ export function SettingsDialog({
               </div>
             </div>
           )}
-
-          {deckType === "sentences" || isKanjiMode || isCharMode ? (
-            <div className="mt-4 border-t border-white/10 pt-4 text-center text-sm text-white/70">
-              {deckType === "sentences"
-                ? "일본어 문장 학습은 AI응답이 어렵습니다."
-                : "이 학습 모드는 AI를 지원하지 않습니다."}
-            </div>
-          ) : (
-            showContentImport &&
-            topic !== undefined &&
-            setTopic &&
-            wordCount !== undefined &&
-            setWordCount &&
-            loadingImport !== undefined &&
-            importContent && (
-              <>
-                {user ? (
-                  <>
-                    <div className="mt-4 border-t border-white/10 pt-4">
-                      <label className="block text-sm text-white/70 mb-1">새로운 {contentType} 주제</label>
-                      <input
-                        type="text"
-                        value={topic}
-                        onChange={(e) => setTopic(e.target.value)}
-                        className="w-full bg-slate-800/60 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none"
-                        placeholder={`예: 여행, 음식 (${contentType})`}
-                      />
-                    </div>
-                    <div className="mt-2">
-                      <label className="block text-sm text-white/70 mb-1">생성할 {contentType} 개수</label>
-                      <Select value={String(wordCount)} onValueChange={(v) => setWordCount(Number(v))}>
-                        <SelectTrigger className="w-full bg-slate-800/60 border-white/10 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="z-[70] bg-slate-900 border-white/10" position="popper" sideOffset={8}>
-                          {[5, 10, 15, 20].map((num) => (
-                            <SelectItem key={num} className="text-white" value={String(num)}>
-                              {num}개
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="mt-4 flex gap-2">
-                      <Button
-                        size="sm"
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
-                        disabled={loadingImport}
-                        onClick={() => importContent(topic, wordCount)}
-                      >
-                        {loadingImport ? "생성 중…" : `AI ${contentType} 생성`}
-                      </Button>
-                      <Button
-                        size="sm"
-                        className="bg-white/10 border-white/10 hover:bg-white/15"
-                        variant="outline"
-                        onClick={() => {
-                          resetDeck();
-                          alert("덱을 기본값으로 복원했습니다.");
-                        }}
-                      >
-                        저장본 복원
-                      </Button>
-                    </div>
-                    <div className="mt-3 text-xs text-white/60">* AI 생성 기능은 외부 API를 사용합니다.</div>
-                  </>
-                ) : (
-                  <div className="mt-4 border-t border-white/10 pt-4 text-center text-white/70">
-                    {contentType}을 생성하려면 로그인이 필요합니다.
+          
+          {/* AI Content Import */}
+          <div className="mt-4 border-t ui-divider pt-4">
+            {showContentImport ? (
+              user ? (
+                <>
+                  <div>
+                    <label className="block text-sm text-muted-foreground mb-1">새로운 {contentType} 주제</label>
+                    <input
+                      type="text"
+                      value={topic}
+                      onChange={(e) => setTopic && setTopic(e.target.value)}
+                      className="w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                      placeholder={`예: 여행, 음식 (${contentType})`}
+                    />
                   </div>
-                )}
-              </>
-            )
-          )}
+                  <div className="mt-2">
+                    <label className="block text-sm text-muted-foreground mb-1">생성할 {contentType} 개수</label>
+                    <Select value={String(wordCount)} onValueChange={(v) => setWordCount && setWordCount(Number(v))}>
+                      <SelectTrigger className="w-full bg-input border-border text-foreground">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="z-[70]" position="popper" sideOffset={8}>
+                        {[5, 10, 15, 20].map((num) => (
+                          <SelectItem key={num} value={String(num)}>
+                            {num}개
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <Button
+                      size="sm"
+                      className="flex-1" // primary button
+                      disabled={loadingImport}
+                      onClick={() => importContent && importContent(topic || "", wordCount || 10)}
+                    >
+                      {loadingImport ? "생성 중…" : `AI ${contentType} 생성`}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        resetDeck();
+                        alert("덱을 기본값으로 복원했습니다.");
+                      }}
+                    >
+                      저장본 복원
+                    </Button>
+                  </div>
+                  <div className="mt-3 text-xs text-muted-foreground/80">* AI 생성 기능은 외부 API를 사용합니다.</div>
+                </>
+              ) : (
+                <div className="text-center text-sm text-muted-foreground">
+                  {contentType}을 생성하려면 로그인이 필요합니다.
+                </div>
+              )
+            ) : (
+              <div className="text-center text-sm text-muted-foreground">
+                이 학습 모드는 AI를 지원하지 않습니다.
+              </div>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
