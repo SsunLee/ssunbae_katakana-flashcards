@@ -25,8 +25,11 @@ import { APP_VERSION } from "@/app/constants/appConfig";
 import { fetchGeneratedContent } from "@/app/services/wordService";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
-
 import { useMounted } from '@/app/hooks/useMounted';
+
+// error message
+import { ERROR_MESSAGES, SUCCESS_MESSAGES, FOOTER_TEXTS } from "@/app/constants/message";
+
 
 
 
@@ -35,6 +38,8 @@ const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
 
 export default function KatakanaWordsPage() {
+
+
   /** 고정값 */
   const initialDeck = KATAKANA_WORDS;
   const deckType = "katakana-words";
@@ -106,9 +111,12 @@ export default function KatakanaWordsPage() {
       setFlipped(false);
       setFlippedStates({});
       setCurrentPage(1);
-      alert(`'${topic}' 주제의 새 문장 ${newDeck.length}개를 생성했습니다!`);
+      alert(SUCCESS_MESSAGES.CONTENT_GENERATION_SUCCESS(topic, newDeck.length));
+
     } catch (error) {
-      alert("문장 생성에 실패했습니다. 다시 시도해주세요.");
+      alert((error as Error).message || ERROR_MESSAGES.CONTENT_GENERATION_FAILED);
+      console.error("문장 생성 오류:", error);
+
     } finally {
       setLoadingImport(false);
     }
@@ -178,6 +186,17 @@ export default function KatakanaWordsPage() {
   const mounted = useMounted();
   // 브라우저 API는 mounted 이후에만 체크
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+
+
+  // 서버와 클라이언트 초기 렌더링 시 이 UI가 사용됩니다.
+  if (!mounted) {
+    return (
+      <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
+        {/* 간단한 로딩 스피너나 메시지를 보여줄 수 있습니다. */}
+        <span className="text-white">로딩 중...</span>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -334,28 +353,36 @@ export default function KatakanaWordsPage() {
         </label>
       </div>
 
-      {/* 안내/버전 */}
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
-        <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-          <li>⚙️설정에서 TTS Voice, Font, 폰트 크기를 조절할 수 있습니다.</li>
-          <li>⚙️설정에서 AI 단어 추가 학습을 할 수 있습니다.</li>
-          <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>
-        </ul>
-      </footer>
+      
+          {/* 안내/버전 */}
+          <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+            <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
+              <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
+              <li>{FOOTER_TEXTS.GUIDE_AI_STUDY}</li>
+              <li>
+                {FOOTER_TEXTS.KEYBOARD_GUIDE.PREFIX}
+                <kbd>Enter</kbd>
+                {FOOTER_TEXTS.KEYBOARD_GUIDE.ENTER}
+                <kbd>←/→</kbd>
+                {FOOTER_TEXTS.KEYBOARD_GUIDE.ARROWS}
+              </li>
+            </ul>
+          </footer>
 
-      <div className="mt-4 text-center">
-        <span className="text-white/40 text-xs">
-          가타카나 공부 v{APP_VERSION}{" "}
-          <a
-            href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white/60 ml-1"
-          >
-            쑨쑨배의 Github
-          </a>
-        </span>
-      </div>
+          <div className="mt-4 text-center">
+            <span className="text-white/40 text-xs">
+              {FOOTER_TEXTS.APP_INFO(APP_VERSION)}
+              {" | "}
+              <a
+                href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/60 ml-1"
+              >
+                {FOOTER_TEXTS.GITHUB_LINK}
+              </a>
+            </span>
+          </div>
     </div>
   );
 }
