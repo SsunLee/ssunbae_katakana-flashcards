@@ -7,14 +7,10 @@ const isNative =
 // 예: https://ssunbae-edu.com  또는 https://ssunbae-api.vercel.app
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace(/\/$/, '');
 
+
 function apiUrl(path: string) {
-  if (!isNative) return path; // 웹은 same-origin 사용
-  if (!API_BASE) {
-    throw new Error(
-      'NEXT_PUBLIC_API_BASE_URL is not set. Set it in .env.production (build before copy/sync).'
-    );
-  }
-  return `${API_BASE}${path}`;
+  // ✅ BASE가 설정되어 있으면 항상 BASE 사용, 없으면 same-origin 사용
+  return API_BASE ? `${API_BASE}${path}` : path;
 }
 
 export async function fetchGeneratedContent(
