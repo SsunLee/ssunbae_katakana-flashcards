@@ -23,7 +23,8 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { fetchGeneratedContent } from "@/app/services/wordService";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
-
+import { useContentImporter } from "@/app/hooks/useContentImporter";
+import { ERROR_MESSAGES } from "@/app/constants/message";
 import { useMounted } from '@/app/hooks/useMounted';
 
 const CARDS_PER_PAGE = 10;
@@ -85,25 +86,19 @@ export default function SpanishWordsPage() {
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
 
-  async function importContent(topic: string, count: number) {
-    setLoadingImport(true);
-    try {
-      const newDeck = await fetchGeneratedContent(deckType, topic, count);
-      setDeck(newDeck as SpanishWord[]);
-      setIndex(0);
-      setFlipped(false);
-      setFlippedStates({});
-      setCurrentPage(1);
-      alert(`'${topic}' 주제의 새 단어 ${newDeck.length}개를 생성했습니다!`);
-    } catch (error) {
-      // --- ✨ 개선된 에러 핸들링 ---
-      // error가 Error 인스턴스인지 확인하고, 아니라면 기본 메시지를 사용합니다.
-      const message = error instanceof Error ? error.message : "알 수 없는 오류가 발생했습니다.";
-      alert(`단어 생성에 실패했습니다.\n\n오류: ${message}`);
-    } finally {
-      setLoadingImport(false);
-    }
-  }
+  // AI 콘텐츠 가져오기 함수 
+  const { importContent } = useContentImporter<SpanishWord>({
+    deckType,
+    setDeck,
+    setIndex,
+    setFlipped,
+    setFlippedStates,
+    setCurrentPage,
+    setLoadingImport,
+    fetchGeneratedContent,
+    errorFallback: ERROR_MESSAGES.CONTENT_GENERATION_FAILED,
+  });
+  
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);

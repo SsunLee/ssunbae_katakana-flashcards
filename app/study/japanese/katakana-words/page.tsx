@@ -14,7 +14,7 @@ import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
-
+import { toast } from 'sonner'
 
 // 데이터/훅/상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
@@ -22,15 +22,14 @@ import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
-import { fetchGeneratedContent } from "@/app/services/wordService";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
+import { useContentImporter } from "@/app/hooks/useContentImporter";
+import { fetchGeneratedContent } from "@/app/services/wordService";
 
 // error message
 import { ERROR_MESSAGES, SUCCESS_MESSAGES, FOOTER_TEXTS } from "@/app/constants/message";
-
-
 
 
 /** 페이지 공통 상수/타입 */
@@ -101,26 +100,18 @@ export default function KatakanaWordsPage() {
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
 
-  // --- ✨ AI 콘텐츠 가져오기 함수 ---
-  async function importContent(topic: string, count: number) {
-    setLoadingImport(true);
-    try {
-      const newDeck = await fetchGeneratedContent(deckType, topic, count);
-      setDeck(newDeck as Word[]);
-      setIndex(0);
-      setFlipped(false);
-      setFlippedStates({});
-      setCurrentPage(1);
-      alert(SUCCESS_MESSAGES.CONTENT_GENERATION_SUCCESS(topic, newDeck.length));
-
-    } catch (error) {
-      alert((error as Error).message || ERROR_MESSAGES.CONTENT_GENERATION_FAILED);
-      console.error("문장 생성 오류:", error);
-
-    } finally {
-      setLoadingImport(false);
-    }
-  }
+  // AI 콘텐츠 가져오기 함수 
+  const { importContent } = useContentImporter<Word>({
+    deckType,
+    setDeck,
+    setIndex,
+    setFlipped,
+    setFlippedStates,
+    setCurrentPage,
+    setLoadingImport,
+    fetchGeneratedContent,
+    errorFallback: ERROR_MESSAGES.CONTENT_GENERATION_FAILED,
+  });
 
 
   /** 단일 카드 조작 */
@@ -223,7 +214,7 @@ export default function KatakanaWordsPage() {
             ⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}
           </span>
 
-          {canTts && (
+          {mounted && (
             <Button
               size="sm"
               variant="outline"
@@ -236,7 +227,7 @@ export default function KatakanaWordsPage() {
             </Button>
           )}
           
-          {/* ✅ 설정 버튼: 항상 렌더 → SSR/CSR 동일 */}
+          {/* 설정 버튼: 항상 렌더 → SSR/CSR 동일 */}
           <Button
             size="sm"
             variant="outline"
@@ -352,37 +343,36 @@ export default function KatakanaWordsPage() {
           />
         </label>
       </div>
-
       
-          {/* 안내/버전 */}
-          <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
-            <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
-              <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
-              <li>{FOOTER_TEXTS.GUIDE_AI_STUDY}</li>
-              <li>
-                {FOOTER_TEXTS.KEYBOARD_GUIDE.PREFIX}
-                <kbd>Enter</kbd>
-                {FOOTER_TEXTS.KEYBOARD_GUIDE.ENTER}
-                <kbd>←/→</kbd>
-                {FOOTER_TEXTS.KEYBOARD_GUIDE.ARROWS}
-              </li>
-            </ul>
-          </footer>
+      {/* 안내/버전 */}
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-white/70 bg-white/5 rounded-xl px-4 py-3">
+        <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
+          <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
+          <li>{FOOTER_TEXTS.GUIDE_AI_STUDY}</li>
+          <li>
+            {FOOTER_TEXTS.KEYBOARD_GUIDE.PREFIX}
+            <kbd>Enter</kbd>
+            {FOOTER_TEXTS.KEYBOARD_GUIDE.ENTER}
+            <kbd>←/→</kbd>
+            {FOOTER_TEXTS.KEYBOARD_GUIDE.ARROWS}
+          </li>
+        </ul>
+      </footer>
 
-          <div className="mt-4 text-center">
-            <span className="text-white/40 text-xs">
-              {FOOTER_TEXTS.APP_INFO(APP_VERSION)}
-              {" | "}
-              <a
-                href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white/60 ml-1"
-              >
-                {FOOTER_TEXTS.GITHUB_LINK}
-              </a>
-            </span>
-          </div>
+      <div className="mt-4 text-center">
+        <span className="text-white/40 text-xs">
+          {FOOTER_TEXTS.APP_INFO(APP_VERSION)}
+          {" | "}
+          <a
+            href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white/60 ml-1"
+          >
+            {FOOTER_TEXTS.GITHUB_LINK}
+          </a>
+        </span>
+      </div>
     </div>
   );
 }

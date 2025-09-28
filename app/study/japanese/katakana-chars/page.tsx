@@ -28,7 +28,6 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 
-import { fetchGeneratedContent } from "@/app/services/wordService";
 import { useMounted } from "@/app/hooks/useMounted";
 
 /** 페이지 공통 상수/타입 */

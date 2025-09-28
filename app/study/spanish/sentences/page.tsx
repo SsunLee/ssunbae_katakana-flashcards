@@ -23,9 +23,9 @@ import { SPANISH_SENTENCES, type SpanishSentence } from "@/app/data/spanish-sent
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
-
+import { ERROR_MESSAGES } from "@/app/constants/message";
 import { fetchGeneratedContent } from "@/app/services/wordService";
-
+import { useContentImporter } from "@/app/hooks/useContentImporter";
 import { useMounted } from '@/app/hooks/useMounted';
 
 const CARDS_PER_PAGE = 10;
@@ -87,24 +87,18 @@ export default function SpanishSentencesPage() {
 
   const shuffle = () => { shuffleDeck(); setIndex(0); setFlipped(false); };
   const reset = () => { resetDeckToInitial(); setIndex(0); setFlipped(false); setFlippedStates({}); setCurrentPage(1); };
-
-  // --- ✨ AI 콘텐츠 가져오기 함수 ---
-  async function importContent(topic: string, count: number) {
-    setLoadingImport(true);
-    try {
-      const newDeck = await fetchGeneratedContent(deckType, topic, count);
-      setDeck(newDeck as SpanishSentence[]);
-      setIndex(0);
-      setFlipped(false);
-      setFlippedStates({});
-      setCurrentPage(1);
-      alert(`'${topic}' 주제의 새 문장 ${newDeck.length}개를 생성했습니다!`);
-    } catch (error) {
-      alert("문장 생성에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      setLoadingImport(false);
-    }
-  }
+  // AI 콘텐츠 가져오기 함수 
+  const { importContent } = useContentImporter<SpanishSentence>({
+    deckType,
+    setDeck,
+    setIndex,
+    setFlipped,
+    setFlippedStates,
+    setCurrentPage,
+    setLoadingImport,
+    fetchGeneratedContent,
+    errorFallback: ERROR_MESSAGES.CONTENT_GENERATION_FAILED,
+  });
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
