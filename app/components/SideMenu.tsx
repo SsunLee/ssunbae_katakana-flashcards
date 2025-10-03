@@ -47,6 +47,7 @@ const menuConfig: MenuGroup[] = [
       { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
       { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
       { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: false },
+      { href: "/study/japanese/verbs", label: "일본어 동사 학습", icon: "📝", disabled: false },
     ],
   },
   {
