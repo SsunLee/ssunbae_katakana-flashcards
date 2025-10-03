@@ -71,6 +71,7 @@ export function SettingsDialog({
   const isEnglishMode = deckType.startsWith("english");
   const isSpanishMode = deckType.startsWith("spanish");
   const isSentenceMode = deckType.endsWith("-sentences") || deckType === "sentences";
+  const isverbMode = deckType.endsWith("-verbs")
   const isKanjiMode = deckType === "kanji-words";
   const isCharMode = deckType.endsWith("-chars");
   const contentType = isSentenceMode ? "문장" : "단어";
@@ -207,6 +208,24 @@ export function SettingsDialog({
             </div>
           )}
           
+          {isverbMode && sentenceFontSize && setSentenceFontSize && (
+            <div className="mt-4 border-t ui-divider pt-4">
+              <label className="block text-sm text-muted-foreground mb-1">{sizeSliderLabel}</label>
+              <div className="flex items-center gap-4">
+                <div className="w-full flex-grow bg-muted/50 rounded-full border border-border p-1">
+                  <Slider
+                    min={18}
+                    max={40}
+                    step={1}
+                    value={[sentenceFontSize]}
+                    onValueChange={(v) => setSentenceFontSize(v[0])}
+                  />
+                </div>
+                <span className="text-sm w-12 text-center">{sentenceFontSize}px</span>
+              </div>
+            </div>
+          )}
+
           {/* AI Content Import */}
           <div className="mt-4 border-t ui-divider pt-4">
             {showContentImport ? (
