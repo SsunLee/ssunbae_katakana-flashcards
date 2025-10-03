@@ -205,7 +205,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
             <Button
               variant="default"
               onClick={() => openAuthFromSheet("login")}
-              className="w-full"
+              className="w-full font-bold"
             >
               로그인 / 회원가입
             </Button>
