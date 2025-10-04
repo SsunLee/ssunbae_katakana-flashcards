@@ -1,3 +1,4 @@
+// app/components/VerbFormsTable.tsx
 "use client";
 
 import React, { useMemo } from "react";
@@ -44,9 +45,10 @@ export default function VerbFormsTable({
           </Button>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* 데스크탑 뷰: 테이블 (sm 스크린 이상) */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="min-w-full" style={{ fontSize: size }}>
-            <thead style={{ fontSize: size }}>
+            <thead>
               <tr className="bg-muted/50 text-left">
                 <th className="px-4 py-3 w-[120px]">형태</th>
                 <th className="px-4 py-3">일본어</th>
@@ -57,7 +59,7 @@ export default function VerbFormsTable({
               {tableForms.map((k) => {
                 const row = (verb.forms as any)[k] ?? { jp: "—", ko: "—" };
                 return (
-                  <tr key={k} className="border-t">
+                  <tr key={k} className="border-t border-border">
                     <td className="px-4 py-2 font-medium whitespace-nowrap">{HEADERS[k]}</td>
                     <td className="px-4 py-2"><span className="whitespace-pre-wrap break-words">{row.jp}</span></td>
                     <td className="px-4 py-2 text-muted-foreground"><span className="whitespace-pre-wrap break-words">{row.ko}</span></td>
@@ -68,7 +70,33 @@ export default function VerbFormsTable({
           </table>
         </div>
 
-        <div className="px-1 pt-3 text-xs text-muted-foreground">
+        {/* 모바일 뷰: 리스트 (sm 스크린 미만) */}
+        <div className="block sm:hidden">
+            <ul className="divide-y divide-border">
+                {tableForms.map((k) => {
+                    const row = (verb.forms as any)[k] ?? { jp: "—", ko: "—" };
+                    return(
+                        <li key={k} className="py-3 px-1">
+                            <div className="flex justify-between items-start space-x-4">
+                                <span className="font-medium text-foreground/90 w-[70px] flex-shrink-0" style={{fontSize: size}}>
+                                    {HEADERS[k]}
+                                </span>
+                                <div className="flex-grow text-right">
+                                    <p className="text-foreground break-words leading-snug" style={{fontSize: size}}>
+                                        {row.jp}
+                                    </p>
+                                    <p className="text-muted-foreground break-words mt-1 leading-snug" style={{fontSize: size-1}}>
+                                        {row.ko}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+        
+        <div className="px-1 pt-3 text-xs text-muted-foreground hidden sm:block">
           좁은 화면에서는 가로 스크롤로 표를 확인하세요.
         </div>
       </div>

@@ -1,3 +1,5 @@
+// app/components/VerbGridcardView.tsx
+
 "use client";
 
 import React, { useMemo } from "react";
@@ -100,3 +102,4 @@ export default function VerbGridMode({
     />
   );
 }
+
