@@ -23,30 +23,60 @@ const MATCH_THRESHOLD = 20; // 정답 판정 거리 (클수록 쉬워짐)
 // SVG 경로 해석 함수 (복잡한 로직은 동일)
 const getStrokeStartEndPoints = (path: string): { start: {x: number, y: number}, end: {x: number, y: number} } | null => {
   if (!path) return null;
+
+  // 정규식 개선: 음수 및 소수점 지원 강화
   const commands = path.match(/[a-zA-Z][^a-zA-Z]*/g);
   if (!commands) return null;
+
   let currentPos = { x: 0, y: 0 };
   let startPos: { x: number, y: number } | null = null;
+  
   for (let i = 0; i < commands.length; i++) {
     const commandStr = commands[i];
     const type = commandStr[0];
-    const args = commandStr.slice(1).trim().split(/[\s,]+|-/).map(parseFloat).filter(v => !isNaN(v));
-    let isRelative = type === type.toLowerCase();
-    if (i === 0 && (type === 'M' || type === 'm')) {
+    
+    // 음수를 포함한 모든 숫자를 올바르게 추출
+    const args = (commandStr.slice(1).match(/-?[\d.]+/g) || []).map(parseFloat);
+    if (args.some(isNaN)) continue;
+
+    const isRelative = type === type.toLowerCase();
+    const commandType = type.toUpperCase();
+
+    if (i === 0 && commandType === 'M') {
       currentPos = { x: args[0], y: args[1] };
       startPos = { ...currentPos };
-    } else {
-      for (let j = 0; j < args.length; j += 2) {
-        let pX = args[j];
-        let pY = args[j + 1];
+      // MoveTo의 후속 좌표들도 처리
+      for (let j = 2; j < args.length; j += 2) {
         if (isRelative) {
-          currentPos.x += pX;
-          currentPos.y += pY;
+          currentPos.x += args[j];
+          currentPos.y += args[j+1];
         } else {
-          currentPos.x = pX;
-          currentPos.y = pY;
+          currentPos.x = args[j];
+          currentPos.y = args[j+1];
         }
       }
+    } else {
+       // C, L, H, V 등 다양한 명령어 처리
+       let pointsPerCmd = 0;
+       if (commandType === 'C') pointsPerCmd = 6;
+       else if (commandType === 'L' || commandType === 'T') pointsPerCmd = 2;
+       else if (commandType === 'H' || commandType === 'V') pointsPerCmd = 1;
+       else if (commandType === 'S' || commandType === 'Q') pointsPerCmd = 4;
+       else if (commandType === 'A') pointsPerCmd = 7;
+       else if (commandType === 'Z') continue;
+
+       for (let j = 0; j < args.length; j += pointsPerCmd) {
+          const cmdArgs = args.slice(j, j + pointsPerCmd);
+          let endX = currentPos.x, endY = currentPos.y;
+
+          if (commandType === 'H') endX = isRelative ? endX + cmdArgs[0] : cmdArgs[0];
+          else if (commandType === 'V') endY = isRelative ? endY + cmdArgs[0] : cmdArgs[0];
+          else if (pointsPerCmd > 0) {
+            endX = isRelative ? endX + cmdArgs[pointsPerCmd - 2] : cmdArgs[pointsPerCmd - 2];
+            endY = isRelative ? endY + cmdArgs[pointsPerCmd - 1] : cmdArgs[pointsPerCmd - 1];
+          }
+          currentPos = {x: endX, y: endY};
+       }
     }
   }
   return startPos ? { start: startPos, end: currentPos } : null;
@@ -105,17 +135,26 @@ export default function KanjiWritingCanvas({ kanji, onClose, onNext, onPrev, onS
     fetchKanjiData();
   }, [kanji]);
 
-  // 좌표 계산
+  // ✅ 좌표 계산 로직 수정: SVG 엔진을 사용하여 정확도 향상
   const getCoordinates = (event: React.MouseEvent | React.TouchEvent): { x: number; y: number } | null => {
     const svg = canvasRef.current;
     if (!svg) return null;
-    const rect = svg.getBoundingClientRect();
+    
     const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
     const clientY = 'touches' in event ? event.touches[0].clientY : event.clientY;
-    return {
-      x: ((clientX - rect.left) / rect.width) * VIEWBOX_SIZE,
-      y: ((clientY - rect.top) / rect.height) * VIEWBOX_SIZE
-    };
+
+    // SVG Point를 생성하여 화면 좌표를 SVG 좌표로 변환
+    const point = svg.createSVGPoint();
+    point.x = clientX;
+    point.y = clientY;
+
+    const ctm = svg.getScreenCTM();
+    if (ctm) {
+        const invertedCtm = ctm.inverse();
+        return point.matrixTransform(invertedCtm);
+    }
+    
+    return null; // 변환 실패 시
   };
 
   const isComplete = !isLoading && currentStrokeIndex >= totalStrokes && totalStrokes > 0;
@@ -208,9 +247,13 @@ export default function KanjiWritingCanvas({ kanji, onClose, onNext, onPrev, onS
           {isLoading && <text x="50%" y="50%" textAnchor="middle" dy=".3em">로딩 중...</text>}
           {error && <text x="50%" y="50%" textAnchor="middle" dy=".3em" fill="red">{error}</text>}
           {isComplete && (
-            <g>
+             <g className="pointer-events-none">
               <rect width="100%" height="100%" fill="rgba(255, 255, 255, 0.8)" className="animate-in fade-in duration-500" />
-              <Check className="w-16 h-16 text-green-500 animate-in fade-in zoom-in-50 duration-700" x="50%" y="50%" transform="translate(-32 -32)" />
+              <foreignObject x="0" y="0" width="100%" height="100%">
+                  <div className="w-full h-full flex items-center justify-center">
+                      <Check className="w-16 h-16 text-green-500 animate-in fade-in zoom-in-50 duration-700" />
+                  </div>
+              </foreignObject>
             </g>
           )}
         </svg>

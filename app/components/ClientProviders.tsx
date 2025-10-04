@@ -47,9 +47,9 @@ function ThemedToaster() {
  * ThemeProvider 내부에 위치해야 useTheme 훅을 사용할 수 있습니다.
  */
 function AppContainer({ children }: { children: ReactNode }) {
-  // 이 div에 bg-background를 추가하여 globals.css에 정의된 테마 배경색이 전체 컨텐츠에 적용되도록 합니다.
+  // ✅ pt-[env(safe-area-inset-top)] 등을 추가하여 iOS의 노치 및 하단 바 영역을 피합니다.
   return (
-    <div className="bg-background min-h-screen w-full">
+    <div className="bg-background min-h-screen w-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
       <AuthProvider>
         <AuthModalProvider>
           <Providers>
