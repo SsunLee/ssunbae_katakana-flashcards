@@ -13,7 +13,11 @@ export const FONT_STACKS: Record<string, string> = {
   "Lato": '"Lato", sans-serif',
   "Times New Roman": '"Times New Roman", serif',
 
-  // --- ✨ 스페인어 폰트 스택 추가 ---
+  // 스페인어 폰트 스택 추가 ---
   "Merriweather": '"Merriweather", serif',
+
+  // Korean font
+  "Noto Sans KR": '"Noto Sans KR", sans-serif',
+
 };
 

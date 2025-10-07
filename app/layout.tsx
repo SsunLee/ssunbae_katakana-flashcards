@@ -1,6 +1,8 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
+import { Noto_Sans_KR, Noto_Serif_KR } from 'next/font/google'
+
 import './styles/globals.css';
 import ClientProviders from '@/app/components/ClientProviders';
 import Script from 'next/script';
@@ -12,6 +14,19 @@ const notoSansJP = Noto_Sans_JP({
   weight: ['400', '700'],
   variable: '--font-noto-sans-jp',
 });
+const notoSansKr = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-sans-kr',
+})
+
+const notoSerifKr = Noto_Serif_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-serif-kr',
+})
+
+
 
 export const viewport: Viewport = {
   width: 'device-width',

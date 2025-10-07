@@ -44,7 +44,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
           </button>
 
           <Link
-            href="/study"
+            href="/"
             aria-label="ssunbae-edu 홈"
             className="flex items-center gap-2 select-none"
           >

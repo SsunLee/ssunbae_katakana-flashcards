@@ -78,6 +78,16 @@ const menuConfig: MenuGroup[] = [
       { href: "/study/spanish/sentences", label: "스페인어 문장 공부", icon: "/icons/es_sentences.png", disabled: false }
     ],
   },
+  {
+    language: "한국어 공부",
+    value: "korean",
+    icon: "🇰🇷",
+    items: [
+      { href: "/study/korean/words", label: "한국어 단어 공부", icon: "📚", disabled: false },
+      { href: "/study/korean/chars", label: "한글 자모 공부", icon: "📝", disabled: false },
+      { href: "/study/korean/syllables", label: "완성형 한글 공부", icon: "🔤", disabled: false },
+    ],
+  },
 ];
 
 const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
@@ -97,7 +107,6 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
 };
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
-  const [openAccountDialog, setOpenAccountDialog] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
