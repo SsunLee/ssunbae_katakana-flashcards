@@ -2,12 +2,14 @@
 "use client";
 
 import { useState, useEffect, ReactNode } from 'react';
+
 // Assuming these paths are correct based on your project structure
 import { AuthProvider } from '@/app/AuthContext';
 import { AuthModalProvider } from '@/app/context/AuthModalContext';
 import Providers from '../providers'; // Assuming this is a valid component
 import { Toaster } from 'sonner';
 import { ThemeProvider, useTheme } from '@/app/context/ThemeContext';
+import { LocaleProvider } from '@/app/context/LocaleContext';
 
 /**
  * Toaster 컴포넌트는 ThemeProvider 컨텍스트 내에서 훅을 사용해야 하므로,
@@ -79,10 +81,12 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
     );
   }
 
-  // ThemeProvider가 최상위를 감싸고, 그 안에서 실제 앱 컨텐츠를 렌더링합니다.
+  // LocaleProvider가 최상위를 감싸고, 그 안에서 ThemeProvider와 실제 앱 컨텐츠를 렌더링합니다.
   return (
-    <ThemeProvider>
-      <AppContainer>{children}</AppContainer>
-    </ThemeProvider>
+    <LocaleProvider>
+      <ThemeProvider>
+        <AppContainer>{children}</AppContainer>
+      </ThemeProvider>
+    </LocaleProvider>
   );
 }

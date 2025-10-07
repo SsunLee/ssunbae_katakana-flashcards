@@ -52,6 +52,7 @@ export function WelcomeBanner({
     }
   }, [name, persistGuest, storageKey]);
 
+
   const displayName = (name && name.trim()) || guestName || "게스트";
   const finalSubtitle =
     subtitle ??

@@ -70,15 +70,18 @@ export function SettingsDialog({
   const showContentImport = AI_SUPPORTED_DECKS.includes(deckType);
   const isEnglishMode = deckType.startsWith("english");
   const isSpanishMode = deckType.startsWith("spanish");
+  const isKoreanMode = deckType.startsWith("korean");
   const isSentenceMode = deckType.endsWith("-sentences") || deckType === "sentences";
   const isverbMode = deckType.endsWith("-verbs")
   const isKanjiMode = deckType === "kanji-words";
   const isCharMode = deckType.endsWith("-chars");
+  const isSyllableMode = deckType === "korean-syllables";
   const contentType = isSentenceMode ? "문장" : "단어";
 
   let sizeSliderLabel = "크기";
   if (isKanjiMode) sizeSliderLabel = "한자 크기";
   else if (isCharMode) sizeSliderLabel = "글자 크기";
+  else if (isSyllableMode) sizeSliderLabel = "음절 크기";
   else if (isSentenceMode) sizeSliderLabel = "문장 크기";
   else sizeSliderLabel = "단어 크기";
 
@@ -159,6 +162,10 @@ export function SettingsDialog({
                     <SelectItem value="Merriweather">Merriweather</SelectItem>
                     <SelectItem value="Roboto">Roboto</SelectItem>
                   </>
+                ) : isKoreanMode ? (
+                  <>
+                    <SelectItem value="Noto Sans KR">Noto Sans KR (한글 기본)</SelectItem>
+                  </>
                 ) : (
                   <>
                     <SelectItem value="Noto Sans JP">Noto Sans JP</SelectItem>
@@ -172,14 +179,14 @@ export function SettingsDialog({
           </div>
 
           {/* Font Size Sliders */}
-          {(isCharMode || isKanjiMode || deckType.endsWith("-words")) && wordFontSize && setWordFontSize && (
+          {(isCharMode || isKanjiMode || isSyllableMode || deckType.endsWith("-words")) && wordFontSize && setWordFontSize && (
             <div className="mt-4 border-t ui-divider pt-4">
               <label className="block text-sm text-muted-foreground mb-1">{sizeSliderLabel}</label>
               <div className="flex items-center gap-4">
                 <div className="w-full flex-grow bg-muted/50 rounded-full border border-border p-1">
                   <Slider
-                    min={isCharMode ? 48 : 24}
-                    max={isCharMode ? 128 : 72}
+                    min={isCharMode || isSyllableMode ? 48 : 24}
+                    max={isCharMode || isSyllableMode ? 128 : 72}
                     step={1}
                     value={[wordFontSize]}
                     onValueChange={(v) => setWordFontSize(v[0])}

@@ -88,9 +88,48 @@ module.exports = {
           'Helvetica Neue',
           'Arial',
         ],
+        kr: [
+          'Noto Sans KR',
+          'Malgun Gothic',
+          'Apple SD Gothic Neo',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+        ],
+      },
+      // 3D 변환 효과를 위한 추가
+      transformStyle: {
+        '3d': 'preserve-3d',
+      },
+      backfaceVisibility: {
+        'hidden': 'hidden',
+      },
+      perspective: {
+        '1000': '1000px',
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    // 커스텀 유틸리티 추가
+    function({ addUtilities }) {
+      addUtilities({
+        '.transform-style-3d': {
+          'transform-style': 'preserve-3d',
+        },
+        '.backface-hidden': {
+          'backface-visibility': 'hidden',
+        },
+        '.perspective-1000': {
+          'perspective': '1000px',
+        },
+        '.rotate-y-180': {
+          'transform': 'rotateY(180deg)',
+        },
+      })
+    },
+  ],
 };
-
