@@ -112,3 +112,53 @@
     transform: rotateY(180deg);
   }
 }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0) 0,
+    hsla(0, 0%, 100%, 0.1) 20%,
+    hsla(0, 0%, 100%, 0.3) 60%,
+    hsla(0, 0%, 100%, 0)
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+/* ✅ 추가된 부분: 페이지 로딩 스피너 애니메이션 */
+@keyframes spinner-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.page-loader-spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid;
+  /* 테마에 맞는 색상을 사용하도록 CSS 변수를 활용합니다. */
+  border-color: hsl(var(--foreground)) transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spinner-rotate 1.2s linear infinite;
+}

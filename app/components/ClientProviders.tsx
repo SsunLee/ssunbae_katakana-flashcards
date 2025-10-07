@@ -21,7 +21,7 @@ function ThemedToaster() {
   return (
     <Toaster
       theme={theme === 'dark' ? 'dark' : 'light'}
-      position="top-center"
+      position="bottom-center"
       richColors
       closeButton
       duration={2600}
