@@ -1,3 +1,11 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow private routes
+Disallow: /api/
+Disallow: /data/
+Disallow: /goodbye
+
+# Sitemap
+Sitemap: https://ssunbae-edu.com/sitemap.xml
