@@ -6,7 +6,12 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebas
 import { db } from "@/app/lib/firebase";
 import { toast } from "sonner";
 import type { UserProfile } from "@/app/AuthContext";
-import type { HasId } from "@/app/hooks/useStudyDeck";
+
+
+
+export type HasId = {
+  id: number;
+};
 
 interface UseRemoteStudyDeckProps<T extends HasId> {
   user: UserProfile | null;
