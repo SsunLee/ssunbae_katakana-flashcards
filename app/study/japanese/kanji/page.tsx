@@ -211,9 +211,7 @@ export default function KanjiPage() {
         </ul>
       </footer>
 
-      <div className="mt-4 text-center">
-        <span className="text-muted-foreground/60 text-xs">한자 공부 v{APP_VERSION}</span>
-      </div>
+
     </div>
   );
 }

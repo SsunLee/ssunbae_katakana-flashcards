@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
@@ -14,6 +14,17 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Button } from "./ui/button";
+
+// 회원 탈퇴 관련
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
+} from "./ui/alert-dialog";
+import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { Settings as SettingsIcon, ShieldAlert } from "lucide-react";
+import AccountDialog from "@/app/components/AccountDialog";
+
+
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -86,15 +97,64 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
 };
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
+  const [openAccountDialog, setOpenAccountDialog] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
 
+  // 회원 탈퇴 관련
+  const [openDelete, setOpenDelete] = useState(false);
+  const [needReauth, setNeedReauth] = useState(false);
+  const [password, setPassword] = useState("");
+
+
   const handleLogout = async () => {
     await signOut(auth);
     onClose();
   };
+
+  const gotoSettings = () => {
+    router.push("/settings");
+    onClose();
+  };
+
+  // 회원탈퇴 함수
+  async function callDeleteEndpoint() {
+    const user = auth.currentUser;
+    if (!user) throw new Error("No user");
+    const idToken = await getIdToken(user, true);
+
+    const res = await fetch("/api/account/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
+    });
+
+    if (res.status === 401) {
+      setNeedReauth(true);
+      throw new Error("Need reauth");
+    }
+    if (!res.ok) throw new Error("Delete failed");
+  }
+
+  async function handleDelete() {
+    try {
+      await callDeleteEndpoint();
+      await signOut(auth).catch(() => {});
+      router.replace("/goodbye");
+      onClose();
+    } catch (_) {
+      // needReauth가 true면 재인증 UI 노출됨
+    }
+  }
+
+  async function handleReauthAndDelete() {
+    const user = auth.currentUser;
+    if (!user || !user.email) return;
+    const cred = EmailAuthProvider.credential(user.email, password);
+    await reauthenticateWithCredential(user, cred);
+    await handleDelete();
+  }  
 
   const handleNavigate = (href: string) => {
     router.push(href);
@@ -193,6 +253,13 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                   <p className="text-xs text-muted-foreground">환영합니다!</p>
                 </div>
               </div>
+
+              {/* 바로 삭제(선택): 같은 다이얼로그 트리거 */}
+              <Button onClick={() => setOpenDelete(true)} variant="destructive" className="w-full">
+                <ShieldAlert className="w-4 h-4 mr-2" />
+                계정 삭제
+              </Button>
+
               <Button
                 onClick={handleLogout}
                 variant="outline"
@@ -201,17 +268,59 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                 <LogOut className="w-4 h-4 mr-2" />
                 로그아웃
               </Button>
+              <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
+                Support
+              </Button>
             </div>
           ) : (
-            <Button
-              variant="default"
-              onClick={() => openAuthFromSheet("login")}
-              className="w-full font-bold"
-            >
-              로그인 / 회원가입
-            </Button>
-          )}
+            <div className="flex flex-col items-center gap-2">
+              <Button
+                variant="default"
+                onClick={() => openAuthFromSheet("login")}
+                className="w-full font-bold"
+              >
+                로그인 / 회원가입
+              </Button>
+                <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
+                  Support
+                </Button>
+            </div>
+          )} 
         </div>
+
+        {/* 삭제 다이얼로그 (설정 페이지와 동일 UX 유지) */}
+        <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>정말로 계정을 삭제할까요?</AlertDialogTitle>
+              <AlertDialogDescription>
+                이 작업은 되돌릴 수 없습니다. 모든 학습 기록과 프로필이 영구 삭제됩니다.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            {needReauth ? (
+              <div className="space-y-3">
+                <p className="text-sm">보안을 위해 비밀번호를 다시 확인합니다.</p>
+                <input type="password" className="w-full rounded-md border p-2" placeholder="비밀번호"
+                       value={password} onChange={(e) => setPassword(e.target.value)} />
+              </div>
+            ) : null}
+
+            <AlertDialogFooter>
+              <AlertDialogCancel>취소</AlertDialogCancel>
+              {!needReauth ? (
+                <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
+                  영구 삭제
+                </AlertDialogAction>
+              ) : (
+                <AlertDialogAction onClick={handleReauthAndDelete}>
+                  재인증 후 삭제
+                </AlertDialogAction>
+              )}
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
       </SheetContent>
     </Sheet>
   );

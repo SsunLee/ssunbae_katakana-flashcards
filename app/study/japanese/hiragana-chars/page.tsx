@@ -311,9 +311,7 @@ export default function HiraganaCharsPage() {
         </ul>
       </footer>
 
-      <div className="mt-4 text-center">
-        <span className="text-muted-foreground/60 text-xs">히라가나 공부 v{APP_VERSION}</span>
-      </div>
+
     </div>
   );
 }

@@ -146,6 +146,7 @@ export default function JapaneseVerbsPage() {
 
       {!user && <LoginPromptCard onLoginClick={() => open("login")} />}
 
+      {/* 싱글 학습 모드 */}
       {viewMode === "single" && (
         <div className="mb-4 flex w-full max-w-md items-center justify-between text-sm mx-auto">
           <span className="text-muted-foreground">⚡진행률 : {studyDeck.length ? `${Math.min(index + 1, studyDeck.length)} / ${studyDeck.length}` : "0 / 0"}</span>
@@ -166,8 +167,8 @@ export default function JapaneseVerbsPage() {
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
                 titleFontSize={verbFontSize}
-                isWritingMode={isWritingMode}
-                onToggleWritingMode={() => setIsWritingMode(w => !w)}
+                isWritingMode={isWritingMode}                         // 쓰기 모드를 하기위해 넘기는 것
+                onToggleWritingMode={() => setIsWritingMode(w => !w)} // 쓰기 모드를 하기위해 넘기는 것
                 onNext={next}
                 onPrev={prev}
                 onShuffle={shuffle}
@@ -236,9 +237,7 @@ export default function JapaneseVerbsPage() {
               <li>쓰기 모드를 통해 한자를 써서 학습 해보세요. </li>
             </ul>
           </footer>
-          <div className="mt-4 text-center">
-            <span className="text-muted-foreground/60 text-xs"> 일본어 공부 v{APP_VERSION}{" "} <a href="https://github.com/SsunLee/ssunbae_katakana-flashcards" target="_blank" rel="noopener noreferrer" className="hover:text-foreground/80 ml-1">쑨쑨배의 Github</a></span>
-          </div>
+
         </>
       )}
     </div>

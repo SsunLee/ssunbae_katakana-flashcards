@@ -6,6 +6,9 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";          
 import type { UserProfile } from "@/app/AuthContext";
 
+import { fetchVerbs } from "@/app/services/api"; // ✅ API 서비스를 import
+
+
 export type HasId = { id: number };
 
 type UseStudyDeckProps<T extends HasId> = {
@@ -20,6 +23,10 @@ export function useStudyDeck<T extends HasId>({
   const [deck, setDeck] = useState<T[]>(initialDeck);
   const [favs, setFavs] = useState<Record<number, true>>({});
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  // ✅ 로딩 및 에러 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {

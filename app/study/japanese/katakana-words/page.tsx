@@ -348,21 +348,7 @@ export default function KatakanaWordsPage() {
         </ul>
       </footer>
 
-      <div className="mt-4 text-center">
-        {/* ✅ 텍스트 색상을 테마에 맞게 변경 */}
-        <span className="text-muted-foreground/60 text-xs">
-          {FOOTER_TEXTS.APP_INFO(APP_VERSION)}
-          {" | "}
-          <a
-            href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground/80 ml-1"
-          >
-            {FOOTER_TEXTS.GITHUB_LINK}
-          </a>
-        </span>
-      </div>
+
     </div>
   );
 }

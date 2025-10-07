@@ -228,9 +228,7 @@ export default function EnglishWordsPage() {
         </ul>
       </footer>
 
-      <div className="mt-4 text-center">
-        <span className="text-muted-foreground/60 text-xs">영어 공부 v{APP_VERSION}</span>
-      </div>
+
     </div>
   );
 }

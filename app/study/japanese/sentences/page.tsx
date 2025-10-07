@@ -268,20 +268,7 @@ export default function SentencesPage() {
         </ul>
       </footer>
 
-      <div className="mt-4 text-center">
-        {/* ✅ 테마에 맞게 스타일 변경 */}
-        <span className="text-muted-foreground/60 text-xs">
-          일본어 공부 v{APP_VERSION}{" "}
-          <a
-            href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-foreground/80 ml-1"
-          >
-            쑨쑨배의 Github
-          </a>
-        </span>
-      </div>
+
     </div>
   );
 }

@@ -56,7 +56,6 @@ export default function VerbCardView({
             kanji={verb.kanji}
             onClose={onToggleWritingMode}
             onNext={handleNextInWritingMode}
-            // ✅ "onPrev"로 오타를 수정했습니다.
             onPrev={handlePrevInWritingMode}
             onShuffle={onShuffle}
             onReset={onReset}
@@ -77,6 +76,7 @@ export default function VerbCardView({
             <Button type="button" size="icon" variant="secondary" onClick={(e) => { e.stopPropagation(); onToggleFav(); }} className="absolute top-4 right-4 h-9 w-9 rounded-full" title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
               <span className="text-xl">{isFav ? "⭐" : "☆"}</span>
             </Button>
+            {/* kanji mode  */}
             {verb.kanji && (
               <Button type="button" size="icon" variant="secondary" onClick={(e) => { e.stopPropagation(); onToggleWritingMode(); }} className="absolute top-4 left-4 h-9 w-9 rounded-full" title="쓰기 모드">
                 <Pencil className="h-4 w-4" />
@@ -87,6 +87,7 @@ export default function VerbCardView({
               {verb.reading && (<p className="mt-2 text-lg text-muted-foreground">（{verb.reading}）</p>)}
             </div>
           </div>
+
           {/* Back */}
           <div className="absolute inset-0 bg-card/95 backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
             <div className="text-center w-full text-foreground">
