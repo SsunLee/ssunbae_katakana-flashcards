@@ -1,4 +1,4 @@
-// app/layout.tsx
+// ssunbae_katakana-flashcards/app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 import { Noto_Sans_KR, Noto_Serif_KR } from 'next/font/google'
@@ -67,7 +67,6 @@ export const metadata: Metadata = {
   creator: 'SSUN EDU',
   publisher: 'SSUN EDU',
   
-  // Open Graph (소셜 미디어 공유)
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
@@ -77,7 +76,7 @@ export const metadata: Metadata = {
     description: '영어, 일본어, 스페인어, 한국어를 플래시카드로 쉽고 재미있게 학습하세요.',
     images: [
       {
-        url: '/og-image.png', // public/og-image.png 파일 추가 필요 (1200x630 권장)
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'SSUN EDU 언어 학습 플랫폼',
@@ -85,16 +84,14 @@ export const metadata: Metadata = {
     ],
   },
   
-  // Twitter Card
   twitter: {
     card: 'summary_large_image',
     title: 'SSUN EDU - 언어 학습 플랫폼',
     description: '영어, 일본어, 스페인어, 한국어를 효과적으로 학습하세요.',
     images: ['/og-image.png'],
-    creator: '@ssunedu', // 트위터 계정이 있다면
+    creator: '@ssunedu',
   },
   
-  // 검색 엔진 최적화
   robots: {
     index: true,
     follow: true,
@@ -107,13 +104,11 @@ export const metadata: Metadata = {
     },
   },
   
-  // 추가 메타 태그
   category: 'education',
   alternates: {
-    canonical: 'https://ssunedu.com',
+    canonical: 'https://ssunbae-edu.com',
   },
   
-  // 앱 정보 (모바일)
   applicationName: 'SSUN EDU',
   appleWebApp: {
     capable: true,
@@ -123,36 +118,30 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  
-  // 언어 대체 (나중에 다국어 지원 시)
-  // alternates: {
-  //   languages: {
-  //     'ko-KR': 'https://ssunedu.com/ko',
-  //     'en-US': 'https://ssunedu.com/en',
-  //     'ja-JP': 'https://ssunedu.com/ja',
-  //     'es-ES': 'https://ssunedu.com/es',
-  //   },
-  // },
 };
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={notoSansJP.variable} suppressHydrationWarning>
-      <head>
-
-      </head>
+    <html 
+      lang="ko" 
+      className={`${notoSansJP.variable} ${notoSansKr.variable} ${notoSerifKr.variable}`}
+      suppressHydrationWarning // ✅ 수정된 부분: 테마 변경으로 인한 Hydration 경고를 무시합니다.
+    >
+      <head />
       <body>
-        {/* AdSense: body에서 afterInteractive로 로드 */}
         <Script
           id="adsense"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3025305005440839"
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />
-        <ClientProviders>{children}</ClientProviders>
+        <ClientProviders>
+          <main>{children}</main>
+        </ClientProviders>
         <Footer />
       </body>
     </html>
   );
 }
+
