@@ -317,20 +317,7 @@ export default function JapaneseVerbsPage() {
               <li>쓰기 모드를 통해 한자를 써서 학습 해보세요.</li>
             </ul>
           </footer>
-          <div className="mt-4 text-center">
-            <span className="text-muted-foreground/60 text-xs">
-              {" "}
-              일본어 공부 v{APP_VERSION}{" "}
-              <a
-                href="https://github.com/SsunLee/ssunbae_katakana-flashcards"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-foreground/80 ml-1"
-              >
-                쑨쑨배의 Github
-              </a>
-            </span>
-          </div>
+
         </>
       )}
     </div>

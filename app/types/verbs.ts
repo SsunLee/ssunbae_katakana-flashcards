@@ -1,3 +1,4 @@
+// app/types/verbs.ts
 
 export type VerbFormKey =
   | "dictionary" | "polite" | "negative" | "past" | "pastNegative"

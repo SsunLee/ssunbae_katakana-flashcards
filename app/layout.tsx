@@ -9,6 +9,7 @@ import Script from 'next/script';
 import Footer from "@/app/components/Footer";
 
 
+
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -140,6 +141,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
         </ClientProviders>
         <Footer />
+
       </body>
     </html>
   );

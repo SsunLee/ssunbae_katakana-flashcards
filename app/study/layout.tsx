@@ -1,7 +1,7 @@
 // app/study/layout.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SideMenu from "@/app/components/SideMenu";
 import {
   Dialog,
@@ -17,6 +17,10 @@ import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuthModal } from "@/app/context/AuthModalContext";
+import AdGuardMount from './../components/AdGuardMount';
+import AdSafeSpacer from "../components/AdSafeSpacer";  
+import { ensureShown, ensureHidden, refreshIfNeeded } from "@/app/lib/admob-banner";
+
 
 export default function StudyLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,6 +31,35 @@ export default function StudyLayout({ children }: { children: React.ReactNode })
 function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, close, page, setPage } = useAuthModal();
+  const debounce = useRef<number | null>(null);
+
+  // 레이아웃 진입 시 1회 표시(약간 딜레이)
+  useEffect(() => {
+    const t = setTimeout(() => { void ensureShown(); }, 300);
+    // 회전 시 사이즈 갱신
+    const onResize = () => void refreshIfNeeded();
+    window.addEventListener('orientationchange', onResize);
+    window.addEventListener('resize', onResize);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('orientationchange', onResize);
+      window.removeEventListener('resize', onResize);
+      void ensureHidden(); // 떠날 때는 숨김(제거 아님)
+    };
+  }, []);
+
+  // 메뉴/모달 열림에 따른 토글(디바운스 250ms)
+  useEffect(() => {
+    const overlay = isMenuOpen || isOpen;
+    if (debounce.current) window.clearTimeout(debounce.current);
+    debounce.current = window.setTimeout(() => {
+      if (overlay) void ensureHidden();
+      else void ensureShown();
+    }, 250);
+    return () => {
+      if (debounce.current) window.clearTimeout(debounce.current);
+    };
+  }, [isMenuOpen, isOpen]);
 
   return (
     // ✅ text-foreground를 추가하여 레이아웃 내 모든 텍스트의 기본 색상을 테마에 맞게 설정합니다.
@@ -90,6 +123,8 @@ function StudyShell({ children }: { children: React.ReactNode }) {
 
       {/* 페이지 콘텐츠 */}
       <main className="flex-grow overflow-y-auto">{children}</main>
+      <AdSafeSpacer />
+      <AdGuardMount />
     </div>
   );
 }

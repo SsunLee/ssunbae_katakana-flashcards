@@ -1,6 +1,8 @@
 // ssunbae_katakana-flashcards/app/services/api.ts
 import axios, { AxiosError } from 'axios';
 import type { Verb } from "@/app/types/verbs";
+import type { Kanji } from '@/app/types/kanji';
+
 
 const API_BASE_URL = process.env.NODE_ENV === 'production'
   ? 'https://ssunbae-api.vercel.app'
@@ -32,3 +34,16 @@ export async function fetchVerbs(): Promise<Verb[]> {
   }
 }
 
+// ✨ 한자 데이터를 불러오는 함수를 추가합니다.
+export async function fetchKanji(): Promise<Kanji[]> {
+  try {
+    // '/api/kanji' 엔드포인트는 데이터 배열을 바로 반환합니다.
+    const response = await apiClient.get<Kanji[]>('/api/kanji');
+    return response.data;
+  } catch (error) {
+    const e = error as AxiosError;
+    console.error(`Failed to fetch kanji: ${e.message}`);
+    // 에러를 던져서 useRemoteStudyDeck 훅이 catch 블록에서 처리하도록 합니다.
+    throw e;
+  }
+}

@@ -162,3 +162,17 @@
   display: inline-block;
   animation: spinner-rotate 1.2s linear infinite;
 }
+
+/* app/globals.css */
+:root { --ad-inset: 0px; }
+
+/* 네이티브일 때만 적용 (당신 프로젝트엔 html.native 클래스 이미 있음) */
+html.native body {
+  /* 안전영역 + 광고높이 합산 */
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--ad-inset));
+}
+
+/* 푸터가 있다면 살짝 더 확보하고 싶을 때(선택) */
+.footer {
+  padding-bottom: max(16px, var(--ad-inset));
+}

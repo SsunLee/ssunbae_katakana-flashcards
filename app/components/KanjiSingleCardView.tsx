@@ -1,11 +1,13 @@
 // app/components/KanjiSingleCardView.tsx
-
 "use client";
 
 import React from 'react';
 import { type Kanji } from '../data/kanji';
-import { Button } from './ui/button';
+import { Button } from './ui/button'; // ✨ 오류 수정을 위해 경로를 수정합니다.
+import { Pencil } from 'lucide-react';
+import KanjiWritingCanvas from './KanjiWritingCanvas'; // ✨ 오류 수정을 위해 경로를 수정합니다.
 
+// 쓰기 모드 관련 props를 추가합니다.
 interface KanjiSingleCardViewProps {
   card: Kanji;
   isFlipped: boolean;
@@ -13,9 +15,47 @@ interface KanjiSingleCardViewProps {
   onFlip: () => void;
   onToggleFav: () => void;
   kanjiFontSize: number;
+  isWritingMode: boolean; // 쓰기 모드 활성화 여부
+  onToggleWritingMode: () => void; // 쓰기 모드 전환 함수
+  // KanjiWritingCanvas에 전달할 이벤트 핸들러들
+  onNext?: () => void;
+  onPrev?: () => void;
+  onShuffle?: () => void;
+  onReset?: () => void;
 }
 
-export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFav, kanjiFontSize }: KanjiSingleCardViewProps) => {
+export const KanjiSingleCardView = ({ 
+  card, 
+  isFlipped, 
+  isFav, 
+  onFlip, 
+  onToggleFav, 
+  kanjiFontSize,
+  isWritingMode,
+  onToggleWritingMode,
+  onNext,
+  onPrev,
+  onShuffle,
+  onReset
+}: KanjiSingleCardViewProps) => {
+
+  // isWritingMode가 true이면 한자 쓰기 캔버스를 렌더링합니다.
+  if (isWritingMode) {
+    return (
+      <div className="w-full max-w-md mx-auto">
+        <KanjiWritingCanvas
+          kanji={card.kanji}
+          onClose={onToggleWritingMode} // 닫기 버튼 클릭 시 쓰기 모드 종료
+          onNext={onNext}
+          onPrev={onPrev}
+          onShuffle={onShuffle}
+          onReset={onReset}
+        />
+      </div>
+    );
+  }
+
+  // isWritingMode가 false이면 기존의 뒤집히는 카드를 렌더링합니다.
   return (
     <div className="[perspective:1200px] w-full max-w-md mx-auto">
       <div
@@ -27,7 +67,6 @@ export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFa
         style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
         {/* Front */}
-        {/* ✅ 배경, 테두리, 텍스트 색상을 테마에 맞게 변경 */}
         <div className="absolute inset-0 bg-card backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [backface-visibility:hidden]">
           <Button
             type="button"
@@ -39,6 +78,22 @@ export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFa
           >
             <span className="text-xl flex items-center justify-center w-full h-full">{isFav ? "⭐" : "☆"}</span>
           </Button>
+          
+          {/* 쓰기 모드로 전환하는 연필 아이콘 버튼을 추가합니다. */}
+          <Button
+            type="button"
+            size="icon"
+            variant="secondary"
+            onClick={(e) => { 
+              e.stopPropagation(); // 카드 뒤집기 방지
+              onToggleWritingMode(); 
+            }}
+            className="absolute top-4 left-4 h-9 w-9 rounded-full"
+            title="쓰기 모드"
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+
           <div className="text-sm text-muted-foreground mb-4">카드를 클릭하여 뜻을 확인하세요</div>
           <p 
             className="font-semibold leading-none text-center"
@@ -49,12 +104,10 @@ export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFa
         </div>
 
         {/* Back */}
-        {/* ✅ 배경, 테두리, 텍스트 색상을 테마에 맞게 변경 */}
         <div className="absolute inset-0 bg-card backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
           <div className="w-full text-center">
             {/* 한자 및 발음 */}
             <div className="mb-4">
-              {/* ✅ answer-text 클래스 적용 */}
               <p className="text-lg answer-text">음독: {card.onyomi}</p>
               <div 
                 className="my-1 font-bold"
@@ -65,7 +118,6 @@ export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFa
               <p className="text-lg answer-text">훈독: {card.kunyomi}</p>
             </div>
             
-            {/* ✅ ui-divider 클래스 적용 */}
             <div className="w-full border-t ui-divider my-4"></div>
 
             {/* 예문 */}
@@ -80,3 +132,4 @@ export const KanjiSingleCardView = ({ card, isFlipped, isFav, onFlip, onToggleFa
     </div>
   );
 };
+

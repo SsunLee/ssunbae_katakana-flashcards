@@ -1,3 +1,4 @@
+// app/components/VerbCardView.tsx
 "use client";
 
 import React from "react";
