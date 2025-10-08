@@ -1,8 +1,7 @@
-// app/components/VerbCardView.tsx
 "use client";
 
 import React from "react";
-import type { Verb } from "@/app/data/verbs";
+import type { Verb } from "@/app/types/verbs";
 import { Button } from "@/app/components/ui/button";
 import { Pencil } from "lucide-react";
 import KanjiWritingCanvas from "./KanjiWritingCanvas";
@@ -48,6 +47,13 @@ export default function VerbCardView({
     if (isWritingMode) onToggleWritingMode();
   };
 
+  const handleToggleFav = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    // ✅ 수정된 부분: onClick 이벤트가 발생하는지 직접 확인하기 위한 테스트 로그를 추가합니다.
+    console.log("--- [TEST] 즐겨찾기 버튼이 클릭되었습니다! ---");
+    onToggleFav();
+  };
+
   return (
     <div className="[perspective:1200px] w-full max-w-md mx-auto select-none">
       {isWritingMode && verb.kanji ? (
@@ -73,10 +79,10 @@ export default function VerbCardView({
         >
           {/* Front */}
           <div className="absolute inset-0 bg-card backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [backface-visibility:hidden]">
-            <Button type="button" size="icon" variant="secondary" onClick={(e) => { e.stopPropagation(); onToggleFav(); }} className="absolute top-4 right-4 h-9 w-9 rounded-full" title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
+            {/* ✅ 수정된 부분: onClick 핸들러를 별도 함수로 분리하여 가독성을 높였습니다. */}
+            <Button type="button" size="icon" variant="secondary" onClick={handleToggleFav} className="absolute top-4 right-4 h-9 w-9 rounded-full" title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}>
               <span className="text-xl">{isFav ? "⭐" : "☆"}</span>
             </Button>
-            {/* kanji mode  */}
             {verb.kanji && (
               <Button type="button" size="icon" variant="secondary" onClick={(e) => { e.stopPropagation(); onToggleWritingMode(); }} className="absolute top-4 left-4 h-9 w-9 rounded-full" title="쓰기 모드">
                 <Pencil className="h-4 w-4" />
@@ -100,4 +106,3 @@ export default function VerbCardView({
     </div>
   );
 }
-
