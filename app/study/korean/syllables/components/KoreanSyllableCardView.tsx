@@ -8,6 +8,7 @@ export default function KoreanSyllableCardView({
   onFlip,
   onToggleFav,
   fontSize,
+  onToggleWritingMode, // ✨ 추가
 }: {
   syllable: KoreanSyllable;
   isFlipped: boolean;
@@ -15,11 +16,13 @@ export default function KoreanSyllableCardView({
   onFlip: () => void;
   onToggleFav: () => void;
   fontSize: number;
+  onToggleWritingMode: () => void; // ✨ 추가
 }) {
   return (
     <div className="relative w-full max-w-md mx-auto">
       <div
-        className="perspective-1000 w-full aspect-[3/4] max-h-[340px] min-h-[220px] cursor-pointer"
+        // ✨ [수정] 종횡비 대신 고정 높이를 사용하여 레이아웃 일관성을 맞춥니다.
+        className="perspective-1000 w-full h-80 md:h-96 cursor-pointer"
         onClick={onFlip}
       >
         <div
@@ -29,6 +32,17 @@ export default function KoreanSyllableCardView({
         >
           {/* 앞면 */}
           <div className="absolute inset-0 backface-hidden bg-card border-2 border-border rounded-2xl shadow-lg p-4 flex flex-col items-center justify-center">
+            {/* ✨ 쓰기 모드 버튼 추가 */}
+            <Button
+              type="button"
+              size="icon"
+              variant="secondary"
+              onClick={(e) => { e.stopPropagation(); onToggleWritingMode(); }}
+              className="absolute top-4 left-4 h-9 w-9 rounded-full z-10"
+              title="쓰기 모드"
+            >
+              <span className="text-xl flex items-center justify-center w-full h-full">✏️</span>
+            </Button>
             <Button
               type="button"
               size="icon"

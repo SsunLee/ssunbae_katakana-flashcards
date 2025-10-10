@@ -1,39 +1,5 @@
-
+// app/study/korean/words/page.tsx
 "use client";
-// 한글 낭독용 TTS 훅 (음원 선택 포함)
-function useKoSpeech() {
-  const [ttsReady, setTtsReady] = useState(false);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    function updateVoices() {
-      const allVoices = window.speechSynthesis.getVoices();
-      const koVoices = allVoices.filter(v => v.lang.startsWith("ko"));
-      setVoices(koVoices);
-      if (koVoices.length > 0 && !selectedVoice) {
-        setSelectedVoice(koVoices[0]);
-      }
-      setTtsReady(koVoices.length > 0);
-    }
-    window.speechSynthesis.onvoiceschanged = updateVoices;
-    updateVoices();
-    return () => { window.speechSynthesis.onvoiceschanged = null; };
-  }, [selectedVoice]);
-
-  const speakKo = (text: string) => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    const utter = new window.SpeechSynthesisUtterance(text);
-    utter.lang = "ko-KR";
-    if (selectedVoice) utter.voice = selectedVoice;
-    window.speechSynthesis.speak(utter);
-  };
-  const selectVoice = (voice: SpeechSynthesisVoice | null) => {
-    setSelectedVoice(voice);
-  };
-  return { ttsReady, speakKo, voices, selectedVoice, selectVoice };
-}
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/app/AuthContext";
@@ -47,7 +13,6 @@ import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
-import KoreanWritingCanvas from "@/app/components/KoreanWritingCanvas";
 import KoreanWordCardView from "./components/KoreanWordCardView";
 import KoreanWordGridMode from "./components/KoreanWordGridMode";
 
@@ -55,7 +20,7 @@ import KoreanWordGridMode from "./components/KoreanWordGridMode";
 // 데이터 & 훅 & 상수
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { KOREAN_WORDS, type KoreanWord } from "@/app/data/korean-words";
-
+import { useKoSpeech } from "@/app/hooks/useKoSpeech"; 
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
@@ -77,7 +42,6 @@ export default function KoreanWordsPage() {
   const { deck, favs, toggleFav, shuffleDeck, resetDeckToInitial } =
     useStudyDeck<KoreanWord>({ user, deckType, initialDeck });
 
-  // (state declarations remain unchanged)
   const [currentPage, setCurrentPage] = useState(1);
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
@@ -224,6 +188,8 @@ export default function KoreanWordsPage() {
         </div>
       )}
 
+      {/* ✨ [수정] spanish/words 페이지와 동일한 클래스로 변경합니다. */}
+      <main className="w-full max-w-5xl select-none">
       {/* 싱글 학습 모드 */}
       {viewMode === "single"
         ? (studyDeck.length === 0
@@ -236,6 +202,7 @@ export default function KoreanWordsPage() {
                   onFlip={onFlip}
                   onToggleFav={() => toggleFav(current.id)}
                   titleFontSize={wordFontSize}
+                  onToggleWritingMode={() => setIsWritingMode((w) => !w)}
                 />
               )
           )
@@ -252,8 +219,7 @@ export default function KoreanWordsPage() {
               />
           )
       }
-
-      {/* main block removed: duplicate card rendering fixed */}
+      </main>
 
       {viewMode === "single" && !isWritingMode && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
@@ -301,97 +267,3 @@ export default function KoreanWordsPage() {
   );
 }
 
-// 한국어 카드 뷰 컴포넌트
-function KoreanCardView({
-  word,
-  isFlipped,
-  isFav,
-  onFlip,
-  onToggleFav,
-  titleFontSize,
-  onToggleWritingMode,
-}: {
-  word: KoreanWord;
-  isFlipped: boolean;
-  isFav: boolean;
-  onFlip: () => void;
-  onToggleFav: () => void;
-  titleFontSize: number;
-  onToggleWritingMode: () => void;
-}) {
-  return (
-    <div className="relative w-full max-w-md mx-auto">
-      <div 
-        className="perspective-1000 w-full aspect-[3/4] cursor-pointer"
-        onClick={onFlip}
-      >
-        <div 
-          className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
-            isFlipped ? 'rotate-y-180' : ''
-          }`}
-        >
-          {/* 앞면 */}
-          <div className="absolute inset-0 backface-hidden bg-card border-2 border-border rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
-            <div 
-              className="text-center font-bold mb-4"
-              style={{ fontSize: `${titleFontSize}px` }}
-            >
-              {word.word}
-            </div>
-            {word.category && (
-              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                {word.category}
-              </span>
-            )}
-          </div>
-
-          {/* 뒷면 */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 bg-card border-2 border-primary/50 rounded-2xl shadow-lg p-8 flex flex-col items-center justify-center">
-            <div className="w-full text-center space-y-4">
-              <div 
-                className="font-bold text-foreground mb-2"
-                style={{ fontSize: `${titleFontSize}px` }}
-              >
-                {word.word}
-              </div>
-              <div className="text-xl text-muted-foreground mb-4">
-                {word.meaning}
-              </div>
-              {word.pronunciation && (
-                <div className="text-sm text-muted-foreground italic">
-                  [{word.pronunciation}]
-                </div>
-              )}
-              {word.hanja && (
-                <div className="text-lg text-muted-foreground">
-                  漢字: {word.hanja}
-                </div>
-              )}
-              {word.example && (
-                <div className="text-sm text-muted-foreground/80 mt-4 p-3 bg-muted/50 rounded-lg">
-                  {word.example}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 하단 버튼들 */}
-      <div className="flex items-center justify-center gap-2 mt-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleFav();
-          }}
-          className={isFav ? "text-yellow-500" : ""}
-        >
-          {isFav ? "⭐" : "☆"}
-        </Button>
-
-      </div>
-    </div>
-  );
-}

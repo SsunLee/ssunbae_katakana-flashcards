@@ -14,44 +14,11 @@ import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { KOREAN_SYLLABLES, KoreanSyllable } from "@/app/data/korean-syllables";
 import KoreanSyllableCardView from "./components/KoreanSyllableCardView";
 import KoreanSyllableGridMode from "./components/KoreanSyllableGridMode";
+import KoreanWritingCanvas from "@/app/components/KoreanWritingCanvas"; // ✨ 추가
+import { useKoSpeech } from "@/app/hooks/useKoSpeech"; // ✨ 추가
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
-
-// 한글 낭독용 TTS 훅 (음원 선택 포함)
-function useKoSpeech() {
-  const [ttsReady, setTtsReady] = useState(false);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    function updateVoices() {
-      const allVoices = window.speechSynthesis.getVoices();
-      const koVoices = allVoices.filter(v => v.lang.startsWith("ko"));
-      setVoices(koVoices);
-      if (koVoices.length > 0 && !selectedVoice) {
-        setSelectedVoice(koVoices[0]);
-      }
-      setTtsReady(koVoices.length > 0);
-    }
-    window.speechSynthesis.onvoiceschanged = updateVoices;
-    updateVoices();
-    return () => { window.speechSynthesis.onvoiceschanged = null; };
-  }, [selectedVoice]);
-
-  const speakKo = (text: string) => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    const utter = new window.SpeechSynthesisUtterance(text);
-    utter.lang = "ko-KR";
-    if (selectedVoice) utter.voice = selectedVoice;
-    window.speechSynthesis.speak(utter);
-  };
-  const selectVoice = (voice: SpeechSynthesisVoice | null) => {
-    setSelectedVoice(voice);
-  };
-  return { ttsReady, speakKo, voices, selectedVoice, selectVoice };
-}
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
@@ -70,6 +37,7 @@ export default function KoreanSyllablesPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans KR");
   const [syllableFontSize, setSyllableFontSize] = useState<number>(96);
+  const [isWritingMode, setIsWritingMode] = useState(false); // ✨ 추가
   const [gridFlippedStates, setGridFlippedStates] = useState<Record<number, boolean>>({});
   const toggleGridCardFlip = (id: number) => setGridFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
   const { ttsReady, speakKo, voices, selectedVoice, selectVoice } = useKoSpeech();
@@ -86,30 +54,48 @@ export default function KoreanSyllablesPage() {
       totalPages: total,
     };
   }, [currentPage, studyDeck]);
+  
+  const resetCardState = useCallback(() => {
+    setFlipped(false);
+  }, []);
 
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
   const onFlip = useCallback(() => setFlipped((f) => !f), []);
   const next = useCallback(() => {
     setIndex((i) => (i + 1) % Math.max(1, studyDeck.length));
-    setFlipped(false);
-  }, [studyDeck.length]);
+    resetCardState();
+  }, [studyDeck.length, resetCardState]);
   const prev = useCallback(() => {
     setIndex((i) => (i - 1 + Math.max(1, studyDeck.length)) % Math.max(1, studyDeck.length));
-    setFlipped(false);
-  }, [studyDeck.length]);
+    resetCardState();
+  }, [studyDeck.length, resetCardState]);
   const shuffle = () => {
     shuffleDeck();
     setIndex(0);
-    setFlipped(false);
+    resetCardState();
   };
   const reset = () => {
     resetDeckToInitial();
     setIndex(0);
-    setFlipped(false);
+    resetCardState();
     setGridFlippedStates({});
     setCurrentPage(1);
   };
+  
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (isWritingMode) return; // ✨ 추가
+      // ... (rest of the effect)
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onFlip(); } 
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [viewMode, onFlip, next, prev, isWritingMode]);
+
+
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans KR"], [fontFamily]);
   const mounted = useMounted();
@@ -173,34 +159,47 @@ export default function KoreanSyllablesPage() {
           </div>
         </div>
       )}
-      {viewMode === "single"
-        ? (studyDeck.length === 0
-            ? <EmptyDeckMessage viewMode="single" />
-            : current && (
-                <KoreanSyllableCardView
-                  syllable={current}
-                  isFlipped={flipped}
-                  isFav={!!favs[current.id]}
-                  onFlip={onFlip}
-                  onToggleFav={() => toggleFav(current.id)}
-                  fontSize={syllableFontSize}
-                />
-              )
-          )
-        : (studyDeck.length === 0
-            ? <EmptyDeckMessage viewMode="grid" />
-            : <KoreanSyllableGridMode
-                syllables={currentCards}
-                favs={favs}
-                flippedStates={gridFlippedStates}
-                onToggleFav={(id: number) => toggleFav(id)}
-                onToggleCardFlip={(id: number) => toggleGridCardFlip(id)}
-                page={{ current: currentPage, total: totalPages, onPrev: goToPrevPage, onNext: goToNextPage }}
+      <main className="w-full max-w-5xl select-none">
+        {isWritingMode ? (
+           <KoreanWritingCanvas
+            word={current?.char || ""}
+            onClose={() => setIsWritingMode(false)}
+            onNext={next}
+            onPrev={prev}
+            onShuffle={shuffle}
+            onReset={reset}
+          />
+        ) : viewMode === "single" ? (
+          studyDeck.length === 0 ? (
+            <EmptyDeckMessage viewMode="single" />
+          ) : (
+            current && (
+              <KoreanSyllableCardView
+                syllable={current}
+                isFlipped={flipped}
+                isFav={!!favs[current.id]}
+                onFlip={onFlip}
+                onToggleFav={() => toggleFav(current.id)}
                 fontSize={syllableFontSize}
+                onToggleWritingMode={() => setIsWritingMode(true)} // ✨ 추가
               />
+            )
           )
-      }
-      {viewMode === "single" && (
+        ) : studyDeck.length === 0 ? (
+          <EmptyDeckMessage viewMode="grid" />
+        ) : (
+          <KoreanSyllableGridMode
+            syllables={currentCards}
+            favs={favs}
+            flippedStates={gridFlippedStates}
+            onToggleFav={(id: number) => toggleFav(id)}
+            onToggleCardFlip={(id: number) => toggleGridCardFlip(id)}
+            page={{ current: currentPage, total: totalPages, onPrev: goToPrevPage, onNext: goToNextPage }}
+            fontSize={syllableFontSize}
+          />
+        )}
+      </main>
+      {viewMode === "single" && !isWritingMode && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
           <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
         </div>
@@ -241,3 +240,4 @@ export default function KoreanSyllablesPage() {
     </div>
   );
 }
+

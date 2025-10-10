@@ -1,5 +1,18 @@
+//
+"use client";
+
 import { Button } from "@/app/components/ui/button";
-import { KoreanWord } from "@/app/data/korean-words";
+import type { KoreanWord } from "@/app/data/korean-words";
+
+interface KoreanWordCardViewProps {
+  word: KoreanWord;
+  isFlipped: boolean;
+  isFav: boolean;
+  onFlip: () => void;
+  onToggleFav: () => void;
+  titleFontSize: number;
+  onToggleWritingMode: () => void; // ✨ 쓰기 모드 전환 함수 prop 추가
+}
 
 export default function KoreanWordCardView({
   word,
@@ -8,108 +21,86 @@ export default function KoreanWordCardView({
   onFlip,
   onToggleFav,
   titleFontSize,
-  onToggleWritingMode,
-}: {
-  word: KoreanWord;
-  isFlipped: boolean;
-  isFav: boolean;
-  onFlip: () => void;
-  onToggleFav: () => void;
-  titleFontSize: number;
-  onToggleWritingMode?: () => void;
-}) {
+  onToggleWritingMode, // ✨ 쓰기 모드 전환 함수 prop 추가
+}: KoreanWordCardViewProps) {
   return (
-    <div className="relative w-full max-w-md mx-auto">
-      <div 
-        className="perspective-1000 w-full aspect-[3/4] max-h-[340px] min-h-[220px] cursor-pointer"
+    <div className="[perspective:1200px] w-full max-w-md mx-auto">
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="flip card"
         onClick={onFlip}
+        // ✨ [수정] 오타를 수정하고 고정 높이를 적용합니다.
+        className="relative h-80 md:h-96 transition-transform duration-500 [transform-style:preserve-3d] cursor-pointer"
+        style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
-        <div 
-          className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
-            isFlipped ? 'rotate-y-180' : ''
-          }`}
-        >
-          {/* 앞면 */}
-          <div className="absolute inset-0 backface-hidden bg-card border-2 border-border rounded-2xl shadow-lg p-4 flex flex-col items-center justify-center">
-            <Button
-              type="button"
-              size="icon"
-              variant="secondary"
-              onClick={(e) => { e.stopPropagation(); onToggleFav(); }}
-              className="absolute top-4 right-4 h-9 w-9 rounded-full"
-              title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}
-            >
-              <span className="text-xl flex items-center justify-center w-full h-full">{isFav ? "⭐" : "☆"}</span>
-            </Button>
-            <div 
-              className="text-center font-bold mb-4"
+        {/* 앞면 */}
+        <div className="absolute inset-0 bg-card backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [backface-visibility:hidden]">
+          {/* ✨ 쓰기 모드 버튼 추가 */}
+          <Button
+            type="button"
+            size="icon"
+            variant="secondary"
+            onClick={(e) => { e.stopPropagation(); onToggleWritingMode(); }}
+            className="absolute top-4 left-4 h-9 w-9 rounded-full z-10"
+            title="쓰기 모드"
+          >
+            <span className="text-xl flex items-center justify-center w-full h-full">✏️</span>
+          </Button>
+          <Button
+            type="button"
+            size="icon"
+            variant="secondary"
+            onClick={(e) => { e.stopPropagation(); onToggleFav(); }}
+            className="absolute top-4 right-4 h-9 w-9 rounded-full"
+            title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+          >
+            <span className="text-xl flex items-center justify-center w-full h-full">{isFav ? "⭐" : "☆"}</span>
+          </Button>
+          <div className="text-center w-full">
+            <p 
+              className="font-semibold leading-snug break-all"
               style={{ fontSize: `${titleFontSize}px` }}
             >
               {word.word}
-            </div>
+            </p>
             {word.category && (
-              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full">
+              <span className="text-sm text-muted-foreground bg-muted px-3 py-1 rounded-full mt-4">
                 {word.category}
               </span>
             )}
           </div>
-
-          {/* 뒷면 */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 bg-card border-2 border-primary/50 rounded-2xl shadow-lg p-4 flex flex-col items-center justify-center">
-            <Button
-              type="button"
-              size="icon"
-              variant="secondary"
-              onClick={(e) => { e.stopPropagation(); onToggleFav(); }}
-              className="absolute top-4 right-4 h-9 w-9 rounded-full"
-              title={isFav ? "즐겨찾기 해제" : "즐겨찾기 추가"}
+        </div>
+        
+        {/* 뒷면 */}
+        <div className="absolute inset-0 bg-card backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+          <div className="text-center w-full space-y-2">
+            <p 
+              className="font-bold text-primary"
+              style={{ fontSize: `${titleFontSize * 0.9}px` }}
             >
-              <span className="text-xl flex items-center justify-center w-full h-full">{isFav ? "⭐" : "☆"}</span>
-            </Button>
-            <div className="w-full text-center space-y-4">
-              <div 
-                className="font-bold text-foreground mb-2"
-                style={{ fontSize: `${titleFontSize}px` }}
-              >
-                {word.word}
+              {word.meaning}
+            </p>
+            <p 
+              className="font-semibold leading-snug break-all"
+              style={{ fontSize: `${titleFontSize * 0.8}px` }}
+            >
+              {word.word}
+            </p>
+            {word.pronunciation && <p className="text-muted-foreground">[{word.pronunciation}]</p>}
+            {word.hanja && <p className="text-muted-foreground">漢字: {word.hanja}</p>}
+            
+            <div className="w-full border-t ui-divider my-4"></div>
+            
+            {word.example && (
+              <div className="text-sm text-foreground/90 p-2 bg-muted/50 rounded-md">
+                <p>{word.example}</p>
               </div>
-              <div className="text-xl text-muted-foreground mb-4">
-                {word.meaning}
-              </div>
-              {word.pronunciation && (
-                <div className="text-sm text-muted-foreground italic">
-                  [{word.pronunciation}]
-                </div>
-              )}
-              {word.hanja && (
-                <div className="text-lg text-muted-foreground">
-                  漢字: {word.hanja}
-                </div>
-              )}
-              {word.example && (
-                <div className="text-sm text-muted-foreground/80 mt-4 p-3 bg-muted/50 rounded-lg">
-                  {word.example}
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>
-      {/* 하단 버튼들: 별 버튼 제거, 쓰기모드 버튼만 필요시 노출 */}
-      {onToggleWritingMode && (
-        <div className="flex items-center justify-center gap-2 mt-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleWritingMode();
-            }}
-          >
-            ✍️ 쓰기 모드
-          </Button>
-        </div>
-      )}
     </div>
   );
-}
+};
+

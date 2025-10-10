@@ -1,4 +1,5 @@
 // app/study/korean/chars/page.tsx
+
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -17,45 +18,12 @@ import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import KoreanWritingCanvas from "@/app/components/KoreanWritingCanvas";
 
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useKoSpeech } from "@/app/hooks/useKoSpeech";
 import { KOREAN_CHARS, type KoreanChar } from "@/app/data/korean-chars";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
 
-// 한글 낭독용 TTS 훅 (음원 선택 포함)
-function useKoSpeech() {
-  const [ttsReady, setTtsReady] = useState(false);
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    function updateVoices() {
-      const allVoices = window.speechSynthesis.getVoices();
-      const koVoices = allVoices.filter(v => v.lang.startsWith("ko"));
-      setVoices(koVoices);
-      if (koVoices.length > 0 && !selectedVoice) {
-        setSelectedVoice(koVoices[0]);
-      }
-      setTtsReady(koVoices.length > 0);
-    }
-    window.speechSynthesis.onvoiceschanged = updateVoices;
-    updateVoices();
-    return () => { window.speechSynthesis.onvoiceschanged = null; };
-  }, [selectedVoice]);
-
-  const speakKo = (text: string) => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    const utter = new window.SpeechSynthesisUtterance(text);
-    utter.lang = "ko-KR";
-    if (selectedVoice) utter.voice = selectedVoice;
-    window.speechSynthesis.speak(utter);
-  };
-  const selectVoice = (voice: SpeechSynthesisVoice | null) => {
-    setSelectedVoice(voice);
-  };
-  return { ttsReady, speakKo, voices, selectedVoice, selectVoice };
-}
 
 const CARDS_PER_PAGE = 12 as const;
 type ViewMode = "single" | "grid";
@@ -302,4 +270,3 @@ export default function KoreanCharsPage() {
   );
 }
 
-// ...분리된 컴포넌트는 components/ 폴더로 이동...
