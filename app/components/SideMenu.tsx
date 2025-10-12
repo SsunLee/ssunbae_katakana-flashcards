@@ -1,4 +1,4 @@
-// app/components/SideMenu.tsx
+// /app/components/SideMenu.tsx
 
 "use client";
 
@@ -15,37 +15,21 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Button } from "./ui/button";
 
-// 회원 탈퇴 관련
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
 } from "./ui/alert-dialog";
 import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
-import { Settings as SettingsIcon, ShieldAlert } from "lucide-react";
-import AccountDialog from "@/app/components/AccountDialog";
-
-
+import { ShieldAlert } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 interface SideMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-// 메뉴 항목 구성
-type MenuItem = {
-  href: string;
-  label: string;
-  icon?: string;
-  disabled?: boolean;
-};
-
-type MenuGroup = {
-  language: string;
-  value: string;
-  icon?: string;
-  disabled?: boolean;
-  items: MenuItem[];
-};
+type MenuItem = { href: string; label: string; icon?: string; disabled?: boolean; };
+type MenuGroup = { language: string; value: string; icon?: string; disabled?: boolean; items: MenuItem[]; };
 
 const menuConfig: MenuGroup[] = [
   {
@@ -106,29 +90,32 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
   );
 };
 
+
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
 
-  // 회원 탈퇴 관련
   const [openDelete, setOpenDelete] = useState(false);
   const [needReauth, setNeedReauth] = useState(false);
   const [password, setPassword] = useState("");
-
 
   const handleLogout = async () => {
     await signOut(auth);
     onClose();
   };
 
-  const gotoSettings = () => {
-    router.push("/settings");
+  const handleProfileClick = () => {
+    router.push('/profile');
     onClose();
   };
 
-  // 회원탈퇴 함수
+  const handleNavigate = (href: string) => {
+    router.push(href);
+    onClose();
+  };
+
   async function callDeleteEndpoint() {
     const user = auth.currentUser;
     if (!user) throw new Error("No user");
@@ -153,7 +140,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
       router.replace("/goodbye");
       onClose();
     } catch (_) {
-      // needReauth가 true면 재인증 UI 노출됨
+      // needReauth will show reauth UI
     }
   }
 
@@ -165,20 +152,21 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
     await handleDelete();
   }  
 
-  const handleNavigate = (href: string) => {
-    router.push(href);
-    onClose();
-  };
-
   const openAuthFromSheet = (p: "login" | "register" = "login") => {
     onClose();
     setTimeout(() => open(p), 0);
   };
 
   const defaultAccordionValue = useMemo(() => {
-    return menuConfig.find((lang) =>
-      lang.items.some((item) => pathname.startsWith(item.href.substring(0, item.href.lastIndexOf("/"))))
-    )?.value ?? undefined;
+    const currentGroup = menuConfig.find((lang) =>
+      lang.items.some((item) => {
+        // Handle cases like /study/japanese/verbs by checking parent path
+        const parentPath = item.href.substring(0, item.href.lastIndexOf("/"));
+        return pathname.startsWith(parentPath);
+      })
+    );
+    // --- 👇 [수정] undefined 대신 빈 문자열 ''을 반환하여 타입 오류 해결 ---
+    return currentGroup?.value || '';
   }, [pathname]);
 
   return (
@@ -240,7 +228,6 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                         <MenuIcon icon={item.icon} />
                         <span className="truncate">{item.label}</span>
                       </Button>
-
                   ))}
                   </div>
                 </AccordionContent>
@@ -248,35 +235,39 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
             ))}
           </Accordion>
         </div>
-
+        
         <div 
           className="flex-shrink-0 p-6 border-t border-border pb-[env(safe-area-inset-bottom)]"
           style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 24px)' }}
         >
           {user ? (
             <div className="flex flex-col items-start gap-4">
-              <div className="flex items-center gap-3">
-                <UserCircle2 className="w-8 h-8 text-muted-foreground" />
-                <div>
-                  <p className="font-semibold text-foreground text-sm">{user.nickname}님</p>
-                  <p className="text-xs text-muted-foreground">환영합니다!</p>
+              <button 
+                onClick={handleProfileClick} 
+                className="flex items-center gap-3 text-left w-full hover:bg-muted rounded-lg p-2 -m-2 transition-colors"
+              >
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={user.photoURL || undefined} alt={user.nickname || 'User'}/>
+                  <AvatarFallback>
+                    <UserCircle2 className="w-6 h-6 text-muted-foreground" />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <p className="font-semibold text-foreground text-sm truncate">{user.nickname}님</p>
+                  <p className="text-xs text-muted-foreground">프로필 수정</p>
                 </div>
-              </div>
-
-              {/* 바로 삭제(선택): 같은 다이얼로그 트리거 */}
+              </button>
+              
               <Button onClick={() => setOpenDelete(true)} variant="destructive" className="w-full">
                 <ShieldAlert className="w-4 h-4 mr-2" />
                 계정 삭제
               </Button>
 
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                className="w-full"
-              >
+              <Button onClick={handleLogout} variant="outline" className="w-full">
                 <LogOut className="w-4 h-4 mr-2" />
                 로그아웃
               </Button>
+              
               <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
                 Support
               </Button>
@@ -290,14 +281,13 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
               >
                 로그인 / 회원가입
               </Button>
-                <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
-                  Support
-                </Button>
+              <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
+                Support
+              </Button>
             </div>
           )} 
         </div>
 
-        {/* 삭제 다이얼로그 (설정 페이지와 동일 UX 유지) */}
         <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -334,3 +324,4 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
     </Sheet>
   );
 }
+

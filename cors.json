@@ -1,0 +1,15 @@
+[
+  {
+    "origin": [
+      "http://localhost:3001",
+      "http://localhost:3000",
+      "https://ssunbae-edu.com"
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "responseHeader": [
+      "Content-Type",
+      "Access-Control-Allow-Origin"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]

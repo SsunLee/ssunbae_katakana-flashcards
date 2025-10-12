@@ -1,4 +1,5 @@
-// app/lib/admob-banner.ts
+// /app/lib/admob-banner.ts
+
 'use client';
 
 import {
@@ -9,18 +10,21 @@ import {
   BannerAdSize,
 } from '@capacitor-community/admob';
 
+// --- 👇 [수정] 코드 상단에서 환경 변수를 미리 읽지 않습니다. ---
+// const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_IOS_BANNER_ID ?? ''; 
+// const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
+// --- 👆 [수정] ---
 
-const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_IOS_BANNER_ID ?? ''; 
-const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
+// Google의 공식 iOS 배너 테스트 ID입니다.
 const TEST_IOS_BANNER = 'ca-app-pub-3940256099942544/2934735716';
 
 // ---- internal state ----
 let listenersInstalled = false;
 let lastOptions: BannerAdOptions | null = null;
-let isVisible = false;       // 현재 화면에 보여지는 상태(추적)
-let inflight = false;        // showBanner 진행 중
+let isVisible = false;
+let inflight = false;
 let retry = 0;
-let suppressed = false;      // overlay/keyboard 등으로 임시 숨김 상태
+let suppressed = false;
 let lastHeight = 0;
 
 const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
@@ -30,7 +34,6 @@ const setInset = (px: number) => {
   document.documentElement.style.setProperty('--ad-inset', `${px}px`);
 };
 
-// “작은 배너만” 전략: 320×50 또는 320×100
 function pickBannerSize(): BannerAdSize {
   const w = typeof window !== 'undefined' ? window.innerWidth : 390;
   const h = typeof window !== 'undefined' ? window.innerHeight : 812;
@@ -41,24 +44,19 @@ function installListenersOnce() {
   if (listenersInstalled) return;
   listenersInstalled = true;
 
-  AdMob.addListener(BannerAdPluginEvents.SizeChanged, ({ height }) => {
-    // 배너가 로드되면 높이를 패딩으로 반영
-    setInset(height || 0);
-  });
-
+  AdMob.addListener(BannerAdPluginEvents.SizeChanged, ({ height }) => { setInset(height || 0); });
   AdMob.addListener(BannerAdPluginEvents.Loaded, () => {
     retry = 0;
-    isVisible = true;       // 성공하면 보이는 상태
+    isVisible = true;
     inflight = false;
   });
-
-  AdMob.addListener(BannerAdPluginEvents.FailedToLoad, async () => {
+  AdMob.addListener(BannerAdPluginEvents.FailedToLoad, async (error) => {
+    console.error('[AdMob Banner] 광고 로드 실패:', error);
     inflight = false;
     isVisible = false;
     setInset(0);
-    if (suppressed) return; // 가리는 UI 중이면 재시도하지 않음(깜빡임 방지)
+    if (suppressed) return;
 
-    // 지수 백오프(최대 32s)
     retry = Math.min(retry + 1, 5);
     await sleep(1000 * Math.pow(2, retry));
     if (lastOptions && !suppressed) {
@@ -67,32 +65,40 @@ function installListenersOnce() {
   });
 }
 
-// ---- public APIs ----
 
-// 화면에 보이게(중복 방지, 필요할 때만 요청)
 export async function ensureShown(
   opts?: Partial<BannerAdOptions>,
   forceReload = false
 ) {
   installListenersOnce();
 
-  // ✨ [수정] 운영 환경(production)에서는 실제 광고 ID를, 그 외에는 테스트 ID를 사용합니다.
+  // --- 👇 [수정] 함수가 호출되는 시점에 환경 변수를 읽도록 위치를 변경합니다. ---
+  const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_BANNER_ID ?? ''; 
+  const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
   const adIdToUse = isProd ? PROD_IOS_BANNER : TEST_IOS_BANNER;
-
+  // --- 👆 [수정] ---
+  
+  // 로그는 그대로 유지하여 확인합니다.
+  console.log("--- [AdMob Banner] 광고 표시 로직 시작 ---");
+  console.log(`[AdMob Banner] 1. 환경 변수 (NEXT_PUBLIC_APP_ENV): "${process.env.NEXT_PUBLIC_APP_ENV}"`);
+  console.log(`[AdMob Banner] 2. 운영 환경인가? (isProd): ${isProd}`);
+  console.log(`[AdMob Banner] 3. 운영용 광고 ID (PROD_IOS_BANNER): "${PROD_IOS_BANNER}"`);
+  console.log(`[AdMob Banner] 4. 최종 사용될 광고 ID: "${adIdToUse}"`);
+  
   const desired: BannerAdOptions = {
     adId: opts?.adId ?? adIdToUse,
     adSize: opts?.adSize ?? pickBannerSize(),
     position: opts?.position ?? BannerAdPosition.BOTTOM_CENTER,
     margin: opts?.margin ?? 0,
   };
+  
+  console.log(`[AdMob Banner] 5. AdMob에 전달될 옵션:`, desired);
 
-  // 같은 옵션이고 이미 보이는 중이면 NO-OP
   if (!forceReload && isVisible && lastOptions &&
       JSON.stringify({ ...lastOptions, adId: 'x' }) === JSON.stringify({ ...desired, adId: 'x' })) {
     return;
   }
 
-  // 진행 중이면 스킵(깜빡임 방지)
   if (inflight) return;
 
   inflight = true;
@@ -100,34 +106,39 @@ export async function ensureShown(
   lastOptions = desired;
 
   try {
-    // 재요청 전 깨끗이 정리(깜빡임 최소: hide만 사용, remove는 사이즈/포지션 바뀔 때만)
     if (isVisible) {
       if (lastHeight && desired.adSize !== lastOptions?.adSize) {
         await AdMob.hideBanner().catch(() => {});
-        await AdMob.removeBanner().catch(() => {}); // 사이즈 변경시에만 제거
+        await AdMob.removeBanner().catch(() => {});
       } else {
         await AdMob.hideBanner().catch(() => {});
       }
     }
 
     setInset(0);
+    // adId가 비어있으면 요청을 보내지 않도록 방어 코드를 추가합니다.
+    if (!desired.adId) {
+      console.error('[AdMob Banner] 광고 ID가 비어있어 요청을 보내지 않습니다.');
+      inflight = false;
+      return;
+    }
     await AdMob.showBanner(desired);
-  } catch {
+  } catch (error) {
+    console.error('[AdMob Banner] showBanner 함수에서 에러 발생:', error);
     inflight = false;
     isVisible = false;
   }
 }
 
-// 화면에서 숨기기(배너는 유지 → 깜빡임↓)
+// ... (ensureHidden, refreshIfNeeded 함수는 동일)
 export async function ensureHidden() {
   suppressed = true;
-  if (!isVisible) return; // 이미 숨김
+  if (!isVisible) return;
   await AdMob.hideBanner().catch(() => {});
   isVisible = false;
   setInset(0);
 }
 
-// 사이즈/회전 등으로 새로 갱신
 export async function refreshIfNeeded() {
   if (!lastOptions) return;
   const size = pickBannerSize();
@@ -135,3 +146,4 @@ export async function refreshIfNeeded() {
     await ensureShown({ ...lastOptions, adSize: size }, /*forceReload=*/true);
   }
 }
+

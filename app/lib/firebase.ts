@@ -9,6 +9,9 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { Capacitor } from "@capacitor/core";
+import { getStorage } from "firebase/storage"; // 👈 추가
+
+
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
@@ -41,6 +44,8 @@ try {
 
 export const auth = _auth!;
 export const db = getFirestore(app);
+export const storage = getStorage(app); // 👈 추가
+
 
 export const authenticate = async () => {
   if (auth.currentUser) return;

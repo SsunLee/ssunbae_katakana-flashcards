@@ -9,12 +9,6 @@ import {
 export async function initAdmob() {
   await AdMob.initialize();
 
-  // 개발 중 디버깅 옵션 (배포 전 제거)
-  await AdMob.requestConsentInfo({
-    debugGeography: AdmobConsentDebugGeography.EEA,
-    testDeviceIdentifiers: ['SIMULATOR'],
-  });
-
   // 1) 현재 동의 정보 조회
   let info: AdmobConsentInfo = await AdMob.requestConsentInfo();
 
