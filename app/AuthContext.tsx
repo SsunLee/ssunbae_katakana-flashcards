@@ -4,7 +4,7 @@
 
 import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore'; // [수정] setDoc을 import 합니다.
 import { app, db } from './lib/firebase';
 
 export interface UserProfile {
@@ -30,24 +30,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchAndSetUser = useCallback(async (firebaseUser: User | null) => {
     if (firebaseUser) {
       const userDocRef = doc(db, "users", firebaseUser.uid);
-      const userDoc = await getDoc(userDocRef);
+      
+      // [수정] 네트워크 오류 등을 대비해 try...catch 블록을 추가합니다.
+      try {
+        const userDoc = await getDoc(userDocRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            nickname: userData.nickname || firebaseUser.displayName,
+            photoURL: userData.photoURL || firebaseUser.photoURL,
+          });
+        } else {
+          // [수정] Firestore에 사용자 문서가 없을 경우, 기본값으로 문서를 생성해줍니다.
+          const defaultNickname = firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '사용자';
+          const newUserProfile: UserProfile = {
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            nickname: defaultNickname,
+            photoURL: firebaseUser.photoURL,
+          };
+          
+          // 'users' 컬렉션에 새로운 사용자 문서를 생성합니다.
+          await setDoc(userDocRef, {
+            nickname: newUserProfile.nickname,
+            photoURL: newUserProfile.photoURL,
+            email: newUserProfile.email,
+            createdAt: new Date(), // 생성 시각 기록
+          });
+
+          setUser(newUserProfile);
+        }
+      } catch (error) {
+        console.error("사용자 프로필 정보를 가져오는 중 오류 발생:", error);
+        // [수정] 에러 발생 시, 최소한의 정보로 유저 상태를 설정해줍니다.
         setUser({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
-          nickname: userData.nickname || firebaseUser.displayName,
-          photoURL: userData.photoURL || firebaseUser.photoURL,
-        });
-      } else {
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          nickname: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '사용자',
+          nickname: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,
         });
       }
+
     } else {
       setUser(null);
     }
@@ -61,25 +87,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, [auth, fetchAndSetUser]);
   
-  // --- 👇 [수정] 낙관적 업데이트와 서버 동기화 로직을 분리합니다 ---
   const refreshUser = useCallback(async (optimisticData?: Partial<UserProfile>) => {
-    // 1. 만약 optimisticData가 있다면, 즉시 UI 상태만 업데이트하고 종료합니다.
     if (optimisticData) {
-      console.log("[AuthContext] 낙관적 업데이트 실행:", optimisticData);
       setUser(prevUser => prevUser ? { ...prevUser, ...optimisticData } : null);
-      return; // 서버에 바로 다시 물어보지 않음으로써 경합 상태를 방지
+      return;
     }
 
-    // 2. optimisticData가 없다면, 서버에서 최신 정보를 가져와 동기화합니다.
-    console.log("[AuthContext] 서버로부터 데이터 동기화 시작");
     const currentUser = auth.currentUser;
     if (currentUser) {
-      await currentUser.reload();
-      await fetchAndSetUser(currentUser);
-      console.log("[AuthContext] 서버 동기화 완료");
+      try {
+        await currentUser.reload();
+        await fetchAndSetUser(currentUser);
+      } catch (error) {
+        console.error("사용자 정보 새로고침 중 오류 발생:", error);
+      }
     }
   }, [auth, fetchAndSetUser]);
-  // --- 👆 [수정] ---
   
   const value = { user, loading, refreshUser };
 
@@ -93,4 +116,3 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
-

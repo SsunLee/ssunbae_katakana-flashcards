@@ -19,13 +19,13 @@ import { Skeleton } from "@/app/components/ui/skeleton";
 
 // 데이터/훅/상수 임포트 수정
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
-import { useRemoteStudyDeck } from "@/app/hooks/useRemoteStudyDeck";
 import { KANJI_WORDS as fallbackKanji, type Kanji } from "@/app/data/kanji";
 import { fetchKanji } from "@/app/services/api"; // ✨ API 호출 함수 임포트 경로를 수정합니다.
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
+import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 
 // JLPT 필터 관련 상수 정의
 const JLPT_FILTERS = {
@@ -39,7 +39,7 @@ type ViewMode = "single" | "grid";
 
 export default function KanjiPage() {
   const deckType = "japanese-kanji";
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { open } = useAuthModal();
   const {
     deck,
@@ -49,11 +49,11 @@ export default function KanjiPage() {
     resetDeckToInitial,
     isLoading,
     error,
-  } = useRemoteStudyDeck<Kanji>({
+  } = useStudyDeck<Kanji>({
     user,
     deckType,
-    fetchData: fetchKanji,
-    fallbackData: fallbackKanji,
+    fetchDeckData: fetchKanji,
+    initialDeck: fallbackKanji,
   });
 
   const [index, setIndex] = useState(0);

@@ -1,13 +1,9 @@
-// app/hooks/useStudyDeck.ts
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "@/app/lib/firebase";          
+import { useState, useEffect, useCallback, useRef } from "react";
+import { doc, onSnapshot, updateDoc, setDoc } from "firebase/firestore";
+import { db } from "@/app/lib/firebase";
 import type { UserProfile } from "@/app/AuthContext";
-
-import { fetchVerbs } from "@/app/services/api"; // ✅ API 서비스를 import
-
 
 export type HasId = { id: number };
 
@@ -15,65 +11,143 @@ type UseStudyDeckProps<T extends HasId> = {
   user: UserProfile | null;
   deckType: string;
   initialDeck: T[];
+  fetchDeckData?: () => Promise<T[]>;
 };
 
 export function useStudyDeck<T extends HasId>({
-  user, deckType, initialDeck
+  user,
+  deckType,
+  initialDeck,
+  fetchDeckData,
 }: UseStudyDeckProps<T>) {
-  const [deck, setDeck] = useState<T[]>(initialDeck);
+  const [baseDeck, setBaseDeck] = useState<T[] | null>(null);
+  const [deck, setDeck] = useState<T[]>([]);
   const [favs, setFavs] = useState<Record<number, true>>({});
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-
-  // ✅ 로딩 및 에러 상태 추가
+  
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // [핵심 수정] 첫 데이터 로드 시 자동 저장을 방지하기 위한 Ref 플래그
+  const isInitialLoadComplete = useRef(false);
 
+  // 1단계: API 또는 로컬에서 기본 덱(base deck)을 가져오는 로직
   useEffect(() => {
-    const load = async () => {
-      setIsDataLoaded(false);
-      if (!user) { setDeck(initialDeck); setFavs({}); setIsDataLoaded(true); return; }
-      try {
-        const ref = doc(db, "users", user.uid);
-        const snap = await getDoc(ref);
-        if (snap.exists()) {
-          const d = snap.data();
-          const mode = d.learningData?.[deckType];
-          setDeck(mode?.deck?.length ? (mode.deck as T[]) : initialDeck);
-          setFavs(mode?.favs || {});
-        } else {
-          setDeck(initialDeck);
-          setFavs({});
+    // deckType이 변경될 때마다 초기 로드 상태를 리셋
+    isInitialLoadComplete.current = false;
+    setIsLoading(true);
+    setError(null);
+
+    const loadBaseDeck = async () => {
+      if (fetchDeckData) {
+        try {
+          const data = await fetchDeckData();
+          setBaseDeck(data);
+        } catch (err) {
+          console.error(`[${deckType}] API 통신 실패.`, err);
+          setError("데이터를 불러오는 데 실패했습니다. 로컬 데이터를 사용합니다.");
+          setBaseDeck(initialDeck);
         }
-      } catch (e) {
-        console.error("데이터 로딩 실패:", e);
-        setDeck(initialDeck); setFavs({});
-      } finally {
-        setIsDataLoaded(true);
+      } else {
+        setBaseDeck(initialDeck);
       }
     };
-    load();
-  }, [user, deckType, initialDeck]);
 
-  const save = useCallback(async (newDeck: T[], newFavs: Record<number, true>) => {
-    if (!user || !isDataLoaded) return;
-    try {
-      const ref = doc(db, "users", user.uid);
-      await setDoc(ref, { learningData: { [deckType]: { deck: newDeck, favs: newFavs } } }, { merge: true });
-    } catch (e) {
-      console.error("데이터 저장 실패:", e);
-    }
-  }, [user, isDataLoaded, deckType]);
+    loadBaseDeck();
+  }, [deckType, initialDeck, fetchDeckData]);
 
+  // 2단계: Firestore 데이터 로딩 및 실시간 동기화 로직
   useEffect(() => {
-    if (isDataLoaded && user) save(deck, favs);
-  }, [deck, favs, isDataLoaded, user, save]);
+    if (!baseDeck) return;
+    
+    if (!user) {
+      setDeck(baseDeck);
+      setFavs({});
+      setIsLoading(false);
+      isInitialLoadComplete.current = true; // 비로그인 상태도 로드 완료로 처리
+      return;
+    }
 
-  const toggleFav = (id: number) =>
-    setFavs(prev => { const n = { ...prev }; n[id] ? delete n[id] : (n[id] = true); return n; });
+    const userDocRef = doc(db, "users", user.uid);
+    const unsubscribe = onSnapshot(
+      userDocRef,
+      (docSnap) => {
+        if (docSnap.exists()) {
+          const learningData = docSnap.data().learningData?.[deckType];
+          setDeck(learningData?.deck?.length ? (learningData.deck as T[]) : baseDeck);
+          setFavs(learningData?.favs || {});
+        } else {
+          setDeck(baseDeck);
+          setFavs({});
+        }
+        setIsLoading(false);
+        // [핵심 수정] Firestore로부터 첫 데이터를 성공적으로 수신했음을 표시
+        isInitialLoadComplete.current = true;
+      },
+      (err) => {
+        console.error("Firestore 구독 실패:", err);
+        setError("사용자 데이터를 동기화하는 데 실패했습니다.");
+        setDeck(baseDeck);
+        setFavs({});
+        setIsLoading(false);
+        isInitialLoadComplete.current = true; // 에러 시에도 로드 완료로 처리
+      }
+    );
 
-  const shuffleDeck = () => setDeck(d => [...d].sort(() => Math.random() - 0.5));
-  const resetDeckToInitial = () => { setDeck(initialDeck); setFavs({}); };
+    return () => unsubscribe();
+  }, [user, deckType, baseDeck]);
+
+  // 데이터 저장 로직
+  useEffect(() => {
+    // [핵심 수정] 첫 로드가 완료되지 않았거나, 유저가 없으면 절대 저장하지 않음
+    if (!isInitialLoadComplete.current || !user) {
+      return;
+    }
+
+    const save = async () => {
+      try {
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, {
+          [`learningData.${deckType}.deck`]: deck,
+          [`learningData.${deckType}.favs`]: favs,
+        }).catch(async (err) => {
+          if (err.code === 'not-found' || err.message.includes("No document to update")) {
+            await setDoc(userDocRef, { 
+              learningData: { [deckType]: { deck, favs } } 
+            }, { merge: true });
+          } else {
+            // 다른 종류의 에러는 로그로 남김
+            console.error("UpdateDoc failed:", err);
+          }
+        });
+      } catch (e) {
+        console.error("데이터 저장 실패:", e);
+      }
+    };
+
+    save();
+  }, [deck, favs]); // [핵심 수정] 의존성 배열을 deck과 favs로 단순화
+
+  const toggleFav = useCallback((id: number) => {
+    setFavs((prevFavs) => {
+      const newFavs = { ...prevFavs };
+      newFavs[id] ? delete newFavs[id] : (newFavs[id] = true);
+      return newFavs;
+    });
+  }, []);
+
+  const shuffleDeck = () => setDeck((d) => [...d].sort(() => Math.random() - 0.5));
+
+  const resetDeckToInitial = () => {
+    if (baseDeck) setDeck(baseDeck);
+    setFavs({});
+  };
+
   const clearFavs = () => setFavs({});
 
-  return { deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial, isDataLoaded, clearFavs };
+  return {
+    deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial, 
+    isLoading, error,
+    clearFavs,
+  };
 }
+

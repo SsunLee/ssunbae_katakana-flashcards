@@ -1,4 +1,3 @@
-// ssunbae_katakana-flashcards/app/study/japanese/verbs/page.tsx
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -15,12 +14,11 @@ import VerbCardView from "@/app/components/VerbCardView";
 import VerbGridMode from "@/app/components/VerbGridcardView";
 import VerbFormsTable from "@/app/components/VerbFormsTable";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
-import { useRemoteStudyDeck } from "@/app/hooks/useRemoteStudyDeck";
+import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { fetchVerbs } from "@/app/services/api";
 import { VERBS as fallbackVerbs } from "@/app/data/verbs";
 import type { Verb } from "@/app/types/verbs";
 import { FONT_STACKS } from "@/app/constants/fonts";
-import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
 import { VerbCardSkeleton } from "@/app/components/VerbCardSkeleton";
@@ -41,11 +39,11 @@ export default function JapaneseVerbsPage() {
     resetDeckToInitial,
     isLoading,
     error,
-  } = useRemoteStudyDeck<Verb>({
+  } = useStudyDeck<Verb>({
     user,
     deckType,
-    fetchData: fetchVerbs,
-    fallbackData: fallbackVerbs,
+    fetchDeckData: fetchVerbs,
+    initialDeck: fallbackVerbs,
   });
 
   const [index, setIndex] = useState(0);
@@ -63,6 +61,14 @@ export default function JapaneseVerbsPage() {
   const [gridFlippedStates, setGridFlippedStates] = useState<Record<number, boolean>>({});
   const toggleGridCardFlip = (id: number) =>
     setGridFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  // [추가] 이벤트 전달을 확인하기 위한 핸들러 함수
+  const handleToggleFav = useCallback((id: number) => {
+    console.log(`[PAGE] VerbCardView에서 클릭 이벤트를 받았습니다. ID: ${id}`);
+    console.log("[PAGE] useStudyDeck의 toggleFav 함수를 호출합니다.");
+    toggleFav(id);
+  }, [toggleFav]);
+
 
   useEffect(() => {
     let t: ReturnType<typeof setTimeout> | null = null;
@@ -82,8 +88,10 @@ export default function JapaneseVerbsPage() {
   }, [deck, onlyFavs, favs]);
 
   useEffect(() => {
-    setIndex(0);
-  }, [studyDeck]);
+    if (index >= studyDeck.length && studyDeck.length > 0) {
+      setIndex(0);
+    }
+  }, [studyDeck, index]);
 
   const { currentCards, totalPages } = useMemo(() => {
     const total = Math.ceil(studyDeck.length / CARDS_PER_PAGE) || 1;
@@ -163,7 +171,6 @@ export default function JapaneseVerbsPage() {
 
   const mounted = useMounted();
   if (!mounted) {
-    // ✅ 수정된 부분: "로딩 중..." 텍스트 대신 스피너 애니메이션을 보여줍니다.
     return (
       <div className="min-h-screen w-full bg-background flex items-center justify-center">
         <div className="page-loader-spinner" role="status" aria-label="loading"></div>
@@ -230,7 +237,8 @@ export default function JapaneseVerbsPage() {
                     isFlipped={flipped}
                     isFav={!!favs[current.id]}
                     onFlip={onFlip}
-                    onToggleFav={() => toggleFav(current.id)}
+                    // [핵심 수정] 새로 만든 핸들러 함수를 props로 전달합니다.
+                    onToggleFav={() => handleToggleFav(current.id)}
                     titleFontSize={verbFontSize}
                     isWritingMode={isWritingMode}
                     onToggleWritingMode={() => setIsWritingMode((w) => !w)}
@@ -256,7 +264,8 @@ export default function JapaneseVerbsPage() {
                 verbs={currentCards}
                 favs={favs}
                 flippedStates={gridFlippedStates}
-                onToggleFav={(id) => toggleFav(id as number)}
+                // [핵심 수정] 그리드 뷰에도 동일한 핸들러를 적용합니다.
+                onToggleFav={handleToggleFav}
                 onToggleCardFlip={(id) => toggleGridCardFlip(id as number)}
                 page={{
                   current: currentPage,
@@ -323,4 +332,3 @@ export default function JapaneseVerbsPage() {
     </div>
   );
 }
-
