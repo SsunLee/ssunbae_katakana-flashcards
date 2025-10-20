@@ -27,12 +27,31 @@ export function useStudyDeck<T extends HasId>({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // [핵심 수정] 첫 데이터 로드 시 자동 저장을 방지하기 위한 Ref 플래그
   const isInitialLoadComplete = useRef(false);
+
+  // [추가] 백그라운드 복귀 시 데이터 동기화를 강제하기 위한 상태
+  const [syncTrigger, setSyncTrigger] = useState(0);
+  const forceSync = () => setSyncTrigger(c => c + 1);
+
+  // [추가] 브라우저 탭 활성화 감지 로직
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      // 탭이 다시 화면에 보일 때 동기화를 시도합니다.
+      if (document.visibilityState === 'visible') {
+        console.log("앱이 포어그라운드로 복귀했습니다. 데이터 동기화를 시도합니다.");
+        forceSync();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   // 1단계: API 또는 로컬에서 기본 덱(base deck)을 가져오는 로직
   useEffect(() => {
-    // deckType이 변경될 때마다 초기 로드 상태를 리셋
     isInitialLoadComplete.current = false;
     setIsLoading(true);
     setError(null);
@@ -53,7 +72,8 @@ export function useStudyDeck<T extends HasId>({
     };
 
     loadBaseDeck();
-  }, [deckType, initialDeck, fetchDeckData]);
+    // [수정] syncTrigger가 변경될 때마다 이 로직을 다시 실행합니다.
+  }, [deckType, initialDeck, fetchDeckData, syncTrigger]);
 
   // 2단계: Firestore 데이터 로딩 및 실시간 동기화 로직
   useEffect(() => {
@@ -63,7 +83,7 @@ export function useStudyDeck<T extends HasId>({
       setDeck(baseDeck);
       setFavs({});
       setIsLoading(false);
-      isInitialLoadComplete.current = true; // 비로그인 상태도 로드 완료로 처리
+      isInitialLoadComplete.current = true;
       return;
     }
 
@@ -80,7 +100,6 @@ export function useStudyDeck<T extends HasId>({
           setFavs({});
         }
         setIsLoading(false);
-        // [핵심 수정] Firestore로부터 첫 데이터를 성공적으로 수신했음을 표시
         isInitialLoadComplete.current = true;
       },
       (err) => {
@@ -89,16 +108,16 @@ export function useStudyDeck<T extends HasId>({
         setDeck(baseDeck);
         setFavs({});
         setIsLoading(false);
-        isInitialLoadComplete.current = true; // 에러 시에도 로드 완료로 처리
+        isInitialLoadComplete.current = true;
       }
     );
 
     return () => unsubscribe();
-  }, [user, deckType, baseDeck]);
+    // [수정] syncTrigger가 변경될 때마다 이 로직도 다시 실행되어 onSnapshot을 재설정합니다.
+  }, [user, deckType, baseDeck, syncTrigger]);
 
   // 데이터 저장 로직
   useEffect(() => {
-    // [핵심 수정] 첫 로드가 완료되지 않았거나, 유저가 없으면 절대 저장하지 않음
     if (!isInitialLoadComplete.current || !user) {
       return;
     }
@@ -115,7 +134,6 @@ export function useStudyDeck<T extends HasId>({
               learningData: { [deckType]: { deck, favs } } 
             }, { merge: true });
           } else {
-            // 다른 종류의 에러는 로그로 남김
             console.error("UpdateDoc failed:", err);
           }
         });
@@ -125,7 +143,7 @@ export function useStudyDeck<T extends HasId>({
     };
 
     save();
-  }, [deck, favs]); // [핵심 수정] 의존성 배열을 deck과 favs로 단순화
+  }, [deck, favs]);
 
   const toggleFav = useCallback((id: number) => {
     setFavs((prevFavs) => {
@@ -148,6 +166,8 @@ export function useStudyDeck<T extends HasId>({
     deck, setDeck, favs, toggleFav, shuffleDeck, resetDeckToInitial, 
     isLoading, error,
     clearFavs,
+    // [추가] 만약을 대비해 수동 재시도 함수도 export합니다.
+    forceSync,
   };
 }
 

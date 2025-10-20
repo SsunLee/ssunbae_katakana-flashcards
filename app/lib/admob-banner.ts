@@ -10,13 +10,10 @@ import {
   BannerAdSize,
 } from '@capacitor-community/admob';
 
-// --- 👇 [수정] 코드 상단에서 환경 변수를 미리 읽지 않습니다. ---
-// const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_IOS_BANNER_ID ?? ''; 
-// const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
-// --- 👆 [수정] ---
+
 
 // Google의 공식 iOS 배너 테스트 ID입니다.
-const TEST_IOS_BANNER = 'ca-app-pub-3940256099942544/2934735716';
+const TEST_IOS_BANNER = 'ca-app-pub-2330147867465531/5805463890';
 
 // ---- internal state ----
 let listenersInstalled = false;
