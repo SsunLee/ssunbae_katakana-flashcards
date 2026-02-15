@@ -82,7 +82,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
             className="flex items-center gap-2 select-none"
           >
             <Image src="/logo.svg" alt="쑨에듀" width={28} height={28} priority />
-            <span className="text-lg font-semibold">쑨에듀</span>
+            <span className="text-base italic font-semibold">쑨에듀</span>
           </Link>
 
           <div className="w-8" />

@@ -120,6 +120,11 @@ export const metadata: Metadata = {
   },
   
   applicationName: 'SSUN EDU',
+  icons: {
+    icon: '/apple-icon.png',
+    shortcut: '/apple-icon.png',
+    apple: '/apple-icon.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
