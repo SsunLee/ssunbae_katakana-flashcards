@@ -4,8 +4,6 @@ import type { Verb } from "@/app/types/verbs";
 import type { Kanji } from '@/app/types/kanji';
 
 
-const DEFAULT_REMOTE_API_BASE_URL = 'https://ssunbae-api.vercel.app';
-
 function normalizeEnv(value: string | undefined) {
   if (!value) return '';
   const trimmed = value.trim();
@@ -16,40 +14,22 @@ function normalizeEnv(value: string | undefined) {
 }
 
 const configuredApiBaseUrl = normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL).replace(/\/$/, '');
-const primaryApiBaseUrl = configuredApiBaseUrl || DEFAULT_REMOTE_API_BASE_URL;
-const fallbackApiBaseUrl =
-  primaryApiBaseUrl === DEFAULT_REMOTE_API_BASE_URL ? '' : DEFAULT_REMOTE_API_BASE_URL;
+const primaryApiBaseUrl = configuredApiBaseUrl;
+export const isRemoteStudyApiEnabled = Boolean(primaryApiBaseUrl);
 
-const primaryApiClient = axios.create({
-  baseURL: primaryApiBaseUrl,
-  // ✅ 수정된 부분: Vercel의 콜드 스타트를 대비해 타임아웃을 15초로 늘립니다.
-  timeout: 15000, 
-});
-
-const fallbackApiClient = fallbackApiBaseUrl
-  ? axios.create({ baseURL: fallbackApiBaseUrl, timeout: 15000 })
+const primaryApiClient = isRemoteStudyApiEnabled
+  ? axios.create({
+      baseURL: primaryApiBaseUrl,
+      // Vercel cold start 여유를 위해 타임아웃 확장
+      timeout: 15000,
+    })
   : null;
 
-function shouldFallback(error: AxiosError) {
-  return (
-    !error.response ||
-    error.code === 'ERR_NETWORK' ||
-    error.code === 'ECONNREFUSED' ||
-    error.code === 'ETIMEDOUT'
-  );
-}
-
 async function getWithFallback<T>(path: string) {
-  try {
-    return await primaryApiClient.get<T>(path);
-  } catch (error) {
-    const e = error as AxiosError;
-    if (fallbackApiClient && shouldFallback(e)) {
-      console.warn(`[api] Primary API failed (${primaryApiBaseUrl}). Falling back to ${fallbackApiBaseUrl}.`);
-      return fallbackApiClient.get<T>(path);
-    }
-    throw error;
+  if (!primaryApiClient) {
+    throw new Error("Remote study API is disabled. Set NEXT_PUBLIC_API_BASE_URL to enable it.");
   }
+  return primaryApiClient.get<T>(path);
 }
 
 export async function fetchVerbs(): Promise<Verb[]> {

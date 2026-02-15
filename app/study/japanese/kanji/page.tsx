@@ -20,7 +20,7 @@ import { Skeleton } from "@/app/components/ui/skeleton";
 // 데이터/훅/상수 임포트 수정
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { KANJI_WORDS as fallbackKanji, type Kanji } from "@/app/data/kanji";
-import { fetchKanji } from "@/app/services/api"; // ✨ API 호출 함수 임포트 경로를 수정합니다.
+import { fetchKanji, isRemoteStudyApiEnabled } from "@/app/services/api"; // ✨ API 호출 함수 임포트 경로를 수정합니다.
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
@@ -52,7 +52,7 @@ export default function KanjiPage() {
   } = useStudyDeck<Kanji>({
     user,
     deckType,
-    fetchDeckData: fetchKanji,
+    fetchDeckData: isRemoteStudyApiEnabled ? fetchKanji : undefined,
     initialDeck: fallbackKanji,
   });
 

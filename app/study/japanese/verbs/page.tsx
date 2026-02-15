@@ -15,7 +15,7 @@ import VerbGridMode from "@/app/components/VerbGridcardView";
 import VerbFormsTable from "@/app/components/VerbFormsTable";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
-import { fetchVerbs } from "@/app/services/api";
+import { fetchVerbs, isRemoteStudyApiEnabled } from "@/app/services/api";
 import { VERBS as fallbackVerbs } from "@/app/data/verbs";
 import type { Verb } from "@/app/types/verbs";
 import { FONT_STACKS } from "@/app/constants/fonts";
@@ -42,7 +42,7 @@ export default function JapaneseVerbsPage() {
   } = useStudyDeck<Verb>({
     user,
     deckType,
-    fetchDeckData: fetchVerbs,
+    fetchDeckData: isRemoteStudyApiEnabled ? fetchVerbs : undefined,
     initialDeck: fallbackVerbs,
   });
 
