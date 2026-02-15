@@ -7,6 +7,7 @@ import './styles/globals.css';
 import ClientProviders from '@/app/components/ClientProviders';
 import Script from 'next/script';
 import Footer from "@/app/components/Footer";
+import { Analytics } from '@vercel/analytics/next';
 
 const SITE_URL = 'https://ssunedu.com';
 
@@ -170,6 +171,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientProviders>
           <main>{children}</main>
         </ClientProviders>
+        <Analytics />
         <Footer />
 
       </body>
