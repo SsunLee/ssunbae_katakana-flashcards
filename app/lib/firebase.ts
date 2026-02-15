@@ -12,14 +12,44 @@ import { Capacitor } from "@capacitor/core";
 import { getStorage } from "firebase/storage"; // 👈 추가
 
 
+function normalizeEnv(value: string | undefined) {
+  if (!value) return value;
+  const trimmed = value.trim();
+  const hasDoubleQuotes = trimmed.startsWith('"') && trimmed.endsWith('"');
+  const hasSingleQuotes = trimmed.startsWith("'") && trimmed.endsWith("'");
+  if (hasDoubleQuotes || hasSingleQuotes) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
+}
+
+const firebaseEnv = {
+  NEXT_PUBLIC_FIREBASE_API_KEY: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_API_KEY),
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN),
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID),
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET),
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID),
+  NEXT_PUBLIC_FIREBASE_APP_ID: normalizeEnv(process.env.NEXT_PUBLIC_FIREBASE_APP_ID),
+} as const;
+
+const missingPublicFirebaseEnv = Object.entries(firebaseEnv)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+
+if (missingPublicFirebaseEnv.length > 0) {
+  throw new Error(
+    `[firebase] Missing required env vars: ${missingPublicFirebaseEnv.join(", ")}. ` +
+      `Create .env.local from .env.local.example and restart dev server.`
+  );
+}
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  apiKey: firebaseEnv.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: firebaseEnv.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: firebaseEnv.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: firebaseEnv.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: firebaseEnv.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: firebaseEnv.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
 // 앱 단일화

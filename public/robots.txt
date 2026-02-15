@@ -1,11 +1,6 @@
-# *
 User-agent: *
 Allow: /
-
-# Disallow private routes
 Disallow: /api/
-Disallow: /data/
 Disallow: /goodbye
 
-# Sitemap
-Sitemap: https://ssunbae-edu.com/sitemap.xml
+Sitemap: https://ssunedu.com/sitemap.xml

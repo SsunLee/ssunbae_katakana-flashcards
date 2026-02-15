@@ -3,7 +3,7 @@
 > AI를 활용한 동적 단어 생성과 다양한 학습 모드를 제공하는 인터랙티브 학습 애플리케이션입니다.
 향후 다양한 언어(일본어, 영어, 스페인어, 등)를 지원할 예정입니다.
 
-**🔗 배포 사이트 바로가기:** [https://ssunbae-edu.com/](https://ssunbae-edu.com/)
+**🔗 배포 사이트 바로가기:** [https://ssunedu.com/](https://ssunedu.com/)
 
 ---
 

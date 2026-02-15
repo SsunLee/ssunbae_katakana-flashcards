@@ -214,10 +214,16 @@ export default function JapaneseVerbsPage() {
         </div>
       )}
 
+      {!isLoading && error && studyDeck.length > 0 && (
+        <div className="w-full max-w-md mb-4 rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
+          원격 데이터 연결에 실패하여 기본 동사 데이터로 학습 중입니다.
+        </div>
+      )}
+
       <main className="w-full max-w-5xl select-none">
         {isLoading ? (
           <VerbCardSkeleton />
-        ) : error ? (
+        ) : error && studyDeck.length === 0 ? (
            <div className="text-center p-10 bg-destructive/10 border border-destructive/20 rounded-lg max-w-md mx-auto">
             <h3 className="text-lg font-semibold text-destructive mb-2">데이터 로딩 실패</h3>
             <p className="text-destructive/80 text-sm">

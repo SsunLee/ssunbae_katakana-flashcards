@@ -4,13 +4,28 @@ import { Capacitor } from '@capacitor/core';
 const isNative =
   typeof window !== 'undefined' && Capacitor?.getPlatform?.() !== 'web';
 
-// 예: https://ssunbae-edu.com  또는 https://ssunbae-api.vercel.app
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace(/\/$/, '');
+function normalizeEnv(value: string | undefined) {
+  if (!value) return '';
+  const trimmed = value.trim();
+  const hasDoubleQuotes = trimmed.startsWith('"') && trimmed.endsWith('"');
+  const hasSingleQuotes = trimmed.startsWith("'") && trimmed.endsWith("'");
+  if (hasDoubleQuotes || hasSingleQuotes) return trimmed.slice(1, -1);
+  return trimmed;
+}
 
+// 예: https://ssunedu.com 또는 https://ssunbae-api.vercel.app
+const API_BASE = normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL).replace(/\/$/, '');
+
+function isLocalWebDev() {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1';
+}
 
 function apiUrl(path: string) {
-  // ✅ BASE가 설정되어 있으면 항상 BASE 사용, 없으면 same-origin 사용
-  return API_BASE ? `${API_BASE}${path}` : path;
+  // 웹 로컬 개발환경에서는 same-origin을 우선 사용해서 포트 불일치 오류를 방지합니다.
+  if (!API_BASE || (!isNative && isLocalWebDev())) return path;
+  return `${API_BASE}${path}`;
 }
 
 export async function fetchGeneratedContent(

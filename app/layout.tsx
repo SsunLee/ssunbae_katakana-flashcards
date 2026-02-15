@@ -8,6 +8,8 @@ import ClientProviders from '@/app/components/ClientProviders';
 import Script from 'next/script';
 import Footer from "@/app/components/Footer";
 
+const SITE_URL = 'https://ssunedu.com';
+
 
 
 const notoSansJP = Noto_Sans_JP({
@@ -36,16 +38,23 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://ssunbae-edu.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || SITE_URL),
   
   title: {
     default: 'SSUN EDU - 언어 학습 플랫폼',
     template: '%s | SSUN EDU',
   },
   
-  description: 'SSUN EDU에서 영어, 일본어, 스페인어, 한국어를 효과적으로 학습하세요. 플래시카드와 반복 학습으로 단어와 문장을 빠르게 마스터하세요.',
+  description:
+    'SSUN EDU는 무료 일본어 사이트/무료 공부사이트로, 일본어 공부 사이트를 찾는 학습자를 위한 플래시카드 기반 학습 플랫폼입니다. 히라가나, 가타카나, 한자, 영어, 스페인어, 한국어 학습을 지원합니다.',
   
   keywords: [
+    '무료 일본어 사이트',
+    '무료 공부사이트',
+    '일본어 공부 사이트',
+    '일본어 공부사이트',
+    '일본어 학습 사이트',
+    '일본어 독학',
     '언어 학습',
     '영어 공부',
     '일본어 공부',
@@ -71,7 +80,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    url: 'https://ssunbae-edu.com',
+    url: SITE_URL,
     siteName: 'SSUN EDU',
     title: 'SSUN EDU - 효과적인 언어 학습 플랫폼',
     description: '영어, 일본어, 스페인어, 한국어를 플래시카드로 쉽고 재미있게 학습하세요.',
@@ -107,7 +116,7 @@ export const metadata: Metadata = {
   
   category: 'education',
   alternates: {
-    canonical: 'https://ssunbae-edu.com',
+    canonical: SITE_URL,
   },
   
   applicationName: 'SSUN EDU',
@@ -123,6 +132,16 @@ export const metadata: Metadata = {
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'SSUN EDU',
+    url: SITE_URL,
+    inLanguage: 'ko-KR',
+    description:
+      '무료 일본어 사이트 및 언어 학습 플랫폼. 히라가나, 가타카나, 한자, 영어, 스페인어, 한국어 플래시카드 학습을 제공합니다.',
+  };
+
   return (
     <html 
       lang="ko" 
@@ -136,6 +155,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3025305005440839"
           strategy="afterInteractive"
           crossOrigin="anonymous"
+        />
+        <Script
+          id="website-json-ld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <ClientProviders>
           <main>{children}</main>

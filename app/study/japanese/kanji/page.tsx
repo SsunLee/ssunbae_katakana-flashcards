@@ -157,7 +157,7 @@ export default function KanjiPage() {
     );
   }
   
-  if (error) {
+  if (error && studyDeck.length === 0) {
     return <div className="min-h-screen w-full flex items-center justify-center">데이터를 불러오는 데 실패했습니다: {error}</div>;
   }
 
@@ -166,6 +166,12 @@ export default function KanjiPage() {
       <header className="w-full max-w-md mx-auto mb-1">
         <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
       </header>
+
+      {error && studyDeck.length > 0 && (
+        <div className="w-full max-w-md mb-4 rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
+          원격 데이터 연결에 실패하여 기본 한자 데이터로 학습 중입니다.
+        </div>
+      )}
 
       <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
         <span className="font-semibold mr-4">JLPT 레벨:</span>

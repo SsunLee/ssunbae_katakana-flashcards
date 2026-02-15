@@ -4,19 +4,57 @@ import type { Verb } from "@/app/types/verbs";
 import type { Kanji } from '@/app/types/kanji';
 
 
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://ssunbae-api.vercel.app'
-  : 'http://localhost:3002';
+const DEFAULT_REMOTE_API_BASE_URL = 'https://ssunbae-api.vercel.app';
 
-const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+function normalizeEnv(value: string | undefined) {
+  if (!value) return '';
+  const trimmed = value.trim();
+  const hasDoubleQuotes = trimmed.startsWith('"') && trimmed.endsWith('"');
+  const hasSingleQuotes = trimmed.startsWith("'") && trimmed.endsWith("'");
+  if (hasDoubleQuotes || hasSingleQuotes) return trimmed.slice(1, -1);
+  return trimmed;
+}
+
+const configuredApiBaseUrl = normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL).replace(/\/$/, '');
+const primaryApiBaseUrl = configuredApiBaseUrl || DEFAULT_REMOTE_API_BASE_URL;
+const fallbackApiBaseUrl =
+  primaryApiBaseUrl === DEFAULT_REMOTE_API_BASE_URL ? '' : DEFAULT_REMOTE_API_BASE_URL;
+
+const primaryApiClient = axios.create({
+  baseURL: primaryApiBaseUrl,
   // ✅ 수정된 부분: Vercel의 콜드 스타트를 대비해 타임아웃을 15초로 늘립니다.
   timeout: 15000, 
 });
 
+const fallbackApiClient = fallbackApiBaseUrl
+  ? axios.create({ baseURL: fallbackApiBaseUrl, timeout: 15000 })
+  : null;
+
+function shouldFallback(error: AxiosError) {
+  return (
+    !error.response ||
+    error.code === 'ERR_NETWORK' ||
+    error.code === 'ECONNREFUSED' ||
+    error.code === 'ETIMEDOUT'
+  );
+}
+
+async function getWithFallback<T>(path: string) {
+  try {
+    return await primaryApiClient.get<T>(path);
+  } catch (error) {
+    const e = error as AxiosError;
+    if (fallbackApiClient && shouldFallback(e)) {
+      console.warn(`[api] Primary API failed (${primaryApiBaseUrl}). Falling back to ${fallbackApiBaseUrl}.`);
+      return fallbackApiClient.get<T>(path);
+    }
+    throw error;
+  }
+}
+
 export async function fetchVerbs(): Promise<Verb[]> {
   try {
-    const response = await apiClient.get<{ verbs: Verb[] }>('/api/verbs');
+    const response = await getWithFallback<{ verbs: Verb[] }>('/api/verbs');
     
     // API 응답 데이터 구조가 { verbs: [...] } 가 맞는지 다시 한번 확인합니다.
     // 만약 response.data가 바로 배열이라면 `return response.data;`로 변경해야 합니다.
@@ -38,7 +76,7 @@ export async function fetchVerbs(): Promise<Verb[]> {
 export async function fetchKanji(): Promise<Kanji[]> {
   try {
     // '/api/kanji' 엔드포인트는 데이터 배열을 바로 반환합니다.
-    const response = await apiClient.get<Kanji[]>('/api/kanji');
+    const response = await getWithFallback<Kanji[]>('/api/kanji');
     return response.data;
   } catch (error) {
     const e = error as AxiosError;

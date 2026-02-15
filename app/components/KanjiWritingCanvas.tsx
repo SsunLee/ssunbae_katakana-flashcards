@@ -19,6 +19,7 @@ interface KanjiWritingCanvasProps {
 // 상수 정의
 const VIEWBOX_SIZE = 109;
 const MATCH_THRESHOLD = 20; // 정답 판정 거리 (클수록 쉬워짐)
+const DRAW_STROKE_COLOR = 'var(--answer-color)';
 
 // SVG 경로 해석 함수 (복잡한 로직은 동일)
 const getStrokeStartEndPoints = (path: string): { start: {x: number, y: number}, end: {x: number, y: number} } | null => {
@@ -231,7 +232,7 @@ export default function KanjiWritingCanvas({ kanji, onClose, onNext, onPrev, onS
             {strokeData.map((d, i) => <path key={`bg-${i}`} d={d} />)}
           </g>}
           
-          <g style={{ stroke: '#475569', strokeWidth: '3.5', strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' }}>
+          <g style={{ stroke: DRAW_STROKE_COLOR, strokeWidth: '3.5', strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' }}>
             {drawnStrokeIndexes.map(i => <path key={`drawn-${i}`} d={strokeData[i]} />)}
           </g>
 
@@ -242,7 +243,7 @@ export default function KanjiWritingCanvas({ kanji, onClose, onNext, onPrev, onS
             </g>
           )}
 
-          {currentPath && <path d={currentPath} style={{ stroke: 'black', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' }} />}
+          {currentPath && <path d={currentPath} style={{ stroke: DRAW_STROKE_COLOR, strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' }} />}
           
           {isLoading && <text x="50%" y="50%" textAnchor="middle" dy=".3em">로딩 중...</text>}
           {error && <text x="50%" y="50%" textAnchor="middle" dy=".3em" fill="red">{error}</text>}
