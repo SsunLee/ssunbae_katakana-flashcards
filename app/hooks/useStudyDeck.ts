@@ -14,6 +14,51 @@ type UseStudyDeckProps<T extends HasId> = {
   fetchDeckData?: () => Promise<T[]>;
 };
 
+function reconcileDeckWithBase<T extends HasId>(savedDeck: T[] | undefined, baseDeck: T[]): T[] {
+  if (!Array.isArray(savedDeck) || savedDeck.length === 0) {
+    return baseDeck;
+  }
+
+  const baseById = new Map(baseDeck.map((card) => [card.id, card]));
+  const usedIds = new Set<number>();
+  const merged: T[] = [];
+
+  // 저장된 순서는 유지하되, 내용은 최신 baseDeck 데이터를 사용
+  for (const savedCard of savedDeck) {
+    const latest = baseById.get(savedCard.id);
+    if (!latest || usedIds.has(savedCard.id)) continue;
+    merged.push(latest);
+    usedIds.add(savedCard.id);
+  }
+
+  // 서버/로컬에 새로 추가된 카드는 뒤에 붙임
+  for (const baseCard of baseDeck) {
+    if (usedIds.has(baseCard.id)) continue;
+    merged.push(baseCard);
+  }
+
+  return merged.length > 0 ? merged : baseDeck;
+}
+
+function sanitizeFavs<T extends HasId>(
+  rawFavs: Record<number, true> | Record<string, boolean> | undefined,
+  baseDeck: T[]
+): Record<number, true> {
+  if (!rawFavs) return {};
+  const validIds = new Set(baseDeck.map((card) => card.id));
+  const next: Record<number, true> = {};
+
+  Object.entries(rawFavs).forEach(([id, isFav]) => {
+    const numericId = Number(id);
+    if (!Number.isInteger(numericId)) return;
+    if (!isFav) return;
+    if (!validIds.has(numericId)) return;
+    next[numericId] = true;
+  });
+
+  return next;
+}
+
 export function useStudyDeck<T extends HasId>({
   user,
   deckType,
@@ -93,8 +138,9 @@ export function useStudyDeck<T extends HasId>({
       (docSnap) => {
         if (docSnap.exists()) {
           const learningData = docSnap.data().learningData?.[deckType];
-          setDeck(learningData?.deck?.length ? (learningData.deck as T[]) : baseDeck);
-          setFavs(learningData?.favs || {});
+          const savedDeck = Array.isArray(learningData?.deck) ? (learningData.deck as T[]) : undefined;
+          setDeck(reconcileDeckWithBase(savedDeck, baseDeck));
+          setFavs(sanitizeFavs(learningData?.favs, baseDeck));
         } else {
           setDeck(baseDeck);
           setFavs({});

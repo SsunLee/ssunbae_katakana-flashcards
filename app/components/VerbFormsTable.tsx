@@ -2,13 +2,15 @@
 "use client";
 
 import React, { useMemo } from "react";
-import type { Verb, VerbFormKey } from "@/app/data/verbs";
+import type { Verb, VerbForm, VerbFormKey } from "@/app/types/verbs";
 import { Button } from "@/app/components/ui/button";
 
 type Props = {
   verb: Verb;
   expanded: boolean;
   onToggleExpand: () => void;
+  onSpeakExample?: (text: string) => void;
+  canSpeak?: boolean;
   /** 설정 다이얼로그에서 내려오는 폰트 크기 적용(표용 본문 크기) */
   contentFontSize?: number; // px
 };
@@ -25,6 +27,8 @@ export default function VerbFormsTable({
   verb,
   expanded,
   onToggleExpand,
+  onSpeakExample,
+  canSpeak = false,
   contentFontSize = 12,
 }: Props) {
   const tableForms = useMemo<VerbFormKey[]>(() => {
@@ -32,6 +36,14 @@ export default function VerbFormsTable({
   }, [expanded, verb.forms]);
 
   const size = Math.max(12, Math.round(contentFontSize));
+  const exampleSize = Math.max(10, size - 2);
+  const readingSize = Math.max(9, exampleSize - 1);
+
+  const getRow = (key: VerbFormKey): VerbForm => {
+    const row = (verb.forms as Partial<Record<VerbFormKey, VerbForm>>)[key];
+    if (!row) return { jp: "—", ko: "—" };
+    return row;
+  };
 
   return (
     <section className="w-full max-w-2xl md:max-w-3xl mx-auto mt-4">
@@ -57,13 +69,58 @@ export default function VerbFormsTable({
             </thead>
             <tbody>
               {tableForms.map((k) => {
-                const row = (verb.forms as any)[k] ?? { jp: "—", ko: "—" };
+                const row = getRow(k);
+                const examples = Array.isArray(row.examples) ? row.examples : [];
                 return (
-                  <tr key={k} className="border-t border-border">
-                    <td className="px-4 py-2 font-medium whitespace-nowrap">{HEADERS[k]}</td>
-                    <td className="px-4 py-2"><span className="whitespace-pre-wrap break-words">{row.jp}</span></td>
-                    <td className="px-4 py-2 text-muted-foreground"><span className="whitespace-pre-wrap break-words">{row.ko}</span></td>
-                  </tr>
+                  <React.Fragment key={k}>
+                    <tr className="border-t border-border">
+                      <td className="px-4 py-2 font-medium whitespace-nowrap">{HEADERS[k]}</td>
+                      <td className="px-4 py-2">
+                        <span className="whitespace-pre-wrap break-words">{row.jp}</span>
+                      </td>
+                      <td className="px-4 py-2 text-muted-foreground">
+                        <span className="whitespace-pre-wrap break-words">{row.ko}</span>
+                      </td>
+                    </tr>
+                    {examples.length > 0 && (
+                      <tr className="border-t border-border/60 bg-muted/20">
+                        <td className="px-4 py-2 align-top text-muted-foreground" style={{ fontSize: exampleSize }}>
+                          예문
+                        </td>
+                        <td className="px-4 py-2" colSpan={2}>
+                          <ul className="space-y-2">
+                            {examples.map((ex, idx) => (
+                              <li key={`${k}-ex-${idx}`} className="rounded-md border border-border/60 px-2 py-1.5 text-left">
+                                <div className="flex items-start gap-2">
+                                  <p className="leading-snug text-foreground flex-1" style={{ fontSize: exampleSize }}>
+                                    {ex.jp}
+                                  </p>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="outline"
+                                    className="h-6 px-2 text-[11px] shrink-0"
+                                    onClick={() => onSpeakExample?.(ex.jp)}
+                                    disabled={!canSpeak || !onSpeakExample}
+                                  >
+                                    🔊 듣기
+                                  </Button>
+                                </div>
+                                {ex.hiragana && (
+                                  <p className="mt-0.5 leading-snug text-muted-foreground" style={{ fontSize: readingSize }}>
+                                    {ex.hiragana}
+                                  </p>
+                                )}
+                                <p className="mt-0.5 leading-snug text-muted-foreground" style={{ fontSize: exampleSize }}>
+                                  {ex.ko}
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </tbody>
@@ -74,7 +131,8 @@ export default function VerbFormsTable({
         <div className="block sm:hidden">
             <ul className="divide-y divide-border">
                 {tableForms.map((k) => {
-                    const row = (verb.forms as any)[k] ?? { jp: "—", ko: "—" };
+                    const row = getRow(k);
+                    const examples = Array.isArray(row.examples) ? row.examples : [];
                     return(
                         <li key={k} className="py-3 px-1">
                             <div className="flex justify-between items-start space-x-4">
@@ -90,6 +148,37 @@ export default function VerbFormsTable({
                                     </p>
                                 </div>
                             </div>
+                            {examples.length > 0 && (
+                              <ul className="mt-2 space-y-2">
+                                {examples.map((ex, idx) => (
+                                  <li key={`${k}-m-ex-${idx}`} className="rounded-md border border-border/60 px-2 py-1.5 bg-muted/20 text-left">
+                                    <div className="flex items-start gap-2">
+                                      <p className="text-foreground leading-snug break-words flex-1" style={{ fontSize: exampleSize }}>
+                                        {ex.jp}
+                                      </p>
+                                      <Button
+                                        type="button"
+                                        size="sm"
+                                        variant="outline"
+                                        className="h-6 px-2 text-[11px] shrink-0"
+                                        onClick={() => onSpeakExample?.(ex.jp)}
+                                        disabled={!canSpeak || !onSpeakExample}
+                                      >
+                                        🔊 듣기
+                                      </Button>
+                                    </div>
+                                    {ex.hiragana && (
+                                      <p className="text-muted-foreground mt-0.5 leading-snug break-words" style={{ fontSize: readingSize }}>
+                                        {ex.hiragana}
+                                      </p>
+                                    )}
+                                    <p className="text-muted-foreground mt-0.5 leading-snug break-words" style={{ fontSize: exampleSize }}>
+                                      {ex.ko}
+                                    </p>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                         </li>
                     )
                 })}

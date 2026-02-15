@@ -5,6 +5,7 @@ import { useAuth } from "@/app/AuthContext";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { Button } from "@/app/components/ui/button";
+import { Checkbox } from "@/app/components/ui/checkbox";
 import { Switch } from "@/app/components/ui/switch";
 import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
 import CardControls from "@/app/components/controls/CardControls";
@@ -25,6 +26,15 @@ import { VerbCardSkeleton } from "@/app/components/VerbCardSkeleton";
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
+
+const JLPT_FILTERS = {
+  N5: "N5",
+  N4: "N4",
+  N3: "N3",
+  N2: "N2",
+  N1: "N1",
+} as const;
+type JlptFilterKey = keyof typeof JLPT_FILTERS;
 
 export default function JapaneseVerbsPage() {
   const deckType = "japanese-verbs";
@@ -57,10 +67,24 @@ export default function JapaneseVerbsPage() {
   const [expanded, setExpanded] = useState(false);
   const [showForms, setShowForms] = useState(false);
   const [isWritingMode, setIsWritingMode] = useState(false);
+  const [jlptFilters, setJlptFilters] = useState<Record<JlptFilterKey, boolean>>({
+    N5: true,
+    N4: true,
+    N3: true,
+    N2: true,
+    N1: true,
+  });
 
   const [gridFlippedStates, setGridFlippedStates] = useState<Record<number, boolean>>({});
   const toggleGridCardFlip = (id: number) =>
     setGridFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  const handleJlptFilterChange = (level: JlptFilterKey) => {
+    setJlptFilters((prev) => ({ ...prev, [level]: !prev[level] }));
+    setIndex(0);
+    setFlipped(false);
+    setCurrentPage(1);
+  };
 
   // [추가] 이벤트 전달을 확인하기 위한 핸들러 함수
   const handleToggleFav = useCallback((id: number) => {
@@ -84,8 +108,40 @@ export default function JapaneseVerbsPage() {
   }, [flipped]);
 
   const studyDeck = useMemo(() => {
-    return onlyFavs ? deck.filter((v) => favs[v.id]) : deck;
-  }, [deck, onlyFavs, favs]);
+    const favFiltered = onlyFavs ? deck.filter((v) => favs[v.id]) : deck;
+    const activeJlptLevels = (Object.keys(jlptFilters) as JlptFilterKey[]).filter(
+      (key) => jlptFilters[key]
+    );
+
+    if (
+      activeJlptLevels.length === 0 ||
+      activeJlptLevels.length === Object.keys(JLPT_FILTERS).length
+    ) {
+      return favFiltered;
+    }
+
+    const activeJlptNumbers = activeJlptLevels.map((level) =>
+      Number(level.replace("N", ""))
+    );
+
+    return favFiltered.filter((verb) => {
+      const rawJlpt = verb.jlpt;
+      if (rawJlpt === undefined || rawJlpt === null) return false;
+
+      if (typeof rawJlpt === "number") {
+        return activeJlptNumbers.includes(rawJlpt);
+      }
+
+      const normalized = String(rawJlpt).toUpperCase().trim();
+      const numberPart = normalized.startsWith("N")
+        ? normalized.slice(1)
+        : normalized;
+      const parsed = Number(numberPart);
+
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 5) return false;
+      return activeJlptNumbers.includes(parsed);
+    });
+  }, [deck, onlyFavs, favs, jlptFilters]);
 
   useEffect(() => {
     if (index >= studyDeck.length && studyDeck.length > 0) {
@@ -220,6 +276,20 @@ export default function JapaneseVerbsPage() {
         </div>
       )}
 
+      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
+        <span className="font-semibold mr-4">JLPT 레벨:</span>
+        {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
+          <label key={level} className="flex items-center space-x-2 cursor-pointer">
+            <Checkbox
+              id={`verbs-${level}`}
+              checked={jlptFilters[level]}
+              onCheckedChange={() => handleJlptFilterChange(level)}
+            />
+            <span>{JLPT_FILTERS[level]}</span>
+          </label>
+        ))}
+      </div>
+
       <main className="w-full max-w-5xl select-none">
         {isLoading ? (
           <VerbCardSkeleton />
@@ -258,6 +328,8 @@ export default function JapaneseVerbsPage() {
                       verb={current}
                       expanded={expanded}
                       onToggleExpand={() => setExpanded((v) => !v)}
+                      onSpeakExample={speakJa}
+                      canSpeak={mounted && isTtsSupported && ttsReady}
                       contentFontSize={Math.min(22, Math.max(12, Math.round(verbFontSize * 0.6)))}
                     />
                   )}

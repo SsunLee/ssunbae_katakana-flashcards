@@ -18,13 +18,24 @@ export type VerbFormKey =
   | "imperative"
   | "prohibitive";
 
-export type VerbForm = { jp: string; ko: string };
+export type VerbExample = {
+  jp: string;
+  hiragana?: string;
+  ko: string;
+};
+
+export type VerbForm = {
+  jp: string;
+  ko: string;
+  examples?: VerbExample[];
+};
 
 export type Verb = {
   id: number;
   kanji: string;        // 표기(주로 한자)
   reading?: string;     // ふりがな
   gloss?: string;       // 한국어 간단 설명
+  jlpt?: number | `N${1 | 2 | 3 | 4 | 5}`;
   group: "五段" | "一段" | "不規則";
   forms: Record<VerbFormKey, VerbForm>;
 };

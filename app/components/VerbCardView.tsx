@@ -37,6 +37,13 @@ export default function VerbCardView({
   onReset,
 }: Props) {
   const baseFontSize = titleFontSize ?? 28;
+  const jlptLabel = (() => {
+    if (verb.jlpt === undefined || verb.jlpt === null) return null;
+    if (typeof verb.jlpt === "number") return `JLPT N${verb.jlpt}`;
+    const normalized = String(verb.jlpt).trim().toUpperCase();
+    if (!normalized) return null;
+    return normalized.startsWith("N") ? `JLPT ${normalized}` : `JLPT N${normalized}`;
+  })();
 
   const handleNextInWritingMode = () => {
     onNext();
@@ -90,6 +97,7 @@ export default function VerbCardView({
               </Button>
             )}
             <div className="text-center w-full text-foreground">
+              {jlptLabel && <p className="text-xs text-muted-foreground mb-2">{jlptLabel}</p>}
               <p className="font-semibold leading-snug" style={{ fontSize: `${Math.max(22, baseFontSize)}px` }}>{verb.kanji}</p>
               {verb.reading && (<p className="mt-2 text-lg text-muted-foreground">（{verb.reading}）</p>)}
             </div>
@@ -98,6 +106,7 @@ export default function VerbCardView({
           {/* Back */}
           <div className="absolute inset-0 bg-card/95 backdrop-blur rounded-2xl shadow-xl border border-border flex flex-col items-center justify-center p-6 [transform:rotateY(180deg)] [backface-visibility:hidden]">
             <div className="text-center w-full text-foreground">
+              {jlptLabel && <p className="text-xs text-muted-foreground mb-2">{jlptLabel}</p>}
               <p className="text-sm text-muted-foreground mb-2">활용형은 하단 표에서 확인</p>
               <p className="font-semibold leading-snug" style={{ fontSize: `${Math.max(20, baseFontSize - 2)}px` }}>{verb.kanji}{verb.reading && <span className="text-base">（{verb.reading}）</span>}</p>
             </div>

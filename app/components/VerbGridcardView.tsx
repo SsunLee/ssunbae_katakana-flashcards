@@ -34,6 +34,21 @@ export default function VerbGridMode({
   readingFontSize,
   meaningFontSize,
 }: Props) {
+  const jlptLabelById = useMemo(() => {
+    const map: Record<number, string> = {};
+    verbs.forEach((verb) => {
+      if (verb.jlpt === undefined || verb.jlpt === null) return;
+      if (typeof verb.jlpt === "number") {
+        map[verb.id] = `JLPT N${verb.jlpt}`;
+        return;
+      }
+      const normalized = String(verb.jlpt).trim().toUpperCase();
+      if (!normalized) return;
+      map[verb.id] = normalized.startsWith("N") ? `JLPT ${normalized}` : `JLPT N${normalized}`;
+    });
+    return map;
+  }, [verbs]);
+
   // GridCardView의 Word 형태로 매핑 (id만 맞으면 됩니다)
   const cards: Word[] = useMemo(
     () =>
@@ -63,6 +78,9 @@ export default function VerbGridMode({
       /* 앞면: 한자 크게 + 히라가나 작은 보조 */
       renderFront={(c) => (
         <>
+          {jlptLabelById[c.id] && (
+            <div className="text-[11px] text-muted-foreground mb-1">{jlptLabelById[c.id]}</div>
+          )}
           <div
             className="font-semibold break-all px-2 leading-snug"
             style={{ fontSize: frontSize }}
@@ -77,6 +95,9 @@ export default function VerbGridMode({
       /* 뒷면: 정답 라벨 + 히라가나 크게 + 한국어 뜻 */
       renderBack={(c) => (
         <div className="w-full text-center px-1">
+          {jlptLabelById[c.id] && (
+            <div className="text-[11px] text-muted-foreground mb-1">{jlptLabelById[c.id]}</div>
+          )}
           <div className="text-[11px] text-muted-foreground mb-1">정답</div>
 
           {/* 히라가나 */}
