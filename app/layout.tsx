@@ -159,6 +159,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@type': 'WebSite',
     name: 'SSUN EDU',
     url: SITE_URL,
+    image: `${SITE_URL}/og-image.png`,
     inLanguage: 'ko-KR',
     description:
       '무료 일본어 사이트 및 언어 학습 플랫폼. 히라가나, 가타카나, 한자, 영어, 스페인어, 한국어 플래시카드 학습을 제공합니다.',
