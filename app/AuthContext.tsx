@@ -6,12 +6,22 @@ import React, { createContext, useContext, useEffect, useState, ReactNode, useCa
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore'; // [수정] setDoc을 import 합니다.
 import { app, db } from './lib/firebase';
+import {
+  DEFAULT_AVATAR_COLOR,
+  DEFAULT_AVATAR_ICON,
+  isAvatarColor,
+  isAvatarIconName,
+  type AvatarColor,
+  type AvatarIconName,
+} from '@/app/constants/avatarOptions';
 
 export interface UserProfile {
   uid: string;
   email: string | null;
   nickname: string | null;
   photoURL: string | null;
+  avatarColor: AvatarColor;
+  avatarIcon: AvatarIconName;
 }
 
 interface AuthContextType {
@@ -42,6 +52,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             email: firebaseUser.email,
             nickname: userData.nickname || firebaseUser.displayName,
             photoURL: userData.photoURL || firebaseUser.photoURL,
+            avatarColor: isAvatarColor(userData.avatarColor) ? userData.avatarColor : DEFAULT_AVATAR_COLOR,
+            avatarIcon: isAvatarIconName(userData.avatarIcon) ? userData.avatarIcon : DEFAULT_AVATAR_ICON,
           });
         } else {
           // [수정] Firestore에 사용자 문서가 없을 경우, 기본값으로 문서를 생성해줍니다.
@@ -51,12 +63,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             email: firebaseUser.email,
             nickname: defaultNickname,
             photoURL: firebaseUser.photoURL,
+            avatarColor: DEFAULT_AVATAR_COLOR,
+            avatarIcon: DEFAULT_AVATAR_ICON,
           };
           
           // 'users' 컬렉션에 새로운 사용자 문서를 생성합니다.
           await setDoc(userDocRef, {
             nickname: newUserProfile.nickname,
             photoURL: newUserProfile.photoURL,
+            avatarColor: newUserProfile.avatarColor,
+            avatarIcon: newUserProfile.avatarIcon,
             email: newUserProfile.email,
             createdAt: new Date(), // 생성 시각 기록
           });
@@ -71,6 +87,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           email: firebaseUser.email,
           nickname: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,
+          avatarColor: DEFAULT_AVATAR_COLOR,
+          avatarIcon: DEFAULT_AVATAR_ICON,
         });
       }
 

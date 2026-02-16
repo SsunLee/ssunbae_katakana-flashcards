@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
 import { auth, db } from './lib/firebase';
 import { Button } from "./components/ui/button";
+import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "./constants/avatarOptions";
 
 interface RegisterPageProps {
   onSwitchToLogin: () => void;
@@ -39,6 +40,8 @@ export default function RegisterPage({ onSwitchToLogin, onSuccess }: RegisterPag
         uid: user.uid,
         nickname: nickname,
         email: user.email,
+        avatarColor: DEFAULT_AVATAR_COLOR,
+        avatarIcon: DEFAULT_AVATAR_ICON,
       });
       onSuccess();
     } catch (err: any) {

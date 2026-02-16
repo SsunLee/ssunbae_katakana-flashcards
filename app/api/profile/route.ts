@@ -2,6 +2,12 @@
 
 import { NextResponse } from 'next/server';
 import { adminAuth, adminDb } from '@/app/lib/firebase-admin';
+import {
+  DEFAULT_AVATAR_COLOR,
+  DEFAULT_AVATAR_ICON,
+  isAvatarColor,
+  isAvatarIconName,
+} from '@/app/constants/avatarOptions';
 
 // --- 👇 [추가] delete API와 동일한 CORS 설정을 가져옵니다 ---
 const ALLOWED_ORIGINS = [
@@ -43,23 +49,44 @@ export async function POST(req: Request) {
     const uid = decoded.uid;
     // --- 👆 [수정] ---
 
-    const { nickname } = await req.json();
+    const { nickname, avatarColor, avatarIcon } = await req.json();
 
-    if (!nickname || typeof nickname !== 'string' || nickname.length < 2) {
+    if (!nickname || typeof nickname !== 'string' || nickname.trim().length < 2) {
       const errRes = NextResponse.json({ error: '닉네임은 2자 이상이어야 합니다.' }, { status: 400 });
       return cors(errRes, origin);
     }
 
+    const safeAvatarColor =
+      typeof avatarColor === "string" && isAvatarColor(avatarColor)
+        ? avatarColor
+        : DEFAULT_AVATAR_COLOR;
+    const safeAvatarIcon =
+      typeof avatarIcon === "string" && isAvatarIconName(avatarIcon)
+        ? avatarIcon
+        : DEFAULT_AVATAR_ICON;
+
     const userRef = adminDb.collection('users').doc(uid);
-    await userRef.update({
-      nickname: nickname,
-    });
+    await userRef.set(
+      {
+        nickname: nickname.trim(),
+        avatarColor: safeAvatarColor,
+        avatarIcon: safeAvatarIcon,
+      },
+      { merge: true }
+    );
     
     await adminAuth.updateUser(uid, {
-      displayName: nickname,
+      displayName: nickname.trim(),
     });
 
-    const res = NextResponse.json({ message: 'Profile updated successfully' });
+    const res = NextResponse.json({
+      message: 'Profile updated successfully',
+      user: {
+        nickname: nickname.trim(),
+        avatarColor: safeAvatarColor,
+        avatarIcon: safeAvatarIcon,
+      },
+    });
     return cors(res, origin); // 성공 응답에도 CORS 헤더 추가
 
   } catch (error: any) {

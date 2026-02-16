@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { LogOut, UserCircle2, BookOpen } from "lucide-react";
+import { LogOut, BookOpen } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 
@@ -22,6 +22,8 @@ import {
 import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { ShieldAlert } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import ProfileAvatarIcon from "./ProfileAvatarIcon";
+import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -37,11 +39,11 @@ const menuConfig: MenuGroup[] = [
     value: "japanese",
     icon: "🇯🇵",
     items: [
-      { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "/icons/jp_word.png" },
-      { href: "/study/japanese/verbs", label: "JLPT 동사 학습", icon: "📝", disabled: false },
-      { href: "/study/japanese/kana-chars", label: "가타카나/히라가나 글자 공부", icon: "/icons/jp_katakana.png" },
-      { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
-      { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: false },
+      { href: "/study/japanese/katakana-words", label: "가타카나 단어", icon: "/icons/jp_word.png" },
+      { href: "/study/japanese/verbs", label: "JLPT 동사", icon: "📝", disabled: false },
+      { href: "/study/japanese/kanji", label: "JLPT 한자", icon: "🎴", disabled: false },
+      { href: "/study/japanese/kana-chars", label: "가타카나 / 히라가나", icon: "/icons/jp_katakana.png" },
+      { href: "/study/japanese/sentences", label: "일본어 문장", icon: "🌸" },
     ],
   },
   {
@@ -204,7 +206,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-                  <AccordionTrigger className="text-sm font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-3">
+                  <AccordionTrigger className="text-xs font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-2">
                     <MenuIcon icon={lang.icon} size={18} />
                     <span>{lang.language}</span>
                   </AccordionTrigger>
@@ -225,7 +227,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                         variant="ghost"
                         disabled={item.disabled}
                         onClick={() => handleNavigate(item.href)}
-                        className={`w-full justify-start p-3 text-sm font-medium h-auto ${
+                        className={`w-full justify-start px-2 py-2 text-[13px] font-medium h-auto min-h-0 ${
                           isActive
                             ? "bg-primary/10 text-primary font-semibold"
                             : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -254,9 +256,14 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                 className="flex items-center gap-3 text-left w-full hover:bg-muted rounded-lg p-2 -m-2 transition-colors"
               >
                 <Avatar className="w-10 h-10">
-                  <AvatarImage src={user.photoURL || undefined} alt={user.nickname || 'User'}/>
-                  <AvatarFallback>
-                    <UserCircle2 className="w-6 h-6 text-muted-foreground" />
+                  {!user.avatarIcon && (
+                    <AvatarImage src={user.photoURL || undefined} alt={user.nickname || 'User'} />
+                  )}
+                  <AvatarFallback
+                    style={{ backgroundColor: user.avatarColor || DEFAULT_AVATAR_COLOR }}
+                    className="text-white"
+                  >
+                    <ProfileAvatarIcon icon={user.avatarIcon || DEFAULT_AVATAR_ICON} className="w-5 h-5" />
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
