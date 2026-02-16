@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getIdToken } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { ArrowLeft, Check, Loader2 } from "lucide-react";
 
 import { useAuth } from "@/app/AuthContext";
-import { auth } from "@/app/lib/firebase";
+import { auth, db } from "@/app/lib/firebase";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import {
@@ -61,26 +62,20 @@ export default function ProfilePage() {
 
     setIsSaving(true);
     try {
-      const idToken = await getIdToken(auth.currentUser, true);
-      const requestBody = {
-        nickname: trimmedNickname,
-        avatarColor,
-        avatarIcon,
-      };
-
-      const res = await fetch("/api/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${idToken}`,
+      await setDoc(
+        doc(db, "users", auth.currentUser.uid),
+        {
+          nickname: trimmedNickname,
+          avatarColor,
+          avatarIcon,
+          email: auth.currentUser.email ?? null,
+          updatedAt: new Date(),
         },
-        body: JSON.stringify(requestBody),
+        { merge: true }
+      );
+      await updateProfile(auth.currentUser, {
+        displayName: trimmedNickname,
       });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({ error: "프로필 업데이트 실패" }));
-        throw new Error(errorData.error || "프로필 업데이트 실패");
-      }
 
       await refreshUser({
         nickname: trimmedNickname,
