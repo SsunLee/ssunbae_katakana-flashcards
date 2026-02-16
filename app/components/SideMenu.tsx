@@ -38,11 +38,10 @@ const menuConfig: MenuGroup[] = [
     icon: "🇯🇵",
     items: [
       { href: "/study/japanese/katakana-words", label: "가타카나 단어 공부", icon: "/icons/jp_word.png" },
-      { href: "/study/japanese/katakana-chars", label: "가타카나 글자 공부", icon: "/icons/jp_katakana.png" },
-      { href: "/study/japanese/hiragana-chars", label: "히라가나 글자 공부", icon: "/icons/jp_hiragana.png" },
+      { href: "/study/japanese/verbs", label: "JLPT 동사 학습", icon: "📝", disabled: false },
+      { href: "/study/japanese/kana-chars", label: "가타카나/히라가나 글자 공부", icon: "/icons/jp_katakana.png" },
       { href: "/study/japanese/sentences", label: "일본어 문장 공부", icon: "🌸" },
       { href: "/study/japanese/kanji", label: "한자 공부", icon: "🎴", disabled: false },
-      { href: "/study/japanese/verbs", label: "일본어 동사 학습", icon: "📝", disabled: false },
     ],
   },
   {
@@ -213,14 +212,21 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                   className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-border/60"
                 >
                   <div className="space-y-0">
-                  {lang.items.map((item) => (
+                  {lang.items.map((item) => {
+                      const isKanaCharsItem = item.href === "/study/japanese/kana-chars";
+                      const isKanaCharsPath =
+                        pathname === "/study/japanese/kana-chars" ||
+                        pathname === "/study/japanese/katakana-chars" ||
+                        pathname === "/study/japanese/hiragana-chars";
+                      const isActive = pathname === item.href || (isKanaCharsItem && isKanaCharsPath);
+                      return (
                       <Button
                         key={item.href}
                         variant="ghost"
                         disabled={item.disabled}
                         onClick={() => handleNavigate(item.href)}
                         className={`w-full justify-start p-3 text-sm font-medium h-auto ${
-                          pathname === item.href
+                          isActive
                             ? "bg-primary/10 text-primary font-semibold"
                             : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         }`}
@@ -228,7 +234,8 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                         <MenuIcon icon={item.icon} />
                         <span className="truncate">{item.label}</span>
                       </Button>
-                  ))}
+                      );
+                  })}
                   </div>
                 </AccordionContent>
               </AccordionItem>

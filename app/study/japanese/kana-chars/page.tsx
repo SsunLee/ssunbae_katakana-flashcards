@@ -1,5 +1,5 @@
 import KanaCharsStudyPage from "../components/KanaCharsStudyPage";
 
-export default function KatakanaCharsPage() {
+export default function KanaCharsPage() {
   return <KanaCharsStudyPage initialMode="katakana" />;
 }
