@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SSUN EDU - Language Learning Updates</title>
+    <link>https://ssunedu.com/</link>
+    <description>Free language learning updates from SSUN EDU: Japanese, English, Spanish, and Korean study pages.</description>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 16 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ssunedu.com/rss.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>SSUN EDU Home</title>
+      <link>https://ssunedu.com/</link>
+      <guid>https://ssunedu.com/</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Explore the free language learning platform and start studying with flashcards.</description>
+    </item>
+    <item>
+      <title>Japanese Katakana Words</title>
+      <link>https://ssunedu.com/study/japanese/katakana-words</link>
+      <guid>https://ssunedu.com/study/japanese/katakana-words</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Practice Japanese katakana words with interactive flashcards.</description>
+    </item>
+    <item>
+      <title>Japanese Katakana Characters</title>
+      <link>https://ssunedu.com/study/japanese/katakana-chars</link>
+      <guid>https://ssunedu.com/study/japanese/katakana-chars</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Learn katakana characters with quizzes and card study mode.</description>
+    </item>
+    <item>
+      <title>Japanese Hiragana Characters</title>
+      <link>https://ssunedu.com/study/japanese/hiragana-chars</link>
+      <guid>https://ssunedu.com/study/japanese/hiragana-chars</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Master hiragana characters with guided practice.</description>
+    </item>
+    <item>
+      <title>Japanese Sentences</title>
+      <link>https://ssunedu.com/study/japanese/sentences</link>
+      <guid>https://ssunedu.com/study/japanese/sentences</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Study practical Japanese sentences and improve comprehension.</description>
+    </item>
+    <item>
+      <title>Japanese Kanji</title>
+      <link>https://ssunedu.com/study/japanese/kanji</link>
+      <guid>https://ssunedu.com/study/japanese/kanji</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Learn Japanese kanji with readings, meanings, and writing practice.</description>
+    </item>
+    <item>
+      <title>Japanese Verbs</title>
+      <link>https://ssunedu.com/study/japanese/verbs</link>
+      <guid>https://ssunedu.com/study/japanese/verbs</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Practice Japanese verb forms with examples and listening support.</description>
+    </item>
+    <item>
+      <title>English Words</title>
+      <link>https://ssunedu.com/study/english/words</link>
+      <guid>https://ssunedu.com/study/english/words</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Build English vocabulary with spaced flashcard study.</description>
+    </item>
+    <item>
+      <title>Spanish Words</title>
+      <link>https://ssunedu.com/study/spanish/words</link>
+      <guid>https://ssunedu.com/study/spanish/words</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Study essential Spanish words in a simple card format.</description>
+    </item>
+    <item>
+      <title>Spanish Sentences</title>
+      <link>https://ssunedu.com/study/spanish/sentences</link>
+      <guid>https://ssunedu.com/study/spanish/sentences</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Practice useful Spanish sentence patterns for daily conversation.</description>
+    </item>
+    <item>
+      <title>Korean Words</title>
+      <link>https://ssunedu.com/study/korean/words</link>
+      <guid>https://ssunedu.com/study/korean/words</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Learn Korean vocabulary with short, repeatable card sessions.</description>
+    </item>
+    <item>
+      <title>Korean Characters</title>
+      <link>https://ssunedu.com/study/korean/chars</link>
+      <guid>https://ssunedu.com/study/korean/chars</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Train Korean character recognition with interactive cards.</description>
+    </item>
+    <item>
+      <title>Korean Syllables</title>
+      <link>https://ssunedu.com/study/korean/syllables</link>
+      <guid>https://ssunedu.com/study/korean/syllables</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Practice Korean syllable combinations and reading speed.</description>
+    </item>
+    <item>
+      <title>Support</title>
+      <link>https://ssunedu.com/support</link>
+      <guid>https://ssunedu.com/support</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Get help and contact support for SSUN EDU.</description>
+    </item>
+    <item>
+      <title>Privacy Policy</title>
+      <link>https://ssunedu.com/privacy</link>
+      <guid>https://ssunedu.com/privacy</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Read SSUN EDU privacy policy details.</description>
+    </item>
+    <item>
+      <title>Terms of Service</title>
+      <link>https://ssunedu.com/terms</link>
+      <guid>https://ssunedu.com/terms</guid>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <description>Read SSUN EDU terms of service.</description>
+    </item>
+  </channel>
+</rss>
