@@ -66,6 +66,7 @@ export function SettingsDialog({
   resetDeck,
 }: SettingsDialogProps) {
   const { theme, setTheme } = useTheme();
+  const getVoiceId = (voice: SpeechSynthesisVoice) => `${voice.voiceURI || voice.name}__${voice.lang}`;
 
   const showContentImport = AI_SUPPORTED_DECKS.includes(deckType);
   const isEnglishMode = deckType.startsWith("english");
@@ -120,9 +121,9 @@ export function SettingsDialog({
             <div className="mb-4">
               <label className="block text-sm text-muted-foreground mb-1">TTS Voice</label>
               <Select
-                value={selectedVoice?.name || ""}
+                value={selectedVoice ? getVoiceId(selectedVoice) : ""}
                 onValueChange={(val) => {
-                  const voice = voices.find((v) => v.name === val) || null;
+                  const voice = voices.find((v) => getVoiceId(v) === val) || null;
                   selectVoice(voice);
                 }}
                 disabled={voices.length === 0}
@@ -132,7 +133,7 @@ export function SettingsDialog({
                 </SelectTrigger>
                 <SelectContent className="z-[70]" position="popper" sideOffset={8}>
                   {voices.map((v) => (
-                    <SelectItem key={v.name} value={v.name}>
+                    <SelectItem key={getVoiceId(v)} value={getVoiceId(v)}>
                       {v.name} ({v.lang})
                     </SelectItem>
                   ))}
