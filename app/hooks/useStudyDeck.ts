@@ -13,6 +13,50 @@ type UseStudyDeckProps<T extends HasId> = {
   initialDeck: T[];
   fetchDeckData?: () => Promise<T[]>;
 };
+const DECK_CACHE_PREFIX = "ssunbae:study-deck:v1";
+
+type DeckCachePayload<T extends HasId> = {
+  deck?: T[];
+  favs?: Record<number, true> | Record<string, boolean>;
+};
+
+function getDeckCacheKey(uid: string, deckType: string) {
+  return `${DECK_CACHE_PREFIX}:${uid}:${deckType}`;
+}
+
+function readDeckCache<T extends HasId>(uid: string, deckType: string): DeckCachePayload<T> | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(getDeckCacheKey(uid, deckType));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as DeckCachePayload<T>;
+    if (!parsed || typeof parsed !== "object") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeDeckCache<T extends HasId>(
+  uid: string,
+  deckType: string,
+  deck: T[],
+  favs: Record<number, true>
+) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(
+      getDeckCacheKey(uid, deckType),
+      JSON.stringify({
+        deck,
+        favs,
+        updatedAt: Date.now(),
+      })
+    );
+  } catch {
+    // localStorage quota/security 에러는 무시
+  }
+}
 
 function reconcileDeckWithBase<T extends HasId>(savedDeck: T[] | undefined, baseDeck: T[]): T[] {
   if (!Array.isArray(savedDeck) || savedDeck.length === 0) {
@@ -65,8 +109,8 @@ export function useStudyDeck<T extends HasId>({
   initialDeck,
   fetchDeckData,
 }: UseStudyDeckProps<T>) {
-  const [baseDeck, setBaseDeck] = useState<T[] | null>(null);
-  const [deck, setDeck] = useState<T[]>([]);
+  const [baseDeck, setBaseDeck] = useState<T[] | null>(initialDeck);
+  const [deck, setDeck] = useState<T[]>(initialDeck);
   const [favs, setFavs] = useState<Record<number, true>>({});
   
   const [isLoading, setIsLoading] = useState(true);
@@ -100,6 +144,9 @@ export function useStudyDeck<T extends HasId>({
     isInitialLoadComplete.current = false;
     setIsLoading(true);
     setError(null);
+    setBaseDeck(initialDeck);
+    setDeck(initialDeck);
+    setFavs({});
 
     const loadBaseDeck = async () => {
       if (fetchDeckData) {
@@ -117,8 +164,7 @@ export function useStudyDeck<T extends HasId>({
     };
 
     loadBaseDeck();
-    // [수정] syncTrigger가 변경될 때마다 이 로직을 다시 실행합니다.
-  }, [deckType, initialDeck, fetchDeckData, syncTrigger]);
+  }, [deckType, initialDeck, fetchDeckData]);
 
   // 2단계: Firestore 데이터 로딩 및 실시간 동기화 로직
   useEffect(() => {
@@ -132,6 +178,13 @@ export function useStudyDeck<T extends HasId>({
       return;
     }
 
+    const cached = readDeckCache<T>(user.uid, deckType);
+    if (cached) {
+      const cachedDeck = Array.isArray(cached.deck) ? cached.deck : undefined;
+      setDeck(reconcileDeckWithBase(cachedDeck, baseDeck));
+      setFavs(sanitizeFavs(cached.favs, baseDeck));
+    }
+
     const userDocRef = doc(db, "users", user.uid);
     const unsubscribe = onSnapshot(
       userDocRef,
@@ -139,11 +192,15 @@ export function useStudyDeck<T extends HasId>({
         if (docSnap.exists()) {
           const learningData = docSnap.data().learningData?.[deckType];
           const savedDeck = Array.isArray(learningData?.deck) ? (learningData.deck as T[]) : undefined;
-          setDeck(reconcileDeckWithBase(savedDeck, baseDeck));
-          setFavs(sanitizeFavs(learningData?.favs, baseDeck));
+          const nextDeck = reconcileDeckWithBase(savedDeck, baseDeck);
+          const nextFavs = sanitizeFavs(learningData?.favs, baseDeck);
+          setDeck(nextDeck);
+          setFavs(nextFavs);
+          writeDeckCache(user.uid, deckType, nextDeck, nextFavs);
         } else {
           setDeck(baseDeck);
           setFavs({});
+          writeDeckCache(user.uid, deckType, baseDeck, {});
         }
         setIsLoading(false);
         isInitialLoadComplete.current = true;
@@ -171,6 +228,7 @@ export function useStudyDeck<T extends HasId>({
     const save = async () => {
       try {
         const userDocRef = doc(db, "users", user.uid);
+        writeDeckCache(user.uid, deckType, deck, favs);
         await updateDoc(userDocRef, {
           [`learningData.${deckType}.deck`]: deck,
           [`learningData.${deckType}.favs`]: favs,
@@ -189,7 +247,7 @@ export function useStudyDeck<T extends HasId>({
     };
 
     save();
-  }, [deck, favs]);
+  }, [deck, favs, user, deckType]);
 
   const toggleFav = useCallback((id: number) => {
     setFavs((prevFavs) => {
