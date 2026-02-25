@@ -98,7 +98,7 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
-  const defaultKakaoAdUnit = "DAN-QMVosjDRN8zEUBnf";
+  const defaultKakaoAdUnit = "DAN-pFkSBc0GiRbrLlpo";
   const menuAdUnit =
     process.env.NEXT_PUBLIC_KAKAO_ADFIT_MENU_UNIT ||
     process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
