@@ -42,6 +42,10 @@ function StudyShell({ children }: { children: React.ReactNode }) {
     process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT ||
     process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
     defaultKakaoAdUnit;
+  const mobileBottomAdUnit =
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT ||
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
+    defaultKakaoAdUnit;
 
   // 레이아웃 진입 시 1회 표시(약간 딜레이)
   useEffect(() => {
@@ -141,6 +145,9 @@ function StudyShell({ children }: { children: React.ReactNode }) {
           <aside className="hidden min-[1700px]:flex w-[320px] justify-center pt-6">
             <KakaoAdFit adUnit={rightAdUnit} width={300} height={250} />
           </aside>
+        </div>
+        <div className="md:hidden mx-auto w-full max-w-md px-4 pb-6 pt-2 flex justify-center">
+          <KakaoAdFit adUnit={mobileBottomAdUnit} width={300} height={250} />
         </div>
       </main>
       <AdSafeSpacer />
