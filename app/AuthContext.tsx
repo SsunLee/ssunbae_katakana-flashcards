@@ -3,9 +3,9 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore'; // [수정] setDoc을 import 합니다.
-import { app, db } from './lib/firebase';
+import { auth, db } from './lib/firebase';
 import {
   DEFAULT_AVATAR_COLOR,
   DEFAULT_AVATAR_ICON,
@@ -35,15 +35,38 @@ const AuthContext = createContext<AuthContextType>({ user: null, loading: true, 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const auth = getAuth(app);
 
   const fetchAndSetUser = useCallback(async (firebaseUser: User | null) => {
     if (firebaseUser) {
+      const targetUid = firebaseUser.uid;
+      const baseProfile: UserProfile = {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        nickname: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '사용자',
+        photoURL: firebaseUser.photoURL,
+        avatarColor: DEFAULT_AVATAR_COLOR,
+        avatarIcon: DEFAULT_AVATAR_ICON,
+      };
+
+      // 인증 상태는 즉시 반영하고, 프로필 상세는 비동기로 보강합니다.
+      setUser((prev) => {
+        if (prev?.uid !== firebaseUser.uid) return baseProfile;
+        return {
+          ...baseProfile,
+          nickname: prev.nickname || baseProfile.nickname,
+          photoURL: prev.photoURL || baseProfile.photoURL,
+          avatarColor: prev.avatarColor || baseProfile.avatarColor,
+          avatarIcon: prev.avatarIcon || baseProfile.avatarIcon,
+        };
+      });
+      setLoading(false);
+
       const userDocRef = doc(db, "users", firebaseUser.uid);
       
       // [수정] 네트워크 오류 등을 대비해 try...catch 블록을 추가합니다.
       try {
         const userDoc = await getDoc(userDocRef);
+        if (auth.currentUser?.uid !== targetUid) return;
 
         if (userDoc.exists()) {
           const userData = userDoc.data();
@@ -57,17 +80,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           });
         } else {
           // [수정] Firestore에 사용자 문서가 없을 경우, 기본값으로 문서를 생성해줍니다.
-          const defaultNickname = firebaseUser.displayName || firebaseUser.email?.split('@')[0] || '사용자';
-          const newUserProfile: UserProfile = {
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-            nickname: defaultNickname,
-            photoURL: firebaseUser.photoURL,
-            avatarColor: DEFAULT_AVATAR_COLOR,
-            avatarIcon: DEFAULT_AVATAR_ICON,
-          };
+          const newUserProfile: UserProfile = baseProfile;
           
           // 'users' 컬렉션에 새로운 사용자 문서를 생성합니다.
+          setUser(newUserProfile);
+
           await setDoc(userDocRef, {
             nickname: newUserProfile.nickname,
             photoURL: newUserProfile.photoURL,
@@ -76,26 +93,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             email: newUserProfile.email,
             createdAt: new Date(), // 생성 시각 기록
           });
-
-          setUser(newUserProfile);
         }
       } catch (error) {
         console.error("사용자 프로필 정보를 가져오는 중 오류 발생:", error);
-        // [수정] 에러 발생 시, 최소한의 정보로 유저 상태를 설정해줍니다.
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          nickname: firebaseUser.displayName,
-          photoURL: firebaseUser.photoURL,
-          avatarColor: DEFAULT_AVATAR_COLOR,
-          avatarIcon: DEFAULT_AVATAR_ICON,
-        });
+        if (auth.currentUser?.uid !== targetUid) return;
+        // 에러 시에도 로그인 사용자 컨텍스트는 유지합니다.
+        setUser((prev) => prev ?? baseProfile);
       }
 
     } else {
       setUser(null);
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => {
