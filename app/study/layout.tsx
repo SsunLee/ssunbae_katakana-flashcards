@@ -142,6 +142,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
             <KakaoAdFit adUnit={leftAdUnit} width={300} height={250} />
           </aside>
           <div className="min-w-0 flex-1">{children}</div>
+          <aside className="hidden xl:block 2xl:hidden w-[320px]" aria-hidden="true" />
           <aside className="hidden 2xl:flex w-[320px] justify-center pt-6">
             <KakaoAdFit adUnit={rightAdUnit} width={300} height={250} />
           </aside>
