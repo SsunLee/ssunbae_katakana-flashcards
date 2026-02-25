@@ -20,6 +20,7 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import AdGuardMount from './../components/AdGuardMount';
 import AdSafeSpacer from "../components/AdSafeSpacer";  
 import { ensureShown, ensureHidden, refreshIfNeeded } from "@/app/lib/admob-banner";
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 
 export default function StudyLayout({ children }: { children: React.ReactNode }) {
@@ -32,6 +33,15 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, close, page, setPage } = useAuthModal();
   const debounce = useRef<number | null>(null);
+  const defaultKakaoAdUnit = "DAN-QMVosjDRN8zEUBnf";
+  const leftAdUnit =
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_LEFT_UNIT ||
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
+    defaultKakaoAdUnit;
+  const rightAdUnit =
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT ||
+    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
+    defaultKakaoAdUnit;
 
   // 레이아웃 진입 시 1회 표시(약간 딜레이)
   useEffect(() => {
@@ -122,7 +132,17 @@ function StudyShell({ children }: { children: React.ReactNode }) {
       </Dialog>
 
       {/* 페이지 콘텐츠 */}
-      <main className="flex-grow overflow-y-auto">{children}</main>
+      <main className="flex-grow overflow-y-auto">
+        <div className="mx-auto flex w-full max-w-[1720px]">
+          <aside className="hidden min-[1700px]:flex w-[320px] justify-center pt-6">
+            <KakaoAdFit adUnit={leftAdUnit} width={300} height={250} />
+          </aside>
+          <div className="min-w-0 flex-1">{children}</div>
+          <aside className="hidden min-[1700px]:flex w-[320px] justify-center pt-6">
+            <KakaoAdFit adUnit={rightAdUnit} width={300} height={250} />
+          </aside>
+        </div>
+      </main>
       <AdSafeSpacer />
       <AdGuardMount />
     </div>
