@@ -138,15 +138,15 @@ function StudyShell({ children }: { children: React.ReactNode }) {
       {/* 페이지 콘텐츠 */}
       <main className="flex-grow overflow-y-auto">
         <div className="mx-auto flex w-full max-w-[1720px]">
-          <aside className="hidden min-[1700px]:flex w-[320px] justify-center pt-6">
+          <aside className="hidden xl:flex w-[320px] justify-center pt-6">
             <KakaoAdFit adUnit={leftAdUnit} width={300} height={250} />
           </aside>
           <div className="min-w-0 flex-1">{children}</div>
-          <aside className="hidden min-[1700px]:flex w-[320px] justify-center pt-6">
+          <aside className="hidden 2xl:flex w-[320px] justify-center pt-6">
             <KakaoAdFit adUnit={rightAdUnit} width={300} height={250} />
           </aside>
         </div>
-        <div className="md:hidden mx-auto w-full max-w-md px-4 pb-6 pt-2 flex justify-center">
+        <div className="xl:hidden mx-auto w-full max-w-md px-4 pb-6 pt-2 flex justify-center">
           <KakaoAdFit adUnit={mobileBottomAdUnit} width={300} height={250} />
         </div>
       </main>
