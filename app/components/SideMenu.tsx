@@ -25,6 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ProfileAvatarIcon from "./ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
 import KakaoAdFit from "./KakaoAdFit";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -98,11 +99,11 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
-  const defaultKakaoAdUnit = "DAN-pFkSBc0GiRbrLlpo";
-  const menuAdUnit =
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_MENU_UNIT ||
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
-    defaultKakaoAdUnit;
+  const defaultKakaoAdUnit = normalizeAdUnit("DAN-pFkSBc0GiRbrLlpo");
+  const menuAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MENU_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultKakaoAdUnit
+  );
 
   const [openDelete, setOpenDelete] = useState(false);
   const [needReauth, setNeedReauth] = useState(false);

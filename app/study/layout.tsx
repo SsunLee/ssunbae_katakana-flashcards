@@ -21,6 +21,7 @@ import AdGuardMount from './../components/AdGuardMount';
 import AdSafeSpacer from "../components/AdSafeSpacer";  
 import { ensureShown, ensureHidden, refreshIfNeeded } from "@/app/lib/admob-banner";
 import KakaoAdFit from "@/app/components/KakaoAdFit";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 
 export default function StudyLayout({ children }: { children: React.ReactNode }) {
@@ -33,19 +34,19 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, close, page, setPage } = useAuthModal();
   const debounce = useRef<number | null>(null);
-  const defaultKakaoAdUnit = "DAN-QMVosjDRN8zEUBnf";
-  const leftAdUnit =
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_LEFT_UNIT ||
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
-    defaultKakaoAdUnit;
-  const rightAdUnit =
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT ||
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
-    defaultKakaoAdUnit;
-  const mobileBottomAdUnit =
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT ||
-    process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT ||
-    defaultKakaoAdUnit;
+  const defaultKakaoAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const leftAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_LEFT_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultKakaoAdUnit
+  );
+  const rightAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultKakaoAdUnit
+  );
+  const mobileBottomAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultKakaoAdUnit
+  );
 
   // 레이아웃 진입 시 1회 표시(약간 딜레이)
   useEffect(() => {
