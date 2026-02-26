@@ -35,22 +35,33 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   const { isOpen, close, page, setPage } = useAuthModal();
   const debounce = useRef<number | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
-  const defaultKakaoAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
   const leftAdUnit = resolveAdUnit(
-    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_LEFT_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
-    defaultKakaoAdUnit
+    [
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_PC_SIDE_LEFT_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_PC_SIDE_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_LEFT_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT,
+    ],
+    defaultPcEdgeAdUnit
   );
   const rightAdUnit = resolveAdUnit(
-    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
-    defaultKakaoAdUnit
+    [
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_PC_SIDE_RIGHT_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_PC_SIDE_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_SIDE_RIGHT_UNIT,
+      process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT,
+    ],
+    defaultPcEdgeAdUnit
   );
+  const defaultMobileBottomAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
   const mobileBottomAdUnit = resolveAdUnit(
     [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
-    defaultKakaoAdUnit
+    defaultMobileBottomAdUnit
   );
   const isViewportReady = viewportWidth !== null;
-  const isXlUp = isViewportReady && viewportWidth >= 1280;
-  const is2xlUp = isViewportReady && viewportWidth >= 1536;
+  const isPcSideAdVisible = isViewportReady && viewportWidth >= 1360;
+  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible;
 
   useEffect(() => {
     const updateWidth = () => setViewportWidth(window.innerWidth);
@@ -151,25 +162,23 @@ function StudyShell({ children }: { children: React.ReactNode }) {
         </DialogContent>
       </Dialog>
 
+      {isPcSideAdVisible ? (
+        <>
+          <aside className="fixed left-0 top-1/2 -translate-y-1/2 z-20 pl-2">
+            <KakaoAdFit adUnit={leftAdUnit} width={160} height={600} />
+          </aside>
+          <aside className="fixed right-0 top-1/2 -translate-y-1/2 z-20 pr-2">
+            <KakaoAdFit adUnit={rightAdUnit} width={160} height={600} />
+          </aside>
+        </>
+      ) : null}
+
       {/* 페이지 콘텐츠 */}
       <main className="flex-grow overflow-y-auto">
         <div className="mx-auto flex w-full max-w-[1720px]">
-          {isXlUp ? (
-            <aside className="w-[320px] justify-center pt-6 flex">
-              <KakaoAdFit adUnit={leftAdUnit} width={300} height={250} />
-            </aside>
-          ) : null}
           <div className="min-w-0 flex-1">{children}</div>
-          {isXlUp && !is2xlUp ? (
-            <aside className="w-[320px]" aria-hidden="true" />
-          ) : null}
-          {is2xlUp ? (
-            <aside className="w-[320px] justify-center pt-6 flex">
-              <KakaoAdFit adUnit={rightAdUnit} width={300} height={250} />
-            </aside>
-          ) : null}
         </div>
-        {!isXlUp ? (
+        {isBottomAdVisible ? (
           <div className="mx-auto w-full max-w-md px-4 pb-6 pt-2 flex justify-center">
             <KakaoAdFit adUnit={mobileBottomAdUnit} width={300} height={250} />
           </div>
