@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { LogOut, BookOpen } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 
@@ -96,6 +96,7 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const { user } = useAuth();
+  const [menuLogoSrc, setMenuLogoSrc] = useState("/ssunedu_logo.png");
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
@@ -190,7 +191,16 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           <SheetHeader className="px-6 pt-4 pb-6 border-b border-border flex-shrink-0">
             <div className="flex items-center justify-between">
               <SheetTitle className="text-foreground text-lg flex items-center gap-3">
-                <BookOpen className="text-primary" />
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-700/20 bg-white shadow-sm">
+                  <Image
+                    src={menuLogoSrc}
+                    alt="쑨에듀"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                    onError={() => setMenuLogoSrc("/logo.svg")}
+                  />
+                </span>
                 <span>학습 메뉴</span>
               </SheetTitle>
               <button 

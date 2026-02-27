@@ -139,9 +139,11 @@ export const metadata: Metadata = {
   
   applicationName: 'SSUN EDU',
   icons: {
-    icon: '/apple-icon.png',
-    shortcut: '/apple-icon.png',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: '/ssunedu_logo.png?v=1', type: 'image/png' },
+    ],
+    shortcut: '/ssunedu_logo.png?v=1',
+    apple: '/ssunedu_logo.png?v=1',
   },
   appleWebApp: {
     capable: true,

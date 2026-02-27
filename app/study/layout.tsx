@@ -33,6 +33,7 @@ export default function StudyLayout({ children }: { children: React.ReactNode })
 
 function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [brandLogoSrc, setBrandLogoSrc] = useState("/ssunedu_logo.png");
   const { isOpen, close, page, setPage } = useAuthModal();
   const pathname = usePathname();
   const debounce = useRef<number | null>(null);
@@ -130,9 +131,17 @@ function StudyShell({ children }: { children: React.ReactNode }) {
           <Link
             href="/"
             aria-label="쑨에듀 홈"
-            className="flex items-center gap-1 select-none"
+            className="flex items-center gap-2 select-none"
           >
-            <Image src="/logo.svg" alt="쑨에듀" width={28} height={28} priority />
+            <Image
+              src={brandLogoSrc}
+              alt="쑨에듀"
+              width={20}
+              height={20}
+              className="object-contain"
+              priority
+              onError={() => setBrandLogoSrc("/logo.svg")}
+            />
             <span className="text-sm italic font-semibold">쑨에듀</span>
           </Link>
 
