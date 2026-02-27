@@ -11,6 +11,7 @@ import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 import VerbCardView from "@/app/components/VerbCardView";
 import VerbGridMode from "@/app/components/VerbGridcardView";
 import VerbFormsTable from "@/app/components/VerbFormsTable";
@@ -23,6 +24,7 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
 import { VerbCardSkeleton } from "@/app/components/VerbCardSkeleton";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
@@ -67,6 +69,7 @@ export default function JapaneseVerbsPage() {
   const [expanded, setExpanded] = useState(false);
   const [showForms, setShowForms] = useState(false);
   const [isWritingMode, setIsWritingMode] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const [jlptFilters, setJlptFilters] = useState<Record<JlptFilterKey, boolean>>({
     N5: true,
     N4: true,
@@ -74,6 +77,11 @@ export default function JapaneseVerbsPage() {
     N2: true,
     N1: true,
   });
+  const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const mobileInlineAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultMobileInlineAdUnit
+  );
 
   const [gridFlippedStates, setGridFlippedStates] = useState<Record<number, boolean>>({});
   const toggleGridCardFlip = (id: number) =>
@@ -225,7 +233,19 @@ export default function JapaneseVerbsPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev, isWritingMode]);
 
+  useEffect(() => {
+    const updateWidth = () => setViewportWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    window.addEventListener("orientationchange", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener("orientationchange", updateWidth);
+    };
+  }, []);
+
   const mounted = useMounted();
+  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
   if (!mounted) {
     return (
       <div className="min-h-screen w-full bg-background flex items-center justify-center">
@@ -283,6 +303,7 @@ export default function JapaneseVerbsPage() {
             <Checkbox
               id={`verbs-${level}`}
               checked={jlptFilters[level]}
+              disabled={!user}
               onCheckedChange={() => handleJlptFilterChange(level)}
             />
             <span>{JLPT_FILTERS[level]}</span>
@@ -395,6 +416,11 @@ export default function JapaneseVerbsPage() {
 
       {!isLoading && viewMode === "single" && !isWritingMode && (
         <>
+          {isMobileViewport ? (
+            <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+              <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+            </div>
+          ) : null}
           <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
             <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
               <li>⚙️설정에서 TTS Voice, Font를 조절할 수 있습니다.</li>

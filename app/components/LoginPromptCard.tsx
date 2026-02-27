@@ -15,8 +15,8 @@ type LoginPromptCardProps = {
 const DEFAULT_FEATURES = [
   "나만의 단어장 클라우드 저장",
   "즐겨찾기 목록 동기화",
-  "여러 장 모아보기 & 단어 생성 기능",
-  "OpenAI를 이용한 AI 단어 가져오기",
+  "JLPT 레벨 필터 기능",
+  "여러 장 모아보기",
 ];
 
 export function LoginPromptCard({

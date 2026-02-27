@@ -18,7 +18,8 @@ export default function LoginPage({ onSwitchToRegister, onSuccess }: LoginPagePr
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleLogin = async () => {
+    const handleLogin = async (e?: React.FormEvent<HTMLFormElement>) => {
+      e?.preventDefault();
       setLoading(true);
       setError('');
       
@@ -56,8 +57,8 @@ export default function LoginPage({ onSwitchToRegister, onSuccess }: LoginPagePr
 
     return (
       <div className="p-8 space-y-6">
-          <h1 className="text-2xl font-bold text-center text-foreground"> 가타카나 공부, 시작하기 </h1>
-          <div className="space-y-6">
+          <h1 className="text-2xl font-bold text-center text-foreground">쑨에듀 로그인</h1>
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label className="text-sm font-medium text-muted-foreground">이메일</label>
               <input
@@ -82,13 +83,13 @@ export default function LoginPage({ onSwitchToRegister, onSuccess }: LoginPagePr
             </div>
             {error && <p className="text-destructive text-sm text-center">{error}</p>}
             
-            <Button type="button" onClick={handleLogin} disabled={loading} className="w-full" variant="outline">
+            <Button type="submit" disabled={loading} className="w-full" variant="outline">
               {loading ? '로그인 중...' : '로그인'}
             </Button>
-          </div>
+          </form>
           <p className="text-sm text-center text-muted-foreground">
             계정이 없으신가요?{' '}
-            <button onClick={onSwitchToRegister} className="font-medium text-primary hover:underline">
+            <button type="button" onClick={onSwitchToRegister} className="font-medium text-primary hover:underline">
               회원가입
             </button>
           </p>

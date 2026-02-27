@@ -16,6 +16,7 @@ import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import { Skeleton } from "@/app/components/ui/skeleton";
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 // 데이터/훅/상수 임포트 수정
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
@@ -26,6 +27,7 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // JLPT 필터 관련 상수 정의
 const JLPT_FILTERS = {
@@ -65,7 +67,13 @@ export default function KanjiPage() {
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
   const [kanjiFontSize, setKanjiFontSize] = useState(48);
   const [isWritingMode, setIsWritingMode] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
+  const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const mobileInlineAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultMobileInlineAdUnit
+  );
 
   const [jlptFilters, setJlptFilters] = useState<Record<JlptFilterKey, boolean>>({
     N5: true, N4: true, N3: true, N2: true, N1: true,
@@ -144,8 +152,20 @@ export default function KanjiPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev, isWritingMode]);
 
+  useEffect(() => {
+    const updateWidth = () => setViewportWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    window.addEventListener("orientationchange", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener("orientationchange", updateWidth);
+    };
+  }, []);
+
   const mounted = useMounted();
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
   
   if (isLoading) {
     return (
@@ -177,7 +197,12 @@ export default function KanjiPage() {
         <span className="font-semibold mr-4">JLPT 레벨:</span>
         {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
           <label key={level} className="flex items-center space-x-2 cursor-pointer">
-            <Checkbox id={level} checked={jlptFilters[level]} onCheckedChange={() => handleJlptFilterChange(level)} />
+            <Checkbox
+              id={level}
+              checked={jlptFilters[level]}
+              disabled={!user}
+              onCheckedChange={() => handleJlptFilterChange(level)}
+            />
             <span>{JLPT_FILTERS[level]}</span>
           </label>
         ))}
@@ -284,6 +309,12 @@ export default function KanjiPage() {
             <span className="font-semibold">⭐ 즐겨찾기만 보기</span>
           </label>
       </div>
+
+      {isMobileViewport ? (
+        <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+          <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+        </div>
+      ) : null}
 
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/so border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">

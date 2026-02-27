@@ -2,7 +2,9 @@
 import axios, { AxiosError } from 'axios';
 import type { Verb } from "@/app/types/verbs";
 import type { Kanji } from '@/app/types/kanji';
+import type { Word } from '@/app/types/words';
 
+const LOCAL_FALLBACK_API_BASE_URL = 'http://localhost:3003';
 
 function normalizeEnv(value: string | undefined) {
   if (!value) return '';
@@ -13,9 +15,26 @@ function normalizeEnv(value: string | undefined) {
   return trimmed;
 }
 
-const configuredApiBaseUrl = normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL).replace(/\/$/, '');
+function normalizeApiBaseUrl(value: string) {
+  return value.replace(/\/+$/, '').replace(/\/api$/i, '');
+}
+
+function isLocalhostBaseUrl(value: string) {
+  try {
+    const parsed = new URL(value);
+    return parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1';
+  } catch {
+    return false;
+  }
+}
+
+const configuredApiBaseUrl = normalizeApiBaseUrl(normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL));
 const primaryApiBaseUrl = configuredApiBaseUrl;
 export const isRemoteStudyApiEnabled = Boolean(primaryApiBaseUrl);
+const shouldUseLocalFallback =
+  Boolean(primaryApiBaseUrl) &&
+  isLocalhostBaseUrl(primaryApiBaseUrl) &&
+  primaryApiBaseUrl !== LOCAL_FALLBACK_API_BASE_URL;
 
 const primaryApiClient = isRemoteStudyApiEnabled
   ? axios.create({
@@ -25,11 +44,32 @@ const primaryApiClient = isRemoteStudyApiEnabled
     })
   : null;
 
+const localFallbackApiClient = shouldUseLocalFallback
+  ? axios.create({
+      baseURL: LOCAL_FALLBACK_API_BASE_URL,
+      timeout: 15000,
+    })
+  : null;
+
 async function getWithFallback<T>(path: string) {
   if (!primaryApiClient) {
     throw new Error("Remote study API is disabled. Set NEXT_PUBLIC_API_BASE_URL to enable it.");
   }
-  return primaryApiClient.get<T>(path);
+
+  try {
+    return await primaryApiClient.get<T>(path);
+  } catch (primaryError) {
+    if (!localFallbackApiClient) throw primaryError;
+
+    const status = (primaryError as AxiosError).response?.status;
+    const shouldRetryWithLocalFallback = status === 404 || status === 502 || status === 503;
+    if (!shouldRetryWithLocalFallback) throw primaryError;
+
+    console.warn(
+      `[study-api] Primary API request failed (status=${status}). Retrying with ${LOCAL_FALLBACK_API_BASE_URL}${path}`
+    );
+    return localFallbackApiClient.get<T>(path);
+  }
 }
 
 export async function fetchVerbs(): Promise<Verb[]> {
@@ -62,6 +102,21 @@ export async function fetchKanji(): Promise<Kanji[]> {
     const e = error as AxiosError;
     console.error(`Failed to fetch kanji: ${e.message}`);
     // 에러를 던져서 useRemoteStudyDeck 훅이 catch 블록에서 처리하도록 합니다.
+    throw e;
+  }
+}
+
+export async function fetchWords(): Promise<Word[]> {
+  try {
+    const response = await getWithFallback<{ words: Word[] }>('/api/words');
+
+    if (response.data && Array.isArray(response.data.words)) {
+      return response.data.words;
+    }
+    throw new Error("Invalid API response structure");
+  } catch (error) {
+    const e = error as AxiosError;
+    console.error(`Failed to fetch words: ${e.message}`);
     throw e;
   }
 }

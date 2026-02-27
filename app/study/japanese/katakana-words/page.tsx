@@ -8,35 +8,53 @@ import { useAuth } from "@/app/AuthContext";
 import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { Button } from "@/app/components/ui/button";
 import { Switch } from "@/app/components/ui/switch";
+import { Checkbox } from "@/app/components/ui/checkbox";
 import { EmptyDeckMessage } from "@/app/components/EmptyDeckMessage";
 import { SingleCardView } from "@/app/components/SingleCardView";
 import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
-import { toast } from 'sonner'
 import KakaoAdFit from "@/app/components/KakaoAdFit";
+import { Skeleton } from "@/app/components/ui/skeleton";
 
 // 데이터/훅/상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
-import { APP_VERSION } from "@/app/constants/appConfig";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
-import { useContentImporter } from "@/app/hooks/useContentImporter";
-import { fetchGeneratedContent } from "@/app/services/wordService";
+import { fetchWords, isRemoteStudyApiEnabled } from "@/app/services/api";
 import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // error message
-import { ERROR_MESSAGES, SUCCESS_MESSAGES, FOOTER_TEXTS } from "@/app/constants/message";
+import { FOOTER_TEXTS } from "@/app/constants/message";
 
 
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
+const JLPT_FILTERS = {
+  N5: "N5",
+  N4: "N4",
+  N3: "N3",
+  N2: "N2",
+  N1: "N1",
+} as const;
+type JlptFilterKey = keyof typeof JLPT_FILTERS;
+
+function mergeLocalAndRemoteWords(localWords: Word[], remoteWords: Word[]): Word[] {
+  const localIds = new Set(localWords.map((word) => word.id));
+  const merged = [...localWords];
+  for (const remoteWord of remoteWords) {
+    if (!localIds.has(remoteWord.id)) {
+      merged.push(remoteWord);
+    }
+  }
+  return merged;
+}
 
 export default function KatakanaWordsPage() {
 
@@ -51,15 +69,27 @@ export default function KatakanaWordsPage() {
   const { user } = useAuth();
   const { open } = useAuthModal();
 
+  // useStudyDeck effect dependency 안정화를 위해 fetch 함수를 고정합니다.
+  const fetchKatakanaWords = useCallback(async () => {
+    const remoteWords = await fetchWords();
+    return mergeLocalAndRemoteWords(KATAKANA_WORDS, remoteWords);
+  }, []);
+
   /** Firestore 연동 덱 상태 (즐겨찾기까지 포함) */
   const {
     deck,
-    setDeck,
     favs,
     toggleFav,
     shuffleDeck,
     resetDeckToInitial,
-  } = useStudyDeck<Word>({ user, deckType, initialDeck });
+    isLoading,
+    error,
+  } = useStudyDeck<Word>({
+    user,
+    deckType,
+    initialDeck,
+    fetchDeckData: isRemoteStudyApiEnabled ? fetchKatakanaWords : undefined,
+  });
 
   /** 뷰 상태 */
   const [index, setIndex] = useState(0);
@@ -69,6 +99,13 @@ export default function KatakanaWordsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
+  const [jlptFilters, setJlptFilters] = useState<Record<JlptFilterKey, boolean>>({
+    N5: true,
+    N4: true,
+    N3: true,
+    N2: true,
+    N1: true,
+  });
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
@@ -77,21 +114,23 @@ export default function KatakanaWordsPage() {
     defaultMobileInlineAdUnit
   );
 
-
-  
-  /** 단어 생성 (AI) */
-  const [topic, setTopic] = useState("일상 회화");
-  const [wordCount, setWordCount] = useState<number>(10);
-  const [loadingImport, setLoadingImport] = useState(false);
-
   /** 그리드 카드 뒤집기 */
   const toggleGridCardFlip = (id: number) =>
     setFlippedStates((prev) => ({ ...prev, [id]: !prev[id] }));
 
   /** 즐겨찾기 필터 적용된 학습 덱 */
   const studyDeck = useMemo(() => {
-    return onlyFavs ? deck.filter((w) => favs[w.id]) : deck;
-  }, [deck, onlyFavs, favs]);
+    const favFiltered = onlyFavs ? deck.filter((w) => favs[w.id]) : deck;
+    const activeJlptLevels = (Object.keys(JLPT_FILTERS) as JlptFilterKey[]).filter(
+      (key) => jlptFilters[key]
+    );
+
+    if (activeJlptLevels.length === 0) return [];
+    if (activeJlptLevels.length === Object.keys(JLPT_FILTERS).length) return favFiltered;
+
+    const levelSet = new Set(activeJlptLevels);
+    return favFiltered.filter((word) => word.jlpt && levelSet.has(word.jlpt));
+  }, [deck, onlyFavs, favs, jlptFilters]);
 
   /** 그리드 페이징 계산 */
   const { currentCards, totalPages } = useMemo(() => {
@@ -106,18 +145,12 @@ export default function KatakanaWordsPage() {
   const goToNextPage = () => setCurrentPage((p) => Math.min(p + 1, totalPages));
   const goToPrevPage = () => setCurrentPage((p) => Math.max(p - 1, 1));
 
-  // AI 콘텐츠 가져오기 함수 
-  const { importContent } = useContentImporter<Word>({
-    deckType,
-    setDeck,
-    setIndex,
-    setFlipped,
-    setFlippedStates,
-    setCurrentPage,
-    setLoadingImport,
-    fetchGeneratedContent,
-    errorFallback: ERROR_MESSAGES.CONTENT_GENERATION_FAILED,
-  });
+  const handleJlptFilterChange = (level: JlptFilterKey) => {
+    setJlptFilters((prev) => ({ ...prev, [level]: !prev[level] }));
+    setIndex(0);
+    setFlipped(false);
+    setCurrentPage(1);
+  };
 
 
   /** 단일 카드 조작 */
@@ -261,22 +294,50 @@ export default function KatakanaWordsPage() {
             isSafari={isSafari}
             fontFamily={fontFamily}
             setFontFamily={setFontFamily}
-            topic={topic}
-            setTopic={setTopic}
-            wordCount={wordCount}
-            setWordCount={setWordCount}
-            loadingImport={loadingImport}
-            importContent={importContent}
             wordFontSize={wordFontSize}
             setWordFontSize={setwordFontSize}
             resetDeck={reset}
           />
         </div>
       )}
+      {!isLoading && error && studyDeck.length > 0 && (
+        <div className="w-full max-w-md mb-4 rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
+          원격 단어 데이터 연결에 실패하여 기본 100개 데이터로 학습 중입니다.
+        </div>
+      )}
+      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
+        <span className="font-semibold mr-4">JLPT 레벨:</span>
+        {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
+          <label key={level} className="flex items-center space-x-2 cursor-pointer">
+            <Checkbox
+              id={`katakana-words-${level}`}
+              checked={jlptFilters[level]}
+              disabled={!user}
+              onCheckedChange={() => handleJlptFilterChange(level)}
+            />
+            <span>{JLPT_FILTERS[level]}</span>
+          </label>
+        ))}
+      </div>
 
       {/* 메인 카드 영역 */}
       <main className="w-full max-w-5xl select-none">
-        {viewMode === "single" ? (
+        {isLoading ? (
+          <div className="w-full max-w-md mx-auto space-y-4">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-64 w-full rounded-2xl" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        ) : error && studyDeck.length === 0 ? (
+          <div className="text-center p-10 bg-destructive/10 border border-destructive/20 rounded-lg max-w-md mx-auto">
+            <h3 className="text-lg font-semibold text-destructive mb-2">데이터 로딩 실패</h3>
+            <p className="text-destructive/80 text-sm">
+              데이터를 불러오는 데 문제가 발생했습니다.
+              <br />
+              잠시 후 다시 시도해 주세요.
+            </p>
+          </div>
+        ) : viewMode === "single" ? (
           studyDeck.length === 0 ? (
             <EmptyDeckMessage viewMode="single" />
           ) : (
@@ -318,7 +379,7 @@ export default function KatakanaWordsPage() {
       </main>
 
       {/* 하단 컨트롤(단일 카드 모드) */}
-      {viewMode === "single" && (
+      {!isLoading && viewMode === "single" && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm">
           <CardControls onPrev={prev} onNext={next} onShuffle={shuffle} onReset={reset} />
         </div>
@@ -360,10 +421,11 @@ export default function KatakanaWordsPage() {
       
       {/* 안내/버전 */}
       {/* ✅ 배경, 텍스트 색상을 테마에 맞게 변경 */}
+      {!isLoading && (
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
-          <li>{FOOTER_TEXTS.GUIDE_AI_STUDY}</li>
+          <li>기본 단어 100개와 원격 단어 데이터를 함께 사용합니다.</li>
           <li>
             {FOOTER_TEXTS.KEYBOARD_GUIDE.PREFIX}
             <kbd>Enter</kbd>
@@ -373,6 +435,7 @@ export default function KatakanaWordsPage() {
           </li>
         </ul>
       </footer>
+      )}
 
 
     </div>

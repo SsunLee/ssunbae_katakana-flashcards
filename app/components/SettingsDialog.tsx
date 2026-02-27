@@ -9,13 +9,6 @@ import { Slider } from "./ui/slider";
 import type { UserProfile } from "../AuthContext";
 import { useTheme } from "@/app/context/ThemeContext";
 
-const AI_SUPPORTED_DECKS = [
-  "english-words",
-  "spanish-words",
-  "katakana-words",
-  "spanish-sentences",
-];
-
 interface SettingsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -68,7 +61,6 @@ export function SettingsDialog({
   const { theme, setTheme } = useTheme();
   const getVoiceId = (voice: SpeechSynthesisVoice) => `${voice.voiceURI || voice.name}__${voice.lang}`;
 
-  const showContentImport = AI_SUPPORTED_DECKS.includes(deckType);
   const isEnglishMode = deckType.startsWith("english");
   const isSpanishMode = deckType.startsWith("spanish");
   const isKoreanMode = deckType.startsWith("korean");
@@ -77,7 +69,6 @@ export function SettingsDialog({
   const isKanjiMode = deckType === "kanji-words";
   const isCharMode = deckType.endsWith("-chars");
   const isSyllableMode = deckType === "korean-syllables";
-  const contentType = isSentenceMode ? "문장" : "단어";
 
   let sizeSliderLabel = "크기";
   if (isKanjiMode) sizeSliderLabel = "한자 크기";
@@ -234,68 +225,21 @@ export function SettingsDialog({
             </div>
           )}
 
-          {/* AI Content Import */}
+          {/* Deck Reset */}
           <div className="mt-4 border-t ui-divider pt-4">
-            {showContentImport ? (
-              user ? (
-                <>
-                  <div>
-                    <label className="block text-sm text-muted-foreground mb-1">새로운 {contentType} 주제</label>
-                    <input
-                      type="text"
-                      value={topic}
-                      onChange={(e) => setTopic && setTopic(e.target.value)}
-                      className="w-full bg-input border border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                      placeholder={`예: 여행, 음식 (${contentType})`}
-                    />
-                  </div>
-                  <div className="mt-2">
-                    <label className="block text-sm text-muted-foreground mb-1">생성할 {contentType} 개수</label>
-                    <Select value={String(wordCount)} onValueChange={(v) => setWordCount && setWordCount(Number(v))}>
-                      <SelectTrigger className="w-full bg-input border-border text-foreground">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="z-[70]" position="popper" sideOffset={8}>
-                        {[5, 10, 15, 20].map((num) => (
-                          <SelectItem key={num} value={String(num)}>
-                            {num}개
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="mt-4 flex gap-2">
-                    <Button
-                      size="sm"
-                      className="flex-1" // primary button
-                      disabled={loadingImport}
-                      onClick={() => importContent && importContent(topic || "", wordCount || 10)}
-                    >
-                      {loadingImport ? "생성 중…" : `AI ${contentType} 생성`}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        resetDeck();
-                        alert("덱을 기본값으로 복원했습니다.");
-                      }}
-                    >
-                      저장본 복원
-                    </Button>
-                  </div>
-                  <div className="mt-3 text-xs text-muted-foreground/80">* AI 생성 기능은 외부 API를 사용합니다.</div>
-                </>
-              ) : (
-                <div className="text-center text-sm text-muted-foreground">
-                  {contentType}을 생성하려면 로그인이 필요합니다.
-                </div>
-              )
-            ) : (
-              <div className="text-center text-sm text-muted-foreground">
-                이 학습 모드는 AI를 지원하지 않습니다.
-              </div>
-            )}
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  resetDeck();
+                  alert("덱을 기본값으로 복원했습니다.");
+                }}
+              >
+                저장본 복원
+              </Button>
+            </div>
           </div>
         </div>
       </DialogContent>

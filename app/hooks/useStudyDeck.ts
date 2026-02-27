@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { doc, onSnapshot, updateDoc, setDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, setDoc, deleteField } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
 import type { UserProfile } from "@/app/AuthContext";
 
@@ -17,8 +17,19 @@ const DECK_CACHE_PREFIX = "ssunbae:study-deck:v1";
 
 type DeckCachePayload<T extends HasId> = {
   deck?: T[];
+  deckIds?: number[];
   favs?: Record<number, true> | Record<string, boolean>;
 };
+
+function createDeckStateSignature<T extends HasId>(deck: T[], favs: Record<number, true>) {
+  const deckIds = deck.map((card) => card.id).join(",");
+  const favIds = Object.keys(favs)
+    .map((id) => Number(id))
+    .filter((id) => Number.isInteger(id))
+    .sort((a, b) => a - b)
+    .join(",");
+  return `${deckIds}|${favIds}`;
+}
 
 function getDeckCacheKey(uid: string, deckType: string) {
   return `${DECK_CACHE_PREFIX}:${uid}:${deckType}`;
@@ -48,7 +59,7 @@ function writeDeckCache<T extends HasId>(
     localStorage.setItem(
       getDeckCacheKey(uid, deckType),
       JSON.stringify({
-        deck,
+        deckIds: deck.map((card) => card.id),
         favs,
         updatedAt: Date.now(),
       })
@@ -58,8 +69,34 @@ function writeDeckCache<T extends HasId>(
   }
 }
 
-function reconcileDeckWithBase<T extends HasId>(savedDeck: T[] | undefined, baseDeck: T[]): T[] {
-  if (!Array.isArray(savedDeck) || savedDeck.length === 0) {
+function sanitizeDeckIds(rawDeckIds: unknown): number[] | undefined {
+  if (!Array.isArray(rawDeckIds) || rawDeckIds.length === 0) return undefined;
+  const used = new Set<number>();
+  const next: number[] = [];
+
+  for (const id of rawDeckIds) {
+    const numericId = Number(id);
+    if (!Number.isInteger(numericId)) continue;
+    if (used.has(numericId)) continue;
+    used.add(numericId);
+    next.push(numericId);
+  }
+
+  return next.length > 0 ? next : undefined;
+}
+
+function reconcileDeckWithBase<T extends HasId>(
+  savedDeckIds: number[] | undefined,
+  legacySavedDeck: T[] | undefined,
+  baseDeck: T[]
+): T[] {
+  const orderedIds = Array.isArray(savedDeckIds) && savedDeckIds.length > 0
+    ? savedDeckIds
+    : Array.isArray(legacySavedDeck) && legacySavedDeck.length > 0
+      ? legacySavedDeck.map((card) => card.id)
+      : undefined;
+
+  if (!orderedIds || orderedIds.length === 0) {
     return baseDeck;
   }
 
@@ -68,11 +105,11 @@ function reconcileDeckWithBase<T extends HasId>(savedDeck: T[] | undefined, base
   const merged: T[] = [];
 
   // 저장된 순서는 유지하되, 내용은 최신 baseDeck 데이터를 사용
-  for (const savedCard of savedDeck) {
-    const latest = baseById.get(savedCard.id);
-    if (!latest || usedIds.has(savedCard.id)) continue;
+  for (const savedId of orderedIds) {
+    const latest = baseById.get(savedId);
+    if (!latest || usedIds.has(savedId)) continue;
     merged.push(latest);
-    usedIds.add(savedCard.id);
+    usedIds.add(savedId);
   }
 
   // 서버/로컬에 새로 추가된 카드는 뒤에 붙임
@@ -117,6 +154,8 @@ export function useStudyDeck<T extends HasId>({
   const [error, setError] = useState<string | null>(null);
   
   const isInitialLoadComplete = useRef(false);
+  const lastSyncedSignatureRef = useRef<string | null>(null);
+  const saveDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // [추가] 백그라운드 복귀 시 데이터 동기화를 강제하기 위한 상태
   const [syncTrigger, setSyncTrigger] = useState(0);
@@ -142,6 +181,11 @@ export function useStudyDeck<T extends HasId>({
   // 1단계: API 또는 로컬에서 기본 덱(base deck)을 가져오는 로직
   useEffect(() => {
     isInitialLoadComplete.current = false;
+    lastSyncedSignatureRef.current = null;
+    if (saveDebounceRef.current) {
+      clearTimeout(saveDebounceRef.current);
+      saveDebounceRef.current = null;
+    }
     setIsLoading(true);
     setError(null);
     setBaseDeck(initialDeck);
@@ -173,6 +217,7 @@ export function useStudyDeck<T extends HasId>({
     if (!user) {
       setDeck(baseDeck);
       setFavs({});
+      lastSyncedSignatureRef.current = createDeckStateSignature(baseDeck, {});
       setIsLoading(false);
       isInitialLoadComplete.current = true;
       return;
@@ -180,8 +225,9 @@ export function useStudyDeck<T extends HasId>({
 
     const cached = readDeckCache<T>(user.uid, deckType);
     if (cached) {
+      const cachedDeckIds = sanitizeDeckIds(cached.deckIds);
       const cachedDeck = Array.isArray(cached.deck) ? cached.deck : undefined;
-      setDeck(reconcileDeckWithBase(cachedDeck, baseDeck));
+      setDeck(reconcileDeckWithBase(cachedDeckIds, cachedDeck, baseDeck));
       setFavs(sanitizeFavs(cached.favs, baseDeck));
     }
 
@@ -191,13 +237,17 @@ export function useStudyDeck<T extends HasId>({
       (docSnap) => {
         if (docSnap.exists()) {
           const learningData = docSnap.data().learningData?.[deckType];
-          const savedDeck = Array.isArray(learningData?.deck) ? (learningData.deck as T[]) : undefined;
-          const nextDeck = reconcileDeckWithBase(savedDeck, baseDeck);
+          const savedDeckIds = sanitizeDeckIds(learningData?.deckIds);
+          const legacySavedDeck = Array.isArray(learningData?.deck) ? (learningData.deck as T[]) : undefined;
+          const nextDeck = reconcileDeckWithBase(savedDeckIds, legacySavedDeck, baseDeck);
           const nextFavs = sanitizeFavs(learningData?.favs, baseDeck);
+          lastSyncedSignatureRef.current = createDeckStateSignature(nextDeck, nextFavs);
           setDeck(nextDeck);
           setFavs(nextFavs);
           writeDeckCache(user.uid, deckType, nextDeck, nextFavs);
         } else {
+          // 문서가 없으면 최초 1회 저장이 필요하므로 동기화 기준 시그니처를 비웁니다.
+          lastSyncedSignatureRef.current = null;
           setDeck(baseDeck);
           setFavs({});
           writeDeckCache(user.uid, deckType, baseDeck, {});
@@ -225,28 +275,51 @@ export function useStudyDeck<T extends HasId>({
       return;
     }
 
+    const currentSignature = createDeckStateSignature(deck, favs);
+    if (currentSignature === lastSyncedSignatureRef.current) {
+      return;
+    }
+
+    if (saveDebounceRef.current) {
+      clearTimeout(saveDebounceRef.current);
+      saveDebounceRef.current = null;
+    }
+
     const save = async () => {
       try {
         const userDocRef = doc(db, "users", user.uid);
         writeDeckCache(user.uid, deckType, deck, favs);
+        const deckIds = deck.map((card) => card.id);
         await updateDoc(userDocRef, {
-          [`learningData.${deckType}.deck`]: deck,
+          [`learningData.${deckType}.deckIds`]: deckIds,
           [`learningData.${deckType}.favs`]: favs,
+          [`learningData.${deckType}.deck`]: deleteField(),
         }).catch(async (err) => {
           if (err.code === 'not-found' || err.message.includes("No document to update")) {
             await setDoc(userDocRef, { 
-              learningData: { [deckType]: { deck, favs } } 
+              learningData: { [deckType]: { deckIds, favs } } 
             }, { merge: true });
           } else {
             console.error("UpdateDoc failed:", err);
           }
         });
+        lastSyncedSignatureRef.current = currentSignature;
       } catch (e) {
         console.error("데이터 저장 실패:", e);
       }
     };
 
-    save();
+    // 빠른 연속 변경(즐겨찾기 토글 등)을 묶어서 Firestore 쓰기 폭주를 방지합니다.
+    saveDebounceRef.current = setTimeout(() => {
+      void save();
+    }, 300);
+
+    return () => {
+      if (saveDebounceRef.current) {
+        clearTimeout(saveDebounceRef.current);
+        saveDebounceRef.current = null;
+      }
+    };
   }, [deck, favs, user, deckType]);
 
   const toggleFav = useCallback((id: number) => {

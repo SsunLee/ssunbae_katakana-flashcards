@@ -17,6 +17,54 @@ interface UseRemoteStudyDeckProps<T extends HasId> {
   authLoading?: boolean;
 }
 
+function sanitizeDeckIds(rawDeckIds: unknown): number[] | undefined {
+  if (!Array.isArray(rawDeckIds) || rawDeckIds.length === 0) return undefined;
+  const used = new Set<number>();
+  const next: number[] = [];
+
+  for (const rawId of rawDeckIds) {
+    const numericId = Number(rawId);
+    if (!Number.isInteger(numericId)) continue;
+    if (used.has(numericId)) continue;
+    used.add(numericId);
+    next.push(numericId);
+  }
+
+  return next.length > 0 ? next : undefined;
+}
+
+function reconcileDeckWithBase<T extends HasId>(
+  savedDeckIds: number[] | undefined,
+  legacyDeck: T[] | undefined,
+  baseDeck: T[]
+): T[] {
+  const orderedIds = Array.isArray(savedDeckIds) && savedDeckIds.length > 0
+    ? savedDeckIds
+    : Array.isArray(legacyDeck) && legacyDeck.length > 0
+      ? legacyDeck.map((card) => card.id)
+      : undefined;
+
+  if (!orderedIds || orderedIds.length === 0) return baseDeck;
+
+  const baseById = new Map(baseDeck.map((card) => [card.id, card]));
+  const usedIds = new Set<number>();
+  const merged: T[] = [];
+
+  for (const savedId of orderedIds) {
+    const latest = baseById.get(savedId);
+    if (!latest || usedIds.has(savedId)) continue;
+    merged.push(latest);
+    usedIds.add(savedId);
+  }
+
+  for (const baseCard of baseDeck) {
+    if (usedIds.has(baseCard.id)) continue;
+    merged.push(baseCard);
+  }
+
+  return merged.length > 0 ? merged : baseDeck;
+}
+
 export function useRemoteStudyDeck<T extends HasId>(props: UseRemoteStudyDeckProps<T>) {
   const { user, deckType, fetchData, fallbackData, authLoading } = props;
   const [deck, setDeck] = useState<T[]>([]);
@@ -44,7 +92,9 @@ export function useRemoteStudyDeck<T extends HasId>(props: UseRemoteStudyDeckPro
         if (userDoc.exists()) {
           const userData = userDoc.data();
           const mode = userData.learningData?.[deckType];
-          setDeck(mode?.deck?.length ? (mode.deck as T[]) : fallbackData);
+          const savedDeckIds = sanitizeDeckIds(mode?.deckIds);
+          const legacyDeck = Array.isArray(mode?.deck) ? (mode.deck as T[]) : undefined;
+          setDeck(reconcileDeckWithBase(savedDeckIds, legacyDeck, fallbackData));
           setFavs(mode?.favs || {});
         } else {
           setDeck(fallbackData);

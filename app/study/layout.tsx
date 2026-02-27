@@ -63,8 +63,15 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   );
   const isViewportReady = viewportWidth !== null;
   const isPcSideAdVisible = isViewportReady && viewportWidth >= 1340;
-  const isKatakanaWordsPage = pathname === "/study/japanese/katakana-words";
-  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible && !isKatakanaWordsPage;
+  const isInlineMobileAdPage =
+    pathname === "/study/japanese/katakana-words" ||
+    pathname === "/study/japanese/verbs" ||
+    pathname === "/study/japanese/kanji" ||
+    pathname === "/study/japanese/sentences" ||
+    pathname === "/study/japanese/kana-chars" ||
+    pathname === "/study/japanese/katakana-chars" ||
+    pathname === "/study/japanese/hiragana-chars";
+  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible && !isInlineMobileAdPage;
 
   useEffect(() => {
     const updateWidth = () => setViewportWidth(window.innerWidth);
@@ -167,10 +174,10 @@ function StudyShell({ children }: { children: React.ReactNode }) {
 
       {isPcSideAdVisible ? (
         <>
-          <aside className="fixed left-0 top-1/2 -translate-y-1/2 z-20 pl-2">
+          <aside className="fixed left-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
             <KakaoAdFit adUnit={leftAdUnit} width={160} height={600} />
           </aside>
-          <aside className="fixed right-0 top-1/2 -translate-y-1/2 z-20 pr-2">
+          <aside className="fixed right-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
             <KakaoAdFit adUnit={rightAdUnit} width={160} height={600} />
           </aside>
         </>

@@ -15,6 +15,7 @@ import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import { SentenceCardView } from "@/app/components/SentenceCardView";
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 // 데이터 & 훅 & 상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
@@ -23,6 +24,7 @@ import { SENTENCES, type Sentence } from "@/app/data/sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 import { useMounted } from "@/app/hooks/useMounted";
 
@@ -48,6 +50,12 @@ export default function SentencesPage() {
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
   const [sentenceFontSize, setSentenceFontSize] = useState(28);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+  const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const mobileInlineAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultMobileInlineAdUnit
+  );
   
 
 
@@ -112,8 +120,20 @@ export default function SentencesPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+  useEffect(() => {
+    const updateWidth = () => setViewportWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    window.addEventListener("orientationchange", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener("orientationchange", updateWidth);
+    };
+  }, []);
+
 
   const mounted = useMounted();
+  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
   // 로딩 상태 UI
   if (!mounted) {
     return (
@@ -259,6 +279,12 @@ export default function SentencesPage() {
           />
         </label>
       </div>
+
+      {isMobileViewport ? (
+        <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+          <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+        </div>
+      ) : null}
 
       {/* ✅ 테마에 맞게 스타일 변경 */}
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">

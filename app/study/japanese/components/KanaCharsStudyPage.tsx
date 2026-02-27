@@ -14,6 +14,7 @@ import { GridCardView } from "@/app/components/GridCardView";
 import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 import type { Word } from "@/app/data/words";
 import { KATAKANA_CHARS } from "@/app/data/katakanaChars";
@@ -23,6 +24,7 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
@@ -89,12 +91,18 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
   const [charFontSize, setCharFontSize] = useState(96);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const [filters, setFilters] = useState<Record<FilterKey, boolean>>({
     gojuon: true,
     dakuten: true,
     handakuten: false,
     yoon: false,
   });
+  const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const mobileInlineAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultMobileInlineAdUnit
+  );
 
   useEffect(() => {
     setIndex(0);
@@ -199,8 +207,20 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+  useEffect(() => {
+    const updateWidth = () => setViewportWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    window.addEventListener("orientationchange", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener("orientationchange", updateWidth);
+    };
+  }, []);
+
   const mounted = useMounted();
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
+  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
   const subject = STUDY_LABELS[deckType] || `${kanaLabel} 글자`;
 
   return (
@@ -359,6 +379,12 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
           />
         </label>
       </div>
+
+      {isMobileViewport ? (
+        <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+          <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+        </div>
+      ) : null}
 
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
