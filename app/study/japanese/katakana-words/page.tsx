@@ -15,6 +15,7 @@ import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import { toast } from 'sonner'
+import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 // 데이터/훅/상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
@@ -27,6 +28,7 @@ import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
 import { useContentImporter } from "@/app/hooks/useContentImporter";
 import { fetchGeneratedContent } from "@/app/services/wordService";
+import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // error message
 import { ERROR_MESSAGES, SUCCESS_MESSAGES, FOOTER_TEXTS } from "@/app/constants/message";
@@ -68,6 +70,12 @@ export default function KatakanaWordsPage() {
   const [showSettings, setShowSettings] = useState(false);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [fontFamily, setFontFamily] = useState<string>("Noto Sans JP");
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+  const defaultMobileInlineAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
+  const mobileInlineAdUnit = resolveAdUnit(
+    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MOBILE_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
+    defaultMobileInlineAdUnit
+  );
 
 
   
@@ -169,8 +177,20 @@ export default function KatakanaWordsPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [viewMode, onFlip, next, prev]);
 
+  useEffect(() => {
+    const updateWidth = () => setViewportWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    window.addEventListener("orientationchange", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      window.removeEventListener("orientationchange", updateWidth);
+    };
+  }, []);
+
 
   const mounted = useMounted();
+  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
   
   if (!mounted) {
     return (
@@ -331,6 +351,12 @@ export default function KatakanaWordsPage() {
           />
         </label>
       </div>
+
+      {isMobileViewport ? (
+        <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+          <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+        </div>
+      ) : null}
       
       {/* 안내/버전 */}
       {/* ✅ 배경, 텍스트 색상을 테마에 맞게 변경 */}

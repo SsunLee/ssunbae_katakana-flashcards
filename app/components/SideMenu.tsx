@@ -212,47 +212,51 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
         <div className="flex-grow p-3 overflow-y-auto flex flex-col">
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
-              <AccordionItem value={lang.value} key={lang.value} disabled={lang.disabled} className="border-b-0">
-                  <AccordionTrigger className="text-xs font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-2">
-                    <MenuIcon icon={lang.icon} size={18} />
-                    <span>{lang.language}</span>
-                  </AccordionTrigger>
-                <AccordionContent 
-                  className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-border/60"
-                >
-                  <div className="space-y-0">
-                  {lang.items.map((item) => {
-                      const isKanaCharsItem = item.href === "/study/japanese/kana-chars";
-                      const isKanaCharsPath =
-                        pathname === "/study/japanese/kana-chars" ||
-                        pathname === "/study/japanese/katakana-chars" ||
-                        pathname === "/study/japanese/hiragana-chars";
-                      const isActive = pathname === item.href || (isKanaCharsItem && isKanaCharsPath);
-                      return (
-                      <Button
-                        key={item.href}
-                        variant="ghost"
-                        disabled={item.disabled}
-                        onClick={() => handleNavigate(item.href)}
-                        className={`w-full justify-start px-2 py-2 text-[13px] font-medium h-auto min-h-0 ${
-                          isActive
-                            ? "bg-primary/10 text-primary font-semibold"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                        }`}
-                      >
-                        <MenuIcon icon={item.icon} />
-                        <span className="truncate">{item.label}</span>
-                      </Button>
-                      );
-                  })}
+              <React.Fragment key={lang.value}>
+                <AccordionItem value={lang.value} disabled={lang.disabled} className="border-b-0">
+                    <AccordionTrigger className="text-xs font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-2">
+                      <MenuIcon icon={lang.icon} size={18} />
+                      <span>{lang.language}</span>
+                    </AccordionTrigger>
+                  <AccordionContent 
+                    className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-border/60"
+                  >
+                    <div className="space-y-0">
+                    {lang.items.map((item) => {
+                        const isKanaCharsItem = item.href === "/study/japanese/kana-chars";
+                        const isKanaCharsPath =
+                          pathname === "/study/japanese/kana-chars" ||
+                          pathname === "/study/japanese/katakana-chars" ||
+                          pathname === "/study/japanese/hiragana-chars";
+                        const isActive = pathname === item.href || (isKanaCharsItem && isKanaCharsPath);
+                        return (
+                        <Button
+                          key={item.href}
+                          variant="ghost"
+                          disabled={item.disabled}
+                          onClick={() => handleNavigate(item.href)}
+                          className={`w-full justify-start px-2 py-2 text-[13px] font-medium h-auto min-h-0 ${
+                            isActive
+                              ? "bg-primary/10 text-primary font-semibold"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          }`}
+                        >
+                          <MenuIcon icon={item.icon} />
+                          <span className="truncate">{item.label}</span>
+                        </Button>
+                        );
+                    })}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+                {lang.value === "english" ? (
+                  <div className="px-2 py-2 flex justify-center">
+                    <KakaoAdFit adUnit={menuAdUnit} width={250} height={250} />
                   </div>
-                </AccordionContent>
-              </AccordionItem>
+                ) : null}
+              </React.Fragment>
             ))}
           </Accordion>
-          <div className="mt-4 flex justify-center">
-            <KakaoAdFit adUnit={menuAdUnit} width={250} height={250} />
-          </div>
         </div>
         
         <div 

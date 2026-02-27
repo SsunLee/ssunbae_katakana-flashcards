@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import SideMenu from "@/app/components/SideMenu";
 import {
   Dialog,
@@ -33,6 +34,7 @@ export default function StudyLayout({ children }: { children: React.ReactNode })
 function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isOpen, close, page, setPage } = useAuthModal();
+  const pathname = usePathname();
   const debounce = useRef<number | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
@@ -60,8 +62,9 @@ function StudyShell({ children }: { children: React.ReactNode }) {
     defaultMobileBottomAdUnit
   );
   const isViewportReady = viewportWidth !== null;
-  const isPcSideAdVisible = isViewportReady && viewportWidth >= 1360;
-  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible;
+  const isPcSideAdVisible = isViewportReady && viewportWidth >= 1340;
+  const isKatakanaWordsPage = pathname === "/study/japanese/katakana-words";
+  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible && !isKatakanaWordsPage;
 
   useEffect(() => {
     const updateWidth = () => setViewportWidth(window.innerWidth);
