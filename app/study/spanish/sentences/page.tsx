@@ -18,6 +18,7 @@ import { SpanishSentenceCardView } from "@/app/components/SpanishSentenceCardVie
 
 // Data, Hooks, Constants
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useEsSpeech } from "@/app/hooks/useEsSpeech";
 import { SPANISH_SENTENCES, type SpanishSentence } from "@/app/data/spanish-sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
@@ -101,6 +102,13 @@ export default function SpanishSentencesPage() {
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || fontFamily, [fontFamily]);
+
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {

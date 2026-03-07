@@ -16,6 +16,7 @@ import VerbCardView from "@/app/components/VerbCardView";
 import VerbGridMode from "@/app/components/VerbGridcardView";
 import VerbFormsTable from "@/app/components/VerbFormsTable";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { fetchVerbs, isRemoteStudyApiEnabled } from "@/app/services/api";
 import { VERBS as fallbackVerbs } from "@/app/data/verbs";
@@ -24,7 +25,7 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
 import { VerbCardSkeleton } from "@/app/components/VerbCardSkeleton";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
@@ -218,6 +219,13 @@ export default function JapaneseVerbsPage() {
     [fontFamily]
   );
 
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && !isLoading && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (isWritingMode) return;
@@ -245,7 +253,7 @@ export default function JapaneseVerbsPage() {
   }, []);
 
   const mounted = useMounted();
-  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
+  const shouldShowInlineAd = viewportWidth !== null && viewportWidth < INLINE_CONTENT_AD_MAX_WIDTH;
   if (!mounted) {
     return (
       <div className="min-h-screen w-full bg-background flex items-center justify-center">
@@ -416,11 +424,11 @@ export default function JapaneseVerbsPage() {
 
       {!isLoading && viewMode === "single" && !isWritingMode && (
         <>
-          {isMobileViewport ? (
-            <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
-              <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
-            </div>
-          ) : null}
+          {shouldShowInlineAd ? (
+              <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
+                <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
+              </div>
+            ) : null}
           <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
             <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
               <li>⚙️설정에서 TTS Voice, Font를 조절할 수 있습니다.</li>

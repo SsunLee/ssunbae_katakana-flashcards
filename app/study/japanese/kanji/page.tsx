@@ -26,8 +26,9 @@ import { FONT_STACKS } from "@/app/constants/fonts";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // JLPT 필터 관련 상수 정의
 const JLPT_FILTERS = {
@@ -140,6 +141,13 @@ export default function KanjiPage() {
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"], [fontFamily]);
 
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && !isLoading && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || isWritingMode) return;
@@ -165,7 +173,7 @@ export default function KanjiPage() {
 
   const mounted = useMounted();
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
-  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
+  const shouldShowInlineAd = viewportWidth !== null && viewportWidth < INLINE_CONTENT_AD_MAX_WIDTH;
   
   if (isLoading) {
     return (
@@ -310,13 +318,13 @@ export default function KanjiPage() {
           </label>
       </div>
 
-      {isMobileViewport ? (
+      {shouldShowInlineAd ? (
         <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
           <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
         </div>
       ) : null}
 
-      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/so border border-border rounded-xl px-4 py-3">
+      <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>⚙️설정에서 TTS Voice, Font, 한자 폰트 크기를 조절할 수 있습니다.</li>
           <li>키보드: <kbd>Enter</kbd> 카드 뒤집기, <kbd>←/→</kbd> 이전/다음</li>

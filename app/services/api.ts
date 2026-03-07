@@ -1,5 +1,6 @@
 // ssunbae_katakana-flashcards/app/services/api.ts
 import axios, { AxiosError } from 'axios';
+import type { JapaneseSentenceQuiz } from "@/app/types/japaneseSentenceQuiz";
 import type { Verb } from "@/app/types/verbs";
 import type { Kanji } from '@/app/types/kanji';
 import type { Word } from '@/app/types/words';
@@ -117,6 +118,21 @@ export async function fetchWords(): Promise<Word[]> {
   } catch (error) {
     const e = error as AxiosError;
     console.error(`Failed to fetch words: ${e.message}`);
+    throw e;
+  }
+}
+
+export async function fetchJapaneseSentenceQuiz(): Promise<JapaneseSentenceQuiz[]> {
+  try {
+    const response = await getWithFallback<{ quizzes: JapaneseSentenceQuiz[] }>('/api/japanese-sentence-quiz');
+
+    if (response.data && Array.isArray(response.data.quizzes)) {
+      return response.data.quizzes;
+    }
+    throw new Error("Invalid API response structure");
+  } catch (error) {
+    const e = error as AxiosError;
+    console.error(`Failed to fetch japanese sentence quiz: ${e.message}`);
     throw e;
   }
 }

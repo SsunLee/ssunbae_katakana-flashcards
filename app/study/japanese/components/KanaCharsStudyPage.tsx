@@ -20,11 +20,12 @@ import type { Word } from "@/app/data/words";
 import { KATAKANA_CHARS } from "@/app/data/katakanaChars";
 import { HIRAGANA_CHARS } from "@/app/data/hiraganaChars";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from "@/app/hooks/useMounted";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
@@ -190,6 +191,13 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
     [fontFamily]
   );
 
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -220,7 +228,7 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
 
   const mounted = useMounted();
   const canTts = mounted && typeof window !== "undefined" && "speechSynthesis" in window;
-  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
+  const shouldShowInlineAd = viewportWidth !== null && viewportWidth < INLINE_CONTENT_AD_MAX_WIDTH;
   const subject = STUDY_LABELS[deckType] || `${kanaLabel} 글자`;
 
   return (
@@ -380,7 +388,7 @@ export default function KanaCharsStudyPage({ initialMode = "katakana" }: Props) 
         </label>
       </div>
 
-      {isMobileViewport ? (
+      {shouldShowInlineAd ? (
         <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
           <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
         </div>

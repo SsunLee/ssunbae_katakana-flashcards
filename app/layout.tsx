@@ -1,8 +1,8 @@
 // ssunbae_katakana-flashcards/app/layout.tsx
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans_JP } from 'next/font/google';
-import { Noto_Sans_KR, Noto_Serif_KR } from 'next/font/google'
 
+import '@fontsource/noto-sans-jp/400.css';
+import '@fontsource/noto-sans-jp/700.css';
 import './styles/globals.css';
 import ClientProviders from '@/app/components/ClientProviders';
 import Script from 'next/script';
@@ -11,27 +11,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL = 'https://ssunedu.com';
-
-
-
-const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-noto-sans-jp',
-});
-const notoSansKr = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-sans-kr',
-})
-
-const notoSerifKr = Noto_Serif_KR({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  variable: '--font-noto-serif-kr',
-})
-
-
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -171,7 +150,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html 
       lang="ko" 
-      className={`${notoSansJP.variable} ${notoSansKr.variable} ${notoSerifKr.variable}`}
       suppressHydrationWarning // ✅ 수정된 부분: 테마 변경으로 인한 Hydration 경고를 무시합니다.
     >
       <head />

@@ -2,34 +2,35 @@
 
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { LogOut } from "lucide-react";
+import { BarChart3, LogOut, Settings, ShieldAlert } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
+import { useTheme } from "@/app/context/ThemeContext";
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "./ui/sheet";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
 } from "./ui/alert-dialog";
 import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
-import { ShieldAlert } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ProfileAvatarIcon from "./ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
-import KakaoAdFit from "./KakaoAdFit";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 interface SideMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  hideAds?: boolean;
 }
 
 type MenuItem = { href: string; label: string; icon?: string; disabled?: boolean; };
@@ -42,6 +43,7 @@ const menuConfig: MenuGroup[] = [
     icon: "🇯🇵",
     items: [
       { href: "/study/japanese/katakana-words", label: "가타카나 단어", icon: "/icons/jp_word.png" },
+      { href: "/study/japanese/sentence-quiz", label: "문장 퀴즈", icon: "🧩" },
       { href: "/study/japanese/verbs", label: "JLPT 동사", icon: "📝", disabled: false },
       { href: "/study/japanese/kanji", label: "JLPT 한자", icon: "🎴", disabled: false },
       { href: "/study/japanese/kana-chars", label: "가타카나 / 히라가나", icon: "/icons/jp_katakana.png" },
@@ -53,7 +55,10 @@ const menuConfig: MenuGroup[] = [
     value: "english",
     icon: "🇺🇸",
     disabled: false,
-    items: [{ href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false }],
+    items: [
+      { href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false },
+      { href: "/study/english/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
+    ],
   },
   {
     language: "스페인어 공부",
@@ -94,21 +99,27 @@ const MenuIcon = ({ icon, size = 16 }: { icon?: string; size?: number }) => {
 };
 
 
-export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
+export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuProps) {
   const { user } = useAuth();
   const [menuLogoSrc, setMenuLogoSrc] = useState("/ssunedu_logo.png");
   const router = useRouter();
   const pathname = usePathname();
   const { open } = useAuthModal();
-  const defaultKakaoAdUnit = normalizeAdUnit("DAN-pFkSBc0GiRbrLlpo");
-  const menuAdUnit = resolveAdUnit(
-    [process.env.NEXT_PUBLIC_KAKAO_ADFIT_MENU_UNIT, process.env.NEXT_PUBLIC_KAKAO_ADFIT_UNIT],
-    defaultKakaoAdUnit
-  );
+  const { theme, setTheme } = useTheme();
 
   const [openDelete, setOpenDelete] = useState(false);
   const [needReauth, setNeedReauth] = useState(false);
   const [password, setPassword] = useState("");
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [lastStudyPage, setLastStudyPage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const savedPage = window.localStorage.getItem("lastActivePage");
+    if (savedPage?.startsWith("/study/") && savedPage !== "/study/dashboard") {
+      setLastStudyPage(savedPage);
+    }
+  }, [pathname, isOpen]);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -123,6 +134,10 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
   const handleNavigate = (href: string) => {
     router.push(href);
     onClose();
+  };
+
+  const handleOpenSettings = () => {
+    setIsSettingsOpen(true);
   };
 
   async function callDeleteEndpoint() {
@@ -220,6 +235,21 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
         </div>
 
         <div className="flex-grow p-3 overflow-y-auto flex flex-col">
+          <div className="mb-3">
+            <a
+              href="/study/dashboard"
+              onClick={onClose}
+              className={`flex w-full items-center justify-start rounded-xl px-3 py-2 text-[13px] font-semibold ${
+                pathname === "/study/dashboard"
+                  ? "bg-primary/10 text-primary"
+                  : "border border-border bg-background text-foreground hover:bg-muted"
+              }`}
+            >
+              <BarChart3 className="mr-2 inline-block h-4 w-4 align-[-2px]" />
+              <span>분석 대시보드</span>
+            </a>
+          </div>
+
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
             {menuConfig.map((lang) => (
               <React.Fragment key={lang.value}>
@@ -259,11 +289,6 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-                {lang.value === "english" ? (
-                  <div className="px-2 py-2 flex justify-center">
-                    <KakaoAdFit adUnit={menuAdUnit} width={250} height={250} />
-                  </div>
-                ) : null}
               </React.Fragment>
             ))}
           </Accordion>
@@ -274,12 +299,12 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
           style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 24px)' }}
         >
           {user ? (
-            <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-col items-start gap-3">
               <button 
                 onClick={handleProfileClick} 
-                className="flex items-center gap-3 text-left w-full hover:bg-muted rounded-lg p-2 -m-2 transition-colors"
+                className="flex items-center gap-2 text-left w-full rounded-lg px-2 py-1.5 transition-colors hover:bg-muted"
               >
-                <Avatar className="w-10 h-10">
+                <Avatar className="h-9 w-9">
                   {!user.avatarIcon && (
                     <AvatarImage src={user.photoURL || undefined} alt={user.nickname || 'User'} />
                   )}
@@ -287,44 +312,100 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
                     style={{ backgroundColor: user.avatarColor || DEFAULT_AVATAR_COLOR }}
                     className="text-white"
                   >
-                    <ProfileAvatarIcon icon={user.avatarIcon || DEFAULT_AVATAR_ICON} className="w-5 h-5" />
+                    <ProfileAvatarIcon icon={user.avatarIcon || DEFAULT_AVATAR_ICON} className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-semibold text-foreground text-sm truncate">{user.nickname}님</p>
-                  <p className="text-xs text-muted-foreground">프로필 수정</p>
+                  <p className="text-[11px] text-muted-foreground">프로필 수정</p>
                 </div>
               </button>
-              
-              <Button onClick={() => setOpenDelete(true)} variant="destructive" className="w-full">
-                <ShieldAlert className="w-4 h-4 mr-2" />
-                계정 삭제
-              </Button>
 
-              <Button onClick={handleLogout} variant="outline" className="w-full">
-                <LogOut className="w-4 h-4 mr-2" />
-                로그아웃
-              </Button>
-              
-              <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
+              <div className="grid w-full grid-cols-2 gap-2">
+                <Button onClick={handleOpenSettings} variant="outline" size="sm" className="h-8 px-2 text-xs">
+                  <Settings className="h-3.5 w-3.5" />
+                  설정
+                </Button>
+                <Button onClick={() => setOpenDelete(true)} variant="destructive" size="sm" className="h-8 px-2 text-xs">
+                  <ShieldAlert className="h-3.5 w-3.5" />
+                  계정 삭제
+                </Button>
+                <Button onClick={handleLogout} variant="outline" size="sm" className="h-8 px-2 text-xs">
+                  <LogOut className="h-3.5 w-3.5" />
+                  로그아웃
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => handleNavigate("/support")} className="h-8 px-2 text-xs">
                 Support
-              </Button>
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-2">
               <Button
                 variant="default"
                 onClick={() => openAuthFromSheet("login")}
-                className="w-full font-bold"
+                className="w-full font-bold h-9"
               >
                 로그인 / 회원가입
               </Button>
-              <Button variant="ghost" onClick={() => handleNavigate("/support")} className="w-full">
+              <div className="grid w-full grid-cols-2 gap-2">
+                <Button variant="outline" size="sm" onClick={handleOpenSettings} className="h-8 px-2 text-xs">
+                  <Settings className="h-3.5 w-3.5" />
+                  설정
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => handleNavigate("/support")} className="h-8 px-2 text-xs">
                 Support
-              </Button>
+                </Button>
+              </div>
             </div>
           )} 
         </div>
+
+        <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+          <DialogContent className="max-w-sm rounded-2xl border-border bg-card text-card-foreground">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2 text-base">
+                <Settings className="h-4 w-4" />
+                설정
+              </DialogTitle>
+              <DialogDescription>
+                서랍 메뉴에서 바로 바꿀 수 있는 공통 설정입니다.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-foreground">테마</p>
+                <Select value={theme} onValueChange={(value) => setTheme(value as "light" | "dark")}>
+                  <SelectTrigger className="w-full border-border bg-muted/60 text-foreground hover:bg-muted">
+                    <SelectValue placeholder="테마 선택" />
+                  </SelectTrigger>
+                  <SelectContent className="border-border bg-card text-foreground">
+                    <SelectItem value="light" className="text-foreground">White mode</SelectItem>
+                    <SelectItem value="dark" className="text-foreground">Dark mode</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="rounded-xl border border-border bg-muted/40 px-3 py-3 text-xs leading-5 text-muted-foreground">
+                음성, 폰트, 글자 크기 같은 학습별 세부 설정은 각 학습 화면의 <span className="font-semibold text-foreground">설정</span> 버튼에서 조절할 수 있습니다.
+              </div>
+
+              {lastStudyPage ? (
+                <Button
+                  variant="outline"
+                  className="h-9 w-full"
+                  onClick={() => {
+                    setIsSettingsOpen(false);
+                    handleNavigate(lastStudyPage);
+                  }}
+                >
+                  최근 학습 화면으로 이동
+                </Button>
+              ) : null}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
           <AlertDialogContent>

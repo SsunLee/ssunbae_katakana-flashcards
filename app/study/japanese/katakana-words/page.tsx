@@ -20,6 +20,7 @@ import { Skeleton } from "@/app/components/ui/skeleton";
 
 // 데이터/훅/상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
@@ -27,7 +28,7 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
 import { fetchWords, isRemoteStudyApiEnabled } from "@/app/services/api";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // error message
 import { FOOTER_TEXTS } from "@/app/constants/message";
@@ -195,6 +196,13 @@ export default function KatakanaWordsPage() {
     [fontFamily]
   );
 
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && !isLoading && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
+
   /** 키보드 단축키 */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -223,7 +231,7 @@ export default function KatakanaWordsPage() {
 
 
   const mounted = useMounted();
-  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
+  const shouldShowInlineAd = viewportWidth !== null && viewportWidth < INLINE_CONTENT_AD_MAX_WIDTH;
   
   if (!mounted) {
     return (
@@ -413,7 +421,7 @@ export default function KatakanaWordsPage() {
         </label>
       </div>
 
-      {isMobileViewport ? (
+      {shouldShowInlineAd ? (
         <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
           <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
         </div>

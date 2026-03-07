@@ -58,11 +58,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "clean": "node scripts/clean-next-artifacts.cjs",
+    "clean:build": "cross-env NEXT_DIST_DIR=.next-build node scripts/clean-next-artifacts.cjs",
+    "clean:mobile": "cross-env NEXT_DIST_DIR=.next-mobile CLEAN_EXPORT=true node scripts/clean-next-artifacts.cjs",
+    "dev": "npm run clean && next dev",
+    "build": "npm run clean:build && cross-env NEXT_DIST_DIR=.next-build next build",
+    "start": "cross-env NEXT_DIST_DIR=.next-build next start",
     "lint": "next lint",
-    "mobile:build": "BUILD_FOR_MOBILE=true next build",
+    "mobile:build": "npm run clean:mobile && cross-env BUILD_FOR_MOBILE=true NEXT_DIST_DIR=.next-mobile next build",
     "mobile:ios": "npm run mobile:build && npx cap copy ios && npx cap sync ios && npx cap open ios",
     "mobile:android": "npm run mobile:build && npx cap copy android && npx cap sync android && npx cap open android"
   },
@@ -71,6 +74,7 @@
     "@capacitor/cli": "^7.4.3",
     "@types/canvas-confetti": "^1.9.0",
     "autoprefixer": "^10.4.21",
+    "cross-env": "^10.0.0",
     "eslint": "^9.35.0",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",

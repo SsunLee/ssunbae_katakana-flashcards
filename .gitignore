@@ -13,6 +13,11 @@
 
 # production
 /build
+/out
+/.next-build
+/.next-mobile
+/.codex-temp
+tsconfig.tsbuildinfo
 
 # misc
 .DS_Store

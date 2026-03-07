@@ -22,7 +22,13 @@ import AdGuardMount from './../components/AdGuardMount';
 import AdSafeSpacer from "../components/AdSafeSpacer";  
 import { ensureShown, ensureHidden, refreshIfNeeded } from "@/app/lib/admob-banner";
 import KakaoAdFit from "@/app/components/KakaoAdFit";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import {
+  LEFT_SIDE_AD_MIN_WIDTH,
+  RIGHT_SIDE_AD_MIN_WIDTH,
+  SINGLE_LEFT_SIDE_AD_MIN_WIDTH,
+  normalizeAdUnit,
+  resolveAdUnit,
+} from "@/app/lib/kakao-adfit";
 
 
 export default function StudyLayout({ children }: { children: React.ReactNode }) {
@@ -38,6 +44,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const debounce = useRef<number | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+  const [leftAdFillState, setLeftAdFillState] = useState<"unknown" | "filled" | "empty">("unknown");
   const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
   const leftAdUnit = resolveAdUnit(
     [
@@ -63,16 +70,42 @@ function StudyShell({ children }: { children: React.ReactNode }) {
     defaultMobileBottomAdUnit
   );
   const isViewportReady = viewportWidth !== null;
-  const isPcSideAdVisible = isViewportReady && viewportWidth >= 1340;
-  const isInlineMobileAdPage =
-    pathname === "/study/japanese/katakana-words" ||
-    pathname === "/study/japanese/verbs" ||
-    pathname === "/study/japanese/kanji" ||
-    pathname === "/study/japanese/sentences" ||
-    pathname === "/study/japanese/kana-chars" ||
-    pathname === "/study/japanese/katakana-chars" ||
-    pathname === "/study/japanese/hiragana-chars";
-  const isBottomAdVisible = isViewportReady && !isPcSideAdVisible && !isInlineMobileAdPage;
+  const isDashboardPage = pathname === "/study/dashboard";
+  const isJapaneseSentenceQuizPage = pathname === "/study/japanese/sentence-quiz";
+  const pageInlineAdPaths = new Set([
+    "/study/japanese/katakana-words",
+    "/study/japanese/verbs",
+    "/study/japanese/kanji",
+    "/study/japanese/sentences",
+    "/study/japanese/kana-chars",
+    "/study/japanese/katakana-chars",
+    "/study/japanese/hiragana-chars",
+    "/study/japanese/sentence-quiz",
+  ]);
+  const hasPageInlineAd = pageInlineAdPaths.has(pathname ?? "");
+  const isPageManagedAdPage = isJapaneseSentenceQuizPage;
+  const isPcLeftAdVisible =
+    !isDashboardPage &&
+    !isPageManagedAdPage &&
+    isViewportReady &&
+    viewportWidth >= LEFT_SIDE_AD_MIN_WIDTH;
+  const isPcRightAdVisible =
+    !isDashboardPage &&
+    !isPageManagedAdPage &&
+    !isJapaneseSentenceQuizPage &&
+    isViewportReady &&
+    viewportWidth >= RIGHT_SIDE_AD_MIN_WIDTH;
+  const isLayoutInlineAdVisible = !isDashboardPage && !hasPageInlineAd;
+  const isDesktopAdRequested = isPcLeftAdVisible || isPcRightAdVisible;
+  const shouldShowBottomFallbackForDesktop = isDesktopAdRequested && leftAdFillState === "empty";
+  const shouldShowLayoutInlineAd =
+    !isDashboardPage &&
+    !hasPageInlineAd &&
+    (shouldShowBottomFallbackForDesktop || (!isDesktopAdRequested && isLayoutInlineAdVisible));
+
+  useEffect(() => {
+    setLeftAdFillState("unknown");
+  }, [pathname, isPcLeftAdVisible, isPcRightAdVisible, viewportWidth]);
 
   useEffect(() => {
     const updateWidth = () => setViewportWidth(window.innerWidth);
@@ -153,6 +186,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
       <SideMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
+        hideAds={isDashboardPage}
       />
 
       {/* 로그인/회원가입 모달 */}
@@ -181,15 +215,20 @@ function StudyShell({ children }: { children: React.ReactNode }) {
         </DialogContent>
       </Dialog>
 
-      {isPcSideAdVisible ? (
-        <>
-          <aside className="fixed left-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
-            <KakaoAdFit adUnit={leftAdUnit} width={160} height={600} />
-          </aside>
-          <aside className="fixed right-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
-            <KakaoAdFit adUnit={rightAdUnit} width={160} height={600} />
-          </aside>
-        </>
+      {isPcLeftAdVisible ? (
+        <aside className="fixed left-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
+          <KakaoAdFit
+            adUnit={leftAdUnit}
+            width={160}
+            height={600}
+            onFillChange={(filled) => setLeftAdFillState(filled ? "filled" : "empty")}
+          />
+        </aside>
+      ) : null}
+      {isPcRightAdVisible ? (
+        <aside className="fixed right-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
+          <KakaoAdFit adUnit={rightAdUnit} width={160} height={600} />
+        </aside>
       ) : null}
 
       {/* 페이지 콘텐츠 */}
@@ -197,7 +236,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex w-full max-w-[1720px]">
           <div className="min-w-0 flex-1">{children}</div>
         </div>
-        {isBottomAdVisible ? (
+        {shouldShowLayoutInlineAd ? (
           <div className="mx-auto w-full max-w-md px-4 pb-6 pt-2 flex justify-center">
             <KakaoAdFit adUnit={mobileBottomAdUnit} width={300} height={250} />
           </div>

@@ -19,12 +19,13 @@ import KakaoAdFit from "@/app/components/KakaoAdFit";
 
 // 데이터 & 훅 & 상수
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { SENTENCES, type Sentence } from "@/app/data/sentences";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { APP_VERSION } from "@/app/constants/appConfig";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
-import { normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
+import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 import { useMounted } from "@/app/hooks/useMounted";
 
@@ -106,6 +107,13 @@ export default function SentencesPage() {
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans JP"], [fontFamily]);
 
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -133,7 +141,7 @@ export default function SentencesPage() {
 
 
   const mounted = useMounted();
-  const isMobileViewport = viewportWidth !== null && viewportWidth < 1340;
+  const shouldShowInlineAd = viewportWidth !== null && viewportWidth < INLINE_CONTENT_AD_MAX_WIDTH;
   // 로딩 상태 UI
   if (!mounted) {
     return (
@@ -280,7 +288,7 @@ export default function SentencesPage() {
         </label>
       </div>
 
-      {isMobileViewport ? (
+      {shouldShowInlineAd ? (
         <div className="w-full max-w-md mx-auto mt-6 flex justify-center">
           <KakaoAdFit adUnit={mobileInlineAdUnit} width={300} height={250} />
         </div>

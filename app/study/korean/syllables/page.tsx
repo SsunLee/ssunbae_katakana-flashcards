@@ -11,6 +11,7 @@ import CardControls from "@/app/components/controls/CardControls";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { KOREAN_SYLLABLES, KoreanSyllable } from "@/app/data/korean-syllables";
 import KoreanSyllableCardView from "./components/KoreanSyllableCardView";
 import KoreanSyllableGridMode from "./components/KoreanSyllableGridMode";
@@ -98,6 +99,13 @@ export default function KoreanSyllablesPage() {
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans KR"], [fontFamily]);
+
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
   const mounted = useMounted();
   if (!mounted) {
     return (

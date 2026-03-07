@@ -19,6 +19,7 @@ import KoreanWordGridMode from "./components/KoreanWordGridMode";
 
 // 데이터 & 훅 & 상수
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { KOREAN_WORDS, type KoreanWord } from "@/app/data/korean-words";
 import { useKoSpeech } from "@/app/hooks/useKoSpeech"; 
 import { FONT_STACKS } from "@/app/constants/fonts";
@@ -103,6 +104,13 @@ export default function KoreanWordsPage() {
 
   const current = studyDeck[index] ?? null;
   const fontStack = useMemo(() => FONT_STACKS[fontFamily] || FONT_STACKS["Noto Sans KR"], [fontFamily]);
+
+  useStudySessionAnalytics({
+    userId: user?.uid,
+    deckType,
+    enabled: Boolean(user) && studyDeck.length > 0,
+    observedCardIds: viewMode === "single" ? (current ? [current.id] : []) : currentCards.map((card) => card.id),
+  });
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
