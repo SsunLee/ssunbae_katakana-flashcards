@@ -10,6 +10,7 @@ import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { Button } from "@/app/components/ui/button";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { Skeleton } from "@/app/components/ui/skeleton";
+import { Switch } from "@/app/components/ui/switch";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { LOCAL_JAPANESE_SENTENCE_QUIZ } from "@/app/data/japanese-sentence-quiz";
@@ -53,8 +54,8 @@ function renderSentence(prompt: string, answer?: string) {
   );
 }
 
-function renderRubyText(text: string, furigana?: string, className = "") {
-  if (!furigana) {
+function renderRubyText(text: string, furigana?: string, className = "", showRuby = true) {
+  if (!furigana || !showRuby) {
     return <span className={className}>{text}</span>;
   }
 
@@ -66,7 +67,7 @@ function renderRubyText(text: string, furigana?: string, className = "") {
   );
 }
 
-function renderPromptWithRuby(question: JapaneseSentenceQuiz, revealed = false) {
+function renderPromptWithRuby(question: JapaneseSentenceQuiz, revealed = false, showRuby = true) {
   const answerChoice = question.choices.find((choice) => choice.text === question.answer);
   const parts = question.promptReading ?? question.prompt.split("_____");
 
@@ -78,7 +79,7 @@ function renderPromptWithRuby(question: JapaneseSentenceQuiz, revealed = false) 
             return revealed
               ? (
                 <span key={`blank-${index}`} className="border-b-2 border-primary px-1 text-primary">
-                  {renderRubyText(question.answer, answerChoice?.furigana)}
+                  {renderRubyText(question.answer, answerChoice?.furigana, "", showRuby)}
                 </span>
               )
               : <span key={`blank-${index}`} className="border-b-2 border-muted-foreground/40 px-8" />;
@@ -87,7 +88,7 @@ function renderPromptWithRuby(question: JapaneseSentenceQuiz, revealed = false) 
           return <span key={`text-${index}`}>{part}</span>;
         }
 
-        return <span key={`ruby-${index}`}>{renderRubyText(part.text, part.furigana)}</span>;
+        return <span key={`ruby-${index}`}>{renderRubyText(part.text, part.furigana, "", showRuby)}</span>;
       })}
     </p>
   );
@@ -134,6 +135,7 @@ export default function JapaneseSentenceQuizPage() {
     N1: true,
   });
   const [shuffleTick, setShuffleTick] = useState(0);
+  const [showRuby, setShowRuby] = useState(true);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
   const defaultMobileAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
@@ -153,6 +155,12 @@ export default function JapaneseSentenceQuizPage() {
 
   useEffect(() => {
     localStorage.setItem("lastActivePage", "/study/japanese/sentence-quiz");
+  }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("jpSentenceQuizShowRuby");
+    if (saved === null) return;
+    setShowRuby(saved === "1");
   }, []);
 
   useEffect(() => {
@@ -269,6 +277,11 @@ export default function JapaneseSentenceQuizPage() {
     setResults({});
   };
 
+  const handleRubyToggle = (next: boolean) => {
+    setShowRuby(next);
+    localStorage.setItem("jpSentenceQuizShowRuby", next ? "1" : "0");
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen w-full px-4 py-6 sm:px-6">
@@ -383,19 +396,28 @@ export default function JapaneseSentenceQuizPage() {
                 <div className="mt-8 rounded-[28px] border border-border bg-background/70 p-5 sm:p-6">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-sm text-muted-foreground">빈칸에 들어갈 가장 알맞은 표현을 고르세요.</p>
-                    <Button
-                      variant="outline"
-                      onClick={() => speakJa(currentQuestion.prompt.replace("_____", currentQuestion.answer))}
-                      disabled={!isTtsSupported || !ttsReady}
-                      aria-label="문장 듣기"
-                      title="문장 듣기"
-                      className="h-10 w-10 rounded-full p-0"
-                    >
-                      <Volume2 className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <label className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground sm:text-sm">
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-border bg-background text-[11px] font-semibold text-foreground">
+                          あ
+                        </span>
+                        <span className="font-medium text-foreground">히라가나 표시</span>
+                        <Switch checked={showRuby} onCheckedChange={handleRubyToggle} aria-label="히라가나 표시 토글" />
+                      </label>
+                      <Button
+                        variant="outline"
+                        onClick={() => speakJa(currentQuestion.prompt.replace("_____", currentQuestion.answer))}
+                        disabled={!isTtsSupported || !ttsReady}
+                        aria-label="문장 듣기"
+                        title="문장 듣기"
+                        className="h-10 w-10 rounded-full p-0"
+                      >
+                        <Volume2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
 
-                  <div className="mt-6">{renderPromptWithRuby(currentQuestion, Boolean(currentResult))}</div>
+                  <div className="mt-6">{renderPromptWithRuby(currentQuestion, Boolean(currentResult), showRuby)}</div>
 
                   {currentResult ? (
                     <p className="mt-4 text-base text-muted-foreground">{currentQuestion.translation}</p>
@@ -427,7 +449,7 @@ export default function JapaneseSentenceQuizPage() {
                           <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-current text-lg font-semibold">
                             {optionLabel}
                           </span>
-                          <span className="min-w-0 flex-1 text-lg font-medium">{renderRubyText(choice.text, choice.furigana, "leading-8")}</span>
+                          <span className="min-w-0 flex-1 text-lg font-medium">{renderRubyText(choice.text, choice.furigana, "leading-8", showRuby)}</span>
                           {answered && isCorrect ? <CheckCircle2 className="h-5 w-5 shrink-0" /> : null}
                           {answered && isSelected && !isCorrect ? <XCircle className="h-5 w-5 shrink-0" /> : null}
                         </button>
