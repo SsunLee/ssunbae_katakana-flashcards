@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, CircleHelp, RotateCcw, Volume2, XCircle } from "lucide-react";
+import { CheckCircle2, CircleHelp, RotateCcw, Shuffle, Volume2, XCircle } from "lucide-react";
 
 import { useAuth } from "@/app/AuthContext";
 import KakaoAdFit from "@/app/components/KakaoAdFit";
@@ -31,6 +31,15 @@ const JLPT_FILTERS = {
 } as const;
 
 type JlptFilterKey = keyof typeof JLPT_FILTERS;
+
+function shuffleArray<T>(items: T[]) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 function renderSentence(prompt: string, answer?: string) {
   const [before, after] = prompt.split("_____");
@@ -124,6 +133,7 @@ export default function JapaneseSentenceQuizPage() {
     N2: true,
     N1: true,
   });
+  const [shuffleTick, setShuffleTick] = useState(0);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
   const defaultMobileAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
@@ -165,10 +175,14 @@ export default function JapaneseSentenceQuizPage() {
 
     return deck.filter((quiz) => activeLevels.includes(quiz.jlpt as JlptFilterKey));
   }, [deck, jlptFilters]);
+  const orderedDeck = useMemo(() => {
+    if (shuffleTick === 0) return filteredDeck;
+    return shuffleArray(filteredDeck);
+  }, [filteredDeck, shuffleTick]);
   const visibleDeck = useMemo(() => {
-    if (user) return filteredDeck;
-    return filteredDeck.slice(0, 3);
-  }, [filteredDeck, user]);
+    if (user) return orderedDeck;
+    return orderedDeck.slice(0, 3);
+  }, [orderedDeck, user]);
 
   useEffect(() => {
     if (questionIndex < visibleDeck.length) return;
@@ -204,9 +218,11 @@ export default function JapaneseSentenceQuizPage() {
   const handleFilterChange = (level: JlptFilterKey) => {
     if (!user) return;
     setJlptFilters((prev) => ({ ...prev, [level]: !prev[level] }));
+    setShuffleTick(0);
     setQuestionIndex(0);
     setSelectedChoice(null);
     setCurrentResult(null);
+    setResults({});
   };
 
   const handleSelect = (choice: string) => {
@@ -239,6 +255,14 @@ export default function JapaneseSentenceQuizPage() {
   };
 
   const handleReset = () => {
+    setQuestionIndex(0);
+    setSelectedChoice(null);
+    setCurrentResult(null);
+    setResults({});
+  };
+
+  const handleShuffle = () => {
+    setShuffleTick((prev) => prev + 1);
     setQuestionIndex(0);
     setSelectedChoice(null);
     setCurrentResult(null);
@@ -324,6 +348,10 @@ export default function JapaneseSentenceQuizPage() {
                 <Button size="sm" variant="outline" onClick={handleReset}>
                   <RotateCcw className="h-4 w-4" />
                   처음부터
+                </Button>
+                <Button size="sm" variant="outline" onClick={handleShuffle}>
+                  <Shuffle className="h-4 w-4" />
+                  섞기
                 </Button>
               </div>
             </div>

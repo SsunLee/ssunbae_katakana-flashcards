@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, CircleHelp, RotateCcw, Volume2, XCircle } from "lucide-react";
+import { CheckCircle2, CircleHelp, RotateCcw, Shuffle, Volume2, XCircle } from "lucide-react";
 
 import { useAuth } from "@/app/AuthContext";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
@@ -14,6 +14,15 @@ import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useEnSpeech } from "@/app/hooks/useEnSpeech";
 
 type QuizResult = "correct" | "wrong" | "skipped";
+
+function shuffleArray<T>(items: T[]) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 function CompactResultBadge({
   label,
@@ -54,7 +63,12 @@ export default function EnglishSentenceQuizPage() {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [currentResult, setCurrentResult] = useState<QuizResult | null>(null);
   const [results, setResults] = useState<Record<number, QuizResult>>({});
-  const visibleDeck = useMemo(() => (user ? ENGLISH_SENTENCE_QUIZ : ENGLISH_SENTENCE_QUIZ.slice(0, 3)), [user]);
+  const [shuffleTick, setShuffleTick] = useState(0);
+  const baseDeck = useMemo(() => (user ? ENGLISH_SENTENCE_QUIZ : ENGLISH_SENTENCE_QUIZ.slice(0, 3)), [user]);
+  const visibleDeck = useMemo(() => {
+    if (shuffleTick === 0) return baseDeck;
+    return shuffleArray(baseDeck);
+  }, [baseDeck, shuffleTick]);
 
   const currentQuestion = visibleDeck[questionIndex];
   const counts = useMemo(
@@ -130,6 +144,14 @@ export default function EnglishSentenceQuizPage() {
     setResults({});
   };
 
+  const handleShuffle = () => {
+    setShuffleTick((prev) => prev + 1);
+    setQuestionIndex(0);
+    setSelectedChoice(null);
+    setCurrentResult(null);
+    setResults({});
+  };
+
   return (
     <div className="min-h-screen w-full px-4 py-6 sm:px-6">
       <div className="mx-auto max-w-[760px]">
@@ -161,6 +183,10 @@ export default function EnglishSentenceQuizPage() {
               <Button size="sm" variant="outline" onClick={handleReset}>
                 <RotateCcw className="h-4 w-4" />
                 처음부터
+              </Button>
+              <Button size="sm" variant="outline" onClick={handleShuffle}>
+                <Shuffle className="h-4 w-4" />
+                섞기
               </Button>
             </div>
           </div>
