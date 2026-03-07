@@ -165,15 +165,19 @@ export default function JapaneseSentenceQuizPage() {
 
     return deck.filter((quiz) => activeLevels.includes(quiz.jlpt as JlptFilterKey));
   }, [deck, jlptFilters]);
+  const visibleDeck = useMemo(() => {
+    if (user) return filteredDeck;
+    return filteredDeck.slice(0, 3);
+  }, [filteredDeck, user]);
 
   useEffect(() => {
-    if (questionIndex < filteredDeck.length) return;
+    if (questionIndex < visibleDeck.length) return;
     setQuestionIndex(0);
     setSelectedChoice(null);
     setCurrentResult(null);
-  }, [filteredDeck, questionIndex]);
+  }, [visibleDeck, questionIndex]);
 
-  const currentQuestion = filteredDeck[questionIndex];
+  const currentQuestion = visibleDeck[questionIndex];
   const counts = useMemo(
     () =>
       Object.values(results).reduce(
@@ -186,18 +190,19 @@ export default function JapaneseSentenceQuizPage() {
     [results]
   );
   const solvedCount = counts.correct + counts.wrong + counts.skipped;
-  const isLastQuestion = filteredDeck.length > 0 && questionIndex === filteredDeck.length - 1;
-  const progressText = filteredDeck.length > 0 ? `${questionIndex + 1} / ${filteredDeck.length}` : "0 / 0";
+  const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
+  const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const isWideLayout = viewportWidth !== null && viewportWidth >= SINGLE_LEFT_SIDE_AD_MIN_WIDTH;
 
   useStudySessionAnalytics({
     userId: user?.uid,
     deckType,
-    enabled: Boolean(user) && !isLoading && filteredDeck.length > 0,
+    enabled: Boolean(user) && !isLoading && visibleDeck.length > 0,
     observedCardIds: currentQuestion ? [currentQuestion.id] : [],
   });
 
   const handleFilterChange = (level: JlptFilterKey) => {
+    if (!user) return;
     setJlptFilters((prev) => ({ ...prev, [level]: !prev[level] }));
     setQuestionIndex(0);
     setSelectedChoice(null);
@@ -221,7 +226,7 @@ export default function JapaneseSentenceQuizPage() {
   };
 
   const handleNext = () => {
-    if (filteredDeck.length === 0) return;
+    if (visibleDeck.length === 0) return;
 
     if (isLastQuestion) {
       setQuestionIndex(0);
@@ -285,11 +290,17 @@ export default function JapaneseSentenceQuizPage() {
           <div className="mb-4 flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-xl border border-border bg-card p-3 text-sm">
             <span className="font-semibold text-foreground">JLPT 레벨:</span>
             {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
-              <label key={level} className="flex cursor-pointer items-center space-x-2">
-                <Checkbox id={`jp-quiz-${level}`} checked={jlptFilters[level]} onCheckedChange={() => handleFilterChange(level)} />
+              <label key={level} className={`flex items-center space-x-2 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
+                <Checkbox
+                  id={`jp-quiz-${level}`}
+                  checked={jlptFilters[level]}
+                  onCheckedChange={() => handleFilterChange(level)}
+                  disabled={!user}
+                />
                 <span>{JLPT_FILTERS[level]}</span>
               </label>
             ))}
+            {!user ? <span className="text-xs text-muted-foreground">비로그인 체험은 3문제까지 제공되며, JLPT 필터는 로그인 후 사용할 수 있습니다.</span> : null}
           </div>
 
           <section className="rounded-[28px] border border-border bg-card p-5 shadow-sm sm:p-6">
@@ -297,7 +308,7 @@ export default function JapaneseSentenceQuizPage() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Japanese Sentence Quiz</p>
                 <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <h1 className="text-2xl font-semibold text-foreground">Question {filteredDeck.length > 0 ? questionIndex + 1 : 0}</h1>
+                  <h1 className="text-2xl font-semibold text-foreground">Question {visibleDeck.length > 0 ? questionIndex + 1 : 0}</h1>
                   {currentQuestion ? (
                     <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary sm:text-sm">
                       JLPT {currentQuestion.jlpt}
@@ -317,7 +328,7 @@ export default function JapaneseSentenceQuizPage() {
               </div>
             </div>
 
-            {filteredDeck.length === 0 ? (
+            {visibleDeck.length === 0 ? (
               <div className="mt-8 rounded-[24px] border border-dashed border-border bg-background/70 px-5 py-8 text-center text-sm text-muted-foreground">
                 선택한 JLPT 레벨에 맞는 문제가 없습니다. 필터를 다시 선택해주세요.
               </div>

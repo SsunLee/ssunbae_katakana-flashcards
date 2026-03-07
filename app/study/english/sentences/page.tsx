@@ -54,8 +54,9 @@ export default function EnglishSentenceQuizPage() {
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [currentResult, setCurrentResult] = useState<QuizResult | null>(null);
   const [results, setResults] = useState<Record<number, QuizResult>>({});
+  const visibleDeck = useMemo(() => (user ? ENGLISH_SENTENCE_QUIZ : ENGLISH_SENTENCE_QUIZ.slice(0, 3)), [user]);
 
-  const currentQuestion = ENGLISH_SENTENCE_QUIZ[questionIndex];
+  const currentQuestion = visibleDeck[questionIndex];
   const counts = useMemo(
     () =>
       Object.values(results).reduce(
@@ -67,8 +68,8 @@ export default function EnglishSentenceQuizPage() {
       ),
     [results]
   );
-  const isLastQuestion = questionIndex === ENGLISH_SENTENCE_QUIZ.length - 1;
-  const progressText = `${questionIndex + 1} / ${ENGLISH_SENTENCE_QUIZ.length}`;
+  const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
+  const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const solvedCount = counts.correct + counts.wrong + counts.skipped;
 
   useEffect(() => {
@@ -78,9 +79,16 @@ export default function EnglishSentenceQuizPage() {
   useStudySessionAnalytics({
     userId: user?.uid,
     deckType,
-    enabled: Boolean(user) && ENGLISH_SENTENCE_QUIZ.length > 0,
+    enabled: Boolean(user) && visibleDeck.length > 0,
     observedCardIds: currentQuestion ? [currentQuestion.id] : [],
   });
+
+  useEffect(() => {
+    if (questionIndex < visibleDeck.length) return;
+    setQuestionIndex(0);
+    setSelectedChoice(null);
+    setCurrentResult(null);
+  }, [questionIndex, visibleDeck.length]);
 
   if (!currentQuestion) {
     return null;
@@ -243,7 +251,7 @@ export default function EnglishSentenceQuizPage() {
             ) : null}
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-              <div className="text-sm text-muted-foreground">전체 {ENGLISH_SENTENCE_QUIZ.length}문제 중 {solvedCount}문제를 확인했습니다.</div>
+              <div className="text-sm text-muted-foreground">전체 {visibleDeck.length}문제 중 {solvedCount}문제를 확인했습니다.</div>
               <div className="flex flex-wrap gap-2">
                 {!currentResult ? (
                   <Button variant="outline" onClick={handleSkip}>
