@@ -243,7 +243,7 @@ export default function JapaneseSentenceQuizPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen w-full px-4 py-6 sm:px-6">
-        <div className="mx-auto max-w-[700px] space-y-4">
+        <div className="mx-auto max-w-[660px] space-y-4">
           <Skeleton className="h-20 w-full rounded-[24px]" />
           <Skeleton className="h-14 w-full rounded-[20px]" />
           <Skeleton className="h-[420px] w-full rounded-[28px]" />
@@ -260,12 +260,12 @@ export default function JapaneseSentenceQuizPage() {
         </aside>
       ) : null}
 
-      <div className="mx-auto max-w-[700px]">
+      <div className="mx-auto max-w-[660px]">
           <WelcomeBanner
             name={user?.nickname || undefined}
             subject={STUDY_LABELS[deckType]}
             subtitle="JLPT 레벨을 골라 일본어 문장 빈칸 퀴즈를 풀 수 있습니다."
-            className="max-w-[460px]"
+            className="max-w-[430px]"
           />
 
           {!user ? (

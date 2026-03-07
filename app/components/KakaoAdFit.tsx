@@ -30,7 +30,12 @@ export default function KakaoAdFit({
   reserveSpace = true,
 }: KakaoAdFitProps) {
   const mountRef = useRef<HTMLDivElement | null>(null);
+  const onFillChangeRef = useRef(onFillChange);
   const [isFilled, setIsFilled] = useState(false);
+
+  useEffect(() => {
+    onFillChangeRef.current = onFillChange;
+  }, [onFillChange]);
 
   useEffect(() => {
     const mountEl = mountRef.current;
@@ -58,7 +63,7 @@ export default function KakaoAdFit({
       if (settled && !filled) return;
       if (filled) settled = true;
       setIsFilled(filled);
-      onFillChange?.(filled);
+      onFillChangeRef.current?.(filled);
     };
 
     const checkFill = () => {
@@ -85,7 +90,7 @@ export default function KakaoAdFit({
       observer.disconnect();
       mountEl.innerHTML = "";
     };
-  }, [adUnit, width, height, onFillChange]);
+  }, [adUnit, width, height]);
 
   if (!adUnit) return null;
 

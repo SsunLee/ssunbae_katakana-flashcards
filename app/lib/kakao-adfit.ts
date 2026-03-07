@@ -1,7 +1,7 @@
 export const LEFT_SIDE_AD_MIN_WIDTH = 1024;
 export const RIGHT_SIDE_AD_MIN_WIDTH = 1600;
 export const SINGLE_LEFT_SIDE_AD_MIN_WIDTH = 1024;
-export const INLINE_CONTENT_AD_MAX_WIDTH = 1280;
+export const INLINE_CONTENT_AD_MAX_WIDTH = 1025;
 
 export function normalizeAdUnit(value?: string | null): string {
   if (!value) return "";
