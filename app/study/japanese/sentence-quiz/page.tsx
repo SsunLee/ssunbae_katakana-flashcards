@@ -332,23 +332,29 @@ export default function JapaneseSentenceQuizPage() {
             </div>
           ) : null}
 
-          <div className="mb-4 flex w-full items-center gap-2 overflow-x-auto whitespace-nowrap rounded-xl border border-border bg-card p-3 text-sm">
-            <span className="font-semibold text-foreground">JLPT:</span>
-            {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
-              <label
-                key={level}
-                className={`flex shrink-0 items-center space-x-1.5 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
-              >
-                <Checkbox
-                  id={`jp-quiz-${level}`}
-                  checked={jlptFilters[level]}
-                  onCheckedChange={() => handleFilterChange(level)}
-                  disabled={!user}
-                />
-                <span>{JLPT_FILTERS[level]}</span>
-              </label>
-            ))}
-            {!user ? <span className="text-xs text-muted-foreground">비로그인 체험은 3문제까지 제공되며, JLPT 필터는 로그인 후 사용할 수 있습니다.</span> : null}
+          <div className="mb-4 w-full overflow-x-auto rounded-xl border border-border bg-card p-3 text-sm">
+            <div className="mx-auto flex w-max items-center gap-2 whitespace-nowrap">
+              <span className="font-semibold text-foreground">JLPT:</span>
+              {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
+                <label
+                  key={level}
+                  className={`flex shrink-0 items-center space-x-1.5 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+                >
+                  <Checkbox
+                    id={`jp-quiz-${level}`}
+                    checked={jlptFilters[level]}
+                    onCheckedChange={() => handleFilterChange(level)}
+                    disabled={!user}
+                  />
+                  <span>{JLPT_FILTERS[level]}</span>
+                </label>
+              ))}
+            </div>
+            {!user ? (
+              <p className="mt-2 text-center text-xs text-muted-foreground">
+                비로그인 체험은 3문제까지 제공되며, JLPT 필터는 로그인 후 사용할 수 있습니다.
+              </p>
+            ) : null}
           </div>
 
           <section className="ds-surface p-5 sm:p-6">
