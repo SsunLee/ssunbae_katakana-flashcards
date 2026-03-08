@@ -314,7 +314,7 @@ export default function JapaneseSentenceQuizPage() {
           <WelcomeBanner
             name={user?.nickname || undefined}
             subject={STUDY_LABELS[deckType]}
-            subtitle="JLPT 레벨을 골라 일본어 문장 빈칸 퀴즈를 풀 수 있습니다."
+            subtitle="JLPT를 골라 일본어 문장 빈칸 퀴즈를 풀 수 있습니다."
             className="max-w-[430px]"
           />
 
@@ -332,10 +332,13 @@ export default function JapaneseSentenceQuizPage() {
             </div>
           ) : null}
 
-          <div className="mb-4 flex w-full flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-xl border border-border bg-card p-3 text-sm">
-            <span className="font-semibold text-foreground">JLPT 레벨:</span>
+          <div className="mb-4 flex w-full items-center gap-2 overflow-x-auto whitespace-nowrap rounded-xl border border-border bg-card p-3 text-sm">
+            <span className="font-semibold text-foreground">JLPT:</span>
             {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
-              <label key={level} className={`flex items-center space-x-2 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
+              <label
+                key={level}
+                className={`flex shrink-0 items-center space-x-1.5 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}
+              >
                 <Checkbox
                   id={`jp-quiz-${level}`}
                   checked={jlptFilters[level]}
@@ -351,8 +354,8 @@ export default function JapaneseSentenceQuizPage() {
           <section className="ds-surface p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
-                <div className="mt-1 flex flex-wrap items-center gap-2">
-                  <h1 className="text-2xl font-semibold text-foreground">{questionLabel}</h1>
+                <div className="mt-1 flex flex-nowrap items-center gap-2 whitespace-nowrap">
+                  <h1 className="text-xl font-semibold text-foreground sm:text-2xl">{questionLabel}</h1>
                   {currentQuestion ? (
                     <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary sm:text-sm">
                       JLPT {currentQuestion.jlpt}

@@ -313,10 +313,10 @@ export default function KatakanaWordsPage() {
           원격 단어 데이터 연결에 실패하여 기본 100개 데이터로 학습 중입니다.
         </div>
       )}
-      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-sm">
-        <span className="font-semibold mr-4">JLPT 레벨:</span>
+      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm">
+        <span className="font-semibold">JLPT:</span>
         {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
-          <label key={level} className="flex items-center space-x-2 cursor-pointer">
+          <label key={level} className="flex shrink-0 items-center space-x-1.5 cursor-pointer">
             <Checkbox
               id={`katakana-words-${level}`}
               checked={jlptFilters[level]}
