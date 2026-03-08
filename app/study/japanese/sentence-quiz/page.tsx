@@ -6,6 +6,7 @@ import { CheckCircle2, CircleHelp, RotateCcw, Shuffle, Volume2, XCircle } from "
 import { useAuth } from "@/app/AuthContext";
 import KakaoAdFit from "@/app/components/KakaoAdFit";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { Button } from "@/app/components/ui/button";
 import { Checkbox } from "@/app/components/ui/checkbox";
@@ -15,6 +16,7 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { LOCAL_JAPANESE_SENTENCE_QUIZ } from "@/app/data/japanese-sentence-quiz";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
+import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { SINGLE_LEFT_SIDE_AD_MIN_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
@@ -42,18 +44,6 @@ function shuffleArray<T>(items: T[]) {
   return copy;
 }
 
-function renderSentence(prompt: string, answer?: string) {
-  const [before, after] = prompt.split("_____");
-
-  return (
-    <p className="text-xl font-semibold leading-9 text-foreground sm:text-2xl">
-      {before}
-      {answer ? <span className="border-b-2 border-primary px-1 text-primary">{answer}</span> : <span className="border-b-2 border-muted-foreground/40 px-8" />}
-      {after}
-    </p>
-  );
-}
-
 function renderRubyText(text: string, furigana?: string, className = "", showRuby = true) {
   if (!furigana || !showRuby) {
     return <span className={className}>{text}</span>;
@@ -67,12 +57,13 @@ function renderRubyText(text: string, furigana?: string, className = "", showRub
   );
 }
 
-function renderPromptWithRuby(question: JapaneseSentenceQuiz, revealed = false, showRuby = true) {
+function renderPromptWithRuby(question: JapaneseSentenceQuiz, fontSize: number, revealed = false, showRuby = true) {
   const answerChoice = question.choices.find((choice) => choice.text === question.answer);
   const parts = question.promptReading ?? question.prompt.split("_____");
+  const lineHeight = Math.round(fontSize * 1.45);
 
   return (
-    <p className="text-xl font-semibold leading-9 text-foreground sm:text-2xl">
+    <p className="font-semibold text-foreground" style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px` }}>
       {parts.map((part, index) => {
         if (typeof part === "string") {
           if (part === "_____") {
@@ -115,7 +106,7 @@ export default function JapaneseSentenceQuizPage() {
   const deckType = "japanese-sentence-quiz";
   const { user } = useAuth();
   const { open } = useAuthModal();
-  const { isSupported: isTtsSupported, ready: ttsReady, speakJa } = useJaSpeech();
+  const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
   const { deck, isLoading, error } = useStudyDeck<JapaneseSentenceQuiz>({
     user,
     deckType,
@@ -136,6 +127,12 @@ export default function JapaneseSentenceQuizPage() {
   });
   const [shuffleTick, setShuffleTick] = useState(0);
   const [showRuby, setShowRuby] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const { fontFamily, setFontFamily, sentenceFontSize, setSentenceFontSize, fontStack } = useQuizTypographySettings({
+    storageKeyPrefix: "jpSentenceQuiz",
+    defaultFontFamily: "Noto Sans JP",
+    defaultSentenceFontSize: 22,
+  });
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
   const defaultPcEdgeAdUnit = normalizeAdUnit("DAN-of4TF8Q7PFDbKn5Z");
   const defaultMobileAdUnit = normalizeAdUnit("DAN-QMVosjDRN8zEUBnf");
@@ -215,6 +212,8 @@ export default function JapaneseSentenceQuizPage() {
   const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
   const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const isWideLayout = viewportWidth !== null && viewportWidth >= SINGLE_LEFT_SIDE_AD_MIN_WIDTH;
+  const optionTextSize = Math.max(15, Math.round(sentenceFontSize * 0.72));
+  const optionCircleSize = Math.max(38, Math.round(sentenceFontSize * 1.75));
 
   useStudySessionAnalytics({
     userId: user?.uid,
@@ -295,9 +294,15 @@ export default function JapaneseSentenceQuizPage() {
   }
 
   return (
-    <div className="min-h-screen w-full px-4 py-6 sm:px-6">
+    <div className="min-h-screen w-full px-4 py-6 sm:px-6" style={{ fontFamily: fontStack }}>
       {isWideLayout ? (
-        <aside className="fixed left-[clamp(1rem,10vw,12rem)] top-1/2 z-20 hidden -translate-y-1/2 min-[1024px]:block">
+        <aside
+          className="fixed z-20 hidden min-[1024px]:block"
+          style={{
+            left: "calc(env(safe-area-inset-left, 0px) + 12px)",
+            top: "calc(env(safe-area-inset-top, 0px) + 76px)",
+          }}
+        >
           <KakaoAdFit adUnit={leftSideAdUnit} width={160} height={600} />
         </aside>
       ) : null}
@@ -340,7 +345,7 @@ export default function JapaneseSentenceQuizPage() {
             {!user ? <span className="text-xs text-muted-foreground">비로그인 체험은 3문제까지 제공되며, JLPT 필터는 로그인 후 사용할 수 있습니다.</span> : null}
           </div>
 
-          <section className="rounded-[28px] border border-border bg-card p-5 shadow-sm sm:p-6">
+          <section className="ds-surface p-5 sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Japanese Sentence Quiz</p>
@@ -354,7 +359,7 @@ export default function JapaneseSentenceQuizPage() {
                 </div>
               </div>
               <div className="flex flex-wrap items-center justify-end gap-2">
-                <div className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">{progressText}</div>
+                <div className="ds-chip">{progressText}</div>
                 <CompactResultBadge label="정답" value={counts.correct} tone="text-emerald-500" />
                 <CompactResultBadge label="오답" value={counts.wrong} tone="text-rose-500" />
                 <CompactResultBadge label="모름" value={counts.skipped} tone="text-amber-500" />
@@ -366,6 +371,25 @@ export default function JapaneseSentenceQuizPage() {
                   <Shuffle className="h-4 w-4" />
                   섞기
                 </Button>
+                <Button size="sm" variant="outline" onClick={() => setShowSettings(true)} aria-haspopup="dialog" aria-expanded={showSettings}>
+                  ⚙️ 설정
+                </Button>
+                <SettingsDialog
+                  open={showSettings}
+                  onOpenChange={setShowSettings}
+                  user={user}
+                  deckType={deckType}
+                  isTtsSupported={isTtsSupported}
+                  selectedVoice={selectedVoice}
+                  selectVoice={selectVoice}
+                  voices={voices}
+                  isSafari={isSafari}
+                  fontFamily={fontFamily}
+                  setFontFamily={setFontFamily}
+                  sentenceFontSize={sentenceFontSize}
+                  setSentenceFontSize={setSentenceFontSize}
+                  resetDeck={handleReset}
+                />
               </div>
             </div>
 
@@ -393,7 +417,7 @@ export default function JapaneseSentenceQuizPage() {
                   </div>
                 ) : null}
 
-                <div className="mt-8 rounded-[28px] border border-border bg-background/70 p-5 sm:p-6">
+                <div className="ds-surface-soft mt-8 p-5 sm:p-6">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-sm text-muted-foreground">빈칸에 들어갈 가장 알맞은 표현을 고르세요.</p>
                     <div className="flex items-center gap-2">
@@ -417,7 +441,7 @@ export default function JapaneseSentenceQuizPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6">{renderPromptWithRuby(currentQuestion, Boolean(currentResult), showRuby)}</div>
+                  <div className="mt-6">{renderPromptWithRuby(currentQuestion, sentenceFontSize, Boolean(currentResult), showRuby)}</div>
 
                   {currentResult ? (
                     <p className="mt-4 text-base text-muted-foreground">{currentQuestion.translation}</p>
@@ -444,12 +468,17 @@ export default function JapaneseSentenceQuizPage() {
                           type="button"
                           onClick={() => handleSelect(choice.text)}
                           disabled={answered}
-                          className={`flex w-full items-center gap-4 rounded-[24px] border px-4 py-4 text-left transition-colors ${containerClass}`}
+                          className={`flex w-full items-center gap-3 rounded-[24px] border px-4 py-3 text-left transition-colors ${containerClass}`}
                         >
-                          <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-current text-lg font-semibold">
+                          <span
+                            className="inline-flex shrink-0 items-center justify-center rounded-full border border-current font-semibold"
+                            style={{ width: `${optionCircleSize}px`, height: `${optionCircleSize}px`, fontSize: `${Math.max(18, optionTextSize)}px` }}
+                          >
                             {optionLabel}
                           </span>
-                          <span className="min-w-0 flex-1 text-lg font-medium">{renderRubyText(choice.text, choice.furigana, "leading-8", showRuby)}</span>
+                          <span className="min-w-0 flex-1 font-medium" style={{ fontSize: `${optionTextSize}px` }}>
+                            {renderRubyText(choice.text, choice.furigana, "leading-7", showRuby)}
+                          </span>
                           {answered && isCorrect ? <CheckCircle2 className="h-5 w-5 shrink-0" /> : null}
                           {answered && isSelected && !isCorrect ? <XCircle className="h-5 w-5 shrink-0" /> : null}
                         </button>

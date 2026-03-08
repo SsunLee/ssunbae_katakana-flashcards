@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { BarChart3, LogOut, Settings, ShieldAlert } from "lucide-react";
+import { BarChart3, LogOut, Megaphone, Settings, ShieldAlert } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { useTheme } from "@/app/context/ThemeContext";
@@ -321,6 +321,16 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 </div>
               </button>
 
+              <Button
+                onClick={() => handleNavigate("/study/notices")}
+                variant={pathname === "/study/notices" ? "default" : "outline"}
+                size="sm"
+                className="h-8 w-full justify-start px-2 text-xs"
+              >
+                <Megaphone className="h-3.5 w-3.5" />
+                공지사항
+              </Button>
+
               <div className="grid w-full grid-cols-2 gap-2">
                 <Button onClick={handleOpenSettings} variant="outline" size="sm" className="h-8 px-2 text-xs">
                   <Settings className="h-3.5 w-3.5" />
@@ -347,6 +357,15 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 className="w-full font-bold h-9"
               >
                 로그인 / 회원가입
+              </Button>
+              <Button
+                onClick={() => handleNavigate("/study/notices")}
+                variant={pathname === "/study/notices" ? "default" : "outline"}
+                size="sm"
+                className="h-8 w-full justify-start px-2 text-xs"
+              >
+                <Megaphone className="h-3.5 w-3.5" />
+                공지사항
               </Button>
               <div className="grid w-full grid-cols-2 gap-2">
                 <Button variant="outline" size="sm" onClick={handleOpenSettings} className="h-8 px-2 text-xs">

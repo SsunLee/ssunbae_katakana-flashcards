@@ -64,7 +64,7 @@ export function SettingsDialog({
   const isEnglishMode = deckType.startsWith("english");
   const isSpanishMode = deckType.startsWith("spanish");
   const isKoreanMode = deckType.startsWith("korean");
-  const isSentenceMode = deckType.endsWith("-sentences") || deckType === "sentences";
+  const isSentenceMode = deckType.endsWith("-sentences") || deckType === "sentences" || deckType.includes("sentence-quiz");
   const isverbMode = deckType.endsWith("-verbs")
   const isKanjiMode = deckType === "kanji-words";
   const isCharMode = deckType.endsWith("-chars");

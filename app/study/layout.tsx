@@ -216,7 +216,13 @@ function StudyShell({ children }: { children: React.ReactNode }) {
       </Dialog>
 
       {isPcLeftAdVisible ? (
-        <aside className="fixed left-[clamp(1rem,12vw,14rem)] top-1/2 -translate-y-1/2 z-20">
+        <aside
+          className="fixed z-20"
+          style={{
+            left: "calc(env(safe-area-inset-left, 0px) + 12px)",
+            top: "calc(env(safe-area-inset-top, 0px) + 76px)",
+          }}
+        >
           <KakaoAdFit
             adUnit={leftAdUnit}
             width={160}

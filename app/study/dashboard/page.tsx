@@ -110,7 +110,7 @@ function MetricCard({
   icon: ReactNode;
 }) {
   return (
-    <div className="overflow-hidden rounded-[28px] border border-border bg-card p-5 shadow-sm">
+    <div className="ds-kpi-card">
       <div className="mb-4 flex items-start justify-between">
         <div className="min-w-0">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
@@ -142,11 +142,11 @@ function CircularStat({
   const dashOffset = circumference * (1 - normalizedRatio);
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-border bg-card p-5">
+    <div className="ds-kpi-card">
       <p className="text-sm font-medium text-muted-foreground">{label}</p>
       <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
         <svg width="104" height="104" viewBox="0 0 104 104" className="shrink-0">
-          <circle cx="52" cy="52" r={radius} fill="none" stroke="currentColor" strokeWidth="10" className="text-muted/60" />
+          <circle cx="52" cy="52" r={radius} fill="none" stroke="currentColor" strokeWidth="10" className="text-muted-foreground/25" />
           <motion.circle
             cx="52"
             cy="52"
@@ -279,7 +279,7 @@ export default function DashboardPage() {
         <div className="mx-auto max-w-6xl">
           <section className="rounded-[36px] border border-border bg-card p-8 shadow-sm">
             <div className="max-w-2xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-sm font-medium text-muted-foreground">
+              <div className="ds-chip mb-4">
                 <BarChart3 className="h-4 w-4" />
                 분석 대시보드
               </div>
@@ -305,16 +305,16 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen w-full bg-background px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-6">
-        <section className="overflow-hidden rounded-[36px] border border-border bg-card shadow-sm">
-          <div className="bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.12),_transparent_36%),radial-gradient(circle_at_top_right,_rgba(244,114,182,0.10),_transparent_28%)] px-6 py-8 sm:px-8">
+        <section className="ds-surface-elevated overflow-hidden rounded-[36px] bg-card [background-image:none]">
+          <div className="border-b border-border/70 bg-card/95 px-6 py-8 [background-image:none] sm:px-8">
             <div className="max-w-3xl">
-              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-background/80 px-3 py-1 text-sm font-medium text-muted-foreground">
+              <div className="ds-chip w-fit bg-background/80">
                 <TrendingUp className="h-4 w-4" />
                 분석 대시보드
               </div>
               <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">공부 습관과 즐겨찾기를 한 화면에서 확인합니다.</h1>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-                기존 즐겨찾기 데이터는 바로 집계하고, 일자별 학습 시간과 본 카드 수는 지금부터 자동으로 쌓이도록 연결했습니다.
+                즐겨찾기 데이터, 일자별 학습 시간과 본 카드 수는 실시간으로 업데이트됩니다.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href={mostActiveDeck?.href ?? "/study/japanese/katakana-words"}>
@@ -327,13 +327,13 @@ export default function DashboardPage() {
             </div>
 
             <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,1fr)]">
-              <div className="overflow-hidden rounded-[32px] border border-border bg-card p-6 shadow-sm">
+              <div className="ds-surface overflow-hidden p-6">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <h2 className="text-xl font-semibold text-foreground">과목별 학습 분포</h2>
                     <p className="mt-1 text-sm text-muted-foreground">많이 본 과목일수록 위쪽에 배치됩니다.</p>
                   </div>
-                  <div className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">
+                  <div className="ds-chip">
                     {deckOverview.length}개 과목
                   </div>
                 </div>
@@ -360,7 +360,7 @@ export default function DashboardPage() {
                               <p>{deck.lastStudiedOn ? deck.lastStudiedOn.replaceAll("-", ".") : "기록 대기"}</p>
                             </div>
                           </div>
-                          <div className="mt-4 h-2.5 rounded-full bg-muted/70">
+                          <div className="mt-4 h-2.5 rounded-full bg-muted">
                             <motion.div
                               className="h-full rounded-full"
                               style={{ backgroundColor: deck.color }}
@@ -376,13 +376,13 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[32px] border border-border bg-card p-6 shadow-sm">
+              <div className="ds-surface overflow-hidden p-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <h2 className="text-xl font-semibold text-foreground">최근 7일 학습 흐름</h2>
                     <p className="mt-1 text-sm text-muted-foreground">막대 높이는 시간과 카드 탐색량을 함께 반영한 활동 점수입니다.</p>
                   </div>
-                  <div className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">최근 7일</div>
+                  <div className="ds-chip">최근 7일</div>
                 </div>
 
                 <div className="mt-8 overflow-x-auto pb-2">
@@ -391,9 +391,9 @@ export default function DashboardPage() {
                       const height = `${Math.max(12, Math.round((day.activityScore / peakActivity) * 100))}%`;
                       return (
                         <div key={day.dateKey} className="flex h-full min-w-0 flex-col items-center justify-end gap-3">
-                          <div className="flex h-full w-full items-end rounded-[20px] bg-muted/60 p-1.5">
+                          <div className="flex h-full w-full items-end rounded-[20px] border border-border/70 bg-secondary/65 p-1.5">
                             <motion.div
-                              className="w-full rounded-[14px] bg-[linear-gradient(180deg,#0ea5e9_0%,#14b8a6_100%)]"
+                              className="w-full rounded-[14px] bg-[hsl(var(--chart-1))]"
                               style={{ height }}
                               initial={{ height: 0, opacity: 0.45 }}
                               animate={{ height, opacity: 1 }}
@@ -477,13 +477,13 @@ export default function DashboardPage() {
           <MetricCard title="누적 세션" value={`${totalSessions}회`} subtitle={`${formatStudyMinutes(totalStudySeconds)} · ${totalCardsViewed}개 카드`} icon={<BarChart3 className="h-5 w-5" />} />
         </section>
 
-        <section className="overflow-hidden rounded-[32px] border border-border bg-card p-6 shadow-sm">
+        <section className="ds-surface overflow-hidden p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="text-xl font-semibold text-foreground">즐겨찾기 카드</h2>
               <p className="mt-1 text-sm text-muted-foreground">현재 저장된 즐겨찾기를 과목별로 묶어서 보여줍니다.</p>
             </div>
-            <div className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">
+            <div className="ds-chip">
               총 {favoriteCount}개
             </div>
           </div>

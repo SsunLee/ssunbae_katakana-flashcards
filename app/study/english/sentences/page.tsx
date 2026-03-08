@@ -5,11 +5,13 @@ import { CheckCircle2, CircleHelp, RotateCcw, Shuffle, Volume2, XCircle } from "
 
 import { useAuth } from "@/app/AuthContext";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
+import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { Button } from "@/app/components/ui/button";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { ENGLISH_SENTENCE_QUIZ } from "@/app/data/english-sentence-quiz";
+import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings";
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useEnSpeech } from "@/app/hooks/useEnSpeech";
 
@@ -41,11 +43,12 @@ function CompactResultBadge({
   );
 }
 
-function renderSentence(prompt: string, answer?: string) {
+function renderSentence(prompt: string, fontSize: number, answer?: string) {
   const [before, after] = prompt.split("_____");
+  const lineHeight = Math.round(fontSize * 1.45);
 
   return (
-    <p className="text-xl font-semibold leading-9 text-foreground sm:text-2xl">
+    <p className="font-semibold text-foreground" style={{ fontSize: `${fontSize}px`, lineHeight: `${lineHeight}px` }}>
       {before}
       {answer ? <span className="border-b-2 border-primary px-1 text-primary">{answer}</span> : <span className="border-b-2 border-muted-foreground/40 px-8" />}
       {after}
@@ -57,13 +60,19 @@ export default function EnglishSentenceQuizPage() {
   const deckType = "english-sentences";
   const { user } = useAuth();
   const { open } = useAuthModal();
-  const { isSupported: isTtsSupported, ready: ttsReady, speakEn } = useEnSpeech();
+  const { isSupported: isTtsSupported, ready: ttsReady, speakEn, selectedVoice, voices, selectVoice, isSafari } = useEnSpeech();
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [currentResult, setCurrentResult] = useState<QuizResult | null>(null);
   const [results, setResults] = useState<Record<number, QuizResult>>({});
   const [shuffleTick, setShuffleTick] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
+  const { fontFamily, setFontFamily, sentenceFontSize, setSentenceFontSize, fontStack } = useQuizTypographySettings({
+    storageKeyPrefix: "enSentenceQuiz",
+    defaultFontFamily: "Inter",
+    defaultSentenceFontSize: 21,
+  });
   const baseDeck = useMemo(() => (user ? ENGLISH_SENTENCE_QUIZ : ENGLISH_SENTENCE_QUIZ.slice(0, 3)), [user]);
   const visibleDeck = useMemo(() => {
     if (shuffleTick === 0) return baseDeck;
@@ -85,6 +94,8 @@ export default function EnglishSentenceQuizPage() {
   const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
   const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const solvedCount = counts.correct + counts.wrong + counts.skipped;
+  const optionTextSize = Math.max(15, Math.round(sentenceFontSize * 0.72));
+  const optionCircleSize = Math.max(38, Math.round(sentenceFontSize * 1.75));
 
   useEffect(() => {
     localStorage.setItem("lastActivePage", "/study/english/sentences");
@@ -153,8 +164,8 @@ export default function EnglishSentenceQuizPage() {
   };
 
   return (
-    <div className="min-h-screen w-full px-4 py-6 sm:px-6">
-      <div className="mx-auto max-w-[760px]">
+    <div className="min-h-screen w-full px-4 py-6 sm:px-6" style={{ fontFamily: fontStack }}>
+      <div className="mx-auto max-w-[660px]">
         <WelcomeBanner
           name={user?.nickname || undefined}
           subject={STUDY_LABELS[deckType]}
@@ -169,14 +180,14 @@ export default function EnglishSentenceQuizPage() {
           />
         ) : null}
 
-        <section className="rounded-[28px] border border-border bg-card p-5 shadow-sm sm:p-6">
+        <section className="ds-surface p-5 sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-sm font-medium text-muted-foreground">English Sentence Quiz</p>
               <h1 className="mt-1 text-2xl font-semibold text-foreground">Question {questionIndex + 1}</h1>
             </div>
             <div className="flex flex-wrap items-center justify-end gap-2">
-              <div className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground">{progressText}</div>
+              <div className="ds-chip">{progressText}</div>
               <CompactResultBadge label="정답" value={counts.correct} tone="text-emerald-500" />
               <CompactResultBadge label="오답" value={counts.wrong} tone="text-rose-500" />
               <CompactResultBadge label="모름" value={counts.skipped} tone="text-amber-500" />
@@ -188,6 +199,25 @@ export default function EnglishSentenceQuizPage() {
                 <Shuffle className="h-4 w-4" />
                 섞기
               </Button>
+              <Button size="sm" variant="outline" onClick={() => setShowSettings(true)} aria-haspopup="dialog" aria-expanded={showSettings}>
+                ⚙️ 설정
+              </Button>
+              <SettingsDialog
+                open={showSettings}
+                onOpenChange={setShowSettings}
+                user={user}
+                deckType={deckType}
+                isTtsSupported={isTtsSupported}
+                selectedVoice={selectedVoice}
+                selectVoice={selectVoice}
+                voices={voices}
+                isSafari={isSafari}
+                fontFamily={fontFamily}
+                setFontFamily={setFontFamily}
+                sentenceFontSize={sentenceFontSize}
+                setSentenceFontSize={setSentenceFontSize}
+                resetDeck={handleReset}
+              />
             </div>
           </div>
 
@@ -209,7 +239,7 @@ export default function EnglishSentenceQuizPage() {
             </div>
           ) : null}
 
-          <div className="mt-8 rounded-[28px] border border-border bg-background/70 p-5 sm:p-6">
+          <div className="ds-surface-soft mt-8 p-5 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-muted-foreground">빈칸에 들어갈 가장 알맞은 표현을 고르세요.</p>
               <Button
@@ -223,7 +253,7 @@ export default function EnglishSentenceQuizPage() {
               </Button>
             </div>
 
-            <div className="mt-6">{renderSentence(currentQuestion.prompt, currentResult ? currentQuestion.answer : undefined)}</div>
+            <div className="mt-6">{renderSentence(currentQuestion.prompt, sentenceFontSize, currentResult ? currentQuestion.answer : undefined)}</div>
 
             {currentResult ? (
               <p className="mt-4 text-base text-muted-foreground">{currentQuestion.translation}</p>
@@ -250,12 +280,17 @@ export default function EnglishSentenceQuizPage() {
                     type="button"
                     onClick={() => handleSelect(choice)}
                     disabled={answered}
-                    className={`flex w-full items-center gap-4 rounded-[24px] border px-4 py-4 text-left transition-colors ${containerClass}`}
+                    className={`flex w-full items-center gap-3 rounded-[24px] border px-4 py-3 text-left transition-colors ${containerClass}`}
                   >
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-current text-lg font-semibold">
+                    <span
+                      className="inline-flex shrink-0 items-center justify-center rounded-full border border-current font-semibold"
+                      style={{ width: `${optionCircleSize}px`, height: `${optionCircleSize}px`, fontSize: `${Math.max(18, optionTextSize)}px` }}
+                    >
                       {optionLabel}
                     </span>
-                    <span className="min-w-0 flex-1 text-lg font-medium">{choice}</span>
+                    <span className="min-w-0 flex-1 font-medium" style={{ fontSize: `${optionTextSize}px` }}>
+                      {choice}
+                    </span>
                     {answered && isCorrect ? <CheckCircle2 className="h-5 w-5 shrink-0" /> : null}
                     {answered && isSelected && !isCorrect ? <XCircle className="h-5 w-5 shrink-0" /> : null}
                   </button>
