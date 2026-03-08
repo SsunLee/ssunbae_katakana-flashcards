@@ -313,19 +313,21 @@ export default function KatakanaWordsPage() {
           원격 단어 데이터 연결에 실패하여 기본 100개 데이터로 학습 중입니다.
         </div>
       )}
-      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm">
-        <span className="font-semibold">JLPT:</span>
-        {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
-          <label key={level} className="flex shrink-0 items-center space-x-1.5 cursor-pointer">
-            <Checkbox
-              id={`katakana-words-${level}`}
-              checked={jlptFilters[level]}
-              disabled={!user}
-              onCheckedChange={() => handleJlptFilterChange(level)}
-            />
-            <span>{JLPT_FILTERS[level]}</span>
-          </label>
-        ))}
+      <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg overflow-x-auto text-sm">
+        <div className="mx-auto flex w-max items-center gap-2 whitespace-nowrap">
+          <span className="font-semibold">JLPT:</span>
+          {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
+            <label key={level} className="flex shrink-0 items-center space-x-1.5 cursor-pointer">
+              <Checkbox
+                id={`katakana-words-${level}`}
+                checked={jlptFilters[level]}
+                disabled={!user}
+                onCheckedChange={() => handleJlptFilterChange(level)}
+              />
+              <span>{JLPT_FILTERS[level]}</span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* 메인 카드 영역 */}
