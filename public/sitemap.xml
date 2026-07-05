@@ -43,6 +43,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ssunedu.com/study/japanese/sentence-quiz</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ssunedu.com/study/japanese/kanji</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>

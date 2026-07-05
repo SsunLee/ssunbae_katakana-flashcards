@@ -83,9 +83,15 @@ export default function Footer() {
             <p className="text-xs text-muted-foreground/80">Visitors {visitorCount.toLocaleString()}</p>
           )}
         </div>
-        <nav className="flex gap-4">
+        <nav className="flex flex-wrap justify-center gap-4">
+          <Link href="/" className="hover:underline">Home</Link>
+          <Link href="/study/japanese" className="hover:underline">Japanese</Link>
+          <Link href="/study/english/words" className="hover:underline">English</Link>
+          <Link href="/study/spanish/words" className="hover:underline">Spanish</Link>
+          <Link href="/study/korean/words" className="hover:underline">Korean</Link>
           <Link href="/support" className="hover:underline">Support</Link>
           <Link href="/privacy" className="hover:underline">Privacy</Link>
+          <Link href="/terms" className="hover:underline">Terms</Link>
         </nav>
       </div>
     </footer>

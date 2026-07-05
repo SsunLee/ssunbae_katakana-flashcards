@@ -6,10 +6,13 @@ export const metadata: Metadata = {
   title: "이용약관 | SSUN EDU",
   description: "SSUN EDU 이용약관",
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 const LAST_UPDATED = "2025-10-06";
-const SUPPORT_EMAIL = "support@ssun-edu.app";
+const SUPPORT_EMAIL = "tnsqo1126@naver.com";
 const PRIVACY_URL = "/privacy";
 
 export default function TermsPage() {
@@ -54,7 +57,7 @@ export default function TermsPage() {
 
         <h2>6. 유료 결제(해당 시)</h2>
         <p>
-          현재 유료 결제가 없다면 “없음”으로 명시하세요. 유료 기능이 있다면 가격, 결제주체, 환불/청약철회(현행 법령 기준) 등을 기재합니다.
+          현재 SSUN EDU 웹 서비스는 별도의 유료 결제를 제공하지 않습니다. 향후 유료 기능이 추가되는 경우 가격, 결제 방식, 환불 기준을 서비스 화면과 본 약관에 명확히 고지합니다.
         </p>
 
         <h2>7. 서비스 제공의 중단</h2>

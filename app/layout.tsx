@@ -110,7 +110,6 @@ export const metadata: Metadata = {
   
   category: 'education',
   alternates: {
-    canonical: SITE_URL,
     types: {
       'application/rss+xml': `${SITE_URL}/rss.xml`,
     },

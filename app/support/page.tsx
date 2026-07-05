@@ -9,6 +9,9 @@ import Link from "next/link"
 export const metadata = {
   title: "Support | SSUN EDU",
   description: "SSUN EDU 고객지원",
+  alternates: {
+    canonical: "/support",
+  },
 };
 
 

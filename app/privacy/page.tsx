@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "개인정보처리방침 | SSUN EDU",
   description: "SSUN EDU 개인정보처리방침",
   robots: { index: true, follow: true },
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 const TERMSFEED_URL = "https://www.termsfeed.com/live/22610f1f-078c-4283-97c2-6e716a27e22c";
@@ -58,6 +61,25 @@ export default async function PrivacyPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           이 페이지는 SSUN EDU의 최신 개인정보처리방침을 표시합니다.
         </p>
+
+        <section className="mt-4 rounded-lg border p-4 text-sm leading-7">
+          <h2 className="text-base font-semibold">광고 및 쿠키 안내</h2>
+          <p className="mt-2">
+            SSUN EDU는 서비스 운영과 콘텐츠 개선을 위해 Google AdSense 등 제3자 광고 서비스를 사용할 수 있습니다.
+            Google을 포함한 제3자 광고 사업자는 쿠키를 사용하여 사용자의 이전 방문 기록을 기반으로 맞춤형 광고를 제공할 수 있습니다.
+          </p>
+          <p className="mt-2">
+            사용자는{" "}
+            <a className="underline hover:text-primary" href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">
+              Google 광고 설정
+            </a>
+            에서 개인 맞춤 광고를 관리하거나 해제할 수 있으며, 일부 제3자 광고 사업자의 맞춤 광고 사용은{" "}
+            <a className="underline hover:text-primary" href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">
+              aboutads.info
+            </a>
+            에서 선택 해제할 수 있습니다.
+          </p>
+        </section>
 
         {/* 원문 링크 */}
         <div className="mt-4 rounded-lg border p-3 text-sm">
