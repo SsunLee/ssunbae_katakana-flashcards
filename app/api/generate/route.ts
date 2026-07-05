@@ -78,6 +78,22 @@ export async function POST(request: Request) {
           - The "answer" field MUST be the Korean meaning.
         `;
         break;
+      case 'kanji-words':
+        prompt += `
+          {
+            "katakana": "A Japanese kanji word, e.g. 学校",
+            "furigana": "The hiragana reading, e.g. がっこう",
+            "answer": "The Korean meaning",
+            "emoji": "One relevant emoji",
+            "korean": "The Korean meaning",
+            "jlpt": "N5 | N4 | N3 | N2 | N1"
+          }
+          - "katakana" MUST contain the Japanese kanji word. Keep this field name for compatibility with the flashcard client.
+          - "furigana" MUST be the hiragana reading.
+          - "answer" and "korean" MUST be in Korean and may be identical.
+          - "jlpt" MUST be one of N5, N4, N3, N2, N1.
+        `;
+        break;
       case 'sentences': // Japanese Sentences
         prompt += `
 The JSON structure per item is:

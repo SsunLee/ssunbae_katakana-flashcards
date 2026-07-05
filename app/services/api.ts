@@ -122,6 +122,21 @@ export async function fetchWords(): Promise<Word[]> {
   }
 }
 
+export async function fetchJapaneseKanjiWords(): Promise<Word[]> {
+  try {
+    const response = await getWithFallback<{ words: Word[] }>('/api/kanji-words');
+
+    if (response.data && Array.isArray(response.data.words)) {
+      return response.data.words;
+    }
+    throw new Error("Invalid API response structure");
+  } catch (error) {
+    const e = error as AxiosError;
+    console.error(`Failed to fetch kanji words: ${e.message}`);
+    throw e;
+  }
+}
+
 export async function fetchJapaneseSentenceQuiz(): Promise<JapaneseSentenceQuiz[]> {
   try {
     const response = await getWithFallback<{ quizzes: JapaneseSentenceQuiz[] }>('/api/japanese-sentence-quiz');

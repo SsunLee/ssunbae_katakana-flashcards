@@ -2,6 +2,7 @@ import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { ENGLISH_SENTENCE_QUIZ } from "@/app/data/english-sentence-quiz";
 import { ENGLISH_WORDS } from "@/app/data/english-words";
 import { HIRAGANA_CHARS } from "@/app/data/hiraganaChars";
+import { KANJI_JLPT_WORDS } from "@/app/data/kanji-words";
 import { KANJI_WORDS } from "@/app/data/kanji";
 import { KATAKANA_CHARS } from "@/app/data/katakanaChars";
 import { KOREAN_CHARS } from "@/app/data/korean-chars";
@@ -57,6 +58,7 @@ type FavoritePreview = {
 
 export const DASHBOARD_DECK_ORDER = [
   "katakana-words",
+  "kanji-words",
   "japanese-verbs",
   "japanese-kanji",
   "sentences",
@@ -75,6 +77,7 @@ export const DASHBOARD_DECK_ORDER = [
 
 export const DECK_PATHS: Record<string, string> = {
   "katakana-words": "/study/japanese/katakana-words",
+  "kanji-words": "/study/japanese/katakana-words",
   "japanese-verbs": "/study/japanese/verbs",
   "japanese-kanji": "/study/japanese/kanji",
   sentences: "/study/japanese/sentences",
@@ -93,6 +96,7 @@ export const DECK_PATHS: Record<string, string> = {
 
 const DECK_COLORS: Record<string, string> = {
   "katakana-words": "#0f766e",
+  "kanji-words": "#a16207",
   "japanese-verbs": "#2563eb",
   "japanese-kanji": "#9333ea",
   sentences: "#db2777",
@@ -118,6 +122,11 @@ function buildFavoriteLookup<T extends { id: number }>(
 
 const FAVORITE_LOOKUPS: Record<string, Map<number, FavoritePreview>> = {
   "katakana-words": buildFavoriteLookup(WORDS, (card) => ({
+    id: card.id,
+    title: card.katakana,
+    subtitle: card.korean ?? card.answer,
+  })),
+  "kanji-words": buildFavoriteLookup(KANJI_JLPT_WORDS, (card) => ({
     id: card.id,
     title: card.katakana,
     subtitle: card.korean ?? card.answer,

@@ -65,7 +65,7 @@ export default function Root() {
                 href="/study/japanese/katakana-words"
                 className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_34px_rgba(59,130,246,0.38)] transition-transform hover:-translate-y-0.5"
               >
-                일본어 단어 시작
+                JLPT 단어 시작
               </Link>
               <Link
                 href="/study/japanese/sentence-quiz"

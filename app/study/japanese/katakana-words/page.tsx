@@ -22,12 +22,13 @@ import { Skeleton } from "@/app/components/ui/skeleton";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
+import { KANJI_JLPT_WORDS } from "@/app/data/kanji-words";
 import { WORDS as KATAKANA_WORDS, type Word } from "@/app/data/words";
 import { FONT_STACKS } from "@/app/constants/fonts";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
 import { useMounted } from '@/app/hooks/useMounted';
-import { fetchWords, isRemoteStudyApiEnabled } from "@/app/services/api";
+import { fetchJapaneseKanjiWords, fetchWords, isRemoteStudyApiEnabled } from "@/app/services/api";
 import { INLINE_CONTENT_AD_MAX_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 
 // error message
@@ -37,6 +38,7 @@ import { FOOTER_TEXTS } from "@/app/constants/message";
 /** 페이지 공통 상수/타입 */
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
+type WordScriptMode = "katakana" | "kanji";
 const JLPT_FILTERS = {
   N5: "N5",
   N4: "N4",
@@ -61,8 +63,10 @@ export default function KatakanaWordsPage() {
 
 
   /** 고정값 */
-  const initialDeck = KATAKANA_WORDS;
-  const deckType = "katakana-words";
+  const [wordScriptMode, setWordScriptMode] = useState<WordScriptMode>("katakana");
+  const deckType = wordScriptMode === "kanji" ? "kanji-words" : "katakana-words";
+  const initialDeck = wordScriptMode === "kanji" ? KANJI_JLPT_WORDS : KATAKANA_WORDS;
+  const activeSubject = STUDY_LABELS[deckType];
 
   const [wordFontSize, setwordFontSize] = useState(50);
 
@@ -74,6 +78,11 @@ export default function KatakanaWordsPage() {
   const fetchKatakanaWords = useCallback(async () => {
     const remoteWords = await fetchWords();
     return mergeLocalAndRemoteWords(KATAKANA_WORDS, remoteWords);
+  }, []);
+
+  const fetchKanjiWords = useCallback(async () => {
+    const remoteWords = await fetchJapaneseKanjiWords();
+    return mergeLocalAndRemoteWords(KANJI_JLPT_WORDS, remoteWords);
   }, []);
 
   /** Firestore 연동 덱 상태 (즐겨찾기까지 포함) */
@@ -89,7 +98,11 @@ export default function KatakanaWordsPage() {
     user,
     deckType,
     initialDeck,
-    fetchDeckData: isRemoteStudyApiEnabled ? fetchKatakanaWords : undefined,
+    fetchDeckData: isRemoteStudyApiEnabled
+      ? wordScriptMode === "kanji"
+        ? fetchKanjiWords
+        : fetchKatakanaWords
+      : undefined,
   });
 
   /** 뷰 상태 */
@@ -151,6 +164,16 @@ export default function KatakanaWordsPage() {
     setIndex(0);
     setFlipped(false);
     setCurrentPage(1);
+  };
+
+  const handleWordScriptModeChange = (nextMode: WordScriptMode) => {
+    if (nextMode === wordScriptMode) return;
+    setWordScriptMode(nextMode);
+    setIndex(0);
+    setFlipped(false);
+    setFlippedStates({});
+    setCurrentPage(1);
+    setOnlyFavs(false);
   };
 
 
@@ -250,7 +273,7 @@ export default function KatakanaWordsPage() {
     >
       {/* 환영 배너 */}
       <header className="w-full max-w-md mx-auto mb-1">
-        <WelcomeBanner name={user?.nickname || undefined} subject={STUDY_LABELS[deckType]}/>
+        <WelcomeBanner name={user?.nickname || undefined} subject={activeSubject}/>
       </header>
 
       {/* 비로그인 안내 카드 */}
@@ -310,16 +333,39 @@ export default function KatakanaWordsPage() {
       )}
       {!isLoading && error && studyDeck.length > 0 && (
         <div className="w-full max-w-md mb-4 rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-          원격 단어 데이터 연결에 실패하여 기본 100개 데이터로 학습 중입니다.
+          원격 JLPT 단어 데이터 연결에 실패하여 기본 데이터로 학습 중입니다.
         </div>
       )}
+      <section className="mb-3 w-full max-w-md rounded-lg border border-border bg-card px-3 py-3">
+        <div className="flex items-center justify-between gap-3">
+          <span className="shrink-0 text-sm font-semibold text-muted-foreground">문자 종류</span>
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              size="sm"
+              variant={wordScriptMode === "katakana" ? "default" : "outline"}
+              onClick={() => handleWordScriptModeChange("katakana")}
+            >
+              가타카나
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              variant={wordScriptMode === "kanji" ? "default" : "outline"}
+              onClick={() => handleWordScriptModeChange("kanji")}
+            >
+              한자
+            </Button>
+          </div>
+        </div>
+      </section>
       <div className="w-full max-w-md mx-auto mb-4 p-3 bg-card border border-border rounded-lg overflow-x-auto text-sm">
         <div className="mx-auto flex w-max items-center gap-2 whitespace-nowrap">
           <span className="font-semibold">JLPT:</span>
           {(Object.keys(JLPT_FILTERS) as JlptFilterKey[]).map((level) => (
             <label key={level} className="flex shrink-0 items-center space-x-1.5 cursor-pointer">
               <Checkbox
-                id={`katakana-words-${level}`}
+                id={`${deckType}-${level}`}
                 checked={jlptFilters[level]}
                 disabled={!user}
                 onCheckedChange={() => handleJlptFilterChange(level)}
@@ -435,7 +481,11 @@ export default function KatakanaWordsPage() {
       <footer className="w-full max-w-md mx-auto mt-6 text-sm text-muted-foreground bg-card/50 border border-border rounded-xl px-4 py-3">
         <ul className="list-disc list-outside pl-6 space-y-1 leading-relaxed">
           <li>{FOOTER_TEXTS.GUIDE_TTS_FONT}</li>
-          <li>기본 단어 100개와 원격 단어 데이터를 함께 사용합니다.</li>
+          <li>
+            {wordScriptMode === "kanji"
+              ? "기본 한자 단어 10개와 원격 한자 단어 데이터를 함께 사용합니다."
+              : "기본 가타카나 단어 100개와 원격 단어 데이터를 함께 사용합니다."}
+          </li>
           <li>
             {FOOTER_TEXTS.KEYBOARD_GUIDE.PREFIX}
             <kbd>Enter</kbd>

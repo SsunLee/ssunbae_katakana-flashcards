@@ -43,7 +43,7 @@ const menuConfig: MenuGroup[] = [
     icon: "🇯🇵",
     items: [
       { href: "/study/japanese/sentence-quiz", label: "문장 퀴즈", icon: "🧩" },
-      { href: "/study/japanese/katakana-words", label: "가타카나 단어", icon: "/icons/jp_word.png" },
+      { href: "/study/japanese/katakana-words", label: "JLPT 단어", icon: "/icons/jp_word.png" },
       { href: "/study/japanese/verbs", label: "JLPT 동사", icon: "📝", disabled: false },
       { href: "/study/japanese/kanji", label: "JLPT 한자", icon: "🎴", disabled: false },
       { href: "/study/japanese/kana-chars", label: "가타카나 / 히라가나", icon: "/icons/jp_katakana.png" },

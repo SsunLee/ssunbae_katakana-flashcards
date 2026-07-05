@@ -1,6 +1,7 @@
 // app/constants/studyLabels.ts
 export const STUDY_LABELS: Record<string, string> = {
-  "katakana-words": "가타카나 단어",
+  "katakana-words": "JLPT 단어",
+  "kanji-words": "한자 단어",
   "japanese-verbs": "JLPT 동사",
   "japanese-kanji": "JLPT 한자",
   "sentences": "일본어 문장",
