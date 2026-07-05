@@ -442,7 +442,7 @@ export default function KatakanaWordsPage() {
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
                 fontSize={wordFontSize}
-                showFurigana={wordScriptMode !== "kanji" || showKanjiReading}
+                showFurigana={wordScriptMode === "kanji" ? showKanjiReading : false}
               />
             )
           )
@@ -470,7 +470,11 @@ export default function KatakanaWordsPage() {
                           </ruby>
                         </>
                       )
-                    : undefined
+                    : (card) => (
+                        <div className="px-2 text-2xl font-semibold leading-tight break-all">
+                          {card.katakana}
+                        </div>
+                      )
                 }
                 renderBack={
                   wordScriptMode === "kanji"

@@ -41,7 +41,7 @@ const learningSections = [
 export default function Root() {
   return (
     <main className="overflow-hidden bg-background">
-      <section className="relative isolate min-h-[620px] overflow-hidden px-5 py-14 sm:min-h-[680px] sm:px-8 lg:px-12">
+      <section className="relative isolate min-h-[760px] overflow-hidden px-5 pb-24 pt-20 sm:min-h-[680px] sm:px-8 sm:py-14 lg:px-12">
         <div
           className="absolute inset-0 -z-20 bg-cover bg-[position:58%_center] sm:bg-center"
           style={{ backgroundImage: "url('/home-hero-study-desk.webp')" }}
@@ -50,8 +50,8 @@ export default function Root() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,10,10,0.98)_0%,rgba(10,10,10,0.9)_33%,rgba(10,10,10,0.58)_60%,rgba(10,10,10,0.22)_100%)]" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-background to-transparent" />
 
-        <div className="mx-auto flex min-h-[520px] max-w-6xl flex-col justify-between sm:min-h-[580px]">
-          <div className="max-w-[21rem] pt-10 sm:max-w-2xl sm:pt-16">
+        <div className="mx-auto flex min-h-[640px] max-w-6xl flex-col justify-between gap-12 sm:min-h-[580px] sm:gap-8">
+          <div className="max-w-[21rem] sm:max-w-2xl sm:pt-16">
             <p className="text-sm font-semibold text-primary">무료 언어 학습 사이트</p>
             <h1 className="mt-4 text-5xl font-bold tracking-normal text-white sm:text-7xl">
               SSUN EDU
@@ -81,7 +81,7 @@ export default function Root() {
               <Link
                 key={section.href}
                 href={section.href}
-                className="group bg-black/38 p-4 transition-colors hover:bg-primary/20"
+                className="group bg-black/38 p-5 transition-colors hover:bg-primary/20 sm:p-4"
               >
                 <p className="text-xs font-semibold uppercase tracking-normal text-primary">
                   {section.label}
