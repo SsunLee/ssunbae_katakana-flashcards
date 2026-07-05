@@ -13,6 +13,7 @@ import { useAuthModal } from "@/app/context/AuthModalContext";
 import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings";
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import type { SentenceQuizItem, SentenceQuizLevel } from "@/app/data/sentence-quiz-types";
+import { triggerHaptic } from "@/app/lib/haptics";
 
 type QuizResult = "correct" | "wrong" | "skipped";
 
@@ -189,6 +190,7 @@ export function SentenceQuizPage({
     if (currentResult) return;
 
     const result: QuizResult = choice === currentQuestion.answer ? "correct" : "wrong";
+    void triggerHaptic(result === "correct" ? "success" : "warning");
     setSelectedChoice(choice);
     setCurrentResult(result);
     setResults((prev) => ({ ...prev, [currentQuestion.id]: result }));
@@ -196,6 +198,7 @@ export function SentenceQuizPage({
 
   const handleSkip = () => {
     if (currentResult) return;
+    void triggerHaptic("light");
     setSelectedChoice(null);
     setCurrentResult("skipped");
     setResults((prev) => ({ ...prev, [currentQuestion.id]: "skipped" }));
@@ -203,11 +206,13 @@ export function SentenceQuizPage({
 
   const handlePrevious = () => {
     if (isFirstQuestion) return;
+    void triggerHaptic("light");
     setQuestionIndex((prev) => Math.max(0, prev - 1));
     resetAnswerState();
   };
 
   const handleNext = () => {
+    void triggerHaptic("light");
     setQuestionIndex((prev) => (isLastQuestion ? 0 : prev + 1));
     resetAnswerState();
   };

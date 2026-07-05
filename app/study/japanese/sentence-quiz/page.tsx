@@ -18,6 +18,7 @@ import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings";
 import { useStudyDeck } from "@/app/hooks/useStudyDeck";
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
+import { triggerHaptic } from "@/app/lib/haptics";
 import { SINGLE_LEFT_SIDE_AD_MIN_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 import { fetchJapaneseSentenceQuiz, isRemoteStudyApiEnabled } from "@/app/services/api";
 import type { JapaneseSentenceQuiz } from "@/app/types/japaneseSentenceQuiz";
@@ -240,6 +241,7 @@ export default function JapaneseSentenceQuizPage() {
     if (!currentQuestion || currentResult) return;
 
     const result: QuizResult = choice === currentQuestion.answer ? "correct" : "wrong";
+    void triggerHaptic(result === "correct" ? "success" : "warning");
     setSelectedChoice(choice);
     setCurrentResult(result);
     setResults((prev) => ({ ...prev, [currentQuestion.id]: result }));
@@ -247,6 +249,7 @@ export default function JapaneseSentenceQuizPage() {
 
   const handleSkip = () => {
     if (!currentQuestion || currentResult) return;
+    void triggerHaptic("light");
     setSelectedChoice(null);
     setCurrentResult("skipped");
     setResults((prev) => ({ ...prev, [currentQuestion.id]: "skipped" }));
@@ -254,6 +257,7 @@ export default function JapaneseSentenceQuizPage() {
 
   const handleNext = () => {
     if (visibleDeck.length === 0) return;
+    void triggerHaptic("light");
 
     if (isLastQuestion) {
       setQuestionIndex(0);
@@ -267,6 +271,7 @@ export default function JapaneseSentenceQuizPage() {
 
   const handlePrevious = () => {
     if (visibleDeck.length === 0 || isFirstQuestion) return;
+    void triggerHaptic("light");
 
     setQuestionIndex((prev) => Math.max(0, prev - 1));
     setSelectedChoice(null);

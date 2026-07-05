@@ -18,6 +18,10 @@ const config: CapacitorConfig = {
       enabled: liveUpdatesEnabled,
       maxVersions: 2,
     },
+    StatusBar: {
+      overlaysWebView: true,
+      style: 'DARK',
+    },
   },
 };
 

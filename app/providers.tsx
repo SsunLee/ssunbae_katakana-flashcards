@@ -25,7 +25,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     document.documentElement.classList.add('native');
 
     StatusBar.setOverlaysWebView({ overlay: true }).catch(() => {});
-    StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+    StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
 
     // (선택) 상단 상태바 배경 색 일치 (다크 테마에서 깜빡임 방지)
     const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
