@@ -237,9 +237,9 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
 
         <div className="flex-grow p-3 overflow-y-auto flex flex-col">
           <div className="mb-3">
-            <a
-              href="/study/dashboard"
-              onClick={onClose}
+            <button
+              type="button"
+              onClick={() => handleNavigate("/study/dashboard")}
               className={`flex w-full items-center justify-start rounded-xl px-3 py-2 text-[13px] font-semibold ${
                 pathname === "/study/dashboard"
                   ? "bg-primary/10 text-primary"
@@ -248,7 +248,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
             >
               <BarChart3 className="mr-2 inline-block h-4 w-4 align-[-2px]" />
               <span>분석 대시보드</span>
-            </a>
+            </button>
           </div>
 
           <Accordion type="single" collapsible defaultValue={defaultAccordionValue} className="w-full">
@@ -463,4 +463,3 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
     </Sheet>
   );
 }
-
