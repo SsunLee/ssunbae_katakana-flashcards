@@ -27,8 +27,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "comes",
     "translation": "너는 빵을 먹는다.",
     "choices": [
-      "comes",
       "habla",
+      "comes",
       "fui",
       "tener"
     ],
@@ -44,9 +44,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "trabaja",
     "translation": "그녀는 사무실에서 일한다.",
     "choices": [
-      "trabaja",
       "habla",
       "fui",
+      "trabaja",
       "tener"
     ],
     "explanation": [
@@ -61,10 +61,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimos",
     "translation": "우리는 서울에 산다.",
     "choices": [
-      "vivimos",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "vivimos"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -95,8 +95,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다.",
     "choices": [
-      "lee",
       "habla",
+      "lee",
       "fui",
       "tener"
     ],
@@ -112,9 +112,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "explica",
     "translation": "선생님은 문법을 설명한다.",
     "choices": [
-      "explica",
       "habla",
       "fui",
+      "explica",
       "tener"
     ],
     "explanation": [
@@ -129,10 +129,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다.",
     "choices": [
-      "escucha",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "escucha"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -163,8 +163,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다.",
     "choices": [
-      "abre",
       "habla",
+      "abre",
       "fui",
       "tener"
     ],
@@ -180,9 +180,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudio",
     "translation": "나는 스페인어를 공부한다의 부정문.",
     "choices": [
-      "estudio",
       "habló",
       "comer",
+      "estudio",
       "합니다"
     ],
     "explanation": [
@@ -197,10 +197,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "come",
     "translation": "너는 빵을 먹는다의 부정문.",
     "choices": [
-      "come",
       "comes",
       "habló",
-      "comer"
+      "comer",
+      "come"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -231,8 +231,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimo",
     "translation": "우리는 서울에 산다의 부정문.",
     "choices": [
-      "vivimo",
       "vivimos",
+      "vivimo",
       "habló",
       "comer"
     ],
@@ -248,9 +248,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitan",
     "translation": "그들은 박물관을 방문한다의 부정문.",
     "choices": [
-      "visitan",
       "habló",
       "comer",
+      "visitan",
       "합니다"
     ],
     "explanation": [
@@ -265,10 +265,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다의 부정문.",
     "choices": [
-      "lee",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "lee"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -299,8 +299,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다의 부정문.",
     "choices": [
-      "escucha",
       "habló",
+      "escucha",
       "comer",
       "합니다"
     ],
@@ -316,9 +316,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "compran",
     "translation": "내 친구들은 과일을 산다의 부정문.",
     "choices": [
-      "compran",
       "habló",
       "comer",
+      "compran",
       "합니다"
     ],
     "explanation": [
@@ -333,10 +333,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다의 부정문.",
     "choices": [
-      "abre",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "abre"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -367,8 +367,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 너는 빵을 먹는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -384,9 +384,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그녀는 사무실에서 일한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -401,10 +401,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 우리는 서울에 산다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -435,8 +435,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 내 동생은 책을 읽는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -452,9 +452,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 선생님은 문법을 설명한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -469,10 +469,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 학생은 음악을 듣는다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -503,8 +503,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그 가게는 9시에 문을 연다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -520,9 +520,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 나는 스페인어를 공부한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -537,10 +537,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 너는 빵을 먹는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -571,8 +571,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 우리는 서울에 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -588,9 +588,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그들은 박물관을 방문한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -605,10 +605,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 동생은 책을 읽는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -639,8 +639,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 학생은 음악을 듣는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -656,9 +656,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 친구들은 과일을 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -673,10 +673,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그 가게는 9시에 문을 연다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -707,8 +707,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "너는 빵을 먹는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -724,9 +724,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그녀는 사무실에서 일한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -741,10 +741,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "우리는 서울에 산다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -775,8 +775,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "내 동생은 책을 읽는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -792,9 +792,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "선생님은 문법을 설명한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -809,10 +809,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "학생은 음악을 듣는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -843,8 +843,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그 가게는 9시에 문을 연다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -860,9 +860,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "나는 스페인어를 공부한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -877,10 +877,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "너는 빵을 먹는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -911,8 +911,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "우리는 서울에 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -928,9 +928,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그들은 박물관을 방문한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -945,10 +945,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 동생은 책을 읽는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -979,8 +979,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "학생은 음악을 듣는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -996,9 +996,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 친구들은 과일을 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -1013,10 +1013,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그 가게는 9시에 문을 연다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -1047,8 +1047,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -1064,9 +1064,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -1081,10 +1081,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -1115,8 +1115,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -1132,9 +1132,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -1149,10 +1149,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -1183,8 +1183,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -1200,9 +1200,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -1217,10 +1217,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -1251,8 +1251,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -1268,9 +1268,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -1285,10 +1285,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -1319,8 +1319,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -1336,9 +1336,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -1353,10 +1353,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -1387,8 +1387,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -1404,9 +1404,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -1421,10 +1421,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -1455,8 +1455,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -1472,9 +1472,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -1489,10 +1489,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -1523,8 +1523,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -1540,9 +1540,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -1557,10 +1557,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -1591,8 +1591,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -1608,9 +1608,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -1625,10 +1625,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -1659,8 +1659,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -1676,9 +1676,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -1693,10 +1693,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -1727,8 +1727,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "comes",
     "translation": "너는 빵을 먹는다.",
     "choices": [
-      "comes",
       "habla",
+      "comes",
       "fui",
       "tener"
     ],
@@ -1744,9 +1744,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "trabaja",
     "translation": "그녀는 사무실에서 일한다.",
     "choices": [
-      "trabaja",
       "habla",
       "fui",
+      "trabaja",
       "tener"
     ],
     "explanation": [
@@ -1761,10 +1761,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimos",
     "translation": "우리는 서울에 산다.",
     "choices": [
-      "vivimos",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "vivimos"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -1795,8 +1795,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다.",
     "choices": [
-      "lee",
       "habla",
+      "lee",
       "fui",
       "tener"
     ],
@@ -1812,9 +1812,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "explica",
     "translation": "선생님은 문법을 설명한다.",
     "choices": [
-      "explica",
       "habla",
       "fui",
+      "explica",
       "tener"
     ],
     "explanation": [
@@ -1829,10 +1829,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다.",
     "choices": [
-      "escucha",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "escucha"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -1863,8 +1863,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다.",
     "choices": [
-      "abre",
       "habla",
+      "abre",
       "fui",
       "tener"
     ],
@@ -1880,9 +1880,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudio",
     "translation": "나는 스페인어를 공부한다의 부정문.",
     "choices": [
-      "estudio",
       "habló",
       "comer",
+      "estudio",
       "합니다"
     ],
     "explanation": [
@@ -1897,10 +1897,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "come",
     "translation": "너는 빵을 먹는다의 부정문.",
     "choices": [
-      "come",
       "comes",
       "habló",
-      "comer"
+      "comer",
+      "come"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -1931,8 +1931,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimo",
     "translation": "우리는 서울에 산다의 부정문.",
     "choices": [
-      "vivimo",
       "vivimos",
+      "vivimo",
       "habló",
       "comer"
     ],
@@ -1948,9 +1948,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitan",
     "translation": "그들은 박물관을 방문한다의 부정문.",
     "choices": [
-      "visitan",
       "habló",
       "comer",
+      "visitan",
       "합니다"
     ],
     "explanation": [
@@ -1965,10 +1965,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다의 부정문.",
     "choices": [
-      "lee",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "lee"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -1999,8 +1999,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다의 부정문.",
     "choices": [
-      "escucha",
       "habló",
+      "escucha",
       "comer",
       "합니다"
     ],
@@ -2016,9 +2016,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "compran",
     "translation": "내 친구들은 과일을 산다의 부정문.",
     "choices": [
-      "compran",
       "habló",
       "comer",
+      "compran",
       "합니다"
     ],
     "explanation": [
@@ -2033,10 +2033,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다의 부정문.",
     "choices": [
-      "abre",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "abre"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -2067,8 +2067,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 너는 빵을 먹는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -2084,9 +2084,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그녀는 사무실에서 일한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -2101,10 +2101,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 우리는 서울에 산다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -2135,8 +2135,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 내 동생은 책을 읽는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -2152,9 +2152,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 선생님은 문법을 설명한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -2169,10 +2169,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 학생은 음악을 듣는다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -2203,8 +2203,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그 가게는 9시에 문을 연다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -2220,9 +2220,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 나는 스페인어를 공부한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -2237,10 +2237,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 너는 빵을 먹는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2271,8 +2271,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 우리는 서울에 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -2288,9 +2288,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그들은 박물관을 방문한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -2305,10 +2305,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 동생은 책을 읽는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2339,8 +2339,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 학생은 음악을 듣는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -2356,9 +2356,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 친구들은 과일을 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -2373,10 +2373,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그 가게는 9시에 문을 연다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2407,8 +2407,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "너는 빵을 먹는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -2424,9 +2424,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그녀는 사무실에서 일한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -2441,10 +2441,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "우리는 서울에 산다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -2475,8 +2475,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "내 동생은 책을 읽는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -2492,9 +2492,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "선생님은 문법을 설명한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -2509,10 +2509,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "학생은 음악을 듣는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -2543,8 +2543,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그 가게는 9시에 문을 연다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -2560,9 +2560,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "나는 스페인어를 공부한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -2577,10 +2577,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "너는 빵을 먹는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -2611,8 +2611,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "우리는 서울에 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -2628,9 +2628,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그들은 박물관을 방문한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -2645,10 +2645,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 동생은 책을 읽는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -2679,8 +2679,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "학생은 음악을 듣는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -2696,9 +2696,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 친구들은 과일을 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -2713,10 +2713,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그 가게는 9시에 문을 연다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -2747,8 +2747,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -2764,9 +2764,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -2781,10 +2781,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -2815,8 +2815,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -2832,9 +2832,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -2849,10 +2849,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -2883,8 +2883,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -2900,9 +2900,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -2917,10 +2917,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -2951,8 +2951,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -2968,9 +2968,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -2985,10 +2985,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -3019,8 +3019,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -3036,9 +3036,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -3053,10 +3053,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -3087,8 +3087,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -3104,9 +3104,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -3121,10 +3121,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -3155,8 +3155,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -3172,9 +3172,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -3189,10 +3189,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -3223,8 +3223,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -3240,9 +3240,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -3257,10 +3257,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -3291,8 +3291,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -3308,9 +3308,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -3325,10 +3325,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -3359,8 +3359,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -3376,9 +3376,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -3393,10 +3393,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -3427,8 +3427,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "comes",
     "translation": "너는 빵을 먹는다.",
     "choices": [
-      "comes",
       "habla",
+      "comes",
       "fui",
       "tener"
     ],
@@ -3444,9 +3444,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "trabaja",
     "translation": "그녀는 사무실에서 일한다.",
     "choices": [
-      "trabaja",
       "habla",
       "fui",
+      "trabaja",
       "tener"
     ],
     "explanation": [
@@ -3461,10 +3461,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimos",
     "translation": "우리는 서울에 산다.",
     "choices": [
-      "vivimos",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "vivimos"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -3495,8 +3495,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다.",
     "choices": [
-      "lee",
       "habla",
+      "lee",
       "fui",
       "tener"
     ],
@@ -3512,9 +3512,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "explica",
     "translation": "선생님은 문법을 설명한다.",
     "choices": [
-      "explica",
       "habla",
       "fui",
+      "explica",
       "tener"
     ],
     "explanation": [
@@ -3529,10 +3529,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다.",
     "choices": [
-      "escucha",
       "habla",
       "fui",
-      "tener"
+      "tener",
+      "escucha"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -3563,8 +3563,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다.",
     "choices": [
-      "abre",
       "habla",
+      "abre",
       "fui",
       "tener"
     ],
@@ -3580,9 +3580,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudio",
     "translation": "나는 스페인어를 공부한다의 부정문.",
     "choices": [
-      "estudio",
       "habló",
       "comer",
+      "estudio",
       "합니다"
     ],
     "explanation": [
@@ -3597,10 +3597,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "come",
     "translation": "너는 빵을 먹는다의 부정문.",
     "choices": [
-      "come",
       "comes",
       "habló",
-      "comer"
+      "comer",
+      "come"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3631,8 +3631,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "vivimo",
     "translation": "우리는 서울에 산다의 부정문.",
     "choices": [
-      "vivimo",
       "vivimos",
+      "vivimo",
       "habló",
       "comer"
     ],
@@ -3648,9 +3648,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitan",
     "translation": "그들은 박물관을 방문한다의 부정문.",
     "choices": [
-      "visitan",
       "habló",
       "comer",
+      "visitan",
       "합니다"
     ],
     "explanation": [
@@ -3665,10 +3665,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "lee",
     "translation": "내 동생은 책을 읽는다의 부정문.",
     "choices": [
-      "lee",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "lee"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3699,8 +3699,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "escucha",
     "translation": "학생은 음악을 듣는다의 부정문.",
     "choices": [
-      "escucha",
       "habló",
+      "escucha",
       "comer",
       "합니다"
     ],
@@ -3716,9 +3716,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "compran",
     "translation": "내 친구들은 과일을 산다의 부정문.",
     "choices": [
-      "compran",
       "habló",
       "comer",
+      "compran",
       "합니다"
     ],
     "explanation": [
@@ -3733,10 +3733,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "abre",
     "translation": "그 가게는 9시에 문을 연다의 부정문.",
     "choices": [
-      "abre",
       "habló",
       "comer",
-      "합니다"
+      "합니다",
+      "abre"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3767,8 +3767,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 너는 빵을 먹는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -3784,9 +3784,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그녀는 사무실에서 일한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -3801,10 +3801,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 우리는 서울에 산다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -3835,8 +3835,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 내 동생은 책을 읽는다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -3852,9 +3852,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 선생님은 문법을 설명한다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
+      "visitó",
       "visitando"
     ],
     "explanation": [
@@ -3869,10 +3869,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 학생은 음악을 듣는다.",
     "choices": [
-      "visitó",
       "visita",
       "visitar",
-      "visitando"
+      "visitando",
+      "visitó"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -3903,8 +3903,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "visitó",
     "translation": "어제 그 가게는 9시에 문을 연다.",
     "choices": [
-      "visitó",
       "visita",
+      "visitó",
       "visitar",
       "visitando"
     ],
@@ -3920,9 +3920,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 나는 스페인어를 공부한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -3937,10 +3937,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 너는 빵을 먹는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -3971,8 +3971,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 우리는 서울에 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -3988,9 +3988,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그들은 박물관을 방문한다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -4005,10 +4005,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 동생은 책을 읽는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -4039,8 +4039,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 학생은 음악을 듣는다.",
     "choices": [
-      "va a estudiar",
       "estudió",
+      "va a estudiar",
       "estudia",
       "estudiando"
     ],
@@ -4056,9 +4056,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 내 친구들은 과일을 산다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
+      "va a estudiar",
       "estudiando"
     ],
     "explanation": [
@@ -4073,10 +4073,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "va a estudiar",
     "translation": "내일 그 가게는 9시에 문을 연다.",
     "choices": [
-      "va a estudiar",
       "estudió",
       "estudia",
-      "estudiando"
+      "estudiando",
+      "va a estudiar"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -4107,8 +4107,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "너는 빵을 먹는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -4124,9 +4124,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그녀는 사무실에서 일한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -4141,10 +4141,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "우리는 서울에 산다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -4175,8 +4175,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "내 동생은 책을 읽는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -4192,9 +4192,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "선생님은 문법을 설명한다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
+      "aprendiendo",
       "aprender"
     ],
     "explanation": [
@@ -4209,10 +4209,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "학생은 음악을 듣는다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
       "aprendió",
-      "aprender"
+      "aprender",
+      "aprendiendo"
     ],
     "explanation": [
       "현재진행을 확인하는 문제입니다.",
@@ -4243,8 +4243,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "aprendiendo",
     "translation": "그 가게는 9시에 문을 연다고 있다.",
     "choices": [
-      "aprendiendo",
       "aprende",
+      "aprendiendo",
       "aprendió",
       "aprender"
     ],
@@ -4260,9 +4260,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "나는 스페인어를 공부한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -4277,10 +4277,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "너는 빵을 먹는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -4311,8 +4311,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "우리는 서울에 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -4328,9 +4328,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그들은 박물관을 방문한다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -4345,10 +4345,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 동생은 책을 읽는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -4379,8 +4379,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "학생은 음악을 듣는다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
+      "estudiado",
       "estudiando",
       "estudiar"
     ],
@@ -4396,9 +4396,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "내 친구들은 과일을 산다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
+      "estudiado",
       "estudiar"
     ],
     "explanation": [
@@ -4413,10 +4413,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "estudiado",
     "translation": "그 가게는 9시에 문을 연다한 적이 있다.",
     "choices": [
-      "estudiado",
       "estudia",
       "estudiando",
-      "estudiar"
+      "estudiar",
+      "estudiado"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -4447,8 +4447,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -4464,9 +4464,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -4481,10 +4481,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -4515,8 +4515,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -4532,9 +4532,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
+      "para",
       "aunque"
     ],
     "explanation": [
@@ -4549,10 +4549,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
       "pero",
-      "aunque"
+      "aunque",
+      "para"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -4583,8 +4583,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "para",
     "translation": "나는 향상하기 위해 연습할 것이다.",
     "choices": [
-      "para",
       "porque",
+      "para",
       "pero",
       "aunque"
     ],
@@ -4600,9 +4600,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -4617,10 +4617,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -4651,8 +4651,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -4668,9 +4668,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -4685,10 +4685,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -4719,8 +4719,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
+      "porque",
       "aunque",
       "si"
     ],
@@ -4736,9 +4736,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
+      "porque",
       "si"
     ],
     "explanation": [
@@ -4753,10 +4753,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "porque",
     "translation": "비가 많이 와서 우리는 나가지 않았다.",
     "choices": [
-      "porque",
       "pero",
       "aunque",
-      "si"
+      "si",
+      "porque"
     ],
     "explanation": [
       "이유 표현을 확인하는 문제입니다.",
@@ -4787,8 +4787,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -4804,9 +4804,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -4821,10 +4821,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -4855,8 +4855,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -4872,9 +4872,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
+      "si",
       "desde"
     ],
     "explanation": [
@@ -4889,10 +4889,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
       "durante",
-      "desde"
+      "desde",
+      "si"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -4923,8 +4923,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "si",
     "translation": "시간이 있으면 너에게 전화할 것이다.",
     "choices": [
-      "si",
       "pero",
+      "si",
       "durante",
       "desde"
     ],
@@ -4940,9 +4940,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -4957,10 +4957,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -4991,8 +4991,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -5008,9 +5008,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -5025,10 +5025,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",
@@ -5059,8 +5059,8 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
+      "desde",
       "por",
       "con"
     ],
@@ -5076,9 +5076,9 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
+      "desde",
       "con"
     ],
     "explanation": [
@@ -5093,10 +5093,10 @@ export const SPANISH_SENTENCE_QUIZ: SpanishSentenceQuiz[] = [
     "answer": "desde",
     "translation": "나는 2024년부터 공부한다.",
     "choices": [
-      "desde",
       "durante",
       "por",
-      "con"
+      "con",
+      "desde"
     ],
     "explanation": [
       "시간 전치사을 확인하는 문제입니다.",

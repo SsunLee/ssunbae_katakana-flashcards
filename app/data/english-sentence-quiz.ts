@@ -27,8 +27,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "drinks",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "drinks",
       "drink",
+      "drinks",
       "drinksed",
       "is drinksing"
     ],
@@ -44,9 +44,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "play",
     "translation": "그들은 일요일마다 축구를 한다.",
     "choices": [
-      "play",
       "played",
       "is playing",
+      "play",
       "is"
     ],
     "explanation": [
@@ -61,10 +61,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reads",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "reads",
       "read",
       "readsed",
-      "is readsing"
+      "is readsing",
+      "reads"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -95,8 +95,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "works",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "works",
       "work",
+      "works",
       "worksed",
       "is worksing"
     ],
@@ -112,9 +112,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "runs",
     "translation": "그 개는 매일 오후 공원에서 뛴다.",
     "choices": [
-      "runs",
       "run",
       "runsed",
+      "runs",
       "is runsing"
     ],
     "explanation": [
@@ -129,10 +129,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "cooks",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "cooks",
       "cook",
       "cooksed",
-      "is cooksing"
+      "is cooksing",
+      "cooks"
     ],
     "explanation": [
       "현재시제을 확인하는 문제입니다.",
@@ -163,8 +163,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "opens",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "opens",
       "open",
+      "opens",
       "opensed",
       "is opensing"
     ],
@@ -180,9 +180,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "study",
     "translation": "나는 매일 영어를 공부하지 않았다.",
     "choices": [
-      "study",
       "studying",
       "to study",
+      "study",
       "is"
     ],
     "explanation": [
@@ -197,10 +197,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "drink",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "drink",
       "drinks",
       "drinksing",
-      "to drink"
+      "to drink",
+      "drink"
     ],
     "explanation": [
       "일반동사 부정문을 확인하는 문제입니다.",
@@ -231,8 +231,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "read",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "read",
       "reads",
+      "read",
       "readsing",
       "to read"
     ],
@@ -248,9 +248,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "watch",
     "translation": "우리는 주말마다 영화를 본다.",
     "choices": [
-      "watch",
       "watching",
       "to watch",
+      "watch",
       "is"
     ],
     "explanation": [
@@ -265,10 +265,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "work",
     "translation": "아버지는 평일에 은행에서 일하지 않았다.",
     "choices": [
-      "work",
       "works",
       "worksing",
-      "to work"
+      "to work",
+      "work"
     ],
     "explanation": [
       "일반동사 부정문을 확인하는 문제입니다.",
@@ -299,8 +299,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "cook",
     "translation": "내 여동생은 퇴근 후 저녁을 요리하지 않았다.",
     "choices": [
-      "cook",
       "cooks",
+      "cook",
       "cooksing",
       "to cook"
     ],
@@ -316,9 +316,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "take",
     "translation": "톰은 학교에 버스를 타고 간다.",
     "choices": [
-      "take",
       "takes",
       "takesing",
+      "take",
       "to take"
     ],
     "explanation": [
@@ -333,10 +333,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "open",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "open",
       "opens",
       "opensing",
-      "to open"
+      "to open",
+      "open"
     ],
     "explanation": [
       "일반동사 부정문을 확인하는 문제입니다.",
@@ -367,8 +367,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "drinked",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "drinked",
       "drink",
+      "drinked",
       "will drink",
       "is drinking"
     ],
@@ -384,9 +384,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "played",
     "translation": "그들은 일요일마다 축구를 했다.",
     "choices": [
-      "played",
       "play",
       "will play",
+      "played",
       "is playing"
     ],
     "explanation": [
@@ -401,10 +401,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "readed",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "readed",
       "read",
       "will read",
-      "is reading"
+      "is reading",
+      "readed"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -435,8 +435,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "worked",
     "translation": "아버지는 평일에 은행에서 일했다.",
     "choices": [
-      "worked",
       "work",
+      "worked",
       "will work",
       "is working"
     ],
@@ -452,9 +452,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "runed",
     "translation": "그 개는 매일 오후 공원에서 뛴다.",
     "choices": [
-      "runed",
       "run",
       "will run",
+      "runed",
       "is runing"
     ],
     "explanation": [
@@ -469,10 +469,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "cooked",
     "translation": "내 여동생은 퇴근 후 저녁을 요리했다.",
     "choices": [
-      "cooked",
       "cook",
       "will cook",
-      "is cooking"
+      "is cooking",
+      "cooked"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -503,8 +503,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "opened",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "opened",
       "open",
+      "opened",
       "will open",
       "is opening"
     ],
@@ -520,9 +520,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "study",
     "translation": "나는 매일 영어를 공부할 것이다.",
     "choices": [
-      "study",
       "studyed",
       "doing",
+      "study",
       "is"
     ],
     "explanation": [
@@ -537,10 +537,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "drink",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "drink",
       "drinks",
       "drinksed",
-      "doing"
+      "doing",
+      "drink"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -571,8 +571,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "read",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "read",
       "reads",
+      "read",
       "readsed",
       "doing"
     ],
@@ -588,9 +588,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "watch",
     "translation": "우리는 주말마다 영화를 본다.",
     "choices": [
-      "watch",
       "watched",
       "doing",
+      "watch",
       "is"
     ],
     "explanation": [
@@ -605,10 +605,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "work",
     "translation": "아버지는 평일에 은행에서 일할 것이다.",
     "choices": [
-      "work",
       "works",
       "worksed",
-      "doing"
+      "doing",
+      "work"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -639,8 +639,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "cook",
     "translation": "내 여동생은 퇴근 후 저녁을 요리할 것이다.",
     "choices": [
-      "cook",
       "cooks",
+      "cook",
       "cooksed",
       "doing"
     ],
@@ -656,9 +656,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "take",
     "translation": "톰은 학교에 버스를 타고 간다.",
     "choices": [
-      "take",
       "takes",
       "takesed",
+      "take",
       "doing"
     ],
     "explanation": [
@@ -673,10 +673,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "open",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "open",
       "opens",
       "opensed",
-      "doing"
+      "doing",
+      "open"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -707,8 +707,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "at",
       "for",
+      "at",
       "to",
       "with"
     ],
@@ -724,9 +724,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "그들은 일요일마다 축구를 한다.",
     "choices": [
-      "at",
       "for",
       "to",
+      "at",
       "with"
     ],
     "explanation": [
@@ -741,10 +741,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "at",
       "for",
       "to",
-      "with"
+      "with",
+      "at"
     ],
     "explanation": [
       "전치사을 확인하는 문제입니다.",
@@ -775,8 +775,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "at",
       "for",
+      "at",
       "to",
       "with"
     ],
@@ -792,9 +792,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "그 개는 매일 오후 공원에서 뛴다.",
     "choices": [
-      "at",
       "for",
       "to",
+      "at",
       "with"
     ],
     "explanation": [
@@ -809,10 +809,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "at",
       "for",
       "to",
-      "with"
+      "with",
+      "at"
     ],
     "explanation": [
       "전치사을 확인하는 문제입니다.",
@@ -843,8 +843,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "at",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "at",
       "for",
+      "at",
       "to",
       "with"
     ],
@@ -860,9 +860,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "나는 매일 영어를 공부한다.",
     "choices": [
-      "better",
       "best",
       "good",
+      "better",
       "well"
     ],
     "explanation": [
@@ -877,10 +877,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "better",
       "best",
       "good",
-      "well"
+      "well",
+      "better"
     ],
     "explanation": [
       "비교급을 확인하는 문제입니다.",
@@ -911,8 +911,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "better",
       "best",
+      "better",
       "good",
       "well"
     ],
@@ -928,9 +928,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "우리는 주말마다 영화를 본다.",
     "choices": [
-      "better",
       "best",
       "good",
+      "better",
       "well"
     ],
     "explanation": [
@@ -945,10 +945,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "better",
       "best",
       "good",
-      "well"
+      "well",
+      "better"
     ],
     "explanation": [
       "비교급을 확인하는 문제입니다.",
@@ -979,8 +979,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "better",
       "best",
+      "better",
       "good",
       "well"
     ],
@@ -996,9 +996,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "톰은 학교에 버스를 타고 간다.",
     "choices": [
-      "better",
       "best",
       "good",
+      "better",
       "well"
     ],
     "explanation": [
@@ -1013,10 +1013,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "better",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "better",
       "best",
       "good",
-      "well"
+      "well",
+      "better"
     ],
     "explanation": [
       "비교급을 확인하는 문제입니다.",
@@ -1047,8 +1047,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is drinking",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "is drinking",
       "drinks",
+      "is drinking",
       "drinksed",
       "has drinksed"
     ],
@@ -1064,9 +1064,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is playing",
     "translation": "그들은 일요일마다 축구를 한다.",
     "choices": [
-      "is playing",
       "play",
       "played",
+      "is playing",
       "has played"
     ],
     "explanation": [
@@ -1081,10 +1081,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is reading",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "is reading",
       "reads",
       "readsed",
-      "has readsed"
+      "has readsed",
+      "is reading"
     ],
     "explanation": [
       "현재진행형을 확인하는 문제입니다.",
@@ -1115,8 +1115,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is working",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "is working",
       "works",
+      "is working",
       "worksed",
       "has worksed"
     ],
@@ -1132,9 +1132,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is runing",
     "translation": "그 개는 매일 오후 공원에서 뛴다.",
     "choices": [
-      "is runing",
       "runs",
       "runsed",
+      "is runing",
       "has runsed"
     ],
     "explanation": [
@@ -1149,10 +1149,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is cooking",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "is cooking",
       "cooks",
       "cooksed",
-      "has cooksed"
+      "has cooksed",
+      "is cooking"
     ],
     "explanation": [
       "현재진행형을 확인하는 문제입니다.",
@@ -1183,8 +1183,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "is opening",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "is opening",
       "opens",
+      "is opening",
       "opensed",
       "has opensed"
     ],
@@ -1200,9 +1200,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "studyed",
     "translation": "나는 매일 영어를 공부한다.",
     "choices": [
-      "studyed",
       "study",
       "will study",
+      "studyed",
       "is studying"
     ],
     "explanation": [
@@ -1217,10 +1217,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "drinked",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "drinked",
       "drinks",
       "will drinks",
-      "is drinksing"
+      "is drinksing",
+      "drinked"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -1251,8 +1251,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "readed",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "readed",
       "reads",
+      "readed",
       "will reads",
       "is readsing"
     ],
@@ -1268,9 +1268,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "watched",
     "translation": "우리는 주말마다 영화를 본다.",
     "choices": [
-      "watched",
       "watch",
       "will watch",
+      "watched",
       "is watching"
     ],
     "explanation": [
@@ -1285,10 +1285,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "worked",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "worked",
       "works",
       "will works",
-      "is worksing"
+      "is worksing",
+      "worked"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -1319,8 +1319,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "cooked",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "cooked",
       "cooks",
+      "cooked",
       "will cooks",
       "is cooksing"
     ],
@@ -1336,9 +1336,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "takeed",
     "translation": "톰은 학교에 버스를 타고 간다.",
     "choices": [
-      "takeed",
       "takes",
       "will takes",
+      "takeed",
       "is takesing"
     ],
     "explanation": [
@@ -1353,10 +1353,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "opened",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "opened",
       "opens",
       "will opens",
-      "is opensing"
+      "is opensing",
+      "opened"
     ],
     "explanation": [
       "현재완료을 확인하는 문제입니다.",
@@ -1387,8 +1387,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "some",
       "many",
+      "some",
       "much",
       "any"
     ],
@@ -1404,9 +1404,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "그들은 일요일마다 축구를 한다.",
     "choices": [
-      "some",
       "many",
       "much",
+      "some",
       "any"
     ],
     "explanation": [
@@ -1421,10 +1421,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "some",
       "many",
       "much",
-      "any"
+      "any",
+      "some"
     ],
     "explanation": [
       "수량 표현을 확인하는 문제입니다.",
@@ -1455,8 +1455,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "some",
       "many",
+      "some",
       "much",
       "any"
     ],
@@ -1472,9 +1472,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "그 개는 매일 오후 공원에서 뛴다.",
     "choices": [
-      "some",
       "many",
       "much",
+      "some",
       "any"
     ],
     "explanation": [
@@ -1489,10 +1489,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "some",
       "many",
       "much",
-      "any"
+      "any",
+      "some"
     ],
     "explanation": [
       "수량 표현을 확인하는 문제입니다.",
@@ -1523,8 +1523,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "some",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "some",
       "many",
+      "some",
       "much",
       "any"
     ],
@@ -1540,9 +1540,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "나는 매일 영어를 공부한다.",
     "choices": [
-      "because",
       "but",
       "unless",
+      "because",
       "although"
     ],
     "explanation": [
@@ -1557,10 +1557,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "그녀는 매일 아침 커피를 마신다.",
     "choices": [
-      "because",
       "but",
       "unless",
-      "although"
+      "although",
+      "because"
     ],
     "explanation": [
       "기초 접속사을 확인하는 문제입니다.",
@@ -1591,8 +1591,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "그는 밤에 책을 읽는다.",
     "choices": [
-      "because",
       "but",
+      "because",
       "unless",
       "although"
     ],
@@ -1608,9 +1608,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "우리는 주말마다 영화를 본다.",
     "choices": [
-      "because",
       "but",
       "unless",
+      "because",
       "although"
     ],
     "explanation": [
@@ -1625,10 +1625,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "아버지는 평일에 은행에서 일한다.",
     "choices": [
-      "because",
       "but",
       "unless",
-      "although"
+      "although",
+      "because"
     ],
     "explanation": [
       "기초 접속사을 확인하는 문제입니다.",
@@ -1659,8 +1659,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "내 여동생은 퇴근 후 저녁을 요리한다.",
     "choices": [
-      "because",
       "but",
+      "because",
       "unless",
       "although"
     ],
@@ -1676,9 +1676,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "톰은 학교에 버스를 타고 간다.",
     "choices": [
-      "because",
       "but",
       "unless",
+      "because",
       "although"
     ],
     "explanation": [
@@ -1693,10 +1693,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "because",
     "translation": "그 가게는 매일 9시에 문을 연다.",
     "choices": [
-      "because",
       "but",
       "unless",
-      "although"
+      "although",
+      "because"
     ],
     "explanation": [
       "기초 접속사을 확인하는 문제입니다.",
@@ -1727,8 +1727,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "회의을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
+      "will understand",
       "understand",
       "are understanding"
     ],
@@ -1744,9 +1744,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "답을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
       "understand",
+      "will understand",
       "are understanding"
     ],
     "explanation": [
@@ -1761,10 +1761,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "사무실을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
       "understand",
-      "are understanding"
+      "are understanding",
+      "will understand"
     ],
     "explanation": [
       "조건문을 확인하는 문제입니다.",
@@ -1795,8 +1795,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "파일을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
+      "will understand",
       "understand",
       "are understanding"
     ],
@@ -1812,9 +1812,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "문제을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
       "understand",
+      "will understand",
       "are understanding"
     ],
     "explanation": [
@@ -1829,10 +1829,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "기사을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
       "understand",
-      "are understanding"
+      "are understanding",
+      "will understand"
     ],
     "explanation": [
       "조건문을 확인하는 문제입니다.",
@@ -1863,8 +1863,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "will understand",
     "translation": "규칙을 확인하면 문제를 이해할 것이다.",
     "choices": [
-      "will understand",
       "understood",
+      "will understand",
       "understand",
       "are understanding"
     ],
@@ -1880,9 +1880,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 보고서을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
+      "reviewing",
       "will review"
     ],
     "explanation": [
@@ -1897,10 +1897,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 회의을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
-      "will review"
+      "will review",
+      "reviewing"
     ],
     "explanation": [
       "현재완료진행을 확인하는 문제입니다.",
@@ -1931,8 +1931,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 사무실을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
+      "reviewing",
       "reviewed",
       "will review"
     ],
@@ -1948,9 +1948,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 수업을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
+      "reviewing",
       "will review"
     ],
     "explanation": [
@@ -1965,10 +1965,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 파일을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
-      "will review"
+      "will review",
+      "reviewing"
     ],
     "explanation": [
       "현재완료진행을 확인하는 문제입니다.",
@@ -1999,8 +1999,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 기사을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
+      "reviewing",
       "reviewed",
       "will review"
     ],
@@ -2016,9 +2016,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 계획을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
+      "reviewing",
       "will review"
     ],
     "explanation": [
@@ -2033,10 +2033,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "reviewing",
     "translation": "그녀는 아침부터 규칙을 검토하고 있다.",
     "choices": [
-      "reviewing",
       "review",
       "reviewed",
-      "will review"
+      "will review",
+      "reviewing"
     ],
     "explanation": [
       "현재완료진행을 확인하는 문제입니다.",
@@ -2067,8 +2067,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 회의을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
+      "to check",
       "checking",
       "checked"
     ],
@@ -2084,9 +2084,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 답을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
       "checking",
+      "to check",
       "checked"
     ],
     "explanation": [
@@ -2101,10 +2101,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 사무실을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
       "checking",
-      "checked"
+      "checked",
+      "to check"
     ],
     "explanation": [
       "to부정사을 확인하는 문제입니다.",
@@ -2135,8 +2135,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 파일을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
+      "to check",
       "checking",
       "checked"
     ],
@@ -2152,9 +2152,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 문제을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
       "checking",
+      "to check",
       "checked"
     ],
     "explanation": [
@@ -2169,10 +2169,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 기사을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
       "checking",
-      "checked"
+      "checked",
+      "to check"
     ],
     "explanation": [
       "to부정사을 확인하는 문제입니다.",
@@ -2203,8 +2203,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to check",
     "translation": "관리자는 우리에게 규칙을 확인하라고 했다.",
     "choices": [
-      "to check",
       "check",
+      "to check",
       "checking",
       "checked"
     ],
@@ -2220,9 +2220,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "보고서에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
+      "that",
       "what"
     ],
     "explanation": [
@@ -2237,10 +2237,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "회의에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
-      "what"
+      "what",
+      "that"
     ],
     "explanation": [
       "관계사을 확인하는 문제입니다.",
@@ -2271,8 +2271,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "사무실에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
+      "that",
       "when",
       "what"
     ],
@@ -2288,9 +2288,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "수업에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
+      "that",
       "what"
     ],
     "explanation": [
@@ -2305,10 +2305,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "파일에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
-      "what"
+      "what",
+      "that"
     ],
     "explanation": [
       "관계사을 확인하는 문제입니다.",
@@ -2339,8 +2339,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "기사에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
+      "that",
       "when",
       "what"
     ],
@@ -2356,9 +2356,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "계획에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
+      "that",
       "what"
     ],
     "explanation": [
@@ -2373,10 +2373,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "that",
     "translation": "규칙에 도움이 되는 도구다.",
     "choices": [
-      "that",
       "where",
       "when",
-      "what"
+      "what",
+      "that"
     ],
     "explanation": [
       "관계사을 확인하는 문제입니다.",
@@ -2407,8 +2407,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "회의이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
+      "was",
       "is",
       "be"
     ],
@@ -2424,9 +2424,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "답이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
       "is",
+      "was",
       "be"
     ],
     "explanation": [
@@ -2441,10 +2441,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "사무실이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
       "is",
-      "be"
+      "be",
+      "was"
     ],
     "explanation": [
       "be동사 과거을 확인하는 문제입니다.",
@@ -2475,8 +2475,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "파일이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
+      "was",
       "is",
       "be"
     ],
@@ -2492,9 +2492,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "문제이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
       "is",
+      "was",
       "be"
     ],
     "explanation": [
@@ -2509,10 +2509,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "기사이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
       "is",
-      "be"
+      "be",
+      "was"
     ],
     "explanation": [
       "be동사 과거을 확인하는 문제입니다.",
@@ -2543,8 +2543,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was",
     "translation": "규칙이 없어 중단했다.",
     "choices": [
-      "was",
       "were",
+      "was",
       "is",
       "be"
     ],
@@ -2560,9 +2560,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "보고서을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
+      "review",
       "to review"
     ],
     "explanation": [
@@ -2577,10 +2577,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "회의을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
-      "to review"
+      "to review",
+      "review"
     ],
     "explanation": [
       "부사절을 확인하는 문제입니다.",
@@ -2611,8 +2611,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "사무실을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
+      "review",
       "reviewing",
       "to review"
     ],
@@ -2628,9 +2628,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "수업을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
+      "review",
       "to review"
     ],
     "explanation": [
@@ -2645,10 +2645,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "파일을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
-      "to review"
+      "to review",
+      "review"
     ],
     "explanation": [
       "부사절을 확인하는 문제입니다.",
@@ -2679,8 +2679,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "기사을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
+      "review",
       "reviewing",
       "to review"
     ],
@@ -2696,9 +2696,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "계획을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
+      "review",
       "to review"
     ],
     "explanation": [
@@ -2713,10 +2713,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "review",
     "translation": "규칙을 보내기 전에 검토해야 한다.",
     "choices": [
-      "review",
       "reviewed",
       "reviewing",
-      "to review"
+      "to review",
+      "review"
     ],
     "explanation": [
       "부사절을 확인하는 문제입니다.",
@@ -2747,8 +2747,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "회의은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
+      "was reviewed",
       "has reviewing",
       "will review"
     ],
@@ -2764,9 +2764,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "답은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
       "has reviewing",
+      "was reviewed",
       "will review"
     ],
     "explanation": [
@@ -2781,10 +2781,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "사무실은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
       "has reviewing",
-      "will review"
+      "will review",
+      "was reviewed"
     ],
     "explanation": [
       "수동태을 확인하는 문제입니다.",
@@ -2815,8 +2815,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "파일은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
+      "was reviewed",
       "has reviewing",
       "will review"
     ],
@@ -2832,9 +2832,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "문제은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
       "has reviewing",
+      "was reviewed",
       "will review"
     ],
     "explanation": [
@@ -2849,10 +2849,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "기사은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
       "has reviewing",
-      "will review"
+      "will review",
+      "was reviewed"
     ],
     "explanation": [
       "수동태을 확인하는 문제입니다.",
@@ -2883,8 +2883,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "was reviewed",
     "translation": "규칙은 어제 팀에 의해 검토되었다.",
     "choices": [
-      "was reviewed",
       "reviewed",
+      "was reviewed",
       "has reviewing",
       "will review"
     ],
@@ -2900,9 +2900,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 보고서을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
+      "improving",
       "improved"
     ],
     "explanation": [
@@ -2917,10 +2917,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 회의을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
-      "improved"
+      "improved",
+      "improving"
     ],
     "explanation": [
       "동명사을 확인하는 문제입니다.",
@@ -2951,8 +2951,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 사무실을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
+      "improving",
       "to improving",
       "improved"
     ],
@@ -2968,9 +2968,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 수업을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
+      "improving",
       "improved"
     ],
     "explanation": [
@@ -2985,10 +2985,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 파일을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
-      "improved"
+      "improved",
+      "improving"
     ],
     "explanation": [
       "동명사을 확인하는 문제입니다.",
@@ -3019,8 +3019,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 기사을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
+      "improving",
       "to improving",
       "improved"
     ],
@@ -3036,9 +3036,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 계획을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
+      "improving",
       "improved"
     ],
     "explanation": [
@@ -3053,10 +3053,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "improving",
     "translation": "나는 규칙을 개선하는 데 관심이 있다.",
     "choices": [
-      "improving",
       "improve",
       "to improving",
-      "improved"
+      "improved",
+      "improving"
     ],
     "explanation": [
       "동명사을 확인하는 문제입니다.",
@@ -3087,8 +3087,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "회의을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
+      "to prepare",
       "prepared",
       "prepare"
     ],
@@ -3104,9 +3104,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "답을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
       "prepared",
+      "to prepare",
       "prepare"
     ],
     "explanation": [
@@ -3121,10 +3121,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "사무실을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
       "prepared",
-      "prepare"
+      "prepare",
+      "to prepare"
     ],
     "explanation": [
       "가주어 it을 확인하는 문제입니다.",
@@ -3155,8 +3155,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "파일을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
+      "to prepare",
       "prepared",
       "prepare"
     ],
@@ -3172,9 +3172,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "문제을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
       "prepared",
+      "to prepare",
       "prepare"
     ],
     "explanation": [
@@ -3189,10 +3189,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "기사을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
       "prepared",
-      "prepare"
+      "prepare",
+      "to prepare"
     ],
     "explanation": [
       "가주어 it을 확인하는 문제입니다.",
@@ -3223,8 +3223,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to prepare",
     "translation": "규칙을 준비하는 것이 중요하다.",
     "choices": [
-      "to prepare",
       "preparing",
+      "to prepare",
       "prepared",
       "prepare"
     ],
@@ -3240,9 +3240,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "보고서을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
+      "clearer",
       "clearly"
     ],
     "explanation": [
@@ -3257,10 +3257,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "회의을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
-      "clearly"
+      "clearly",
+      "clearer"
     ],
     "explanation": [
       "비교 구문을 확인하는 문제입니다.",
@@ -3291,8 +3291,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "사무실을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
+      "clearer",
       "clearest",
       "clearly"
     ],
@@ -3308,9 +3308,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "수업을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
+      "clearer",
       "clearly"
     ],
     "explanation": [
@@ -3325,10 +3325,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "파일을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
-      "clearly"
+      "clearly",
+      "clearer"
     ],
     "explanation": [
       "비교 구문을 확인하는 문제입니다.",
@@ -3359,8 +3359,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "기사을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
+      "clearer",
       "clearest",
       "clearly"
     ],
@@ -3376,9 +3376,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "계획을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
+      "clearer",
       "clearly"
     ],
     "explanation": [
@@ -3393,10 +3393,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "clearer",
     "translation": "규칙을 논의할수록 더 명확해진다.",
     "choices": [
-      "clearer",
       "clear",
       "clearest",
-      "clearly"
+      "clearly",
+      "clearer"
     ],
     "explanation": [
       "비교 구문을 확인하는 문제입니다.",
@@ -3427,8 +3427,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "회의이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
+      "would have acted",
       "acted",
       "had acted"
     ],
@@ -3444,9 +3444,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "답이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
       "acted",
+      "would have acted",
       "had acted"
     ],
     "explanation": [
@@ -3461,10 +3461,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "사무실이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
       "acted",
-      "had acted"
+      "had acted",
+      "would have acted"
     ],
     "explanation": [
       "가정법 과거완료을 확인하는 문제입니다.",
@@ -3495,8 +3495,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "파일이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
+      "would have acted",
       "acted",
       "had acted"
     ],
@@ -3512,9 +3512,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "문제이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
       "acted",
+      "would have acted",
       "had acted"
     ],
     "explanation": [
@@ -3529,10 +3529,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "기사이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
       "acted",
-      "had acted"
+      "had acted",
+      "would have acted"
     ],
     "explanation": [
       "가정법 과거완료을 확인하는 문제입니다.",
@@ -3563,8 +3563,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "would have acted",
     "translation": "규칙이 더 명확했다면 우리는 더 빨리 행동했을 것이다.",
     "choices": [
-      "would have acted",
       "will act",
+      "would have acted",
       "acted",
       "had acted"
     ],
@@ -3580,9 +3580,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "보고서은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
+      "saved",
       "to save"
     ],
     "explanation": [
@@ -3597,10 +3597,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "회의은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
-      "to save"
+      "to save",
+      "saved"
     ],
     "explanation": [
       "도치 강조을 확인하는 문제입니다.",
@@ -3631,8 +3631,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "사무실은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
+      "saved",
       "saving",
       "to save"
     ],
@@ -3648,9 +3648,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "수업은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
+      "saved",
       "to save"
     ],
     "explanation": [
@@ -3665,10 +3665,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "파일은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
-      "to save"
+      "to save",
+      "saved"
     ],
     "explanation": [
       "도치 강조을 확인하는 문제입니다.",
@@ -3699,8 +3699,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "기사은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
+      "saved",
       "saving",
       "to save"
     ],
@@ -3716,9 +3716,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "계획은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
+      "saved",
       "to save"
     ],
     "explanation": [
@@ -3733,10 +3733,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "saved",
     "translation": "규칙은 유용했을 뿐 아니라 시간도 절약했다.",
     "choices": [
-      "saved",
       "saves",
       "saving",
-      "to save"
+      "to save",
+      "saved"
     ],
     "explanation": [
       "도치 강조을 확인하는 문제입니다.",
@@ -3767,8 +3767,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "회의은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
+      "to change",
       "changed",
       "change"
     ],
@@ -3784,9 +3784,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "답은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
       "changed",
+      "to change",
       "change"
     ],
     "explanation": [
@@ -3801,10 +3801,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "사무실은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
       "changed",
-      "change"
+      "change",
+      "to change"
     ],
     "explanation": [
       "be expected to을 확인하는 문제입니다.",
@@ -3835,8 +3835,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "파일은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
+      "to change",
       "changed",
       "change"
     ],
@@ -3852,9 +3852,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "문제은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
       "changed",
+      "to change",
       "change"
     ],
     "explanation": [
@@ -3869,10 +3869,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "기사은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
       "changed",
-      "change"
+      "change",
+      "to change"
     ],
     "explanation": [
       "be expected to을 확인하는 문제입니다.",
@@ -3903,8 +3903,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to change",
     "translation": "규칙은 다음 달 바뀔 것으로 예상된다.",
     "choices": [
-      "to change",
       "changing",
+      "to change",
       "changed",
       "change"
     ],
@@ -3920,9 +3920,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "보고서이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
+      "be",
       "being"
     ],
     "explanation": [
@@ -3937,10 +3937,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "회의이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
-      "being"
+      "being",
+      "be"
     ],
     "explanation": [
       "가정법 현재을 확인하는 문제입니다.",
@@ -3971,8 +3971,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "사무실이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
+      "be",
       "was",
       "being"
     ],
@@ -3988,9 +3988,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "수업이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
+      "be",
       "being"
     ],
     "explanation": [
@@ -4005,10 +4005,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "파일이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
-      "being"
+      "being",
+      "be"
     ],
     "explanation": [
       "가정법 현재을 확인하는 문제입니다.",
@@ -4039,8 +4039,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "기사이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
+      "be",
       "was",
       "being"
     ],
@@ -4056,9 +4056,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "계획이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
+      "be",
       "being"
     ],
     "explanation": [
@@ -4073,10 +4073,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "be",
     "translation": "규칙이 검토되는 것이 필수적이다.",
     "choices": [
-      "be",
       "is",
       "was",
-      "being"
+      "being",
+      "be"
     ],
     "explanation": [
       "가정법 현재을 확인하는 문제입니다.",
@@ -4107,8 +4107,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "회의과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
+      "remain",
       "remained",
       "to remain"
     ],
@@ -4124,9 +4124,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "답과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
       "remained",
+      "remain",
       "to remain"
     ],
     "explanation": [
@@ -4141,10 +4141,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "사무실과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
       "remained",
-      "to remain"
+      "to remain",
+      "remain"
     ],
     "explanation": [
       "고급 전치사구을 확인하는 문제입니다.",
@@ -4175,8 +4175,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "파일과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
+      "remain",
       "remained",
       "to remain"
     ],
@@ -4192,9 +4192,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "문제과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
       "remained",
+      "remain",
       "to remain"
     ],
     "explanation": [
@@ -4209,10 +4209,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "기사과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
       "remained",
-      "to remain"
+      "to remain",
+      "remain"
     ],
     "explanation": [
       "고급 전치사구을 확인하는 문제입니다.",
@@ -4243,8 +4243,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "remain",
     "translation": "규칙과 관계없이 우리는 투명해야 한다.",
     "choices": [
-      "remain",
       "remaining",
+      "remain",
       "remained",
       "to remain"
     ],
@@ -4260,9 +4260,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 보고서은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
+      "which",
       "whose"
     ],
     "explanation": [
@@ -4277,10 +4277,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 회의은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
-      "whose"
+      "whose",
+      "which"
     ],
     "explanation": [
       "비제한 관계절을 확인하는 문제입니다.",
@@ -4311,8 +4311,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 사무실은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
+      "which",
       "who",
       "whose"
     ],
@@ -4328,9 +4328,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 수업은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
+      "which",
       "whose"
     ],
     "explanation": [
@@ -4345,10 +4345,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 파일은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
-      "whose"
+      "whose",
+      "which"
     ],
     "explanation": [
       "비제한 관계절을 확인하는 문제입니다.",
@@ -4379,8 +4379,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 기사은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
+      "which",
       "who",
       "whose"
     ],
@@ -4396,9 +4396,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 계획은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
+      "which",
       "whose"
     ],
     "explanation": [
@@ -4413,10 +4413,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "which",
     "translation": "우리가 어제 논의한 규칙은 아직 해결되지 않았다.",
     "choices": [
-      "which",
       "where",
       "who",
-      "whose"
+      "whose",
+      "which"
     ],
     "explanation": [
       "비제한 관계절을 확인하는 문제입니다.",
@@ -4447,8 +4447,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "회의을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
+      "did we notice",
       "we notice",
       "have we notice"
     ],
@@ -4464,9 +4464,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "답을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
       "we notice",
+      "did we notice",
       "have we notice"
     ],
     "explanation": [
@@ -4481,10 +4481,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "사무실을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
       "we notice",
-      "have we notice"
+      "have we notice",
+      "did we notice"
     ],
     "explanation": [
       "부정어 도치을 확인하는 문제입니다.",
@@ -4515,8 +4515,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "파일을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
+      "did we notice",
       "we notice",
       "have we notice"
     ],
@@ -4532,9 +4532,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "문제을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
       "we notice",
+      "did we notice",
       "have we notice"
     ],
     "explanation": [
@@ -4549,10 +4549,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "기사을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
       "we notice",
-      "have we notice"
+      "have we notice",
+      "did we notice"
     ],
     "explanation": [
       "부정어 도치을 확인하는 문제입니다.",
@@ -4583,8 +4583,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "did we notice",
     "translation": "규칙을 확인한 후에야 우리는 위험을 알아차렸다.",
     "choices": [
-      "did we notice",
       "we noticed",
+      "did we notice",
       "we notice",
       "have we notice"
     ],
@@ -4600,9 +4600,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "보고서은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
+      "to explain",
       "explain"
     ],
     "explanation": [
@@ -4617,10 +4617,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "회의은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
-      "explain"
+      "explain",
+      "to explain"
     ],
     "explanation": [
       "too to 구문을 확인하는 문제입니다.",
@@ -4651,8 +4651,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "사무실은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
+      "to explain",
       "explained",
       "explain"
     ],
@@ -4668,9 +4668,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "수업은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
+      "to explain",
       "explain"
     ],
     "explanation": [
@@ -4685,10 +4685,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "파일은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
-      "explain"
+      "explain",
+      "to explain"
     ],
     "explanation": [
       "too to 구문을 확인하는 문제입니다.",
@@ -4719,8 +4719,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "기사은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
+      "to explain",
       "explained",
       "explain"
     ],
@@ -4736,9 +4736,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "계획은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
+      "to explain",
       "explain"
     ],
     "explanation": [
@@ -4753,10 +4753,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "to explain",
     "translation": "규칙은 빨리 설명하기에는 너무 복잡했다.",
     "choices": [
-      "to explain",
       "explaining",
       "explained",
-      "explain"
+      "explain",
+      "to explain"
     ],
     "explanation": [
       "too to 구문을 확인하는 문제입니다.",
@@ -4787,8 +4787,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "회의이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
+      "than",
       "while",
       "as"
     ],
@@ -4804,9 +4804,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "답이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
       "while",
+      "than",
       "as"
     ],
     "explanation": [
@@ -4821,10 +4821,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "사무실이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
       "while",
-      "as"
+      "as",
+      "than"
     ],
     "explanation": [
       "no sooner than을 확인하는 문제입니다.",
@@ -4855,8 +4855,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "파일이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
+      "than",
       "while",
       "as"
     ],
@@ -4872,9 +4872,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "문제이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
       "while",
+      "than",
       "as"
     ],
     "explanation": [
@@ -4889,10 +4889,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "기사이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
       "while",
-      "as"
+      "as",
+      "than"
     ],
     "explanation": [
       "no sooner than을 확인하는 문제입니다.",
@@ -4923,8 +4923,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "than",
     "translation": "규칙이 바뀌자마자 불만이 시작됐다.",
     "choices": [
-      "than",
       "when",
+      "than",
       "while",
       "as"
     ],
@@ -4940,9 +4940,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "보고서은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
+      "influenced",
       "to influence"
     ],
     "explanation": [
@@ -4957,10 +4957,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "회의은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
-      "to influence"
+      "to influence",
+      "influenced"
     ],
     "explanation": [
       "조동사 완료 수동을 확인하는 문제입니다.",
@@ -4991,8 +4991,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "사무실은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
+      "influenced",
       "influencing",
       "to influence"
     ],
@@ -5008,9 +5008,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "수업은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
+      "influenced",
       "to influence"
     ],
     "explanation": [
@@ -5025,10 +5025,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "파일은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
-      "to influence"
+      "to influence",
+      "influenced"
     ],
     "explanation": [
       "조동사 완료 수동을 확인하는 문제입니다.",
@@ -5059,8 +5059,8 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "기사은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
+      "influenced",
       "influencing",
       "to influence"
     ],
@@ -5076,9 +5076,9 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "계획은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
+      "influenced",
       "to influence"
     ],
     "explanation": [
@@ -5093,10 +5093,10 @@ export const ENGLISH_SENTENCE_QUIZ: EnglishSentenceQuiz[] = [
     "answer": "influenced",
     "translation": "규칙은 외부 요인의 영향을 받았을 수 있다.",
     "choices": [
-      "influenced",
       "influence",
       "influencing",
-      "to influence"
+      "to influence",
+      "influenced"
     ],
     "explanation": [
       "조동사 완료 수동을 확인하는 문제입니다.",

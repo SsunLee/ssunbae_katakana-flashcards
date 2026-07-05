@@ -27,8 +27,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹습니다",
     "translation": "You eat bread.",
     "choices": [
-      "먹습니다",
       "갑니다",
+      "먹습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -44,9 +44,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "일합니다",
     "translation": "She works at an office.",
     "choices": [
-      "일합니다",
       "갑니다",
       "있습니다",
+      "일합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -61,10 +61,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul.",
     "choices": [
-      "삽니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "삽니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -95,8 +95,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽습니다",
     "translation": "My sibling reads a book.",
     "choices": [
-      "읽습니다",
       "갑니다",
+      "읽습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -112,9 +112,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "설명합니다",
     "translation": "The teacher explains grammar.",
     "choices": [
-      "설명합니다",
       "갑니다",
       "있습니다",
+      "설명합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -129,10 +129,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣습니다",
     "translation": "The student listens to music.",
     "choices": [
-      "듣습니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "듣습니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -163,8 +163,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine.",
     "choices": [
-      "문을 엽니다",
       "갑니다",
+      "문을 엽니다",
       "있습니다",
       "좋습니다"
     ],
@@ -180,9 +180,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "공부합니다",
     "translation": "I study Korean. negative.",
     "choices": [
-      "공부합니다",
       "합니다",
       "했습니다",
+      "공부합니다",
       "하세요"
     ],
     "explanation": [
@@ -197,10 +197,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹지",
     "translation": "You eat bread. negative.",
     "choices": [
-      "먹지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "먹지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -231,8 +231,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul. negative.",
     "choices": [
-      "삽니다",
       "합니다",
+      "삽니다",
       "했습니다",
       "하세요"
     ],
@@ -248,9 +248,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "방문합니다",
     "translation": "They visit the museum. negative.",
     "choices": [
-      "방문합니다",
       "합니다",
       "했습니다",
+      "방문합니다",
       "하세요"
     ],
     "explanation": [
@@ -265,10 +265,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽지",
     "translation": "My sibling reads a book. negative.",
     "choices": [
-      "읽지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "읽지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -299,8 +299,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣지",
     "translation": "The student listens to music. negative.",
     "choices": [
-      "듣지",
       "합니다",
+      "듣지",
       "했습니다",
       "하세요"
     ],
@@ -316,9 +316,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "My friends buy fruit. negative.",
     "choices": [
-      "삽니다",
       "합니다",
       "했습니다",
+      "삽니다",
       "하세요"
     ],
     "explanation": [
@@ -333,10 +333,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine. negative.",
     "choices": [
-      "문을 엽니다",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "문을 엽니다"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -367,8 +367,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "You eat bread. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -384,9 +384,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "She works at an office. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -401,10 +401,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "We live in Seoul. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -435,8 +435,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "My sibling reads a book. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -452,9 +452,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The teacher explains grammar. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -469,10 +469,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The student listens to music. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -503,8 +503,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The store opens at nine. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -520,9 +520,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "I study Korean. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -537,10 +537,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "You eat bread. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -571,8 +571,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "We live in Seoul. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -588,9 +588,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "They visit the museum. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -605,10 +605,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My sibling reads a book. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -639,8 +639,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The student listens to music. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -656,9 +656,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My friends buy fruit. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -673,10 +673,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The store opens at nine. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -707,8 +707,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "You eat bread. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -724,9 +724,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "She works at an office. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -741,10 +741,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "We live in Seoul. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -775,8 +775,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "My sibling reads a book. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -792,9 +792,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The teacher explains grammar. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -809,10 +809,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The student listens to music. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -843,8 +843,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The store opens at nine. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -860,9 +860,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "I study Korean. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -877,10 +877,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "You eat bread. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -911,8 +911,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "We live in Seoul. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -928,9 +928,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "They visit the museum. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -945,10 +945,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My sibling reads a book. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -979,8 +979,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The student listens to music. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -996,9 +996,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My friends buy fruit. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -1013,10 +1013,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The store opens at nine. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -1047,8 +1047,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -1064,9 +1064,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -1081,10 +1081,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -1115,8 +1115,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -1132,9 +1132,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -1149,10 +1149,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -1183,8 +1183,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -1200,9 +1200,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -1217,10 +1217,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -1251,8 +1251,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -1268,9 +1268,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -1285,10 +1285,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -1319,8 +1319,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -1336,9 +1336,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -1353,10 +1353,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -1387,8 +1387,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -1404,9 +1404,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -1421,10 +1421,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -1455,8 +1455,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -1472,9 +1472,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -1489,10 +1489,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -1523,8 +1523,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -1540,9 +1540,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -1557,10 +1557,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -1591,8 +1591,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -1608,9 +1608,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -1625,10 +1625,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -1659,8 +1659,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -1676,9 +1676,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -1693,10 +1693,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -1727,8 +1727,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹습니다",
     "translation": "You eat bread.",
     "choices": [
-      "먹습니다",
       "갑니다",
+      "먹습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -1744,9 +1744,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "일합니다",
     "translation": "She works at an office.",
     "choices": [
-      "일합니다",
       "갑니다",
       "있습니다",
+      "일합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -1761,10 +1761,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul.",
     "choices": [
-      "삽니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "삽니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -1795,8 +1795,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽습니다",
     "translation": "My sibling reads a book.",
     "choices": [
-      "읽습니다",
       "갑니다",
+      "읽습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -1812,9 +1812,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "설명합니다",
     "translation": "The teacher explains grammar.",
     "choices": [
-      "설명합니다",
       "갑니다",
       "있습니다",
+      "설명합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -1829,10 +1829,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣습니다",
     "translation": "The student listens to music.",
     "choices": [
-      "듣습니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "듣습니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -1863,8 +1863,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine.",
     "choices": [
-      "문을 엽니다",
       "갑니다",
+      "문을 엽니다",
       "있습니다",
       "좋습니다"
     ],
@@ -1880,9 +1880,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "공부합니다",
     "translation": "I study Korean. negative.",
     "choices": [
-      "공부합니다",
       "합니다",
       "했습니다",
+      "공부합니다",
       "하세요"
     ],
     "explanation": [
@@ -1897,10 +1897,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹지",
     "translation": "You eat bread. negative.",
     "choices": [
-      "먹지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "먹지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -1931,8 +1931,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul. negative.",
     "choices": [
-      "삽니다",
       "합니다",
+      "삽니다",
       "했습니다",
       "하세요"
     ],
@@ -1948,9 +1948,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "방문합니다",
     "translation": "They visit the museum. negative.",
     "choices": [
-      "방문합니다",
       "합니다",
       "했습니다",
+      "방문합니다",
       "하세요"
     ],
     "explanation": [
@@ -1965,10 +1965,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽지",
     "translation": "My sibling reads a book. negative.",
     "choices": [
-      "읽지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "읽지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -1999,8 +1999,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣지",
     "translation": "The student listens to music. negative.",
     "choices": [
-      "듣지",
       "합니다",
+      "듣지",
       "했습니다",
       "하세요"
     ],
@@ -2016,9 +2016,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "My friends buy fruit. negative.",
     "choices": [
-      "삽니다",
       "합니다",
       "했습니다",
+      "삽니다",
       "하세요"
     ],
     "explanation": [
@@ -2033,10 +2033,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine. negative.",
     "choices": [
-      "문을 엽니다",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "문을 엽니다"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -2067,8 +2067,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "You eat bread. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -2084,9 +2084,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "She works at an office. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -2101,10 +2101,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "We live in Seoul. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -2135,8 +2135,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "My sibling reads a book. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -2152,9 +2152,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The teacher explains grammar. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -2169,10 +2169,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The student listens to music. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -2203,8 +2203,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The store opens at nine. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -2220,9 +2220,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "I study Korean. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -2237,10 +2237,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "You eat bread. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2271,8 +2271,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "We live in Seoul. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -2288,9 +2288,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "They visit the museum. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -2305,10 +2305,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My sibling reads a book. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2339,8 +2339,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The student listens to music. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -2356,9 +2356,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My friends buy fruit. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -2373,10 +2373,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The store opens at nine. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -2407,8 +2407,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "You eat bread. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -2424,9 +2424,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "She works at an office. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -2441,10 +2441,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "We live in Seoul. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -2475,8 +2475,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "My sibling reads a book. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -2492,9 +2492,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The teacher explains grammar. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -2509,10 +2509,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The student listens to music. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -2543,8 +2543,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The store opens at nine. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -2560,9 +2560,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "I study Korean. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -2577,10 +2577,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "You eat bread. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -2611,8 +2611,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "We live in Seoul. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -2628,9 +2628,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "They visit the museum. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -2645,10 +2645,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My sibling reads a book. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -2679,8 +2679,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The student listens to music. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -2696,9 +2696,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My friends buy fruit. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -2713,10 +2713,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The store opens at nine. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -2747,8 +2747,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -2764,9 +2764,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -2781,10 +2781,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -2815,8 +2815,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -2832,9 +2832,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -2849,10 +2849,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -2883,8 +2883,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -2900,9 +2900,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -2917,10 +2917,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -2951,8 +2951,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -2968,9 +2968,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -2985,10 +2985,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -3019,8 +3019,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -3036,9 +3036,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -3053,10 +3053,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -3087,8 +3087,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -3104,9 +3104,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -3121,10 +3121,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -3155,8 +3155,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -3172,9 +3172,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -3189,10 +3189,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -3223,8 +3223,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -3240,9 +3240,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -3257,10 +3257,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -3291,8 +3291,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -3308,9 +3308,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -3325,10 +3325,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -3359,8 +3359,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -3376,9 +3376,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -3393,10 +3393,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -3427,8 +3427,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹습니다",
     "translation": "You eat bread.",
     "choices": [
-      "먹습니다",
       "갑니다",
+      "먹습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -3444,9 +3444,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "일합니다",
     "translation": "She works at an office.",
     "choices": [
-      "일합니다",
       "갑니다",
       "있습니다",
+      "일합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -3461,10 +3461,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul.",
     "choices": [
-      "삽니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "삽니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -3495,8 +3495,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽습니다",
     "translation": "My sibling reads a book.",
     "choices": [
-      "읽습니다",
       "갑니다",
+      "읽습니다",
       "있습니다",
       "좋습니다"
     ],
@@ -3512,9 +3512,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "설명합니다",
     "translation": "The teacher explains grammar.",
     "choices": [
-      "설명합니다",
       "갑니다",
       "있습니다",
+      "설명합니다",
       "좋습니다"
     ],
     "explanation": [
@@ -3529,10 +3529,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣습니다",
     "translation": "The student listens to music.",
     "choices": [
-      "듣습니다",
       "갑니다",
       "있습니다",
-      "좋습니다"
+      "좋습니다",
+      "듣습니다"
     ],
     "explanation": [
       "기본 서술문을 확인하는 문제입니다.",
@@ -3563,8 +3563,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine.",
     "choices": [
-      "문을 엽니다",
       "갑니다",
+      "문을 엽니다",
       "있습니다",
       "좋습니다"
     ],
@@ -3580,9 +3580,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "공부합니다",
     "translation": "I study Korean. negative.",
     "choices": [
-      "공부합니다",
       "합니다",
       "했습니다",
+      "공부합니다",
       "하세요"
     ],
     "explanation": [
@@ -3597,10 +3597,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "먹지",
     "translation": "You eat bread. negative.",
     "choices": [
-      "먹지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "먹지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3631,8 +3631,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "We live in Seoul. negative.",
     "choices": [
-      "삽니다",
       "합니다",
+      "삽니다",
       "했습니다",
       "하세요"
     ],
@@ -3648,9 +3648,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "방문합니다",
     "translation": "They visit the museum. negative.",
     "choices": [
-      "방문합니다",
       "합니다",
       "했습니다",
+      "방문합니다",
       "하세요"
     ],
     "explanation": [
@@ -3665,10 +3665,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "읽지",
     "translation": "My sibling reads a book. negative.",
     "choices": [
-      "읽지",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "읽지"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3699,8 +3699,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "듣지",
     "translation": "The student listens to music. negative.",
     "choices": [
-      "듣지",
       "합니다",
+      "듣지",
       "했습니다",
       "하세요"
     ],
@@ -3716,9 +3716,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "삽니다",
     "translation": "My friends buy fruit. negative.",
     "choices": [
-      "삽니다",
       "합니다",
       "했습니다",
+      "삽니다",
       "하세요"
     ],
     "explanation": [
@@ -3733,10 +3733,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "문을 엽니다",
     "translation": "The store opens at nine. negative.",
     "choices": [
-      "문을 엽니다",
       "합니다",
       "했습니다",
-      "하세요"
+      "하세요",
+      "문을 엽니다"
     ],
     "explanation": [
       "부정문을 확인하는 문제입니다.",
@@ -3767,8 +3767,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "You eat bread. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -3784,9 +3784,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "She works at an office. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -3801,10 +3801,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "We live in Seoul. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -3835,8 +3835,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "My sibling reads a book. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -3852,9 +3852,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The teacher explains grammar. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
+      "했습니다",
       "하고 있습니다"
     ],
     "explanation": [
@@ -3869,10 +3869,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The student listens to music. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
       "할 것입니다",
-      "하고 있습니다"
+      "하고 있습니다",
+      "했습니다"
     ],
     "explanation": [
       "과거시제을 확인하는 문제입니다.",
@@ -3903,8 +3903,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "했습니다",
     "translation": "The store opens at nine. yesterday.",
     "choices": [
-      "했습니다",
       "합니다",
+      "했습니다",
       "할 것입니다",
       "하고 있습니다"
     ],
@@ -3920,9 +3920,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "I study Korean. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -3937,10 +3937,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "You eat bread. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -3971,8 +3971,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "We live in Seoul. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -3988,9 +3988,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "They visit the museum. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -4005,10 +4005,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My sibling reads a book. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -4039,8 +4039,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The student listens to music. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
+      "할 것입니다",
       "합니다",
       "하는 중입니다"
     ],
@@ -4056,9 +4056,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "My friends buy fruit. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
+      "할 것입니다",
       "하는 중입니다"
     ],
     "explanation": [
@@ -4073,10 +4073,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "할 것입니다",
     "translation": "The store opens at nine. tomorrow.",
     "choices": [
-      "할 것입니다",
       "했습니다",
       "합니다",
-      "하는 중입니다"
+      "하는 중입니다",
+      "할 것입니다"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
@@ -4107,8 +4107,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "You eat bread. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -4124,9 +4124,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "She works at an office. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -4141,10 +4141,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "We live in Seoul. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -4175,8 +4175,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "My sibling reads a book. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -4192,9 +4192,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The teacher explains grammar. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
+      "하고",
       "하지만"
     ],
     "explanation": [
@@ -4209,10 +4209,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The student listens to music. now.",
     "choices": [
-      "하고",
       "해서",
       "하면",
-      "하지만"
+      "하지만",
+      "하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
@@ -4243,8 +4243,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "하고",
     "translation": "The store opens at nine. now.",
     "choices": [
-      "하고",
       "해서",
+      "하고",
       "하면",
       "하지만"
     ],
@@ -4260,9 +4260,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "I study Korean. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -4277,10 +4277,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "You eat bread. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -4311,8 +4311,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "We live in Seoul. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -4328,9 +4328,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "They visit the museum. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -4345,10 +4345,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My sibling reads a book. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -4379,8 +4379,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The student listens to music. before.",
     "choices": [
-      "해 본",
       "하는",
+      "해 본",
       "할",
       "해서"
     ],
@@ -4396,9 +4396,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "My friends buy fruit. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
+      "해 본",
       "해서"
     ],
     "explanation": [
@@ -4413,10 +4413,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "해 본",
     "translation": "The store opens at nine. before.",
     "choices": [
-      "해 본",
       "하는",
       "할",
-      "해서"
+      "해서",
+      "해 본"
     ],
     "explanation": [
       "경험 표현을 확인하는 문제입니다.",
@@ -4447,8 +4447,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -4464,9 +4464,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -4481,10 +4481,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -4515,8 +4515,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -4532,9 +4532,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
+      "합니다",
       "하면"
     ],
     "explanation": [
@@ -4549,10 +4549,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
       "해서",
-      "하면"
+      "하면",
+      "합니다"
     ],
     "explanation": [
       "대조 연결을 확인하는 문제입니다.",
@@ -4583,8 +4583,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "합니다",
     "translation": "Although it rains, the action continues.",
     "choices": [
-      "합니다",
       "했기 때문에",
+      "합니다",
       "해서",
       "하면"
     ],
@@ -4600,9 +4600,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -4617,10 +4617,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -4651,8 +4651,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -4668,9 +4668,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -4685,10 +4685,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -4719,8 +4719,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
+      "전화해 주세요",
       "전화라서",
       "전화하는 동안"
     ],
@@ -4736,9 +4736,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
+      "전화해 주세요",
       "전화하는 동안"
     ],
     "explanation": [
@@ -4753,10 +4753,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "전화해 주세요",
     "translation": "If you have time, please call.",
     "choices": [
-      "전화해 주세요",
       "전화했지만",
       "전화라서",
-      "전화하는 동안"
+      "전화하는 동안",
+      "전화해 주세요"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
@@ -4787,8 +4787,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -4804,9 +4804,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -4821,10 +4821,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -4855,8 +4855,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -4872,9 +4872,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
+      "연습합니다",
       "연습이라서"
     ],
     "explanation": [
@@ -4889,10 +4889,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
       "연습하면",
-      "연습이라서"
+      "연습이라서",
+      "연습합니다"
     ],
     "explanation": [
       "목적 표현을 확인하는 문제입니다.",
@@ -4923,8 +4923,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "연습합니다",
     "translation": "I practice every day to learn better.",
     "choices": [
-      "연습합니다",
       "연습했지만",
+      "연습합니다",
       "연습하면",
       "연습이라서"
     ],
@@ -4940,9 +4940,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -4957,10 +4957,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -4991,8 +4991,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -5008,9 +5008,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -5025,10 +5025,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
@@ -5059,8 +5059,8 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
+      "알려 드리겠습니다",
       "알리기 때문에",
       "알리는 동안"
     ],
@@ -5076,9 +5076,9 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
+      "알려 드리겠습니다",
       "알리는 동안"
     ],
     "explanation": [
@@ -5093,10 +5093,10 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "answer": "알려 드리겠습니다",
     "translation": "I will let them know as soon as the meeting ends.",
     "choices": [
-      "알려 드리겠습니다",
       "알렸지만",
       "알리기 때문에",
-      "알리는 동안"
+      "알리는 동안",
+      "알려 드리겠습니다"
     ],
     "explanation": [
       "고급 시간 표현을 확인하는 문제입니다.",
