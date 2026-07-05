@@ -73,6 +73,12 @@ export default function Root() {
               >
                 JLPT 문장 퀴즈
               </Link>
+              <Link
+                href="/study/dashboard"
+                className="rounded-md border border-blue-300/35 bg-blue-500/15 px-5 py-3 text-sm font-semibold text-blue-100 backdrop-blur transition-colors hover:bg-blue-500/25"
+              >
+                분석 대시보드
+              </Link>
             </div>
           </div>
 
@@ -127,5 +133,4 @@ export default function Root() {
     </main>
   );
 }
-
 

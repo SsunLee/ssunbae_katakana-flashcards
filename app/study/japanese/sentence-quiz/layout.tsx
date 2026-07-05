@@ -34,16 +34,6 @@ export default function JapaneseSentenceQuizLayout({
 }) {
   return (
     <>
-      <section className="mx-auto w-full max-w-[660px] px-4 pb-0 pt-4 sm:px-6">
-        <div className="space-y-1">
-          <h1 className="text-base font-semibold text-foreground sm:text-lg">
-            JLPT 문장 빈칸 퀴즈
-          </h1>
-          <p className="text-xs leading-5 text-muted-foreground sm:text-sm">
-            일본어 문장을 읽고 빈칸에 맞는 표현을 고르며 JLPT 문장 패턴을 연습합니다.
-          </p>
-        </div>
-      </section>
       {children}
       <section className="mx-auto w-full max-w-[660px] px-4 pb-10 pt-6 sm:px-6">
         <article className="space-y-3 border-t border-border pt-5 text-xs leading-6 text-muted-foreground sm:text-sm sm:leading-7">
@@ -51,7 +41,7 @@ export default function JapaneseSentenceQuizLayout({
             일본어 문장 퀴즈 학습 안내
           </h2>
           <p>
-            일본어 문장을 읽고 빈칸에 맞는 표현을 고르는 퀴즈입니다.
+            JLPT 문장 빈칸 퀴즈는 일본어 문장을 읽고 빈칸에 맞는 표현을 고르며 문장 패턴을 연습하는 퀴즈입니다.
             JLPT N5부터 N1까지 난이도별 문장을 풀면서 조사, 동사 활용, 기본 어순,
             자주 쓰이는 표현을 함께 확인할 수 있습니다. 문제마다 원문, 후리가나,
             한국어 뜻, 선택지, 해설을 넣어 초급 학습자도 문장 구조를 짚어가며 복습할 수 있습니다.
