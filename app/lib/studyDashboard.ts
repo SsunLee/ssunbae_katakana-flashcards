@@ -1,13 +1,15 @@
 import { STUDY_LABELS } from "@/app/constants/studyLabels";
+import { ENGLISH_SENTENCE_QUIZ } from "@/app/data/english-sentence-quiz";
 import { ENGLISH_WORDS } from "@/app/data/english-words";
 import { HIRAGANA_CHARS } from "@/app/data/hiraganaChars";
 import { KANJI_WORDS } from "@/app/data/kanji";
 import { KATAKANA_CHARS } from "@/app/data/katakanaChars";
 import { KOREAN_CHARS } from "@/app/data/korean-chars";
+import { KOREAN_SENTENCE_QUIZ } from "@/app/data/korean-sentence-quiz";
 import { KOREAN_SYLLABLES } from "@/app/data/korean-syllables";
 import { KOREAN_WORDS } from "@/app/data/korean-words";
 import { SENTENCES } from "@/app/data/sentences";
-import { SPANISH_SENTENCES } from "@/app/data/spanish-sentences";
+import { SPANISH_SENTENCE_QUIZ } from "@/app/data/spanish-sentence-quiz";
 import { SPANISH_WORDS } from "@/app/data/spanish-words";
 import { VERBS } from "@/app/data/verbs";
 import { WORDS } from "@/app/data/words";
@@ -61,9 +63,11 @@ export const DASHBOARD_DECK_ORDER = [
   "japanese-sentence-quiz",
   "katakana-chars",
   "hiragana-chars",
+  "english-sentences",
   "english-words",
-  "spanish-words",
   "spanish-sentences",
+  "spanish-words",
+  "korean-sentences",
   "korean-words",
   "korean-chars",
   "korean-syllables",
@@ -77,9 +81,11 @@ export const DECK_PATHS: Record<string, string> = {
   "japanese-sentence-quiz": "/study/japanese/sentence-quiz",
   "katakana-chars": "/study/japanese/katakana-chars",
   "hiragana-chars": "/study/japanese/hiragana-chars",
+  "english-sentences": "/study/english/sentences",
   "english-words": "/study/english/words",
   "spanish-words": "/study/spanish/words",
   "spanish-sentences": "/study/spanish/sentences",
+  "korean-sentences": "/study/korean/sentences",
   "korean-words": "/study/korean/words",
   "korean-chars": "/study/korean/chars",
   "korean-syllables": "/study/korean/syllables",
@@ -93,9 +99,11 @@ const DECK_COLORS: Record<string, string> = {
   "japanese-sentence-quiz": "#7c3aed",
   "katakana-chars": "#d97706",
   "hiragana-chars": "#f59e0b",
+  "english-sentences": "#22c55e",
   "english-words": "#16a34a",
   "spanish-words": "#dc2626",
   "spanish-sentences": "#f97316",
+  "korean-sentences": "#06b6d4",
   "korean-words": "#0891b2",
   "korean-chars": "#4f46e5",
   "korean-syllables": "#7c3aed",
@@ -144,14 +152,24 @@ const FAVORITE_LOOKUPS: Record<string, Map<number, FavoritePreview>> = {
     title: card.word,
     subtitle: card.meaning,
   })),
+  "english-sentences": buildFavoriteLookup(ENGLISH_SENTENCE_QUIZ, (card) => ({
+    id: card.id,
+    title: card.prompt,
+    subtitle: card.translation,
+  })),
   "spanish-words": buildFavoriteLookup(SPANISH_WORDS, (card) => ({
     id: card.id,
     title: card.word,
     subtitle: card.meaning,
   })),
-  "spanish-sentences": buildFavoriteLookup(SPANISH_SENTENCES, (card) => ({
+  "spanish-sentences": buildFavoriteLookup(SPANISH_SENTENCE_QUIZ, (card) => ({
     id: card.id,
-    title: card.sentence,
+    title: card.prompt,
+    subtitle: card.translation,
+  })),
+  "korean-sentences": buildFavoriteLookup(KOREAN_SENTENCE_QUIZ, (card) => ({
+    id: card.id,
+    title: card.prompt,
     subtitle: card.translation,
   })),
   "korean-words": buildFavoriteLookup(KOREAN_WORDS, (card) => ({

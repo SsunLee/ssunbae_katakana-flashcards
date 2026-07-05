@@ -42,8 +42,8 @@ const menuConfig: MenuGroup[] = [
     value: "japanese",
     icon: "🇯🇵",
     items: [
-      { href: "/study/japanese/katakana-words", label: "가타카나 단어", icon: "/icons/jp_word.png" },
       { href: "/study/japanese/sentence-quiz", label: "문장 퀴즈", icon: "🧩" },
+      { href: "/study/japanese/katakana-words", label: "가타카나 단어", icon: "/icons/jp_word.png" },
       { href: "/study/japanese/verbs", label: "JLPT 동사", icon: "📝", disabled: false },
       { href: "/study/japanese/kanji", label: "JLPT 한자", icon: "🎴", disabled: false },
       { href: "/study/japanese/kana-chars", label: "가타카나 / 히라가나", icon: "/icons/jp_katakana.png" },
@@ -56,8 +56,8 @@ const menuConfig: MenuGroup[] = [
     icon: "🇺🇸",
     disabled: false,
     items: [
-      { href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false },
       { href: "/study/english/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
+      { href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false },
     ],
   },
   {
@@ -66,8 +66,8 @@ const menuConfig: MenuGroup[] = [
     icon: "🇪🇸",
     disabled: false,
     items: [
+      { href: "/study/spanish/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
       { href: "/study/spanish/words", label: "스페인어 단어 공부", icon: "/icons/es_word.png", disabled: false },
-      { href: "/study/spanish/sentences", label: "스페인어 문장 공부", icon: "/icons/es_sentences.png", disabled: false }
     ],
   },
   {
@@ -75,6 +75,7 @@ const menuConfig: MenuGroup[] = [
     value: "korean",
     icon: "🇰🇷",
     items: [
+      { href: "/study/korean/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
       { href: "/study/korean/words", label: "한국어 단어 공부", icon: "📚", disabled: false },
       { href: "/study/korean/chars", label: "한글 자모 공부", icon: "📝", disabled: false },
       { href: "/study/korean/syllables", label: "완성형 한글 공부", icon: "🔤", disabled: false },
