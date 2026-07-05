@@ -7,7 +7,7 @@ const webDir = process.env.CAPACITOR_WEB_DIR?.trim() || '.next-mobile';
 
 const config: CapacitorConfig = {
   appId: 'com.ssunbae.edu',
-  appName: 'ssunbaeEdu',
+  appName: '쑨에듀',
   webDir,
   loggingBehavior: process.env.NODE_ENV === 'production' ? 'production' : 'debug',
   plugins: {
