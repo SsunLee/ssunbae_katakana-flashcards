@@ -112,6 +112,7 @@ export default function KatakanaWordsPage() {
   const [flippedStates, setFlippedStates] = useState<Record<number, boolean>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const [showSettings, setShowSettings] = useState(false);
+  const [showKanjiReading, setShowKanjiReading] = useState(true);
   const [onlyFavs, setOnlyFavs] = useState(false);
   const [jlptFilters, setJlptFilters] = useState<Record<JlptFilterKey, boolean>>({
     N5: true,
@@ -301,7 +302,7 @@ export default function KatakanaWordsPage() {
               🔊 듣기 (ふりがな)
             </Button>
           )}
-          
+
           <Button
             size="sm"
             variant="outline" // ✅ variant="outline" 사용
@@ -339,7 +340,7 @@ export default function KatakanaWordsPage() {
       <section className="mb-3 w-full max-w-md rounded-lg border border-border bg-card px-3 py-3">
         <div className="flex items-center justify-between gap-3">
           <span className="shrink-0 text-sm font-semibold text-muted-foreground">문자 종류</span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-end gap-2">
             <Button
               type="button"
               size="sm"
@@ -356,6 +357,24 @@ export default function KatakanaWordsPage() {
             >
               한자
             </Button>
+            {wordScriptMode === "kanji" ? (
+              <button
+                type="button"
+                onClick={() => setShowKanjiReading((value) => !value)}
+                aria-label="히라가나 표시 토글"
+                title="히라가나 표시"
+                className={`inline-flex h-9 items-center gap-2 rounded-md border px-2.5 text-sm font-semibold transition-colors ${
+                  showKanjiReading
+                    ? "border-primary/30 bg-primary/10 text-primary"
+                    : "border-border bg-card text-muted-foreground hover:bg-accent/40"
+                }`}
+              >
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-current text-[11px] font-semibold">
+                  あ
+                </span>
+                히라가나
+              </button>
+            ) : null}
           </div>
         </div>
       </section>
@@ -407,6 +426,7 @@ export default function KatakanaWordsPage() {
                 onFlip={onFlip}
                 onToggleFav={() => toggleFav(current.id)}
                 fontSize={wordFontSize}
+                showFurigana={wordScriptMode !== "kanji" || showKanjiReading}
               />
             )
           )
@@ -422,6 +442,31 @@ export default function KatakanaWordsPage() {
                 flippedStates={flippedStates}
                 onToggleFav={(id) => toggleFav(id as number)}
                 onToggleCardFlip={toggleGridCardFlip}
+                renderFront={
+                  wordScriptMode === "kanji"
+                    ? (card) => (
+                        <>
+                          <div className="text-2xl font-semibold break-all px-2">{card.katakana}</div>
+                          {showKanjiReading ? (
+                            <div className="text-sm text-muted-foreground mt-1">{card.furigana}</div>
+                          ) : null}
+                        </>
+                      )
+                    : undefined
+                }
+                renderBack={
+                  wordScriptMode === "kanji"
+                    ? (card) => (
+                        <>
+                          <div className="text-lg font-semibold break-all">{card.answer}</div>
+                          <div className="text-2xl mt-1">{card.emoji}</div>
+                          {showKanjiReading ? (
+                            <div className="text-xs text-muted-foreground mt-2">({card.furigana})</div>
+                          ) : null}
+                        </>
+                      )
+                    : undefined
+                }
                 page={{
                   current: currentPage,
                   total: totalPages,

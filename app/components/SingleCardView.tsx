@@ -13,9 +13,10 @@ interface SingleCardViewProps {
   onFlip: () => void;
   onToggleFav: () => void;
   fontSize?: number;
+  showFurigana?: boolean;
 }
 
-export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onToggleFav, fontSize }: SingleCardViewProps) => {
+export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onToggleFav, fontSize, showFurigana = true }: SingleCardViewProps) => {
   const isCharsMode = deckType.endsWith("-chars");
   const defaultCharSize = 96;
   const defaultWordSize = 48;
@@ -63,7 +64,9 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
                   {card.katakana}
                 </p>
                 {/* ✅ text-muted-foreground로 변경 */}
-                <p className="mt-2 text-lg text-muted-foreground">{card.furigana}</p>
+                {showFurigana ? (
+                  <p className="mt-2 text-lg text-muted-foreground">{card.furigana}</p>
+                ) : null}
               </>
             )}
           </div>
