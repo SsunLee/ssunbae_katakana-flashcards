@@ -446,10 +446,12 @@ export default function KatakanaWordsPage() {
                   wordScriptMode === "kanji"
                     ? (card) => (
                         <>
-                          <div className="text-2xl font-semibold break-all px-2">{card.katakana}</div>
-                          {showKanjiReading ? (
-                            <div className="text-sm text-muted-foreground mt-1">{card.furigana}</div>
-                          ) : null}
+                          <ruby className="px-2 text-2xl font-semibold leading-tight break-all">
+                            {card.katakana}
+                            {showKanjiReading ? (
+                              <rt className="text-[0.45em] font-medium text-muted-foreground">{card.furigana}</rt>
+                            ) : null}
+                          </ruby>
                         </>
                       )
                     : undefined
@@ -460,7 +462,8 @@ export default function KatakanaWordsPage() {
                         <>
                           <div className="text-lg font-semibold break-all">{card.answer}</div>
                           <div className="text-2xl mt-1">{card.emoji}</div>
-                          <div className="text-xs text-muted-foreground mt-2">({card.furigana})</div>
+                          <div className="mt-3 text-xl font-semibold break-all">{card.katakana}</div>
+                          <div className="text-xs text-muted-foreground mt-1">{card.furigana}</div>
                         </>
                       )
                     : undefined

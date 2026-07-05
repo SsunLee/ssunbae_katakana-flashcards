@@ -58,16 +58,29 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
               </p>
             ) : (
               <>
-                <p 
-                  className="font-semibold leading-snug"
-                  style={{ fontSize: `${fontSize || defaultWordSize}px` }}
-                >
-                  {card.katakana}
-                </p>
-                {/* ✅ text-muted-foreground로 변경 */}
-                {showFurigana ? (
-                  <p className="mt-2 text-lg text-muted-foreground">{card.furigana}</p>
-                ) : null}
+                {isKanjiWordsMode ? (
+                  <ruby
+                    className="font-semibold leading-tight"
+                    style={{ fontSize: `${fontSize || defaultWordSize}px` }}
+                  >
+                    {card.katakana}
+                    {showFurigana ? (
+                      <rt className="text-[0.38em] font-medium text-muted-foreground">{card.furigana}</rt>
+                    ) : null}
+                  </ruby>
+                ) : (
+                  <>
+                    <p
+                      className="font-semibold leading-snug"
+                      style={{ fontSize: `${fontSize || defaultWordSize}px` }}
+                    >
+                      {card.katakana}
+                    </p>
+                    {showFurigana ? (
+                      <p className="mt-2 text-lg text-muted-foreground">{card.furigana}</p>
+                    ) : null}
+                  </>
+                )}
               </>
             )}
           </div>
@@ -97,9 +110,14 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
                 {/* ✅ globals.css에 정의한 `ui-divider` 클래스 사용 */}
                 <div className="w-full my-4 ui-divider"></div>
                 {/* ✅ text-muted-foreground로 변경 */}
-                <p className="text-base text-muted-foreground mt-1">
-                  ({isKanjiWordsMode ? card.furigana : card.katakana})
-                </p>
+                {isKanjiWordsMode ? (
+                  <>
+                    <p className="text-2xl font-semibold text-foreground">{card.katakana}</p>
+                    <p className="mt-1 text-base text-muted-foreground">{card.furigana}</p>
+                  </>
+                ) : (
+                  <p className="text-base text-muted-foreground mt-1">({card.katakana})</p>
+                )}
               </div>
             )}
           </div>
