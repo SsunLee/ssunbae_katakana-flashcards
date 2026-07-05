@@ -39,6 +39,7 @@ import { FOOTER_TEXTS } from "@/app/constants/message";
 const CARDS_PER_PAGE = 10 as const;
 type ViewMode = "single" | "grid";
 type WordScriptMode = "katakana" | "kanji";
+const WORD_SCRIPT_MODE_STORAGE_KEY = "ssunedu:japanese-word-script-mode";
 const JLPT_FILTERS = {
   N5: "N5",
   N4: "N4",
@@ -170,6 +171,11 @@ export default function KatakanaWordsPage() {
   const handleWordScriptModeChange = (nextMode: WordScriptMode) => {
     if (nextMode === wordScriptMode) return;
     setWordScriptMode(nextMode);
+    try {
+      localStorage.setItem(WORD_SCRIPT_MODE_STORAGE_KEY, nextMode);
+    } catch {
+      // 저장소 접근이 제한된 환경에서는 현재 세션 상태만 유지합니다.
+    }
     setIndex(0);
     setFlipped(false);
     setFlippedStates({});
@@ -251,6 +257,17 @@ export default function KatakanaWordsPage() {
       window.removeEventListener("resize", updateWidth);
       window.removeEventListener("orientationchange", updateWidth);
     };
+  }, []);
+
+  useEffect(() => {
+    try {
+      const savedMode = localStorage.getItem(WORD_SCRIPT_MODE_STORAGE_KEY);
+      if (savedMode === "katakana" || savedMode === "kanji") {
+        setWordScriptMode(savedMode);
+      }
+    } catch {
+      // 저장소 접근이 제한된 환경에서는 기본 모드를 사용합니다.
+    }
   }, []);
 
 
@@ -363,7 +380,7 @@ export default function KatakanaWordsPage() {
                 onClick={() => setShowKanjiReading((value) => !value)}
                 aria-label="히라가나 표시 토글"
                 title="히라가나 표시"
-                className={`inline-flex h-9 items-center gap-2 rounded-md border px-2.5 text-sm font-semibold transition-colors ${
+                className={`inline-flex h-9 w-9 items-center justify-center rounded-md border text-sm font-semibold transition-colors ${
                   showKanjiReading
                     ? "border-primary/30 bg-primary/10 text-primary"
                     : "border-border bg-card text-muted-foreground hover:bg-accent/40"
@@ -372,7 +389,6 @@ export default function KatakanaWordsPage() {
                 <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-current text-[11px] font-semibold">
                   あ
                 </span>
-                히라가나
               </button>
             ) : null}
           </div>
