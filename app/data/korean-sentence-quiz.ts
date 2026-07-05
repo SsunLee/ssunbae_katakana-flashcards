@@ -7,5100 +7,5101 @@ export const KOREAN_SENTENCE_QUIZ: KoreanSentenceQuiz[] = [
     "id": 1,
     "level": "초급",
     "prompt": "저는 한국어를 _____.",
-    "answer": "공부합니다",
+    "answer": "공부해요",
     "translation": "I study Korean.",
     "choices": [
-      "공부합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "살아요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"공부해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 2,
     "level": "초급",
-    "prompt": "너는 빵을 _____.",
-    "answer": "먹습니다",
-    "translation": "You eat bread.",
+    "prompt": "어제 저는 한국어를 _____.",
+    "answer": "공부했어요",
+    "translation": "I study Korean yesterday.",
     "choices": [
-      "갑니다",
-      "먹습니다",
-      "있습니다",
-      "좋습니다"
+      "먹었어요",
+      "공부했어요",
+      "일했어요",
+      "살았어요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹습니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"공부했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 3,
     "level": "초급",
-    "prompt": "그녀는 사무실에서 _____.",
-    "answer": "일합니다",
-    "translation": "She works at an office.",
+    "prompt": "내일 저는 한국어를 _____.",
+    "answer": "공부할 거예요",
+    "translation": "I study Korean tomorrow.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "일합니다",
-      "좋습니다"
+      "먹을 거예요",
+      "일할 거예요",
+      "공부할 거예요",
+      "살 거예요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"공부할 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 4,
     "level": "초급",
-    "prompt": "우리는 서울에 _____.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul.",
+    "prompt": "지금 저는 한국어를 _____ 있어요.",
+    "answer": "공부하고",
+    "translation": "I study Korean now.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "삽니다"
+      "먹고",
+      "일하고",
+      "살고",
+      "공부하고"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"공부하고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 5,
     "level": "초급",
-    "prompt": "그들은 박물관을 _____.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum.",
+    "prompt": "저는 한국어를 _____ 않아요.",
+    "answer": "공부하지",
+    "translation": "Negative: I study Korean.",
     "choices": [
-      "방문합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "살지"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"공부하지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 6,
     "level": "초급",
-    "prompt": "제 동생은 책을 _____.",
-    "answer": "읽습니다",
-    "translation": "My sibling reads a book.",
+    "prompt": "동생은 빵을 _____.",
+    "answer": "먹어요",
+    "translation": "My younger sibling eats bread.",
     "choices": [
-      "갑니다",
-      "읽습니다",
-      "있습니다",
-      "좋습니다"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "살아요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽습니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"먹어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 7,
     "level": "초급",
-    "prompt": "선생님은 문법을 _____.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar.",
+    "prompt": "어제 동생은 빵을 _____.",
+    "answer": "먹었어요",
+    "translation": "My younger sibling eats bread yesterday.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "설명합니다",
-      "좋습니다"
+      "공부했어요",
+      "일했어요",
+      "먹었어요",
+      "살았어요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"먹었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 8,
     "level": "초급",
-    "prompt": "학생은 음악을 _____.",
-    "answer": "듣습니다",
-    "translation": "The student listens to music.",
+    "prompt": "내일 동생은 빵을 _____.",
+    "answer": "먹을 거예요",
+    "translation": "My younger sibling eats bread tomorrow.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "듣습니다"
+      "공부할 거예요",
+      "일할 거예요",
+      "살 거예요",
+      "먹을 거예요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣습니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"먹을 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 9,
     "level": "초급",
-    "prompt": "제 친구들은 과일을 _____.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit.",
+    "prompt": "지금 동생은 빵을 _____ 있어요.",
+    "answer": "먹고",
+    "translation": "My younger sibling eats bread now.",
     "choices": [
-      "삽니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "먹고",
+      "공부하고",
+      "일하고",
+      "살고"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"먹고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 10,
     "level": "초급",
-    "prompt": "그 가게는 아홉 시에 _____.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine.",
+    "prompt": "동생은 빵을 _____ 않아요.",
+    "answer": "먹지",
+    "translation": "Negative: My younger sibling eats bread.",
     "choices": [
-      "갑니다",
-      "문을 엽니다",
-      "있습니다",
-      "좋습니다"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "살지"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"먹지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 11,
     "level": "초급",
-    "prompt": "저는 한국어를 _____ 않습니다.",
-    "answer": "공부합니다",
-    "translation": "I study Korean. negative.",
+    "prompt": "그녀는 사무실에서 _____.",
+    "answer": "일해요",
+    "translation": "She works at the office.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "공부합니다",
-      "하세요"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "살아요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"일해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 12,
     "level": "초급",
-    "prompt": "너는 빵을 _____ 않습니다.",
-    "answer": "먹지",
-    "translation": "You eat bread. negative.",
+    "prompt": "어제 그녀는 사무실에서 _____.",
+    "answer": "일했어요",
+    "translation": "She works at the office yesterday.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "먹지"
+      "공부했어요",
+      "먹었어요",
+      "살았어요",
+      "일했어요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹지\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"일했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 13,
     "level": "초급",
-    "prompt": "그녀는 사무실에서 _____ 않습니다.",
-    "answer": "일합니다",
-    "translation": "She works at an office. negative.",
+    "prompt": "내일 그녀는 사무실에서 _____.",
+    "answer": "일할 거예요",
+    "translation": "She works at the office tomorrow.",
     "choices": [
-      "일합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "일할 거예요",
+      "공부할 거예요",
+      "먹을 거예요",
+      "살 거예요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"일할 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 14,
     "level": "초급",
-    "prompt": "우리는 서울에 _____ 않습니다.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul. negative.",
+    "prompt": "지금 그녀는 사무실에서 _____ 있어요.",
+    "answer": "일하고",
+    "translation": "She works at the office now.",
     "choices": [
-      "합니다",
-      "삽니다",
-      "했습니다",
-      "하세요"
+      "공부하고",
+      "일하고",
+      "먹고",
+      "살고"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"일하고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 15,
     "level": "초급",
-    "prompt": "그들은 박물관을 _____ 않습니다.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum. negative.",
+    "prompt": "그녀는 사무실에서 _____ 않아요.",
+    "answer": "일하지",
+    "translation": "Negative: She works at the office.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "방문합니다",
-      "하세요"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "살지"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"일하지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 16,
     "level": "초급",
-    "prompt": "제 동생은 책을 _____ 않습니다.",
-    "answer": "읽지",
-    "translation": "My sibling reads a book. negative.",
+    "prompt": "우리는 서울에 _____.",
+    "answer": "살아요",
+    "translation": "We live in Seoul.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "읽지"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "살아요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽지\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살아요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 17,
     "level": "초급",
-    "prompt": "선생님은 문법을 _____ 않습니다.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar. negative.",
+    "prompt": "어제 우리는 서울에 _____.",
+    "answer": "살았어요",
+    "translation": "We live in Seoul yesterday.",
     "choices": [
-      "설명합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "살았어요",
+      "공부했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살았어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 18,
     "level": "초급",
-    "prompt": "학생은 음악을 _____ 않습니다.",
-    "answer": "듣지",
-    "translation": "The student listens to music. negative.",
+    "prompt": "내일 우리는 서울에 _____.",
+    "answer": "살 거예요",
+    "translation": "We live in Seoul tomorrow.",
     "choices": [
-      "합니다",
-      "듣지",
-      "했습니다",
-      "하세요"
+      "공부할 거예요",
+      "살 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣지\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 19,
     "level": "초급",
-    "prompt": "제 친구들은 과일을 _____ 않습니다.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit. negative.",
+    "prompt": "지금 우리는 서울에 _____ 있어요.",
+    "answer": "살고",
+    "translation": "We live in Seoul now.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "삽니다",
-      "하세요"
+      "공부하고",
+      "먹고",
+      "살고",
+      "일하고"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 20,
     "level": "초급",
-    "prompt": "그 가게는 아홉 시에 _____ 않습니다.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine. negative.",
+    "prompt": "우리는 서울에 _____ 않아요.",
+    "answer": "살지",
+    "translation": "Negative: We live in Seoul.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "문을 엽니다"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "살지"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 21,
     "level": "초급",
-    "prompt": "어제 저는 한국어를 _____.",
-    "answer": "했습니다",
-    "translation": "I study Korean. yesterday.",
+    "prompt": "그들은 박물관을 _____.",
+    "answer": "방문해요",
+    "translation": "They visit the museum.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "방문해요",
+      "공부해요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"방문해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 22,
     "level": "초급",
-    "prompt": "어제 너는 빵을 _____.",
-    "answer": "했습니다",
-    "translation": "You eat bread. yesterday.",
+    "prompt": "어제 그들은 박물관을 _____.",
+    "answer": "방문했어요",
+    "translation": "They visit the museum yesterday.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "공부했어요",
+      "방문했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"방문했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 23,
     "level": "초급",
-    "prompt": "어제 그녀는 사무실에서 _____.",
-    "answer": "했습니다",
-    "translation": "She works at an office. yesterday.",
+    "prompt": "내일 그들은 박물관을 _____.",
+    "answer": "방문할 거예요",
+    "translation": "They visit the museum tomorrow.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "공부할 거예요",
+      "먹을 거예요",
+      "방문할 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"방문할 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 24,
     "level": "초급",
-    "prompt": "어제 우리는 서울에 _____.",
-    "answer": "했습니다",
-    "translation": "We live in Seoul. yesterday.",
+    "prompt": "지금 그들은 박물관을 _____ 있어요.",
+    "answer": "방문하고",
+    "translation": "They visit the museum now.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "공부하고",
+      "먹고",
+      "일하고",
+      "방문하고"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"방문하고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 25,
     "level": "초급",
-    "prompt": "어제 그들은 박물관을 _____.",
-    "answer": "했습니다",
-    "translation": "They visit the museum. yesterday.",
+    "prompt": "그들은 박물관을 _____ 않아요.",
+    "answer": "방문하지",
+    "translation": "Negative: They visit the museum.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "방문하지",
+      "공부하지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"방문하지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 26,
     "level": "초급",
-    "prompt": "어제 제 동생은 책을 _____.",
-    "answer": "했습니다",
-    "translation": "My sibling reads a book. yesterday.",
+    "prompt": "제 동생은 책을 _____.",
+    "answer": "읽어요",
+    "translation": "My sibling reads a book.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "공부해요",
+      "읽어요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"읽어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 27,
     "level": "초급",
-    "prompt": "어제 선생님은 문법을 _____.",
-    "answer": "했습니다",
-    "translation": "The teacher explains grammar. yesterday.",
+    "prompt": "어제 제 동생은 책을 _____.",
+    "answer": "읽었어요",
+    "translation": "My sibling reads a book yesterday.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "공부했어요",
+      "먹었어요",
+      "읽었어요",
+      "일했어요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"읽었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 28,
     "level": "초급",
-    "prompt": "어제 학생은 음악을 _____.",
-    "answer": "했습니다",
-    "translation": "The student listens to music. yesterday.",
+    "prompt": "내일 제 동생은 책을 _____.",
+    "answer": "읽을 거예요",
+    "translation": "My sibling reads a book tomorrow.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요",
+      "읽을 거예요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"읽을 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 29,
     "level": "초급",
-    "prompt": "어제 제 친구들은 과일을 _____.",
-    "answer": "했습니다",
-    "translation": "My friends buy fruit. yesterday.",
+    "prompt": "지금 제 동생은 책을 _____ 있어요.",
+    "answer": "읽고",
+    "translation": "My sibling reads a book now.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "읽고",
+      "공부하고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"읽고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 30,
     "level": "초급",
-    "prompt": "어제 그 가게는 아홉 시에 _____.",
-    "answer": "했습니다",
-    "translation": "The store opens at nine. yesterday.",
+    "prompt": "제 동생은 책을 _____ 않아요.",
+    "answer": "읽지",
+    "translation": "Negative: My sibling reads a book.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "공부하지",
+      "읽지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"읽지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 31,
     "level": "초급",
-    "prompt": "내일 저는 한국어를 _____.",
-    "answer": "할 것입니다",
-    "translation": "I study Korean. tomorrow.",
+    "prompt": "선생님은 문법을 _____.",
+    "answer": "설명해요",
+    "translation": "The teacher explains grammar.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "공부해요",
+      "먹어요",
+      "설명해요",
+      "일해요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"설명해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 32,
     "level": "초급",
-    "prompt": "내일 너는 빵을 _____.",
-    "answer": "할 것입니다",
-    "translation": "You eat bread. tomorrow.",
+    "prompt": "어제 선생님은 문법을 _____.",
+    "answer": "설명했어요",
+    "translation": "The teacher explains grammar yesterday.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "공부했어요",
+      "먹었어요",
+      "일했어요",
+      "설명했어요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"설명했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 33,
     "level": "초급",
-    "prompt": "내일 그녀는 사무실에서 _____.",
-    "answer": "할 것입니다",
-    "translation": "She works at an office. tomorrow.",
+    "prompt": "내일 선생님은 문법을 _____.",
+    "answer": "설명할 거예요",
+    "translation": "The teacher explains grammar tomorrow.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "설명할 거예요",
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "문맥상 빈칸에는 \"설명할 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 34,
     "level": "초급",
-    "prompt": "내일 우리는 서울에 _____.",
-    "answer": "할 것입니다",
-    "translation": "We live in Seoul. tomorrow.",
+    "prompt": "지금 선생님은 문법을 _____ 있어요.",
+    "answer": "설명하고",
+    "translation": "The teacher explains grammar now.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "공부하고",
+      "설명하고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"설명하고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 35,
     "level": "초급",
-    "prompt": "내일 그들은 박물관을 _____.",
-    "answer": "할 것입니다",
-    "translation": "They visit the museum. tomorrow.",
+    "prompt": "선생님은 문법을 _____ 않아요.",
+    "answer": "설명하지",
+    "translation": "Negative: The teacher explains grammar.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "공부하지",
+      "먹지",
+      "설명하지",
+      "일하지"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"설명하지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 36,
     "level": "초급",
-    "prompt": "내일 제 동생은 책을 _____.",
-    "answer": "할 것입니다",
-    "translation": "My sibling reads a book. tomorrow.",
+    "prompt": "학생은 음악을 _____.",
+    "answer": "들어요",
+    "translation": "The student listens to music.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "들어요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"들어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 37,
     "level": "초급",
-    "prompt": "내일 선생님은 문법을 _____.",
-    "answer": "할 것입니다",
-    "translation": "The teacher explains grammar. tomorrow.",
+    "prompt": "어제 학생은 음악을 _____.",
+    "answer": "들었어요",
+    "translation": "The student listens to music yesterday.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "들었어요",
+      "공부했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"들었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 38,
     "level": "초급",
     "prompt": "내일 학생은 음악을 _____.",
-    "answer": "할 것입니다",
-    "translation": "The student listens to music. tomorrow.",
+    "answer": "들을 거예요",
+    "translation": "The student listens to music tomorrow.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "공부할 거예요",
+      "들을 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
       "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "문맥상 빈칸에는 \"들을 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 39,
     "level": "초급",
-    "prompt": "내일 제 친구들은 과일을 _____.",
-    "answer": "할 것입니다",
-    "translation": "My friends buy fruit. tomorrow.",
+    "prompt": "지금 학생은 음악을 _____ 있어요.",
+    "answer": "듣고",
+    "translation": "The student listens to music now.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "공부하고",
+      "먹고",
+      "듣고",
+      "일하고"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"듣고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 40,
     "level": "초급",
-    "prompt": "내일 그 가게는 아홉 시에 _____.",
-    "answer": "할 것입니다",
-    "translation": "The store opens at nine. tomorrow.",
+    "prompt": "학생은 음악을 _____ 않아요.",
+    "answer": "듣지",
+    "translation": "Negative: The student listens to music.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "듣지"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"듣지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 41,
     "level": "초급",
-    "prompt": "저는 한국어를 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "I study Korean. now.",
+    "prompt": "친구들은 과일을 _____.",
+    "answer": "사요",
+    "translation": "My friends buy fruit.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "사요",
+      "공부해요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"사요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 42,
     "level": "초급",
-    "prompt": "너는 빵을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "You eat bread. now.",
+    "prompt": "어제 친구들은 과일을 _____.",
+    "answer": "샀어요",
+    "translation": "My friends buy fruit yesterday.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "공부했어요",
+      "샀어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"샀어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 43,
     "level": "초급",
-    "prompt": "그녀는 사무실에서 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "She works at an office. now.",
+    "prompt": "내일 친구들은 과일을 _____.",
+    "answer": "살 거예요",
+    "translation": "My friends buy fruit tomorrow.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "공부할 거예요",
+      "먹을 거예요",
+      "살 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 44,
     "level": "초급",
-    "prompt": "우리는 서울에 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "We live in Seoul. now.",
+    "prompt": "지금 친구들은 과일을 _____ 있어요.",
+    "answer": "사고",
+    "translation": "My friends buy fruit now.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "공부하고",
+      "먹고",
+      "일하고",
+      "사고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "문맥상 빈칸에는 \"사고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 45,
     "level": "초급",
-    "prompt": "그들은 박물관을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "They visit the museum. now.",
+    "prompt": "친구들은 과일을 _____ 않아요.",
+    "answer": "사지",
+    "translation": "Negative: My friends buy fruit.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "사지",
+      "공부하지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"사지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 46,
     "level": "초급",
-    "prompt": "제 동생은 책을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "My sibling reads a book. now.",
+    "prompt": "그 가게는 아홉 시에 문을 _____.",
+    "answer": "열어요",
+    "translation": "The store opens at nine.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "공부해요",
+      "열어요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"열어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 47,
     "level": "초급",
-    "prompt": "선생님은 문법을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "The teacher explains grammar. now.",
+    "prompt": "어제 그 가게는 아홉 시에 문을 _____.",
+    "answer": "열었어요",
+    "translation": "The store opens at nine yesterday.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "공부했어요",
+      "먹었어요",
+      "열었어요",
+      "일했어요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"열었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 48,
     "level": "초급",
-    "prompt": "학생은 음악을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "The student listens to music. now.",
+    "prompt": "내일 그 가게는 아홉 시에 문을 _____.",
+    "answer": "열 거예요",
+    "translation": "The store opens at nine tomorrow.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요",
+      "열 거예요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"열 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 49,
     "level": "초급",
-    "prompt": "제 친구들은 과일을 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "My friends buy fruit. now.",
+    "prompt": "지금 그 가게는 아홉 시에 문을 _____ 있어요.",
+    "answer": "열고",
+    "translation": "The store opens at nine now.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "열고",
+      "공부하고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
       "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "문맥상 빈칸에는 \"열고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 50,
     "level": "초급",
-    "prompt": "그 가게는 아홉 시에 _____ 있습니다.",
-    "answer": "하고",
-    "translation": "The store opens at nine. now.",
+    "prompt": "그 가게는 아홉 시에 문을 _____ 않아요.",
+    "answer": "열지",
+    "translation": "Negative: The store opens at nine.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "공부하지",
+      "열지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"열지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 51,
     "level": "초급",
-    "prompt": "저는 한국어를 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "I study Korean. before.",
+    "prompt": "아버지는 신문을 _____.",
+    "answer": "봐요",
+    "translation": "Father reads the newspaper.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "공부해요",
+      "먹어요",
+      "봐요",
+      "일해요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"봐요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 52,
     "level": "초급",
-    "prompt": "너는 빵을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "You eat bread. before.",
+    "prompt": "어제 아버지는 신문을 _____.",
+    "answer": "봤어요",
+    "translation": "Father reads the newspaper yesterday.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "공부했어요",
+      "먹었어요",
+      "일했어요",
+      "봤어요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"봤어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 53,
     "level": "초급",
-    "prompt": "그녀는 사무실에서 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "She works at an office. before.",
+    "prompt": "내일 아버지는 신문을 _____.",
+    "answer": "볼 거예요",
+    "translation": "Father reads the newspaper tomorrow.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "볼 거예요",
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"볼 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 54,
     "level": "초급",
-    "prompt": "우리는 서울에 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "We live in Seoul. before.",
+    "prompt": "지금 아버지는 신문을 _____ 있어요.",
+    "answer": "보고",
+    "translation": "Father reads the newspaper now.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "공부하고",
+      "보고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 55,
     "level": "초급",
-    "prompt": "그들은 박물관을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "They visit the museum. before.",
+    "prompt": "아버지는 신문을 _____ 않아요.",
+    "answer": "보지",
+    "translation": "Negative: Father reads the newspaper.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "공부하지",
+      "먹지",
+      "보지",
+      "일하지"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 56,
     "level": "초급",
-    "prompt": "제 동생은 책을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "My sibling reads a book. before.",
+    "prompt": "어머니는 저녁을 _____.",
+    "answer": "만들어요",
+    "translation": "Mother makes dinner.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "만들어요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"만들어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 57,
     "level": "초급",
-    "prompt": "선생님은 문법을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "The teacher explains grammar. before.",
+    "prompt": "어제 어머니는 저녁을 _____.",
+    "answer": "만들었어요",
+    "translation": "Mother makes dinner yesterday.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "만들었어요",
+      "공부했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"만들었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 58,
     "level": "초급",
-    "prompt": "학생은 음악을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "The student listens to music. before.",
+    "prompt": "내일 어머니는 저녁을 _____.",
+    "answer": "만들 거예요",
+    "translation": "Mother makes dinner tomorrow.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "공부할 거예요",
+      "만들 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"만들 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 59,
     "level": "초급",
-    "prompt": "제 친구들은 과일을 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "My friends buy fruit. before.",
+    "prompt": "지금 어머니는 저녁을 _____ 있어요.",
+    "answer": "만들고",
+    "translation": "Mother makes dinner now.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "공부하고",
+      "먹고",
+      "만들고",
+      "일하고"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"만들고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 60,
     "level": "초급",
-    "prompt": "그 가게는 아홉 시에 _____ 적이 있습니다.",
-    "answer": "해 본",
-    "translation": "The store opens at nine. before.",
+    "prompt": "어머니는 저녁을 _____ 않아요.",
+    "answer": "만들지",
+    "translation": "Negative: Mother makes dinner.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "만들지"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"만들지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 61,
     "level": "초급",
-    "prompt": "비가 오지만 저는 한국어를 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "아이는 우유를 _____.",
+    "answer": "마셔요",
+    "translation": "The child drinks milk.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "마셔요",
+      "공부해요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"마셔요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 62,
     "level": "초급",
-    "prompt": "비가 오지만 너는 빵을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "어제 아이는 우유를 _____.",
+    "answer": "마셨어요",
+    "translation": "The child drinks milk yesterday.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "공부했어요",
+      "마셨어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"마셨어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 63,
     "level": "초급",
-    "prompt": "비가 오지만 그녀는 사무실에서 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "내일 아이는 우유를 _____.",
+    "answer": "마실 거예요",
+    "translation": "The child drinks milk tomorrow.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "공부할 거예요",
+      "먹을 거예요",
+      "마실 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"마실 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 64,
     "level": "초급",
-    "prompt": "비가 오지만 우리는 서울에 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "지금 아이는 우유를 _____ 있어요.",
+    "answer": "마시고",
+    "translation": "The child drinks milk now.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "공부하고",
+      "먹고",
+      "일하고",
+      "마시고"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"마시고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 65,
     "level": "초급",
-    "prompt": "비가 오지만 그들은 박물관을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "아이는 우유를 _____ 않아요.",
+    "answer": "마시지",
+    "translation": "Negative: The child drinks milk.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "마시지",
+      "공부하지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"마시지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 66,
     "level": "초급",
-    "prompt": "비가 오지만 제 동생은 책을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "저는 운동을 _____.",
+    "answer": "해요",
+    "translation": "I exercise.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "공부해요",
+      "해요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 67,
     "level": "초급",
-    "prompt": "비가 오지만 선생님은 문법을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "어제 저는 운동을 _____.",
+    "answer": "했어요",
+    "translation": "I exercise yesterday.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "공부했어요",
+      "먹었어요",
+      "했어요",
+      "일했어요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 68,
     "level": "초급",
-    "prompt": "비가 오지만 학생은 음악을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "내일 저는 운동을 _____.",
+    "answer": "할 거예요",
+    "translation": "I exercise tomorrow.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요",
+      "할 거예요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"할 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 69,
     "level": "초급",
-    "prompt": "비가 오지만 제 친구들은 과일을 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "지금 저는 운동을 _____ 있어요.",
+    "answer": "하고",
+    "translation": "I exercise now.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "하고",
+      "공부하고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 70,
     "level": "초급",
-    "prompt": "비가 오지만 그 가게는 아홉 시에 _____.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "저는 운동을 _____ 않아요.",
+    "answer": "하지",
+    "translation": "Negative: I exercise.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "공부하지",
+      "하지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"하지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 71,
     "level": "초급",
-    "prompt": "시간이 있으면 저는에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "언니는 새 옷을 _____.",
+    "answer": "입어요",
+    "translation": "My older sister wears new clothes.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "공부해요",
+      "먹어요",
+      "입어요",
+      "일해요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 72,
     "level": "초급",
-    "prompt": "시간이 있으면 너는에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "어제 언니는 새 옷을 _____.",
+    "answer": "입었어요",
+    "translation": "My older sister wears new clothes yesterday.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "공부했어요",
+      "먹었어요",
+      "일했어요",
+      "입었어요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입었어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 73,
     "level": "초급",
-    "prompt": "시간이 있으면 그녀는에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "내일 언니는 새 옷을 _____.",
+    "answer": "입을 거예요",
+    "translation": "My older sister wears new clothes tomorrow.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "입을 거예요",
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입을 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 74,
     "level": "초급",
-    "prompt": "시간이 있으면 우리는에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "지금 언니는 새 옷을 _____ 있어요.",
+    "answer": "입고",
+    "translation": "My older sister wears new clothes now.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "공부하고",
+      "입고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 75,
     "level": "초급",
-    "prompt": "시간이 있으면 그들은에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "언니는 새 옷을 _____ 않아요.",
+    "answer": "입지",
+    "translation": "Negative: My older sister wears new clothes.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "공부하지",
+      "먹지",
+      "입지",
+      "일하지"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 76,
     "level": "초급",
-    "prompt": "시간이 있으면 제 동생은에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "친구가 우리 집에 _____.",
+    "answer": "와요",
+    "translation": "A friend comes to my house.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "와요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"와요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 77,
     "level": "초급",
-    "prompt": "시간이 있으면 선생님은에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "어제 친구가 우리 집에 _____.",
+    "answer": "왔어요",
+    "translation": "A friend comes to my house yesterday.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "왔어요",
+      "공부했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"왔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 78,
     "level": "초급",
-    "prompt": "시간이 있으면 학생은에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "내일 친구가 우리 집에 _____.",
+    "answer": "올 거예요",
+    "translation": "A friend comes to my house tomorrow.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "공부할 거예요",
+      "올 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"올 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 79,
     "level": "초급",
-    "prompt": "시간이 있으면 제 친구들은에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "지금 친구가 우리 집에 _____ 있어요.",
+    "answer": "오고",
+    "translation": "A friend comes to my house now.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "공부하고",
+      "먹고",
+      "오고",
+      "일하고"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"오고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 80,
     "level": "초급",
-    "prompt": "시간이 있으면 그 가게는에게 _____.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "친구가 우리 집에 _____ 않아요.",
+    "answer": "오지",
+    "translation": "Negative: A friend comes to my house.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "오지"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"오지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 81,
     "level": "초급",
-    "prompt": "한국어를 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "저는 이름을 한국어로 _____.",
+    "answer": "써요",
+    "translation": "I write my name in Korean.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "써요",
+      "공부해요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"써요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 82,
     "level": "초급",
-    "prompt": "빵을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "어제 저는 이름을 한국어로 _____.",
+    "answer": "썼어요",
+    "translation": "I write my name in Korean yesterday.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "공부했어요",
+      "썼어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"썼어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 83,
     "level": "초급",
-    "prompt": "사무실에서 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "내일 저는 이름을 한국어로 _____.",
+    "answer": "쓸 거예요",
+    "translation": "I write my name in Korean tomorrow.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "공부할 거예요",
+      "먹을 거예요",
+      "쓸 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"쓸 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 84,
     "level": "초급",
-    "prompt": "서울에 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "지금 저는 이름을 한국어로 _____ 있어요.",
+    "answer": "쓰고",
+    "translation": "I write my name in Korean now.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "공부하고",
+      "먹고",
+      "일하고",
+      "쓰고"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"쓰고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 85,
     "level": "초급",
-    "prompt": "박물관을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "저는 이름을 한국어로 _____ 않아요.",
+    "answer": "쓰지",
+    "translation": "Negative: I write my name in Korean.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "쓰지",
+      "공부하지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"쓰지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 86,
     "level": "초급",
-    "prompt": "책을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "아이는 그림을 _____.",
+    "answer": "그려요",
+    "translation": "The child draws a picture.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "공부해요",
+      "그려요",
+      "먹어요",
+      "일해요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"그려요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 87,
     "level": "초급",
-    "prompt": "문법을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "어제 아이는 그림을 _____.",
+    "answer": "그렸어요",
+    "translation": "The child draws a picture yesterday.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "공부했어요",
+      "먹었어요",
+      "그렸어요",
+      "일했어요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"그렸어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 88,
     "level": "초급",
-    "prompt": "음악을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "내일 아이는 그림을 _____.",
+    "answer": "그릴 거예요",
+    "translation": "The child draws a picture tomorrow.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요",
+      "그릴 거예요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"그릴 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 89,
     "level": "초급",
-    "prompt": "과일을 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "지금 아이는 그림을 _____ 있어요.",
+    "answer": "그리고",
+    "translation": "The child draws a picture now.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "그리고",
+      "공부하고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"그리고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 90,
     "level": "초급",
-    "prompt": "아홉 시에 더 잘 배우기 위해 매일 _____.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "아이는 그림을 _____ 않아요.",
+    "answer": "그리지",
+    "translation": "Negative: The child draws a picture.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "공부하지",
+      "그리지",
+      "먹지",
+      "일하지"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"그리지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 91,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 저는에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "우리는 노래를 _____.",
+    "answer": "불러요",
+    "translation": "We sing a song.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "공부해요",
+      "먹어요",
+      "불러요",
+      "일해요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"불러요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 92,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 너는에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "어제 우리는 노래를 _____.",
+    "answer": "불렀어요",
+    "translation": "We sing a song yesterday.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "공부했어요",
+      "먹었어요",
+      "일했어요",
+      "불렀어요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"불렀어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 93,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 그녀는에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "내일 우리는 노래를 _____.",
+    "answer": "부를 거예요",
+    "translation": "We sing a song tomorrow.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "부를 거예요",
+      "공부할 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"부를 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 94,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 우리는에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "지금 우리는 노래를 _____ 있어요.",
+    "answer": "부르고",
+    "translation": "We sing a song now.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "공부하고",
+      "부르고",
+      "먹고",
+      "일하고"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"부르고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 95,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 그들은에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "우리는 노래를 _____ 않아요.",
+    "answer": "부르지",
+    "translation": "Negative: We sing a song.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "공부하지",
+      "먹지",
+      "부르지",
+      "일하지"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"부르지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 96,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 제 동생은에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "저는 지하철을 _____.",
+    "answer": "타요",
+    "translation": "I take the subway.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "공부해요",
+      "먹어요",
+      "일해요",
+      "타요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "현재 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 97,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 선생님은에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "어제 저는 지하철을 _____.",
+    "answer": "탔어요",
+    "translation": "I take the subway yesterday.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "탔어요",
+      "공부했어요",
+      "먹었어요",
+      "일했어요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "과거 시제을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"탔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 98,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 학생은에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "내일 저는 지하철을 _____.",
+    "answer": "탈 거예요",
+    "translation": "I take the subway tomorrow.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "공부할 거예요",
+      "탈 거예요",
+      "먹을 거예요",
+      "일할 거예요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "미래 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"탈 거예요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 99,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 제 친구들은에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "지금 저는 지하철을 _____ 있어요.",
+    "answer": "타고",
+    "translation": "I take the subway now.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "공부하고",
+      "먹고",
+      "타고",
+      "일하고"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "진행 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 100,
     "level": "초급",
-    "prompt": "회의가 끝나자마자 그 가게는에게 바로 _____.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "저는 지하철을 _____ 않아요.",
+    "answer": "타지",
+    "translation": "Negative: I take the subway.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "공부하지",
+      "먹지",
+      "일하지",
+      "타지"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "부정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타지\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 101,
     "level": "중급",
-    "prompt": "저는 한국어를 _____ 오늘.",
-    "answer": "공부합니다",
-    "translation": "I study Korean.",
+    "prompt": "비가 와서 등산을 _____ 했어요.",
+    "answer": "취소하기로",
+    "translation": "It rained, so we decided to cancel hiking.",
     "choices": [
-      "공부합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "취소하기로",
+      "취소하려고",
+      "취소하면서",
+      "취소하느라고"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"취소하기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 102,
     "level": "중급",
-    "prompt": "너는 빵을 _____ 오늘.",
-    "answer": "먹습니다",
-    "translation": "You eat bread.",
+    "prompt": "한국어를 잘하려면 매일 _____ 해요.",
+    "answer": "연습해야",
+    "translation": "To speak Korean well, you have to practice every day.",
     "choices": [
-      "갑니다",
-      "먹습니다",
-      "있습니다",
-      "좋습니다"
+      "연습해서",
+      "연습해야",
+      "연습하고",
+      "연습하지만"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹습니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연습해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 103,
     "level": "중급",
-    "prompt": "그녀는 사무실에서 _____ 오늘.",
-    "answer": "일합니다",
-    "translation": "She works at an office.",
+    "prompt": "친구를 만나러 카페에 _____.",
+    "answer": "갔어요",
+    "translation": "I went to a cafe to meet a friend.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "일합니다",
-      "좋습니다"
+      "가면",
+      "가지만",
+      "갔어요",
+      "가니까"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 104,
     "level": "중급",
-    "prompt": "우리는 서울에 _____ 오늘.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul.",
+    "prompt": "숙제를 하다가 잠깐 전화를 _____.",
+    "answer": "받았어요",
+    "translation": "While doing homework, I briefly answered the phone.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "삽니다"
+      "받으려고",
+      "받으면",
+      "받지만",
+      "받았어요"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "중단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"받았어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 105,
     "level": "중급",
-    "prompt": "그들은 박물관을 _____ 오늘.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum.",
+    "prompt": "길이 막혀서 약속에 _____ 말았어요.",
+    "answer": "늦고",
+    "translation": "The traffic was bad, so I ended up being late.",
     "choices": [
-      "방문합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "늦고",
+      "늦기",
+      "늦도록",
+      "늦으면"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"늦고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 106,
     "level": "중급",
-    "prompt": "제 동생은 책을 _____ 오늘.",
-    "answer": "읽습니다",
-    "translation": "My sibling reads a book.",
+    "prompt": "감기에 걸렸는데도 회사에 _____.",
+    "answer": "갔어요",
+    "translation": "Even though I caught a cold, I went to work.",
     "choices": [
-      "갑니다",
-      "읽습니다",
-      "있습니다",
-      "좋습니다"
+      "가려고",
+      "갔어요",
+      "가거나",
+      "가느라고"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽습니다\"가 가장 자연스럽습니다."
+      "양보 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 107,
     "level": "중급",
-    "prompt": "선생님은 문법을 _____ 오늘.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar.",
+    "prompt": "문제를 다 풀고 나서 답을 _____.",
+    "answer": "확인하세요",
+    "translation": "After solving all questions, check the answers.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "설명합니다",
-      "좋습니다"
+      "확인하느라",
+      "확인하려면",
+      "확인하세요",
+      "확인하자마자"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "순서 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"확인하세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 108,
     "level": "중급",
-    "prompt": "학생은 음악을 _____ 오늘.",
-    "answer": "듣습니다",
-    "translation": "The student listens to music.",
+    "prompt": "저는 매운 음식을 먹을 _____ 있어요.",
+    "answer": "수",
+    "translation": "I can eat spicy food.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "듣습니다"
+      "줄",
+      "뿐",
+      "만",
+      "수"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣습니다\"가 가장 자연스럽습니다."
+      "가능 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 109,
     "level": "중급",
-    "prompt": "제 친구들은 과일을 _____ 오늘.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit.",
+    "prompt": "이 기계는 사용하기가 조금 _____.",
+    "answer": "어려워요",
+    "translation": "This machine is a little difficult to use.",
     "choices": [
-      "삽니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "어려워요",
+      "어려운",
+      "어렵게",
+      "어려우면"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "형용사 활용을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어려워요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 110,
     "level": "중급",
-    "prompt": "그 가게는 아홉 시에 _____ 오늘.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine.",
+    "prompt": "늦을 것 같아서 친구에게 미리 _____.",
+    "answer": "연락했어요",
+    "translation": "I thought I would be late, so I contacted my friend in advance.",
     "choices": [
-      "갑니다",
-      "문을 엽니다",
-      "있습니다",
-      "좋습니다"
+      "연락하려면",
+      "연락했어요",
+      "연락하지만",
+      "연락하다가"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "이유 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연락했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 111,
     "level": "중급",
-    "prompt": "저는 한국어를 _____ 않습니다 오늘.",
-    "answer": "공부합니다",
-    "translation": "I study Korean. negative.",
+    "prompt": "수업이 시작되기 전에 휴대폰을 _____ 주세요.",
+    "answer": "꺼",
+    "translation": "Please turn off your phone before class starts.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "공부합니다",
-      "하세요"
+      "끄고",
+      "끄면",
+      "꺼",
+      "끄지"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "요청 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"꺼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 112,
     "level": "중급",
-    "prompt": "너는 빵을 _____ 않습니다 오늘.",
-    "answer": "먹지",
-    "translation": "You eat bread. negative.",
+    "prompt": "한국에 온 지 벌써 세 달이 _____.",
+    "answer": "됐어요",
+    "translation": "It has already been three months since I came to Korea.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "먹지"
+      "했어요",
+      "있어요",
+      "갔어요",
+      "됐어요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹지\"가 가장 자연스럽습니다."
+      "경과 시간을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"됐어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 113,
     "level": "중급",
-    "prompt": "그녀는 사무실에서 _____ 않습니다 오늘.",
-    "answer": "일합니다",
-    "translation": "She works at an office. negative.",
+    "prompt": "친구가 추천해 준 식당에 가 _____ 했어요.",
+    "answer": "보기로",
+    "translation": "I decided to try going to the restaurant my friend recommended.",
     "choices": [
-      "일합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "보기로",
+      "보느라",
+      "보다가",
+      "보지만"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 114,
     "level": "중급",
-    "prompt": "우리는 서울에 _____ 않습니다 오늘.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul. negative.",
+    "prompt": "날씨가 추우니까 따뜻하게 _____ 나가세요.",
+    "answer": "입고",
+    "translation": "It is cold, so dress warmly before going out.",
     "choices": [
-      "합니다",
-      "삽니다",
-      "했습니다",
-      "하세요"
+      "입으면",
+      "입고",
+      "입지만",
+      "입도록"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "상태 유지을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 115,
     "level": "중급",
-    "prompt": "그들은 박물관을 _____ 않습니다 오늘.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum. negative.",
+    "prompt": "이번 주말에는 집에서 쉬거나 영화를 _____ 거예요.",
+    "answer": "볼",
+    "translation": "This weekend I will rest at home or watch a movie.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "방문합니다",
-      "하세요"
+      "본",
+      "보는",
+      "볼",
+      "보던"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "관형형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"볼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 116,
     "level": "중급",
-    "prompt": "제 동생은 책을 _____ 않습니다 오늘.",
-    "answer": "읽지",
-    "translation": "My sibling reads a book. negative.",
+    "prompt": "선생님께서 내일 시험이 있다고 _____.",
+    "answer": "말씀하셨어요",
+    "translation": "The teacher said there is an exam tomorrow.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "읽지"
+      "말했어요",
+      "말씀했어요",
+      "알려 주셨어요",
+      "말씀하셨어요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽지\"가 가장 자연스럽습니다."
+      "높임 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"말씀하셨어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 117,
     "level": "중급",
-    "prompt": "선생님은 문법을 _____ 않습니다 오늘.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar. negative.",
+    "prompt": "할머니께 생신 선물을 _____.",
+    "answer": "드렸어요",
+    "translation": "I gave my grandmother a birthday present.",
     "choices": [
-      "설명합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "드렸어요",
+      "줬어요",
+      "받았어요",
+      "전해 드렸어요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "수여 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"드렸어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 118,
     "level": "중급",
-    "prompt": "학생은 음악을 _____ 않습니다 오늘.",
-    "answer": "듣지",
-    "translation": "The student listens to music. negative.",
+    "prompt": "부모님께서는 지금 거실에 _____.",
+    "answer": "계세요",
+    "translation": "My parents are in the living room now.",
     "choices": [
-      "합니다",
-      "듣지",
-      "했습니다",
-      "하세요"
+      "있어요",
+      "계세요",
+      "하세요",
+      "되세요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣지\"가 가장 자연스럽습니다."
+      "존재 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"계세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 119,
     "level": "중급",
-    "prompt": "제 친구들은 과일을 _____ 않습니다 오늘.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit. negative.",
+    "prompt": "회의 자료를 미리 읽어 _____ 오세요.",
+    "answer": "보고",
+    "translation": "Please read the meeting materials before coming.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "삽니다",
-      "하세요"
+      "보면",
+      "보지만",
+      "보고",
+      "보려고"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "준비 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 120,
     "level": "중급",
-    "prompt": "그 가게는 아홉 시에 _____ 않습니다 오늘.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine. negative.",
+    "prompt": "한국어로 발표해야 해서 많이 _____.",
+    "answer": "긴장돼요",
+    "translation": "I am nervous because I have to present in Korean.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "문을 엽니다"
+      "긴장한",
+      "긴장하게",
+      "긴장되면",
+      "긴장돼요"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "심리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"긴장돼요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 121,
     "level": "중급",
-    "prompt": "어제 저는 한국어를 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "I study Korean. yesterday.",
+    "prompt": "이 옷은 디자인은 예쁜데 가격이 너무 _____.",
+    "answer": "비싸요",
+    "translation": "This clothing has a pretty design, but it is too expensive.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "비싸요",
+      "비싼",
+      "비싸게",
+      "비싸면"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "대조 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"비싸요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 122,
     "level": "중급",
-    "prompt": "어제 너는 빵을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "You eat bread. yesterday.",
+    "prompt": "시간이 없으니까 택시를 _____ 갑시다.",
+    "answer": "타고",
+    "translation": "We do not have time, so let us take a taxi.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "타면",
+      "타고",
+      "타지만",
+      "타도록"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "수단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 123,
     "level": "중급",
-    "prompt": "어제 그녀는 사무실에서 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "She works at an office. yesterday.",
+    "prompt": "어제 너무 피곤해서 저녁도 못 먹고 _____.",
+    "answer": "잤어요",
+    "translation": "I was so tired yesterday that I slept without eating dinner.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "자려고",
+      "자지만",
+      "잤어요",
+      "자니까"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"잤어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 124,
     "level": "중급",
-    "prompt": "어제 우리는 서울에 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "We live in Seoul. yesterday.",
+    "prompt": "한국 드라마를 보면서 듣기 연습을 _____.",
+    "answer": "해요",
+    "translation": "I practice listening while watching Korean dramas.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "하면",
+      "해서",
+      "하지만",
+      "해요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "동시 동작을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 125,
     "level": "중급",
-    "prompt": "어제 그들은 박물관을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "They visit the museum. yesterday.",
+    "prompt": "약속 장소를 잘 몰라서 지도를 _____ 봤어요.",
+    "answer": "찾아",
+    "translation": "I looked up the map because I did not know the meeting place well.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "찾아",
+      "찾고",
+      "찾으면",
+      "찾지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"찾아\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 126,
     "level": "중급",
-    "prompt": "어제 제 동생은 책을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "My sibling reads a book. yesterday.",
+    "prompt": "오늘도 비가 와서 등산을 _____ 했어요.",
+    "answer": "취소하기로",
+    "translation": "It rained, so we decided to cancel hiking.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "취소하려고",
+      "취소하기로",
+      "취소하면서",
+      "취소하느라고"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"취소하기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 127,
     "level": "중급",
-    "prompt": "어제 선생님은 문법을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "The teacher explains grammar. yesterday.",
+    "prompt": "오늘도 한국어를 잘하려면 매일 _____ 해요.",
+    "answer": "연습해야",
+    "translation": "To speak Korean well, you have to practice every day.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "연습해서",
+      "연습하고",
+      "연습해야",
+      "연습하지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연습해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 128,
     "level": "중급",
-    "prompt": "어제 학생은 음악을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "The student listens to music. yesterday.",
+    "prompt": "오늘도 친구를 만나러 카페에 _____.",
+    "answer": "갔어요",
+    "translation": "I went to a cafe to meet a friend.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "가면",
+      "가지만",
+      "가니까",
+      "갔어요"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 129,
     "level": "중급",
-    "prompt": "어제 제 친구들은 과일을 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "My friends buy fruit. yesterday.",
+    "prompt": "오늘도 숙제를 하다가 잠깐 전화를 _____.",
+    "answer": "받았어요",
+    "translation": "While doing homework, I briefly answered the phone.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "받았어요",
+      "받으려고",
+      "받으면",
+      "받지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "중단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"받았어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 130,
     "level": "중급",
-    "prompt": "어제 그 가게는 아홉 시에 _____ 오늘.",
-    "answer": "했습니다",
-    "translation": "The store opens at nine. yesterday.",
+    "prompt": "오늘도 길이 막혀서 약속에 _____ 말았어요.",
+    "answer": "늦고",
+    "translation": "The traffic was bad, so I ended up being late.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "늦기",
+      "늦고",
+      "늦도록",
+      "늦으면"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"늦고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 131,
     "level": "중급",
-    "prompt": "내일 저는 한국어를 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "I study Korean. tomorrow.",
+    "prompt": "오늘도 감기에 걸렸는데도 회사에 _____.",
+    "answer": "갔어요",
+    "translation": "Even though I caught a cold, I went to work.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "가려고",
+      "가거나",
+      "갔어요",
+      "가느라고"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "양보 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 132,
     "level": "중급",
-    "prompt": "내일 너는 빵을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "You eat bread. tomorrow.",
+    "prompt": "오늘도 문제를 다 풀고 나서 답을 _____.",
+    "answer": "확인하세요",
+    "translation": "After solving all questions, check the answers.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "확인하느라",
+      "확인하려면",
+      "확인하자마자",
+      "확인하세요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "순서 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"확인하세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 133,
     "level": "중급",
-    "prompt": "내일 그녀는 사무실에서 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "She works at an office. tomorrow.",
+    "prompt": "오늘도 저는 매운 음식을 먹을 _____ 있어요.",
+    "answer": "수",
+    "translation": "I can eat spicy food.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "수",
+      "줄",
+      "뿐",
+      "만"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "가능 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 134,
     "level": "중급",
-    "prompt": "내일 우리는 서울에 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "We live in Seoul. tomorrow.",
+    "prompt": "오늘도 이 기계는 사용하기가 조금 _____.",
+    "answer": "어려워요",
+    "translation": "This machine is a little difficult to use.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "어려운",
+      "어려워요",
+      "어렵게",
+      "어려우면"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "형용사 활용을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어려워요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 135,
     "level": "중급",
-    "prompt": "내일 그들은 박물관을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "They visit the museum. tomorrow.",
+    "prompt": "오늘도 늦을 것 같아서 친구에게 미리 _____.",
+    "answer": "연락했어요",
+    "translation": "I thought I would be late, so I contacted my friend in advance.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "연락하려면",
+      "연락하지만",
+      "연락했어요",
+      "연락하다가"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "이유 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연락했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 136,
     "level": "중급",
-    "prompt": "내일 제 동생은 책을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "My sibling reads a book. tomorrow.",
+    "prompt": "오늘도 수업이 시작되기 전에 휴대폰을 _____ 주세요.",
+    "answer": "꺼",
+    "translation": "Please turn off your phone before class starts.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "끄고",
+      "끄면",
+      "끄지",
+      "꺼"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "요청 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"꺼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 137,
     "level": "중급",
-    "prompt": "내일 선생님은 문법을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "The teacher explains grammar. tomorrow.",
+    "prompt": "오늘도 한국에 온 지 벌써 세 달이 _____.",
+    "answer": "됐어요",
+    "translation": "It has already been three months since I came to Korea.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "됐어요",
+      "했어요",
+      "있어요",
+      "갔어요"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "경과 시간을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"됐어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 138,
     "level": "중급",
-    "prompt": "내일 학생은 음악을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "The student listens to music. tomorrow.",
+    "prompt": "오늘도 친구가 추천해 준 식당에 가 _____ 했어요.",
+    "answer": "보기로",
+    "translation": "I decided to try going to the restaurant my friend recommended.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "보느라",
+      "보기로",
+      "보다가",
+      "보지만"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 139,
     "level": "중급",
-    "prompt": "내일 제 친구들은 과일을 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "My friends buy fruit. tomorrow.",
+    "prompt": "오늘도 날씨가 추우니까 따뜻하게 _____ 나가세요.",
+    "answer": "입고",
+    "translation": "It is cold, so dress warmly before going out.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "입으면",
+      "입지만",
+      "입고",
+      "입도록"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "상태 유지을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 140,
     "level": "중급",
-    "prompt": "내일 그 가게는 아홉 시에 _____ 오늘.",
-    "answer": "할 것입니다",
-    "translation": "The store opens at nine. tomorrow.",
+    "prompt": "오늘도 이번 주말에는 집에서 쉬거나 영화를 _____ 거예요.",
+    "answer": "볼",
+    "translation": "This weekend I will rest at home or watch a movie.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "본",
+      "보는",
+      "보던",
+      "볼"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "관형형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"볼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 141,
     "level": "중급",
-    "prompt": "저는 한국어를 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "I study Korean. now.",
+    "prompt": "오늘도 선생님께서 내일 시험이 있다고 _____.",
+    "answer": "말씀하셨어요",
+    "translation": "The teacher said there is an exam tomorrow.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "말씀하셨어요",
+      "말했어요",
+      "말씀했어요",
+      "알려 주셨어요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "높임 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"말씀하셨어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 142,
     "level": "중급",
-    "prompt": "너는 빵을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "You eat bread. now.",
+    "prompt": "오늘도 할머니께 생신 선물을 _____.",
+    "answer": "드렸어요",
+    "translation": "I gave my grandmother a birthday present.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "줬어요",
+      "드렸어요",
+      "받았어요",
+      "전해 드렸어요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "수여 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"드렸어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 143,
     "level": "중급",
-    "prompt": "그녀는 사무실에서 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "She works at an office. now.",
+    "prompt": "오늘도 부모님께서는 지금 거실에 _____.",
+    "answer": "계세요",
+    "translation": "My parents are in the living room now.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "있어요",
+      "하세요",
+      "계세요",
+      "되세요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "존재 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"계세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 144,
     "level": "중급",
-    "prompt": "우리는 서울에 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "We live in Seoul. now.",
+    "prompt": "오늘도 회의 자료를 미리 읽어 _____ 오세요.",
+    "answer": "보고",
+    "translation": "Please read the meeting materials before coming.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "보면",
+      "보지만",
+      "보려고",
+      "보고"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "준비 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 145,
     "level": "중급",
-    "prompt": "그들은 박물관을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "They visit the museum. now.",
+    "prompt": "오늘도 한국어로 발표해야 해서 많이 _____.",
+    "answer": "긴장돼요",
+    "translation": "I am nervous because I have to present in Korean.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "긴장돼요",
+      "긴장한",
+      "긴장하게",
+      "긴장되면"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "심리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"긴장돼요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 146,
     "level": "중급",
-    "prompt": "제 동생은 책을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "My sibling reads a book. now.",
+    "prompt": "오늘도 이 옷은 디자인은 예쁜데 가격이 너무 _____.",
+    "answer": "비싸요",
+    "translation": "This clothing has a pretty design, but it is too expensive.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "비싼",
+      "비싸요",
+      "비싸게",
+      "비싸면"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "대조 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"비싸요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 147,
     "level": "중급",
-    "prompt": "선생님은 문법을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "The teacher explains grammar. now.",
+    "prompt": "오늘도 시간이 없으니까 택시를 _____ 갑시다.",
+    "answer": "타고",
+    "translation": "We do not have time, so let us take a taxi.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "타면",
+      "타지만",
+      "타고",
+      "타도록"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "수단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 148,
     "level": "중급",
-    "prompt": "학생은 음악을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "The student listens to music. now.",
+    "prompt": "오늘도 어제 너무 피곤해서 저녁도 못 먹고 _____.",
+    "answer": "잤어요",
+    "translation": "I was so tired yesterday that I slept without eating dinner.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "자려고",
+      "자지만",
+      "자니까",
+      "잤어요"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"잤어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 149,
     "level": "중급",
-    "prompt": "제 친구들은 과일을 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "My friends buy fruit. now.",
+    "prompt": "오늘도 한국 드라마를 보면서 듣기 연습을 _____.",
+    "answer": "해요",
+    "translation": "I practice listening while watching Korean dramas.",
     "choices": [
-      "하고",
-      "해서",
+      "해요",
       "하면",
+      "해서",
       "하지만"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "동시 동작을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 150,
     "level": "중급",
-    "prompt": "그 가게는 아홉 시에 _____ 있습니다 오늘.",
-    "answer": "하고",
-    "translation": "The store opens at nine. now.",
+    "prompt": "오늘도 약속 장소를 잘 몰라서 지도를 _____ 봤어요.",
+    "answer": "찾아",
+    "translation": "I looked up the map because I did not know the meeting place well.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "찾고",
+      "찾아",
+      "찾으면",
+      "찾지만"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"찾아\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 151,
     "level": "중급",
-    "prompt": "저는 한국어를 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "I study Korean. before.",
+    "prompt": "이번에도 비가 와서 등산을 _____ 했어요.",
+    "answer": "취소하기로",
+    "translation": "It rained, so we decided to cancel hiking.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "취소하려고",
+      "취소하면서",
+      "취소하기로",
+      "취소하느라고"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"취소하기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 152,
     "level": "중급",
-    "prompt": "너는 빵을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "You eat bread. before.",
+    "prompt": "이번에도 한국어를 잘하려면 매일 _____ 해요.",
+    "answer": "연습해야",
+    "translation": "To speak Korean well, you have to practice every day.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "연습해서",
+      "연습하고",
+      "연습하지만",
+      "연습해야"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연습해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 153,
     "level": "중급",
-    "prompt": "그녀는 사무실에서 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "She works at an office. before.",
+    "prompt": "이번에도 친구를 만나러 카페에 _____.",
+    "answer": "갔어요",
+    "translation": "I went to a cafe to meet a friend.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "갔어요",
+      "가면",
+      "가지만",
+      "가니까"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 154,
     "level": "중급",
-    "prompt": "우리는 서울에 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "We live in Seoul. before.",
+    "prompt": "이번에도 숙제를 하다가 잠깐 전화를 _____.",
+    "answer": "받았어요",
+    "translation": "While doing homework, I briefly answered the phone.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "받으려고",
+      "받았어요",
+      "받으면",
+      "받지만"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "중단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"받았어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 155,
     "level": "중급",
-    "prompt": "그들은 박물관을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "They visit the museum. before.",
+    "prompt": "이번에도 길이 막혀서 약속에 _____ 말았어요.",
+    "answer": "늦고",
+    "translation": "The traffic was bad, so I ended up being late.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "늦기",
+      "늦도록",
+      "늦고",
+      "늦으면"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"늦고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 156,
     "level": "중급",
-    "prompt": "제 동생은 책을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "My sibling reads a book. before.",
+    "prompt": "이번에도 감기에 걸렸는데도 회사에 _____.",
+    "answer": "갔어요",
+    "translation": "Even though I caught a cold, I went to work.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "가려고",
+      "가거나",
+      "가느라고",
+      "갔어요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "양보 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 157,
     "level": "중급",
-    "prompt": "선생님은 문법을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "The teacher explains grammar. before.",
+    "prompt": "이번에도 문제를 다 풀고 나서 답을 _____.",
+    "answer": "확인하세요",
+    "translation": "After solving all questions, check the answers.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "확인하세요",
+      "확인하느라",
+      "확인하려면",
+      "확인하자마자"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "순서 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"확인하세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 158,
     "level": "중급",
-    "prompt": "학생은 음악을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "The student listens to music. before.",
+    "prompt": "이번에도 저는 매운 음식을 먹을 _____ 있어요.",
+    "answer": "수",
+    "translation": "I can eat spicy food.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "줄",
+      "수",
+      "뿐",
+      "만"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "가능 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 159,
     "level": "중급",
-    "prompt": "제 친구들은 과일을 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "My friends buy fruit. before.",
+    "prompt": "이번에도 이 기계는 사용하기가 조금 _____.",
+    "answer": "어려워요",
+    "translation": "This machine is a little difficult to use.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "어려운",
+      "어렵게",
+      "어려워요",
+      "어려우면"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "형용사 활용을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어려워요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 160,
     "level": "중급",
-    "prompt": "그 가게는 아홉 시에 _____ 적이 있습니다 오늘.",
-    "answer": "해 본",
-    "translation": "The store opens at nine. before.",
+    "prompt": "이번에도 늦을 것 같아서 친구에게 미리 _____.",
+    "answer": "연락했어요",
+    "translation": "I thought I would be late, so I contacted my friend in advance.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "연락하려면",
+      "연락하지만",
+      "연락하다가",
+      "연락했어요"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "이유 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연락했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 161,
     "level": "중급",
-    "prompt": "비가 오지만 저는 한국어를 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 수업이 시작되기 전에 휴대폰을 _____ 주세요.",
+    "answer": "꺼",
+    "translation": "Please turn off your phone before class starts.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "꺼",
+      "끄고",
+      "끄면",
+      "끄지"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "요청 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"꺼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 162,
     "level": "중급",
-    "prompt": "비가 오지만 너는 빵을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 한국에 온 지 벌써 세 달이 _____.",
+    "answer": "됐어요",
+    "translation": "It has already been three months since I came to Korea.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "했어요",
+      "됐어요",
+      "있어요",
+      "갔어요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "경과 시간을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"됐어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 163,
     "level": "중급",
-    "prompt": "비가 오지만 그녀는 사무실에서 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 친구가 추천해 준 식당에 가 _____ 했어요.",
+    "answer": "보기로",
+    "translation": "I decided to try going to the restaurant my friend recommended.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "보느라",
+      "보다가",
+      "보기로",
+      "보지만"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 164,
     "level": "중급",
-    "prompt": "비가 오지만 우리는 서울에 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 날씨가 추우니까 따뜻하게 _____ 나가세요.",
+    "answer": "입고",
+    "translation": "It is cold, so dress warmly before going out.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "입으면",
+      "입지만",
+      "입도록",
+      "입고"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "상태 유지을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 165,
     "level": "중급",
-    "prompt": "비가 오지만 그들은 박물관을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 이번 주말에는 집에서 쉬거나 영화를 _____ 거예요.",
+    "answer": "볼",
+    "translation": "This weekend I will rest at home or watch a movie.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "볼",
+      "본",
+      "보는",
+      "보던"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "관형형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"볼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 166,
     "level": "중급",
-    "prompt": "비가 오지만 제 동생은 책을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 선생님께서 내일 시험이 있다고 _____.",
+    "answer": "말씀하셨어요",
+    "translation": "The teacher said there is an exam tomorrow.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "말했어요",
+      "말씀하셨어요",
+      "말씀했어요",
+      "알려 주셨어요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "높임 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"말씀하셨어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 167,
     "level": "중급",
-    "prompt": "비가 오지만 선생님은 문법을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 할머니께 생신 선물을 _____.",
+    "answer": "드렸어요",
+    "translation": "I gave my grandmother a birthday present.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "줬어요",
+      "받았어요",
+      "드렸어요",
+      "전해 드렸어요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "수여 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"드렸어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 168,
     "level": "중급",
-    "prompt": "비가 오지만 학생은 음악을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 부모님께서는 지금 거실에 _____.",
+    "answer": "계세요",
+    "translation": "My parents are in the living room now.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "있어요",
+      "하세요",
+      "되세요",
+      "계세요"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "존재 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"계세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 169,
     "level": "중급",
-    "prompt": "비가 오지만 제 친구들은 과일을 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 회의 자료를 미리 읽어 _____ 오세요.",
+    "answer": "보고",
+    "translation": "Please read the meeting materials before coming.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "보고",
+      "보면",
+      "보지만",
+      "보려고"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "준비 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 170,
     "level": "중급",
-    "prompt": "비가 오지만 그 가게는 아홉 시에 _____ 오늘.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "이번에도 한국어로 발표해야 해서 많이 _____.",
+    "answer": "긴장돼요",
+    "translation": "I am nervous because I have to present in Korean.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "긴장한",
+      "긴장돼요",
+      "긴장하게",
+      "긴장되면"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "심리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"긴장돼요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 171,
     "level": "중급",
-    "prompt": "시간이 있으면 저는에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "이번에도 이 옷은 디자인은 예쁜데 가격이 너무 _____.",
+    "answer": "비싸요",
+    "translation": "This clothing has a pretty design, but it is too expensive.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "비싼",
+      "비싸게",
+      "비싸요",
+      "비싸면"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "대조 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"비싸요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 172,
     "level": "중급",
-    "prompt": "시간이 있으면 너는에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "이번에도 시간이 없으니까 택시를 _____ 갑시다.",
+    "answer": "타고",
+    "translation": "We do not have time, so let us take a taxi.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "타면",
+      "타지만",
+      "타도록",
+      "타고"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "수단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 173,
     "level": "중급",
-    "prompt": "시간이 있으면 그녀는에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "이번에도 어제 너무 피곤해서 저녁도 못 먹고 _____.",
+    "answer": "잤어요",
+    "translation": "I was so tired yesterday that I slept without eating dinner.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "잤어요",
+      "자려고",
+      "자지만",
+      "자니까"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"잤어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 174,
     "level": "중급",
-    "prompt": "시간이 있으면 우리는에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "이번에도 한국 드라마를 보면서 듣기 연습을 _____.",
+    "answer": "해요",
+    "translation": "I practice listening while watching Korean dramas.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "하면",
+      "해요",
+      "해서",
+      "하지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "동시 동작을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 175,
     "level": "중급",
-    "prompt": "시간이 있으면 그들은에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "이번에도 약속 장소를 잘 몰라서 지도를 _____ 봤어요.",
+    "answer": "찾아",
+    "translation": "I looked up the map because I did not know the meeting place well.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "찾고",
+      "찾으면",
+      "찾아",
+      "찾지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"찾아\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 176,
     "level": "중급",
-    "prompt": "시간이 있으면 제 동생은에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "비가 와서 등산을 _____ 했어요.",
+    "answer": "취소하기로",
+    "translation": "It rained, so we decided to cancel hiking.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "취소하려고",
+      "취소하면서",
+      "취소하느라고",
+      "취소하기로"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"취소하기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 177,
     "level": "중급",
-    "prompt": "시간이 있으면 선생님은에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "한국어를 잘하려면 매일 _____ 해요.",
+    "answer": "연습해야",
+    "translation": "To speak Korean well, you have to practice every day.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "연습해야",
+      "연습해서",
+      "연습하고",
+      "연습하지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연습해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 178,
     "level": "중급",
-    "prompt": "시간이 있으면 학생은에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "친구를 만나러 카페에 _____.",
+    "answer": "갔어요",
+    "translation": "I went to a cafe to meet a friend.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "가면",
+      "갔어요",
+      "가지만",
+      "가니까"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 179,
     "level": "중급",
-    "prompt": "시간이 있으면 제 친구들은에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "숙제를 하다가 잠깐 전화를 _____.",
+    "answer": "받았어요",
+    "translation": "While doing homework, I briefly answered the phone.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "받으려고",
+      "받으면",
+      "받았어요",
+      "받지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "중단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"받았어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 180,
     "level": "중급",
-    "prompt": "시간이 있으면 그 가게는에게 _____ 오늘.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "길이 막혀서 약속에 _____ 말았어요.",
+    "answer": "늦고",
+    "translation": "The traffic was bad, so I ended up being late.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "늦기",
+      "늦도록",
+      "늦으면",
+      "늦고"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"늦고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 181,
     "level": "중급",
-    "prompt": "한국어를 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "감기에 걸렸는데도 회사에 _____.",
+    "answer": "갔어요",
+    "translation": "Even though I caught a cold, I went to work.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "갔어요",
+      "가려고",
+      "가거나",
+      "가느라고"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "양보 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"갔어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 182,
     "level": "중급",
-    "prompt": "빵을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "문제를 다 풀고 나서 답을 _____.",
+    "answer": "확인하세요",
+    "translation": "After solving all questions, check the answers.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "확인하느라",
+      "확인하세요",
+      "확인하려면",
+      "확인하자마자"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "순서 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"확인하세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 183,
     "level": "중급",
-    "prompt": "사무실에서 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "저는 매운 음식을 먹을 _____ 있어요.",
+    "answer": "수",
+    "translation": "I can eat spicy food.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "줄",
+      "뿐",
+      "수",
+      "만"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "가능 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 184,
     "level": "중급",
-    "prompt": "서울에 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "이 기계는 사용하기가 조금 _____.",
+    "answer": "어려워요",
+    "translation": "This machine is a little difficult to use.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "어려운",
+      "어렵게",
+      "어려우면",
+      "어려워요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "형용사 활용을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어려워요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 185,
     "level": "중급",
-    "prompt": "박물관을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "늦을 것 같아서 친구에게 미리 _____.",
+    "answer": "연락했어요",
+    "translation": "I thought I would be late, so I contacted my friend in advance.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "연락했어요",
+      "연락하려면",
+      "연락하지만",
+      "연락하다가"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "이유 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"연락했어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 186,
     "level": "중급",
-    "prompt": "책을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "수업이 시작되기 전에 휴대폰을 _____ 주세요.",
+    "answer": "꺼",
+    "translation": "Please turn off your phone before class starts.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "끄고",
+      "꺼",
+      "끄면",
+      "끄지"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "요청 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"꺼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 187,
     "level": "중급",
-    "prompt": "문법을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "한국에 온 지 벌써 세 달이 _____.",
+    "answer": "됐어요",
+    "translation": "It has already been three months since I came to Korea.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "했어요",
+      "있어요",
+      "됐어요",
+      "갔어요"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "경과 시간을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"됐어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 188,
     "level": "중급",
-    "prompt": "음악을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "친구가 추천해 준 식당에 가 _____ 했어요.",
+    "answer": "보기로",
+    "translation": "I decided to try going to the restaurant my friend recommended.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "보느라",
+      "보다가",
+      "보지만",
+      "보기로"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 189,
     "level": "중급",
-    "prompt": "과일을 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "날씨가 추우니까 따뜻하게 _____ 나가세요.",
+    "answer": "입고",
+    "translation": "It is cold, so dress warmly before going out.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "입고",
+      "입으면",
+      "입지만",
+      "입도록"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "상태 유지을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"입고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 190,
     "level": "중급",
-    "prompt": "아홉 시에 더 잘 배우기 위해 매일 _____ 오늘.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "이번 주말에는 집에서 쉬거나 영화를 _____ 거예요.",
+    "answer": "볼",
+    "translation": "This weekend I will rest at home or watch a movie.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "본",
+      "볼",
+      "보는",
+      "보던"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "관형형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"볼\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 191,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 저는에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "선생님께서 내일 시험이 있다고 _____.",
+    "answer": "말씀하셨어요",
+    "translation": "The teacher said there is an exam tomorrow.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "말했어요",
+      "말씀했어요",
+      "말씀하셨어요",
+      "알려 주셨어요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "높임 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"말씀하셨어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 192,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 너는에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "할머니께 생신 선물을 _____.",
+    "answer": "드렸어요",
+    "translation": "I gave my grandmother a birthday present.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "줬어요",
+      "받았어요",
+      "전해 드렸어요",
+      "드렸어요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "수여 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"드렸어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 193,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 그녀는에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "부모님께서는 지금 거실에 _____.",
+    "answer": "계세요",
+    "translation": "My parents are in the living room now.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "계세요",
+      "있어요",
+      "하세요",
+      "되세요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "존재 높임을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"계세요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 194,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 우리는에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "회의 자료를 미리 읽어 _____ 오세요.",
+    "answer": "보고",
+    "translation": "Please read the meeting materials before coming.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "보면",
+      "보고",
+      "보지만",
+      "보려고"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "준비 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 195,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 그들은에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "한국어로 발표해야 해서 많이 _____.",
+    "answer": "긴장돼요",
+    "translation": "I am nervous because I have to present in Korean.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "긴장한",
+      "긴장하게",
+      "긴장돼요",
+      "긴장되면"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "심리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"긴장돼요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 196,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 제 동생은에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "이 옷은 디자인은 예쁜데 가격이 너무 _____.",
+    "answer": "비싸요",
+    "translation": "This clothing has a pretty design, but it is too expensive.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "비싼",
+      "비싸게",
+      "비싸면",
+      "비싸요"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "대조 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"비싸요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 197,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 선생님은에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "시간이 없으니까 택시를 _____ 갑시다.",
+    "answer": "타고",
+    "translation": "We do not have time, so let us take a taxi.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "타고",
+      "타면",
+      "타지만",
+      "타도록"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "수단 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"타고\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 198,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 학생은에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "어제 너무 피곤해서 저녁도 못 먹고 _____.",
+    "answer": "잤어요",
+    "translation": "I was so tired yesterday that I slept without eating dinner.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "자려고",
+      "잤어요",
+      "자지만",
+      "자니까"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"잤어요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 199,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 제 친구들은에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "한국 드라마를 보면서 듣기 연습을 _____.",
+    "answer": "해요",
+    "translation": "I practice listening while watching Korean dramas.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "하면",
+      "해서",
+      "해요",
+      "하지만"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "동시 동작을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해요\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 200,
     "level": "중급",
-    "prompt": "회의가 끝나자마자 그 가게는에게 바로 _____ 오늘.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "약속 장소를 잘 몰라서 지도를 _____ 봤어요.",
+    "answer": "찾아",
+    "translation": "I looked up the map because I did not know the meeting place well.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "찾고",
+      "찾으면",
+      "찾지만",
+      "찾아"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"찾아\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 201,
     "level": "고급",
-    "prompt": "저는 한국어를 _____ 정확히.",
-    "answer": "공부합니다",
-    "translation": "I study Korean.",
+    "prompt": "충분히 검토하지 않은 채 결론을 _____ 어렵습니다.",
+    "answer": "내리기는",
+    "translation": "It is difficult to draw a conclusion without sufficient review.",
     "choices": [
-      "공부합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "내리기는",
+      "내리도록",
+      "내리느라",
+      "내린다면"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "관용적 문형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"내리기는\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 202,
     "level": "고급",
-    "prompt": "너는 빵을 _____ 정확히.",
-    "answer": "먹습니다",
-    "translation": "You eat bread.",
+    "prompt": "자료가 부족한 만큼 추가 조사가 _____ 보입니다.",
+    "answer": "필요해",
+    "translation": "Since the data is insufficient, additional research seems necessary.",
     "choices": [
-      "갑니다",
-      "먹습니다",
-      "있습니다",
-      "좋습니다"
+      "필요한",
+      "필요해",
+      "필요하면",
+      "필요하지만"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹습니다\"가 가장 자연스럽습니다."
+      "추론 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"필요해\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 203,
     "level": "고급",
-    "prompt": "그녀는 사무실에서 _____ 정확히.",
-    "answer": "일합니다",
-    "translation": "She works at an office.",
+    "prompt": "문제의 원인을 파악해야 적절한 대책을 _____ 수 있습니다.",
+    "answer": "세울",
+    "translation": "Only by identifying the cause can we establish proper measures.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "일합니다",
-      "좋습니다"
+      "세운",
+      "세우는",
+      "세울",
+      "세우던"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "조건 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"세울\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 204,
     "level": "고급",
-    "prompt": "우리는 서울에 _____ 정확히.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul.",
+    "prompt": "겉으로는 간단해 보여도 실제로는 고려할 점이 적지 _____.",
+    "answer": "않습니다",
+    "translation": "Although it seems simple, there are quite a few things to consider.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "삽니다"
+      "아닙니다",
+      "없습니다",
+      "못합니다",
+      "않습니다"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "부분 부정을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"않습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 205,
     "level": "고급",
-    "prompt": "그들은 박물관을 _____ 정확히.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum.",
+    "prompt": "회의에서는 비용보다 효과를 우선적으로 _____ 했습니다.",
+    "answer": "따지기로",
+    "translation": "In the meeting, we decided to consider effectiveness before cost.",
     "choices": [
-      "방문합니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "따지기로",
+      "따지느라",
+      "따지다가",
+      "따지지만"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"따지기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 206,
     "level": "고급",
-    "prompt": "제 동생은 책을 _____ 정확히.",
-    "answer": "읽습니다",
-    "translation": "My sibling reads a book.",
+    "prompt": "그 제안은 현실성이 떨어진다는 점에서 다시 _____ 필요가 있습니다.",
+    "answer": "검토할",
+    "translation": "The proposal needs to be reviewed again because it lacks feasibility.",
     "choices": [
-      "갑니다",
-      "읽습니다",
-      "있습니다",
-      "좋습니다"
+      "검토한",
+      "검토할",
+      "검토하는",
+      "검토하던"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽습니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"검토할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 207,
     "level": "고급",
-    "prompt": "선생님은 문법을 _____ 정확히.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar.",
+    "prompt": "상황이 급하다고 해서 절차를 무시해서는 _____ 됩니다.",
+    "answer": "안",
+    "translation": "Even if the situation is urgent, procedures must not be ignored.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "설명합니다",
-      "좋습니다"
+      "못",
+      "덜",
+      "안",
+      "잘"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "금지 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"안\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 208,
     "level": "고급",
-    "prompt": "학생은 음악을 _____ 정확히.",
-    "answer": "듣습니다",
-    "translation": "The student listens to music.",
+    "prompt": "사용자 입장에서 보면 이 기능은 오히려 혼란을 _____ 수 있습니다.",
+    "answer": "줄",
+    "translation": "From the user perspective, this feature may actually cause confusion.",
     "choices": [
-      "갑니다",
-      "있습니다",
-      "좋습니다",
-      "듣습니다"
+      "받을",
+      "낼",
+      "볼",
+      "줄"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣습니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 209,
     "level": "고급",
-    "prompt": "제 친구들은 과일을 _____ 정확히.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit.",
+    "prompt": "기존 데이터를 그대로 쓰기에는 오류가 너무 많이 _____.",
+    "answer": "발견됩니다",
+    "translation": "Too many errors are found to use the existing data as is.",
     "choices": [
-      "삽니다",
-      "갑니다",
-      "있습니다",
-      "좋습니다"
+      "발견됩니다",
+      "발견합니다",
+      "발견시킵니다",
+      "발견해집니다"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "피동 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"발견됩니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 210,
     "level": "고급",
-    "prompt": "그 가게는 아홉 시에 _____ 정확히.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine.",
+    "prompt": "정확한 판단을 위해서는 근거를 명확히 _____ 합니다.",
+    "answer": "제시해야",
+    "translation": "For accurate judgment, evidence must be presented clearly.",
     "choices": [
-      "갑니다",
-      "문을 엽니다",
-      "있습니다",
-      "좋습니다"
+      "제시해서",
+      "제시해야",
+      "제시하고",
+      "제시하지만"
     ],
     "explanation": [
-      "기본 서술문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"제시해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 211,
     "level": "고급",
-    "prompt": "저는 한국어를 _____ 않습니다 정확히.",
-    "answer": "공부합니다",
-    "translation": "I study Korean. negative.",
+    "prompt": "이 표현은 문맥에 따라 다르게 _____ 수 있습니다.",
+    "answer": "해석될",
+    "translation": "This expression can be interpreted differently depending on context.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "공부합니다",
-      "하세요"
+      "해석한",
+      "해석하는",
+      "해석될",
+      "해석하던"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"공부합니다\"가 가장 자연스럽습니다."
+      "피동 가능을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해석될\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 212,
     "level": "고급",
-    "prompt": "너는 빵을 _____ 않습니다 정확히.",
-    "answer": "먹지",
-    "translation": "You eat bread. negative.",
+    "prompt": "단순히 문항 수를 늘리는 것만으로는 품질을 _____ 어렵습니다.",
+    "answer": "보장하기",
+    "translation": "It is difficult to guarantee quality simply by increasing the number of questions.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "먹지"
+      "보장하도록",
+      "보장하느라",
+      "보장하자마자",
+      "보장하기"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"먹지\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보장하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 213,
     "level": "고급",
-    "prompt": "그녀는 사무실에서 _____ 않습니다 정확히.",
-    "answer": "일합니다",
-    "translation": "She works at an office. negative.",
+    "prompt": "학습자가 헷갈릴 만한 선택지는 신중하게 _____ 합니다.",
+    "answer": "구성해야",
+    "translation": "Choices that may confuse learners must be carefully constructed.",
     "choices": [
-      "일합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "구성해야",
+      "구성해서",
+      "구성하고",
+      "구성하지만"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"일합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"구성해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 214,
     "level": "고급",
-    "prompt": "우리는 서울에 _____ 않습니다 정확히.",
-    "answer": "삽니다",
-    "translation": "We live in Seoul. negative.",
+    "prompt": "문장이 자연스러운지 확인하려면 실제 사용 맥락을 _____ 봐야 합니다.",
+    "answer": "살펴",
+    "translation": "To check whether a sentence is natural, you must examine the actual usage context.",
     "choices": [
-      "합니다",
-      "삽니다",
-      "했습니다",
-      "하세요"
+      "살피고",
+      "살펴",
+      "살피면",
+      "살피지만"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살펴\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 215,
     "level": "고급",
-    "prompt": "그들은 박물관을 _____ 않습니다 정확히.",
-    "answer": "방문합니다",
-    "translation": "They visit the museum. negative.",
+    "prompt": "오류를 줄이려면 생성 후 검수 과정을 반드시 _____ 합니다.",
+    "answer": "거쳐야",
+    "translation": "To reduce errors, the review process must be performed after generation.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "방문합니다",
-      "하세요"
+      "거쳐서",
+      "거치고",
+      "거쳐야",
+      "거치지만"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"방문합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"거쳐야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 216,
     "level": "고급",
-    "prompt": "제 동생은 책을 _____ 않습니다 정확히.",
-    "answer": "읽지",
-    "translation": "My sibling reads a book. negative.",
+    "prompt": "표현이 어색하면 학습자가 잘못된 문형을 _____ 위험이 있습니다.",
+    "answer": "익힐",
+    "translation": "If expressions are awkward, learners risk acquiring incorrect sentence patterns.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "읽지"
+      "익힌",
+      "익히는",
+      "익히던",
+      "익힐"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"읽지\"가 가장 자연스럽습니다."
+      "위험 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"익힐\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 217,
     "level": "고급",
-    "prompt": "선생님은 문법을 _____ 않습니다 정확히.",
-    "answer": "설명합니다",
-    "translation": "The teacher explains grammar. negative.",
+    "prompt": "그 설명은 핵심을 짚고 있어서 이해하기가 훨씬 _____.",
+    "answer": "수월합니다",
+    "translation": "That explanation points out the key issue, so it is much easier to understand.",
     "choices": [
-      "설명합니다",
-      "합니다",
-      "했습니다",
-      "하세요"
+      "수월합니다",
+      "수월한",
+      "수월하게",
+      "수월하면"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"설명합니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수월합니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 218,
     "level": "고급",
-    "prompt": "학생은 음악을 _____ 않습니다 정확히.",
-    "answer": "듣지",
-    "translation": "The student listens to music. negative.",
+    "prompt": "예외가 많기 때문에 규칙 하나로 모두 설명하기는 _____.",
+    "answer": "어렵습니다",
+    "translation": "Because there are many exceptions, it is difficult to explain everything with one rule.",
     "choices": [
-      "합니다",
-      "듣지",
-      "했습니다",
-      "하세요"
+      "어려운",
+      "어렵습니다",
+      "어렵게",
+      "어려우면"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"듣지\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어렵습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 219,
     "level": "고급",
-    "prompt": "제 친구들은 과일을 _____ 않습니다 정확히.",
-    "answer": "삽니다",
-    "translation": "My friends buy fruit. negative.",
+    "prompt": "초안을 그대로 공개하기보다는 일부 표현을 _____ 좋겠습니다.",
+    "answer": "다듬는 편이",
+    "translation": "It would be better to polish some expressions rather than publish the draft as is.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "삽니다",
-      "하세요"
+      "다듬기 위해",
+      "다듬느라",
+      "다듬는 편이",
+      "다듬자마자"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"삽니다\"가 가장 자연스럽습니다."
+      "선호 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다듬는 편이\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 220,
     "level": "고급",
-    "prompt": "그 가게는 아홉 시에 _____ 않습니다 정확히.",
-    "answer": "문을 엽니다",
-    "translation": "The store opens at nine. negative.",
+    "prompt": "의미가 비슷하더라도 실제 쓰임은 서로 _____ 수 있습니다.",
+    "answer": "다를",
+    "translation": "Even if meanings are similar, actual usage may differ.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "하세요",
-      "문을 엽니다"
+      "다른",
+      "다르게",
+      "다르던",
+      "다를"
     ],
     "explanation": [
-      "부정문을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"문을 엽니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다를\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 221,
     "level": "고급",
-    "prompt": "어제 저는 한국어를 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "I study Korean. yesterday.",
+    "prompt": "정답이 지나치게 뻔하면 문제로서의 가치가 _____ 됩니다.",
+    "answer": "떨어지게",
+    "translation": "If the answer is too obvious, the value as a question decreases.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "떨어지게",
+      "떨어진",
+      "떨어지는",
+      "떨어지던"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"떨어지게\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 222,
     "level": "고급",
-    "prompt": "어제 너는 빵을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "You eat bread. yesterday.",
+    "prompt": "이 문항은 조사 선택을 묻는다는 점에서 초급자에게도 _____ 수 있습니다.",
+    "answer": "유용할",
+    "translation": "This question can be useful even for beginners because it asks about particle choice.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "유용한",
+      "유용할",
+      "유용하게",
+      "유용하던"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"유용할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 223,
     "level": "고급",
-    "prompt": "어제 그녀는 사무실에서 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "She works at an office. yesterday.",
+    "prompt": "내용을 확장하되 난이도 구분이 흐려지지 않도록 _____ 합니다.",
+    "answer": "관리해야",
+    "translation": "Content should be expanded while ensuring difficulty distinctions do not blur.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "관리해서",
+      "관리하고",
+      "관리해야",
+      "관리하지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "관리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"관리해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 224,
     "level": "고급",
-    "prompt": "어제 우리는 서울에 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "We live in Seoul. yesterday.",
+    "prompt": "반복되는 유형은 일부러 선택지를 바꾸어 단조로움을 _____ 했습니다.",
+    "answer": "줄이고자",
+    "translation": "For repeated types, I changed choices intentionally to reduce monotony.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "줄이느라",
+      "줄이자마자",
+      "줄이지만",
+      "줄이고자"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄이고자\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 225,
     "level": "고급",
-    "prompt": "어제 그들은 박물관을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "They visit the museum. yesterday.",
+    "prompt": "검수 기준이 없으면 오류를 발견하더라도 일관되게 _____ 어렵습니다.",
+    "answer": "수정하기",
+    "translation": "Without review criteria, it is difficult to correct errors consistently even if found.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "수정하기",
+      "수정하도록",
+      "수정하느라",
+      "수정하자마자"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수정하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 226,
     "level": "고급",
-    "prompt": "어제 제 동생은 책을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "My sibling reads a book. yesterday.",
+    "prompt": "실제 서비스에서는 충분히 검토하지 않은 채 결론을 _____ 어렵습니다.",
+    "answer": "내리기는",
+    "translation": "It is difficult to draw a conclusion without sufficient review.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "내리도록",
+      "내리기는",
+      "내리느라",
+      "내린다면"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "관용적 문형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"내리기는\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 227,
     "level": "고급",
-    "prompt": "어제 선생님은 문법을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "The teacher explains grammar. yesterday.",
+    "prompt": "실제 서비스에서는 자료가 부족한 만큼 추가 조사가 _____ 보입니다.",
+    "answer": "필요해",
+    "translation": "Since the data is insufficient, additional research seems necessary.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "했습니다",
-      "하고 있습니다"
+      "필요한",
+      "필요하면",
+      "필요해",
+      "필요하지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "추론 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"필요해\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 228,
     "level": "고급",
-    "prompt": "어제 학생은 음악을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "The student listens to music. yesterday.",
+    "prompt": "실제 서비스에서는 문제의 원인을 파악해야 적절한 대책을 _____ 수 있습니다.",
+    "answer": "세울",
+    "translation": "Only by identifying the cause can we establish proper measures.",
     "choices": [
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다",
-      "했습니다"
+      "세운",
+      "세우는",
+      "세우던",
+      "세울"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "조건 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"세울\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 229,
     "level": "고급",
-    "prompt": "어제 제 친구들은 과일을 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "My friends buy fruit. yesterday.",
+    "prompt": "실제 서비스에서는 겉으로는 간단해 보여도 실제로는 고려할 점이 적지 _____.",
+    "answer": "않습니다",
+    "translation": "Although it seems simple, there are quite a few things to consider.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "않습니다",
+      "아닙니다",
+      "없습니다",
+      "못합니다"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "부분 부정을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"않습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 230,
     "level": "고급",
-    "prompt": "어제 그 가게는 아홉 시에 _____ 정확히.",
-    "answer": "했습니다",
-    "translation": "The store opens at nine. yesterday.",
+    "prompt": "실제 서비스에서는 회의에서는 비용보다 효과를 우선적으로 _____ 했습니다.",
+    "answer": "따지기로",
+    "translation": "In the meeting, we decided to consider effectiveness before cost.",
     "choices": [
-      "합니다",
-      "했습니다",
-      "할 것입니다",
-      "하고 있습니다"
+      "따지느라",
+      "따지기로",
+      "따지다가",
+      "따지지만"
     ],
     "explanation": [
-      "과거시제을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"했습니다\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"따지기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 231,
     "level": "고급",
-    "prompt": "내일 저는 한국어를 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "I study Korean. tomorrow.",
+    "prompt": "실제 서비스에서는 그 제안은 현실성이 떨어진다는 점에서 다시 _____ 필요가 있습니다.",
+    "answer": "검토할",
+    "translation": "The proposal needs to be reviewed again because it lacks feasibility.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "검토한",
+      "검토하는",
+      "검토할",
+      "검토하던"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"검토할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 232,
     "level": "고급",
-    "prompt": "내일 너는 빵을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "You eat bread. tomorrow.",
+    "prompt": "실제 서비스에서는 상황이 급하다고 해서 절차를 무시해서는 _____ 됩니다.",
+    "answer": "안",
+    "translation": "Even if the situation is urgent, procedures must not be ignored.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "못",
+      "덜",
+      "잘",
+      "안"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "금지 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"안\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 233,
     "level": "고급",
-    "prompt": "내일 그녀는 사무실에서 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "She works at an office. tomorrow.",
+    "prompt": "실제 서비스에서는 사용자 입장에서 보면 이 기능은 오히려 혼란을 _____ 수 있습니다.",
+    "answer": "줄",
+    "translation": "From the user perspective, this feature may actually cause confusion.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "줄",
+      "받을",
+      "낼",
+      "볼"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 234,
     "level": "고급",
-    "prompt": "내일 우리는 서울에 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "We live in Seoul. tomorrow.",
+    "prompt": "실제 서비스에서는 기존 데이터를 그대로 쓰기에는 오류가 너무 많이 _____.",
+    "answer": "발견됩니다",
+    "translation": "Too many errors are found to use the existing data as is.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "발견합니다",
+      "발견됩니다",
+      "발견시킵니다",
+      "발견해집니다"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "피동 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"발견됩니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 235,
     "level": "고급",
-    "prompt": "내일 그들은 박물관을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "They visit the museum. tomorrow.",
+    "prompt": "실제 서비스에서는 정확한 판단을 위해서는 근거를 명확히 _____ 합니다.",
+    "answer": "제시해야",
+    "translation": "For accurate judgment, evidence must be presented clearly.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "제시해서",
+      "제시하고",
+      "제시해야",
+      "제시하지만"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"제시해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 236,
     "level": "고급",
-    "prompt": "내일 제 동생은 책을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "My sibling reads a book. tomorrow.",
+    "prompt": "실제 서비스에서는 이 표현은 문맥에 따라 다르게 _____ 수 있습니다.",
+    "answer": "해석될",
+    "translation": "This expression can be interpreted differently depending on context.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "해석한",
+      "해석하는",
+      "해석하던",
+      "해석될"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "피동 가능을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해석될\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 237,
     "level": "고급",
-    "prompt": "내일 선생님은 문법을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "The teacher explains grammar. tomorrow.",
+    "prompt": "실제 서비스에서는 단순히 문항 수를 늘리는 것만으로는 품질을 _____ 어렵습니다.",
+    "answer": "보장하기",
+    "translation": "It is difficult to guarantee quality simply by increasing the number of questions.",
     "choices": [
-      "할 것입니다",
-      "했습니다",
-      "합니다",
-      "하는 중입니다"
+      "보장하기",
+      "보장하도록",
+      "보장하느라",
+      "보장하자마자"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보장하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 238,
     "level": "고급",
-    "prompt": "내일 학생은 음악을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "The student listens to music. tomorrow.",
+    "prompt": "실제 서비스에서는 학습자가 헷갈릴 만한 선택지는 신중하게 _____ 합니다.",
+    "answer": "구성해야",
+    "translation": "Choices that may confuse learners must be carefully constructed.",
     "choices": [
-      "했습니다",
-      "할 것입니다",
-      "합니다",
-      "하는 중입니다"
+      "구성해서",
+      "구성해야",
+      "구성하고",
+      "구성하지만"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"구성해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 239,
     "level": "고급",
-    "prompt": "내일 제 친구들은 과일을 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "My friends buy fruit. tomorrow.",
+    "prompt": "실제 서비스에서는 문장이 자연스러운지 확인하려면 실제 사용 맥락을 _____ 봐야 합니다.",
+    "answer": "살펴",
+    "translation": "To check whether a sentence is natural, you must examine the actual usage context.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "할 것입니다",
-      "하는 중입니다"
+      "살피고",
+      "살피면",
+      "살펴",
+      "살피지만"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살펴\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 240,
     "level": "고급",
-    "prompt": "내일 그 가게는 아홉 시에 _____ 정확히.",
-    "answer": "할 것입니다",
-    "translation": "The store opens at nine. tomorrow.",
+    "prompt": "실제 서비스에서는 오류를 줄이려면 생성 후 검수 과정을 반드시 _____ 합니다.",
+    "answer": "거쳐야",
+    "translation": "To reduce errors, the review process must be performed after generation.",
     "choices": [
-      "했습니다",
-      "합니다",
-      "하는 중입니다",
-      "할 것입니다"
+      "거쳐서",
+      "거치고",
+      "거치지만",
+      "거쳐야"
     ],
     "explanation": [
-      "미래 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"할 것입니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"거쳐야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 241,
     "level": "고급",
-    "prompt": "저는 한국어를 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "I study Korean. now.",
+    "prompt": "실제 서비스에서는 표현이 어색하면 학습자가 잘못된 문형을 _____ 위험이 있습니다.",
+    "answer": "익힐",
+    "translation": "If expressions are awkward, learners risk acquiring incorrect sentence patterns.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "익힐",
+      "익힌",
+      "익히는",
+      "익히던"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "위험 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"익힐\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 242,
     "level": "고급",
-    "prompt": "너는 빵을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "You eat bread. now.",
+    "prompt": "실제 서비스에서는 그 설명은 핵심을 짚고 있어서 이해하기가 훨씬 _____.",
+    "answer": "수월합니다",
+    "translation": "That explanation points out the key issue, so it is much easier to understand.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "수월한",
+      "수월합니다",
+      "수월하게",
+      "수월하면"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수월합니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 243,
     "level": "고급",
-    "prompt": "그녀는 사무실에서 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "She works at an office. now.",
+    "prompt": "실제 서비스에서는 예외가 많기 때문에 규칙 하나로 모두 설명하기는 _____.",
+    "answer": "어렵습니다",
+    "translation": "Because there are many exceptions, it is difficult to explain everything with one rule.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "어려운",
+      "어렵게",
+      "어렵습니다",
+      "어려우면"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어렵습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 244,
     "level": "고급",
-    "prompt": "우리는 서울에 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "We live in Seoul. now.",
+    "prompt": "실제 서비스에서는 초안을 그대로 공개하기보다는 일부 표현을 _____ 좋겠습니다.",
+    "answer": "다듬는 편이",
+    "translation": "It would be better to polish some expressions rather than publish the draft as is.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "다듬기 위해",
+      "다듬느라",
+      "다듬자마자",
+      "다듬는 편이"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "선호 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다듬는 편이\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 245,
     "level": "고급",
-    "prompt": "그들은 박물관을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "They visit the museum. now.",
+    "prompt": "실제 서비스에서는 의미가 비슷하더라도 실제 쓰임은 서로 _____ 수 있습니다.",
+    "answer": "다를",
+    "translation": "Even if meanings are similar, actual usage may differ.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "다를",
+      "다른",
+      "다르게",
+      "다르던"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다를\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 246,
     "level": "고급",
-    "prompt": "제 동생은 책을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "My sibling reads a book. now.",
+    "prompt": "실제 서비스에서는 정답이 지나치게 뻔하면 문제로서의 가치가 _____ 됩니다.",
+    "answer": "떨어지게",
+    "translation": "If the answer is too obvious, the value as a question decreases.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "떨어진",
+      "떨어지게",
+      "떨어지는",
+      "떨어지던"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"떨어지게\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 247,
     "level": "고급",
-    "prompt": "선생님은 문법을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "The teacher explains grammar. now.",
+    "prompt": "실제 서비스에서는 이 문항은 조사 선택을 묻는다는 점에서 초급자에게도 _____ 수 있습니다.",
+    "answer": "유용할",
+    "translation": "This question can be useful even for beginners because it asks about particle choice.",
     "choices": [
-      "해서",
-      "하면",
-      "하고",
-      "하지만"
+      "유용한",
+      "유용하게",
+      "유용할",
+      "유용하던"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"유용할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 248,
     "level": "고급",
-    "prompt": "학생은 음악을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "The student listens to music. now.",
+    "prompt": "실제 서비스에서는 내용을 확장하되 난이도 구분이 흐려지지 않도록 _____ 합니다.",
+    "answer": "관리해야",
+    "translation": "Content should be expanded while ensuring difficulty distinctions do not blur.",
     "choices": [
-      "해서",
-      "하면",
-      "하지만",
-      "하고"
+      "관리해서",
+      "관리하고",
+      "관리하지만",
+      "관리해야"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "관리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"관리해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 249,
     "level": "고급",
-    "prompt": "제 친구들은 과일을 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "My friends buy fruit. now.",
+    "prompt": "실제 서비스에서는 반복되는 유형은 일부러 선택지를 바꾸어 단조로움을 _____ 했습니다.",
+    "answer": "줄이고자",
+    "translation": "For repeated types, I changed choices intentionally to reduce monotony.",
     "choices": [
-      "하고",
-      "해서",
-      "하면",
-      "하지만"
+      "줄이고자",
+      "줄이느라",
+      "줄이자마자",
+      "줄이지만"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄이고자\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 250,
     "level": "고급",
-    "prompt": "그 가게는 아홉 시에 _____ 있습니다 정확히.",
-    "answer": "하고",
-    "translation": "The store opens at nine. now.",
+    "prompt": "실제 서비스에서는 검수 기준이 없으면 오류를 발견하더라도 일관되게 _____ 어렵습니다.",
+    "answer": "수정하기",
+    "translation": "Without review criteria, it is difficult to correct errors consistently even if found.",
     "choices": [
-      "해서",
-      "하고",
-      "하면",
-      "하지만"
+      "수정하도록",
+      "수정하기",
+      "수정하느라",
+      "수정하자마자"
     ],
     "explanation": [
-      "진행 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"하고\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수정하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 251,
     "level": "고급",
-    "prompt": "저는 한국어를 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "I study Korean. before.",
+    "prompt": "학습 콘텐츠에서는 충분히 검토하지 않은 채 결론을 _____ 어렵습니다.",
+    "answer": "내리기는",
+    "translation": "It is difficult to draw a conclusion without sufficient review.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "내리도록",
+      "내리느라",
+      "내리기는",
+      "내린다면"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "관용적 문형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"내리기는\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 252,
     "level": "고급",
-    "prompt": "너는 빵을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "You eat bread. before.",
+    "prompt": "학습 콘텐츠에서는 자료가 부족한 만큼 추가 조사가 _____ 보입니다.",
+    "answer": "필요해",
+    "translation": "Since the data is insufficient, additional research seems necessary.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "필요한",
+      "필요하면",
+      "필요하지만",
+      "필요해"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "추론 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"필요해\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 253,
     "level": "고급",
-    "prompt": "그녀는 사무실에서 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "She works at an office. before.",
+    "prompt": "학습 콘텐츠에서는 문제의 원인을 파악해야 적절한 대책을 _____ 수 있습니다.",
+    "answer": "세울",
+    "translation": "Only by identifying the cause can we establish proper measures.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "세울",
+      "세운",
+      "세우는",
+      "세우던"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "조건 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"세울\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 254,
     "level": "고급",
-    "prompt": "우리는 서울에 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "We live in Seoul. before.",
+    "prompt": "학습 콘텐츠에서는 겉으로는 간단해 보여도 실제로는 고려할 점이 적지 _____.",
+    "answer": "않습니다",
+    "translation": "Although it seems simple, there are quite a few things to consider.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "아닙니다",
+      "않습니다",
+      "없습니다",
+      "못합니다"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "부분 부정을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"않습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 255,
     "level": "고급",
-    "prompt": "그들은 박물관을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "They visit the museum. before.",
+    "prompt": "학습 콘텐츠에서는 회의에서는 비용보다 효과를 우선적으로 _____ 했습니다.",
+    "answer": "따지기로",
+    "translation": "In the meeting, we decided to consider effectiveness before cost.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "따지느라",
+      "따지다가",
+      "따지기로",
+      "따지지만"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"따지기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 256,
     "level": "고급",
-    "prompt": "제 동생은 책을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "My sibling reads a book. before.",
+    "prompt": "학습 콘텐츠에서는 그 제안은 현실성이 떨어진다는 점에서 다시 _____ 필요가 있습니다.",
+    "answer": "검토할",
+    "translation": "The proposal needs to be reviewed again because it lacks feasibility.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "검토한",
+      "검토하는",
+      "검토하던",
+      "검토할"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"검토할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 257,
     "level": "고급",
-    "prompt": "선생님은 문법을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "The teacher explains grammar. before.",
+    "prompt": "학습 콘텐츠에서는 상황이 급하다고 해서 절차를 무시해서는 _____ 됩니다.",
+    "answer": "안",
+    "translation": "Even if the situation is urgent, procedures must not be ignored.",
     "choices": [
-      "해 본",
-      "하는",
-      "할",
-      "해서"
+      "안",
+      "못",
+      "덜",
+      "잘"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "금지 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"안\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 258,
     "level": "고급",
-    "prompt": "학생은 음악을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "The student listens to music. before.",
+    "prompt": "학습 콘텐츠에서는 사용자 입장에서 보면 이 기능은 오히려 혼란을 _____ 수 있습니다.",
+    "answer": "줄",
+    "translation": "From the user perspective, this feature may actually cause confusion.",
     "choices": [
-      "하는",
-      "해 본",
-      "할",
-      "해서"
+      "받을",
+      "줄",
+      "낼",
+      "볼"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 259,
     "level": "고급",
-    "prompt": "제 친구들은 과일을 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "My friends buy fruit. before.",
+    "prompt": "학습 콘텐츠에서는 기존 데이터를 그대로 쓰기에는 오류가 너무 많이 _____.",
+    "answer": "발견됩니다",
+    "translation": "Too many errors are found to use the existing data as is.",
     "choices": [
-      "하는",
-      "할",
-      "해 본",
-      "해서"
+      "발견합니다",
+      "발견시킵니다",
+      "발견됩니다",
+      "발견해집니다"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "피동 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"발견됩니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 260,
     "level": "고급",
-    "prompt": "그 가게는 아홉 시에 _____ 적이 있습니다 정확히.",
-    "answer": "해 본",
-    "translation": "The store opens at nine. before.",
+    "prompt": "학습 콘텐츠에서는 정확한 판단을 위해서는 근거를 명확히 _____ 합니다.",
+    "answer": "제시해야",
+    "translation": "For accurate judgment, evidence must be presented clearly.",
     "choices": [
-      "하는",
-      "할",
-      "해서",
-      "해 본"
+      "제시해서",
+      "제시하고",
+      "제시하지만",
+      "제시해야"
     ],
     "explanation": [
-      "경험 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"해 본\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"제시해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 261,
     "level": "고급",
-    "prompt": "비가 오지만 저는 한국어를 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 이 표현은 문맥에 따라 다르게 _____ 수 있습니다.",
+    "answer": "해석될",
+    "translation": "This expression can be interpreted differently depending on context.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "해석될",
+      "해석한",
+      "해석하는",
+      "해석하던"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "피동 가능을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해석될\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 262,
     "level": "고급",
-    "prompt": "비가 오지만 너는 빵을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 단순히 문항 수를 늘리는 것만으로는 품질을 _____ 어렵습니다.",
+    "answer": "보장하기",
+    "translation": "It is difficult to guarantee quality simply by increasing the number of questions.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "보장하도록",
+      "보장하기",
+      "보장하느라",
+      "보장하자마자"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보장하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 263,
     "level": "고급",
-    "prompt": "비가 오지만 그녀는 사무실에서 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 학습자가 헷갈릴 만한 선택지는 신중하게 _____ 합니다.",
+    "answer": "구성해야",
+    "translation": "Choices that may confuse learners must be carefully constructed.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "구성해서",
+      "구성하고",
+      "구성해야",
+      "구성하지만"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"구성해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 264,
     "level": "고급",
-    "prompt": "비가 오지만 우리는 서울에 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 문장이 자연스러운지 확인하려면 실제 사용 맥락을 _____ 봐야 합니다.",
+    "answer": "살펴",
+    "translation": "To check whether a sentence is natural, you must examine the actual usage context.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "살피고",
+      "살피면",
+      "살피지만",
+      "살펴"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살펴\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 265,
     "level": "고급",
-    "prompt": "비가 오지만 그들은 박물관을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 오류를 줄이려면 생성 후 검수 과정을 반드시 _____ 합니다.",
+    "answer": "거쳐야",
+    "translation": "To reduce errors, the review process must be performed after generation.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "거쳐야",
+      "거쳐서",
+      "거치고",
+      "거치지만"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"거쳐야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 266,
     "level": "고급",
-    "prompt": "비가 오지만 제 동생은 책을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 표현이 어색하면 학습자가 잘못된 문형을 _____ 위험이 있습니다.",
+    "answer": "익힐",
+    "translation": "If expressions are awkward, learners risk acquiring incorrect sentence patterns.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "익힌",
+      "익힐",
+      "익히는",
+      "익히던"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "위험 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"익힐\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 267,
     "level": "고급",
-    "prompt": "비가 오지만 선생님은 문법을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 그 설명은 핵심을 짚고 있어서 이해하기가 훨씬 _____.",
+    "answer": "수월합니다",
+    "translation": "That explanation points out the key issue, so it is much easier to understand.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "합니다",
-      "하면"
+      "수월한",
+      "수월하게",
+      "수월합니다",
+      "수월하면"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수월합니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 268,
     "level": "고급",
-    "prompt": "비가 오지만 학생은 음악을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 예외가 많기 때문에 규칙 하나로 모두 설명하기는 _____.",
+    "answer": "어렵습니다",
+    "translation": "Because there are many exceptions, it is difficult to explain everything with one rule.",
     "choices": [
-      "했기 때문에",
-      "해서",
-      "하면",
-      "합니다"
+      "어려운",
+      "어렵게",
+      "어려우면",
+      "어렵습니다"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어렵습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 269,
     "level": "고급",
-    "prompt": "비가 오지만 제 친구들은 과일을 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 초안을 그대로 공개하기보다는 일부 표현을 _____ 좋겠습니다.",
+    "answer": "다듬는 편이",
+    "translation": "It would be better to polish some expressions rather than publish the draft as is.",
     "choices": [
-      "합니다",
-      "했기 때문에",
-      "해서",
-      "하면"
+      "다듬는 편이",
+      "다듬기 위해",
+      "다듬느라",
+      "다듬자마자"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "선호 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다듬는 편이\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 270,
     "level": "고급",
-    "prompt": "비가 오지만 그 가게는 아홉 시에 _____ 정확히.",
-    "answer": "합니다",
-    "translation": "Although it rains, the action continues.",
+    "prompt": "학습 콘텐츠에서는 의미가 비슷하더라도 실제 쓰임은 서로 _____ 수 있습니다.",
+    "answer": "다를",
+    "translation": "Even if meanings are similar, actual usage may differ.",
     "choices": [
-      "했기 때문에",
-      "합니다",
-      "해서",
-      "하면"
+      "다른",
+      "다를",
+      "다르게",
+      "다르던"
     ],
     "explanation": [
-      "대조 연결을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"합니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다를\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 271,
     "level": "고급",
-    "prompt": "시간이 있으면 저는에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "학습 콘텐츠에서는 정답이 지나치게 뻔하면 문제로서의 가치가 _____ 됩니다.",
+    "answer": "떨어지게",
+    "translation": "If the answer is too obvious, the value as a question decreases.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "떨어진",
+      "떨어지는",
+      "떨어지게",
+      "떨어지던"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"떨어지게\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 272,
     "level": "고급",
-    "prompt": "시간이 있으면 너는에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "학습 콘텐츠에서는 이 문항은 조사 선택을 묻는다는 점에서 초급자에게도 _____ 수 있습니다.",
+    "answer": "유용할",
+    "translation": "This question can be useful even for beginners because it asks about particle choice.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "유용한",
+      "유용하게",
+      "유용하던",
+      "유용할"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"유용할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 273,
     "level": "고급",
-    "prompt": "시간이 있으면 그녀는에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "학습 콘텐츠에서는 내용을 확장하되 난이도 구분이 흐려지지 않도록 _____ 합니다.",
+    "answer": "관리해야",
+    "translation": "Content should be expanded while ensuring difficulty distinctions do not blur.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "관리해야",
+      "관리해서",
+      "관리하고",
+      "관리하지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "관리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"관리해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 274,
     "level": "고급",
-    "prompt": "시간이 있으면 우리는에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "학습 콘텐츠에서는 반복되는 유형은 일부러 선택지를 바꾸어 단조로움을 _____ 했습니다.",
+    "answer": "줄이고자",
+    "translation": "For repeated types, I changed choices intentionally to reduce monotony.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "줄이느라",
+      "줄이고자",
+      "줄이자마자",
+      "줄이지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄이고자\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 275,
     "level": "고급",
-    "prompt": "시간이 있으면 그들은에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "학습 콘텐츠에서는 검수 기준이 없으면 오류를 발견하더라도 일관되게 _____ 어렵습니다.",
+    "answer": "수정하기",
+    "translation": "Without review criteria, it is difficult to correct errors consistently even if found.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "수정하도록",
+      "수정하느라",
+      "수정하기",
+      "수정하자마자"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수정하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 276,
     "level": "고급",
-    "prompt": "시간이 있으면 제 동생은에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "검수 과정에서는 충분히 검토하지 않은 채 결론을 _____ 어렵습니다.",
+    "answer": "내리기는",
+    "translation": "It is difficult to draw a conclusion without sufficient review.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "내리도록",
+      "내리느라",
+      "내린다면",
+      "내리기는"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "관용적 문형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"내리기는\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 277,
     "level": "고급",
-    "prompt": "시간이 있으면 선생님은에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "검수 과정에서는 자료가 부족한 만큼 추가 조사가 _____ 보입니다.",
+    "answer": "필요해",
+    "translation": "Since the data is insufficient, additional research seems necessary.",
     "choices": [
-      "전화해 주세요",
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안"
+      "필요해",
+      "필요한",
+      "필요하면",
+      "필요하지만"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "추론 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"필요해\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 278,
     "level": "고급",
-    "prompt": "시간이 있으면 학생은에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "검수 과정에서는 문제의 원인을 파악해야 적절한 대책을 _____ 수 있습니다.",
+    "answer": "세울",
+    "translation": "Only by identifying the cause can we establish proper measures.",
     "choices": [
-      "전화했지만",
-      "전화해 주세요",
-      "전화라서",
-      "전화하는 동안"
+      "세운",
+      "세울",
+      "세우는",
+      "세우던"
     ],
     "explanation": [
       "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "문맥상 빈칸에는 \"세울\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 279,
     "level": "고급",
-    "prompt": "시간이 있으면 제 친구들은에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "검수 과정에서는 겉으로는 간단해 보여도 실제로는 고려할 점이 적지 _____.",
+    "answer": "않습니다",
+    "translation": "Although it seems simple, there are quite a few things to consider.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화해 주세요",
-      "전화하는 동안"
+      "아닙니다",
+      "없습니다",
+      "않습니다",
+      "못합니다"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "부분 부정을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"않습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 280,
     "level": "고급",
-    "prompt": "시간이 있으면 그 가게는에게 _____ 정확히.",
-    "answer": "전화해 주세요",
-    "translation": "If you have time, please call.",
+    "prompt": "검수 과정에서는 회의에서는 비용보다 효과를 우선적으로 _____ 했습니다.",
+    "answer": "따지기로",
+    "translation": "In the meeting, we decided to consider effectiveness before cost.",
     "choices": [
-      "전화했지만",
-      "전화라서",
-      "전화하는 동안",
-      "전화해 주세요"
+      "따지느라",
+      "따지다가",
+      "따지지만",
+      "따지기로"
     ],
     "explanation": [
-      "조건 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"전화해 주세요\"가 가장 자연스럽습니다."
+      "결정 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"따지기로\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 281,
     "level": "고급",
-    "prompt": "한국어를 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 그 제안은 현실성이 떨어진다는 점에서 다시 _____ 필요가 있습니다.",
+    "answer": "검토할",
+    "translation": "The proposal needs to be reviewed again because it lacks feasibility.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "검토할",
+      "검토한",
+      "검토하는",
+      "검토하던"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"검토할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 282,
     "level": "고급",
-    "prompt": "빵을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 상황이 급하다고 해서 절차를 무시해서는 _____ 됩니다.",
+    "answer": "안",
+    "translation": "Even if the situation is urgent, procedures must not be ignored.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "못",
+      "안",
+      "덜",
+      "잘"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "금지 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"안\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 283,
     "level": "고급",
-    "prompt": "사무실에서 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 사용자 입장에서 보면 이 기능은 오히려 혼란을 _____ 수 있습니다.",
+    "answer": "줄",
+    "translation": "From the user perspective, this feature may actually cause confusion.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "받을",
+      "낼",
+      "줄",
+      "볼"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 284,
     "level": "고급",
-    "prompt": "서울에 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 기존 데이터를 그대로 쓰기에는 오류가 너무 많이 _____.",
+    "answer": "발견됩니다",
+    "translation": "Too many errors are found to use the existing data as is.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "발견합니다",
+      "발견시킵니다",
+      "발견해집니다",
+      "발견됩니다"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "피동 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"발견됩니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 285,
     "level": "고급",
-    "prompt": "박물관을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 정확한 판단을 위해서는 근거를 명확히 _____ 합니다.",
+    "answer": "제시해야",
+    "translation": "For accurate judgment, evidence must be presented clearly.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "제시해야",
+      "제시해서",
+      "제시하고",
+      "제시하지만"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"제시해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 286,
     "level": "고급",
-    "prompt": "책을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 이 표현은 문맥에 따라 다르게 _____ 수 있습니다.",
+    "answer": "해석될",
+    "translation": "This expression can be interpreted differently depending on context.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "해석한",
+      "해석될",
+      "해석하는",
+      "해석하던"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "피동 가능을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"해석될\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 287,
     "level": "고급",
-    "prompt": "문법을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 단순히 문항 수를 늘리는 것만으로는 품질을 _____ 어렵습니다.",
+    "answer": "보장하기",
+    "translation": "It is difficult to guarantee quality simply by increasing the number of questions.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습합니다",
-      "연습이라서"
+      "보장하도록",
+      "보장하느라",
+      "보장하기",
+      "보장하자마자"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"보장하기\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 288,
     "level": "고급",
-    "prompt": "음악을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 학습자가 헷갈릴 만한 선택지는 신중하게 _____ 합니다.",
+    "answer": "구성해야",
+    "translation": "Choices that may confuse learners must be carefully constructed.",
     "choices": [
-      "연습했지만",
-      "연습하면",
-      "연습이라서",
-      "연습합니다"
+      "구성해서",
+      "구성하고",
+      "구성하지만",
+      "구성해야"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"구성해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 289,
     "level": "고급",
-    "prompt": "과일을 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 문장이 자연스러운지 확인하려면 실제 사용 맥락을 _____ 봐야 합니다.",
+    "answer": "살펴",
+    "translation": "To check whether a sentence is natural, you must examine the actual usage context.",
     "choices": [
-      "연습합니다",
-      "연습했지만",
-      "연습하면",
-      "연습이라서"
+      "살펴",
+      "살피고",
+      "살피면",
+      "살피지만"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "시도 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"살펴\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 290,
     "level": "고급",
-    "prompt": "아홉 시에 더 잘 배우기 위해 매일 _____ 정확히.",
-    "answer": "연습합니다",
-    "translation": "I practice every day to learn better.",
+    "prompt": "검수 과정에서는 오류를 줄이려면 생성 후 검수 과정을 반드시 _____ 합니다.",
+    "answer": "거쳐야",
+    "translation": "To reduce errors, the review process must be performed after generation.",
     "choices": [
-      "연습했지만",
-      "연습합니다",
-      "연습하면",
-      "연습이라서"
+      "거쳐서",
+      "거쳐야",
+      "거치고",
+      "거치지만"
     ],
     "explanation": [
-      "목적 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"연습합니다\"가 가장 자연스럽습니다."
+      "의무 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"거쳐야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 291,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 저는에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 표현이 어색하면 학습자가 잘못된 문형을 _____ 위험이 있습니다.",
+    "answer": "익힐",
+    "translation": "If expressions are awkward, learners risk acquiring incorrect sentence patterns.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "익힌",
+      "익히는",
+      "익힐",
+      "익히던"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "위험 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"익힐\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 292,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 너는에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 그 설명은 핵심을 짚고 있어서 이해하기가 훨씬 _____.",
+    "answer": "수월합니다",
+    "translation": "That explanation points out the key issue, so it is much easier to understand.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "수월한",
+      "수월하게",
+      "수월하면",
+      "수월합니다"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수월합니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 293,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 그녀는에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 예외가 많기 때문에 규칙 하나로 모두 설명하기는 _____.",
+    "answer": "어렵습니다",
+    "translation": "Because there are many exceptions, it is difficult to explain everything with one rule.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "어렵습니다",
+      "어려운",
+      "어렵게",
+      "어려우면"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"어렵습니다\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 294,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 우리는에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 초안을 그대로 공개하기보다는 일부 표현을 _____ 좋겠습니다.",
+    "answer": "다듬는 편이",
+    "translation": "It would be better to polish some expressions rather than publish the draft as is.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "다듬기 위해",
+      "다듬는 편이",
+      "다듬느라",
+      "다듬자마자"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "선호 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다듬는 편이\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 295,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 그들은에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 의미가 비슷하더라도 실제 쓰임은 서로 _____ 수 있습니다.",
+    "answer": "다를",
+    "translation": "Even if meanings are similar, actual usage may differ.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "다른",
+      "다르게",
+      "다를",
+      "다르던"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "가능성 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"다를\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 296,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 제 동생은에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 정답이 지나치게 뻔하면 문제로서의 가치가 _____ 됩니다.",
+    "answer": "떨어지게",
+    "translation": "If the answer is too obvious, the value as a question decreases.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "떨어진",
+      "떨어지는",
+      "떨어지던",
+      "떨어지게"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "결과 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"떨어지게\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 297,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 선생님은에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 이 문항은 조사 선택을 묻는다는 점에서 초급자에게도 _____ 수 있습니다.",
+    "answer": "유용할",
+    "translation": "This question can be useful even for beginners because it asks about particle choice.",
     "choices": [
-      "알려 드리겠습니다",
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안"
+      "유용할",
+      "유용한",
+      "유용하게",
+      "유용하던"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "평가 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"유용할\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 298,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 학생은에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 내용을 확장하되 난이도 구분이 흐려지지 않도록 _____ 합니다.",
+    "answer": "관리해야",
+    "translation": "Content should be expanded while ensuring difficulty distinctions do not blur.",
     "choices": [
-      "알렸지만",
-      "알려 드리겠습니다",
-      "알리기 때문에",
-      "알리는 동안"
+      "관리해서",
+      "관리해야",
+      "관리하고",
+      "관리하지만"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "관리 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"관리해야\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 299,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 제 친구들은에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 반복되는 유형은 일부러 선택지를 바꾸어 단조로움을 _____ 했습니다.",
+    "answer": "줄이고자",
+    "translation": "For repeated types, I changed choices intentionally to reduce monotony.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알려 드리겠습니다",
-      "알리는 동안"
+      "줄이느라",
+      "줄이자마자",
+      "줄이고자",
+      "줄이지만"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "목적 표현을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"줄이고자\"가 가장 자연스럽습니다."
     ]
   },
   {
     "id": 300,
     "level": "고급",
-    "prompt": "회의가 끝나자마자 그 가게는에게 바로 _____ 정확히.",
-    "answer": "알려 드리겠습니다",
-    "translation": "I will let them know as soon as the meeting ends.",
+    "prompt": "검수 과정에서는 검수 기준이 없으면 오류를 발견하더라도 일관되게 _____ 어렵습니다.",
+    "answer": "수정하기",
+    "translation": "Without review criteria, it is difficult to correct errors consistently even if found.",
     "choices": [
-      "알렸지만",
-      "알리기 때문에",
-      "알리는 동안",
-      "알려 드리겠습니다"
+      "수정하도록",
+      "수정하느라",
+      "수정하자마자",
+      "수정하기"
     ],
     "explanation": [
-      "고급 시간 표현을 확인하는 문제입니다.",
-      "문맥상 빈칸에는 \"알려 드리겠습니다\"가 가장 자연스럽습니다."
+      "명사형을 확인하는 문제입니다.",
+      "문맥상 빈칸에는 \"수정하기\"가 가장 자연스럽습니다."
     ]
   }
 ];
+
