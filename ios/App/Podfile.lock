@@ -6,22 +6,28 @@ PODS:
     - Google-Mobile-Ads-SDK (= 11.3.0)
     - GoogleUserMessagingPlatform (< 3.0.0, >= 2.7.0)
   - CapacitorCordova (7.4.3)
+  - CapacitorLiveUpdates (0.4.0):
+    - Capacitor
+    - IonicLiveUpdates (~> 0.5.6)
   - CapacitorStatusBar (7.0.3):
     - Capacitor
   - Google-Mobile-Ads-SDK (11.3.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleUserMessagingPlatform (2.7.0)
+  - IonicLiveUpdates (0.5.8)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorCommunityAdmob (from `../../node_modules/@capacitor-community/admob`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorLiveUpdates (from `../../node_modules/@capacitor/live-updates`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
 
 SPEC REPOS:
   trunk:
     - Google-Mobile-Ads-SDK
     - GoogleUserMessagingPlatform
+    - IonicLiveUpdates
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -30,6 +36,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor-community/admob"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorLiveUpdates:
+    :path: "../../node_modules/@capacitor/live-updates"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
 
@@ -37,10 +45,12 @@ SPEC CHECKSUMS:
   Capacitor: 28d6c01026a9a3f7156529498ec1f389a2a28dbc
   CapacitorCommunityAdmob: 310beff216a3470b2c85b1fccd99d2a6815e1ef7
   CapacitorCordova: 435121e81a2df4d0034f0fb11fcefab5104cfdb5
+  CapacitorLiveUpdates: 4a2ebeb2788f787d3133877ee159a3e900443b14
   CapacitorStatusBar: 0659ddc7b1713764a05831463d215b177a15d054
   Google-Mobile-Ads-SDK: 301a16c461c331ba34ff4dab40a22ab7c147af61
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
+  IonicLiveUpdates: 6dce1c9227726ba7c859be36b22c978685e5b75f
 
-PODFILE CHECKSUM: 0b886ba4f2b2178a1ca14caa8b335cf854d82454
+PODFILE CHECKSUM: 793ec7be36355f7117cf28bfe40609ec95be520c
 
 COCOAPODS: 1.16.2

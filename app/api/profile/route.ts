@@ -1,7 +1,7 @@
 // /app/api/profile/route.ts
 
 import { NextResponse } from 'next/server';
-import { adminAuth, adminDb } from '@/app/lib/firebase-admin';
+import { getAdminAuth, getAdminDb } from '@/app/lib/firebase-admin';
 import {
   DEFAULT_AVATAR_COLOR,
   DEFAULT_AVATAR_ICON,
@@ -38,6 +38,9 @@ export async function OPTIONS(req: Request) {
 export async function POST(req: Request) {
   const origin = req.headers.get("origin");
   try {
+    const adminAuth = getAdminAuth();
+    const adminDb = getAdminDb();
+
     // --- 👇 [수정] 세션 쿠키 대신 ID 토큰으로 인증합니다 ---
     const authHeader = req.headers.get("authorization");
     if (!authHeader?.startsWith("Bearer ")) {
@@ -95,4 +98,3 @@ export async function POST(req: Request) {
     return cors(errRes, origin); // 에러 응답에도 CORS 헤더 추가
   }
 }
-

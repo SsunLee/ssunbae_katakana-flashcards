@@ -5,10 +5,11 @@ import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 // 필요 시: import { getStorage } from "firebase-admin/storage";
 
-const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+function ensureAdminApp() {
+  if (getApps().length) return getApps()[0];
 
-if (!getApps().length) {
-  initializeApp({
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  return initializeApp({
     credential: cert({
       projectId: process.env.FIREBASE_PROJECT_ID!,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL!,
@@ -17,6 +18,11 @@ if (!getApps().length) {
   });
 }
 
-export const adminAuth = getAuth();          // ✅ admin.auth() 아님
-export const adminDb = getFirestore();
+export function getAdminAuth() {
+  return getAuth(ensureAdminApp());          // ✅ admin.auth() 아님
+}
+
+export function getAdminDb() {
+  return getFirestore(ensureAdminApp());
+}
 // export const adminStorage = getStorage();  // 쓰면 주석 해제

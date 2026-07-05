@@ -3,11 +3,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI, { APIError } from 'openai';
 
-// OpenAI 클라이언트를 초기화합니다.
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 // CORS 헤더
 const CORS_HEADERS = {
   // 보안상 운영 배포 시에는 정확히 지정: 'capacitor://localhost'
@@ -28,12 +23,14 @@ export async function POST(request: Request) {
   console.log("\n--- [AI Generation] API 요청 시작 ---");
   
   try {
-    if (!process.env.OPENAI_API_KEY?.startsWith('sk-')) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey?.startsWith('sk-')) {
       return NextResponse.json(
         { error: 'Server API key missing', details: 'OPENAI_API_KEY not set' },
         { status: 500, headers: CORS_HEADERS }
       );
     }
+    const openai = new OpenAI({ apiKey });
 
     const { deckType, topic, count } = await request.json();
     console.log(`[AI Generation] 요청 파라미터: deckType=${deckType}, topic=${topic}, count=${count}`);
@@ -204,4 +201,3 @@ Output constraints:
     return NextResponse.json({ error: errorMessage, details: errorDetails }, { status: 500 });
   }
 }
-

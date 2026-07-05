@@ -2,7 +2,7 @@
 export const runtime = "nodejs"; // ✅ Edge에서 돌지 않게
 
 import { NextResponse } from "next/server";
-import { adminAuth, adminDb } from "@/app/lib/firebase-admin";
+import { getAdminAuth, getAdminDb } from "@/app/lib/firebase-admin";
 
 const ALLOWED_ORIGINS = [
   "https://ssunbae-api.vercel.app/",
@@ -28,6 +28,7 @@ export async function OPTIONS(req: Request) {
 
 
 async function purgeUserData(uid: string) {
+  const adminDb = getAdminDb();
   const userDocRef = adminDb.collection("users").doc(uid);
   const subs = await userDocRef.listCollections();
   for (const col of subs) {
@@ -41,6 +42,7 @@ async function purgeUserData(uid: string) {
 
 export async function POST(req: Request) {
   try {
+    const adminAuth = getAdminAuth();
     const authHeader = req.headers.get("authorization");
     if (!authHeader?.startsWith("Bearer ")) {
       return NextResponse.json({ error: "Missing ID token" }, { status: 401 });
