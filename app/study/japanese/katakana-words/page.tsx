@@ -460,9 +460,7 @@ export default function KatakanaWordsPage() {
                         <>
                           <div className="text-lg font-semibold break-all">{card.answer}</div>
                           <div className="text-2xl mt-1">{card.emoji}</div>
-                          {showKanjiReading ? (
-                            <div className="text-xs text-muted-foreground mt-2">({card.furigana})</div>
-                          ) : null}
+                          <div className="text-xs text-muted-foreground mt-2">({card.furigana})</div>
                         </>
                       )
                     : undefined

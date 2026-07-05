@@ -18,6 +18,7 @@ interface SingleCardViewProps {
 
 export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onToggleFav, fontSize, showFurigana = true }: SingleCardViewProps) => {
   const isCharsMode = deckType.endsWith("-chars");
+  const isKanjiWordsMode = deckType === "kanji-words";
   const defaultCharSize = 96;
   const defaultWordSize = 48;
 
@@ -96,7 +97,9 @@ export const SingleCardView = ({ card, deckType, isFlipped, isFav, onFlip, onTog
                 {/* ✅ globals.css에 정의한 `ui-divider` 클래스 사용 */}
                 <div className="w-full my-4 ui-divider"></div>
                 {/* ✅ text-muted-foreground로 변경 */}
-                <p className="text-base text-muted-foreground mt-1">({card.katakana})</p>
+                <p className="text-base text-muted-foreground mt-1">
+                  ({isKanjiWordsMode ? card.furigana : card.katakana})
+                </p>
               </div>
             )}
           </div>
