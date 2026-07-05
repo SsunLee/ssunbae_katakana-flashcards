@@ -212,6 +212,7 @@ export default function JapaneseSentenceQuizPage() {
   );
   const solvedCount = counts.correct + counts.wrong + counts.skipped;
   const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
+  const isFirstQuestion = questionIndex === 0;
   const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const questionLabel = visibleDeck.length > 0 ? `Q-${String(questionIndex + 1).padStart(3, "0")}` : "Q-000";
   const isWideLayout = viewportWidth !== null && viewportWidth >= SINGLE_LEFT_SIDE_AD_MIN_WIDTH;
@@ -260,6 +261,14 @@ export default function JapaneseSentenceQuizPage() {
       setQuestionIndex((prev) => prev + 1);
     }
 
+    setSelectedChoice(null);
+    setCurrentResult(null);
+  };
+
+  const handlePrevious = () => {
+    if (visibleDeck.length === 0 || isFirstQuestion) return;
+
+    setQuestionIndex((prev) => Math.max(0, prev - 1));
     setSelectedChoice(null);
     setCurrentResult(null);
   };
@@ -533,6 +542,9 @@ export default function JapaneseSentenceQuizPage() {
                           모르는 문제
                         </Button>
                       ) : null}
+                      <Button variant="outline" onClick={handlePrevious} disabled={isFirstQuestion}>
+                        이전 문제
+                      </Button>
                       <Button onClick={handleNext}>{isLastQuestion ? "다시 시작" : "다음 문제"}</Button>
                     </div>
                   </div>

@@ -92,6 +92,7 @@ export default function EnglishSentenceQuizPage() {
     [results]
   );
   const isLastQuestion = visibleDeck.length > 0 && questionIndex === visibleDeck.length - 1;
+  const isFirstQuestion = questionIndex === 0;
   const progressText = visibleDeck.length > 0 ? `${questionIndex + 1} / ${visibleDeck.length}` : "0 / 0";
   const solvedCount = counts.correct + counts.wrong + counts.skipped;
   const optionTextSize = Math.max(15, Math.round(sentenceFontSize * 0.72));
@@ -144,6 +145,14 @@ export default function EnglishSentenceQuizPage() {
     }
 
     setQuestionIndex((prev) => prev + 1);
+    setSelectedChoice(null);
+    setCurrentResult(null);
+  };
+
+  const handlePrevious = () => {
+    if (isFirstQuestion) return;
+
+    setQuestionIndex((prev) => Math.max(0, prev - 1));
     setSelectedChoice(null);
     setCurrentResult(null);
   };
@@ -320,6 +329,9 @@ export default function EnglishSentenceQuizPage() {
                     모르는 문제
                   </Button>
                 ) : null}
+                <Button variant="outline" onClick={handlePrevious} disabled={isFirstQuestion}>
+                  이전 문제
+                </Button>
                 <Button onClick={handleNext}>{isLastQuestion ? "다시 시작" : "다음 문제"}</Button>
               </div>
             </div>
