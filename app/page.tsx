@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "SSUN EDU - 무료 언어 학습 플랫폼",
   description:
-    "SSUN EDU는 일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 공부할 수 있는 무료 언어 학습 사이트입니다.",
+    "SSUN EDU에서 일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 짧게 반복해 보세요. 혼자 공부하는 흐름에 맞춘 무료 언어 학습 사이트입니다.",
   alternates: {
     canonical: "/",
   },
@@ -57,8 +57,8 @@ export default function Root() {
               SSUN EDU
             </h1>
             <p className="mt-6 max-w-[21rem] text-base leading-8 text-zinc-200 sm:max-w-xl sm:text-lg">
-              일본어, 영어, 스페인어, 한국어를 짧은 카드와 문장 퀴즈로 반복하는 독학 루틴.
-              매일 부담 없이 보고, 듣고, 다시 확인할 수 있게 만들었습니다.
+              일본어, 영어, 스페인어, 한국어를 짧은 카드와 문장 퀴즈로 반복합니다.
+              혼자 공부할 때도 보고, 듣고, 다시 풀어볼 수 있게 구성했습니다.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -105,7 +105,7 @@ export default function Root() {
               <p className="text-sm font-semibold text-primary">0{index + 1}</p>
               <h3 className="mt-2 text-lg font-semibold text-foreground">{item}</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                로그인하지 않아도 기본 문제를 체험하고, 로그인하면 학습 흐름을 이어갈 수 있습니다.
+                로그인하지 않아도 기본 문제를 풀 수 있고, 로그인하면 이어서 복습할 수 있습니다.
               </p>
             </div>
           ))}
@@ -117,9 +117,9 @@ export default function Root() {
           <div className="max-w-3xl text-sm leading-7 text-muted-foreground">
             <h2 className="text-xl font-semibold text-foreground">학습 방식</h2>
             <p className="mt-4">
-              일본어 학습자는 히라가나와 가타카나부터 시작해 단어, 문장, 동사 활용, 한자 쓰기로
-              확장할 수 있습니다. 영어와 스페인어, 한국어 학습 페이지도 같은 카드 기반 흐름을
-              사용하므로 처음 방문한 사용자도 쉽게 이동하고 반복 학습할 수 있습니다.
+              일본어는 히라가나와 가타카나에서 시작해 단어, 문장, 동사 활용, 한자 쓰기로
+              이어집니다. 영어와 스페인어, 한국어도 같은 카드 흐름을 따르기 때문에 처음 온
+              사용자도 메뉴를 헤매지 않고 바로 반복 학습을 시작할 수 있습니다.
             </p>
           </div>
         </div>

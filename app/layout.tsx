@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   
   description:
-    'SSUN EDU는 무료 일본어 사이트/무료 공부사이트로, 일본어 공부 사이트를 찾는 학습자를 위한 플래시카드 기반 학습 플랫폼입니다. 히라가나, 가타카나, 한자, 영어, 스페인어, 한국어 학습을 지원합니다.',
+    'SSUN EDU는 일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 반복하는 무료 언어 학습 사이트입니다. 히라가나, 가타카나, 한자 쓰기, JLPT 문장 퀴즈까지 한곳에서 연습할 수 있습니다.',
   
   keywords: [
     '무료 일본어 사이트',
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     url: SITE_URL,
     siteName: 'SSUN EDU',
-    title: 'SSUN EDU - 효과적인 언어 학습 플랫폼',
-    description: '영어, 일본어, 스페인어, 한국어를 플래시카드로 쉽고 재미있게 학습하세요.',
+    title: 'SSUN EDU - 무료 언어 학습 사이트',
+    description: '일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 짧게 반복해 보세요.',
     images: [
       {
         url: '/og-image.png',
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'SSUN EDU - 언어 학습 플랫폼',
-    description: '영어, 일본어, 스페인어, 한국어를 효과적으로 학습하세요.',
+    description: '카드와 문장 퀴즈로 일본어, 영어, 스페인어, 한국어를 반복 학습하세요.',
     images: ['/og-image.png'],
     creator: '@ssunedu',
   },
@@ -143,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     image: `${SITE_URL}/og-image.png`,
     inLanguage: 'ko-KR',
     description:
-      '무료 일본어 사이트 및 언어 학습 플랫폼. 히라가나, 가타카나, 한자, 영어, 스페인어, 한국어 플래시카드 학습을 제공합니다.',
+      '일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 공부하는 무료 언어 학습 사이트입니다.',
   };
 
   return (
