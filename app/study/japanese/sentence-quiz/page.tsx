@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, CircleHelp, RotateCcw, Settings, Shuffle, Volume2, XCircle } from "lucide-react";
 
 import { useAuth } from "@/app/AuthContext";
@@ -106,6 +106,7 @@ function SignalResultBadge({
 }
 
 export default function JapaneseSentenceQuizPage() {
+  const quizSectionRef = useRef<HTMLElement | null>(null);
   const deckType = "japanese-sentence-quiz";
   const { user } = useAuth();
   const { open } = useAuthModal();
@@ -267,6 +268,7 @@ export default function JapaneseSentenceQuizPage() {
 
     setSelectedChoice(null);
     setCurrentResult(null);
+    focusQuizSection();
   };
 
   const handlePrevious = () => {
@@ -276,6 +278,17 @@ export default function JapaneseSentenceQuizPage() {
     setQuestionIndex((prev) => Math.max(0, prev - 1));
     setSelectedChoice(null);
     setCurrentResult(null);
+    focusQuizSection();
+  };
+
+  const focusQuizSection = () => {
+    requestAnimationFrame(() => {
+      const section = quizSectionRef.current;
+      if (!section) return;
+
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      section.focus({ preventScroll: true });
+    });
   };
 
   const handleReset = () => {
@@ -371,7 +384,7 @@ export default function JapaneseSentenceQuizPage() {
             ) : null}
           </div>
 
-          <section className="ds-surface p-5 sm:p-6">
+          <section ref={quizSectionRef} tabIndex={-1} className="ds-surface p-5 outline-none sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <div className="mt-1 flex flex-nowrap items-center gap-2 whitespace-nowrap">

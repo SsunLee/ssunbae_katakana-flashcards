@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, CircleHelp, RotateCcw, Shuffle, Volume2, XCircle } from "lucide-react";
 
 import { useAuth } from "@/app/AuthContext";
@@ -97,6 +97,7 @@ export function SentenceQuizPage({
   selectVoice,
   isSafari = false,
 }: SentenceQuizPageProps) {
+  const quizSectionRef = useRef<HTMLElement | null>(null);
   const { user } = useAuth();
   const { open } = useAuthModal();
 
@@ -166,6 +167,16 @@ export function SentenceQuizPage({
     setCurrentResult(null);
   };
 
+  const focusQuizSection = () => {
+    requestAnimationFrame(() => {
+      const section = quizSectionRef.current;
+      if (!section) return;
+
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      section.focus({ preventScroll: true });
+    });
+  };
+
   const handleFilterChange = (level: SentenceQuizLevel) => {
     if (!user) return;
     setLevelFilters((prev) => ({ ...prev, [level]: !prev[level] }));
@@ -209,12 +220,14 @@ export function SentenceQuizPage({
     void triggerHaptic("light");
     setQuestionIndex((prev) => Math.max(0, prev - 1));
     resetAnswerState();
+    focusQuizSection();
   };
 
   const handleNext = () => {
     void triggerHaptic("light");
     setQuestionIndex((prev) => (isLastQuestion ? 0 : prev + 1));
     resetAnswerState();
+    focusQuizSection();
   };
 
   const handleReset = () => {
@@ -256,7 +269,7 @@ export function SentenceQuizPage({
           {!user ? <p className="mt-2 text-center text-xs text-muted-foreground">비로그인 체험은 3문제까지 제공되며, 난이도 필터는 로그인 후 사용할 수 있습니다.</p> : null}
         </div>
 
-        <section className="ds-surface p-5 sm:p-6">
+        <section ref={quizSectionRef} tabIndex={-1} className="ds-surface p-5 outline-none sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="text-sm font-medium text-muted-foreground">{eyebrow}</p>
