@@ -29,6 +29,7 @@ import {
   normalizeAdUnit,
   resolveAdUnit,
 } from "@/app/lib/kakao-adfit";
+import { useLocale } from "@/app/context/LocaleContext";
 
 
 export default function StudyLayout({ children }: { children: React.ReactNode }) {
@@ -41,6 +42,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [brandLogoSrc, setBrandLogoSrc] = useState("/ssunedu_logo.png");
   const { isOpen, close, page, setPage } = useAuthModal();
+  const { t } = useLocale();
   const pathname = usePathname();
   const debounce = useRef<number | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
@@ -156,7 +158,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setIsMenuOpen(true)}
             className="p-2 -ml-2"
-            aria-label="메뉴 열기"
+            aria-label={t("menu.open")}
           >
             <Menu />
           </button>
@@ -195,9 +197,9 @@ function StudyShell({ children }: { children: React.ReactNode }) {
         {/* ✅ Dialog 컨텐츠의 배경, 테두리, 텍스트 색상을 테마에 맞게 변경합니다. */}
         <DialogContent className="bg-card border-border text-foreground rounded-2xl shadow-xl p-0 w-full max-w-sm">
           <DialogHeader className="sr-only">
-            <DialogTitle>{page === "login" ? "로그인" : "회원가입"}</DialogTitle>
+            <DialogTitle>{page === "login" ? t("auth.login") : t("auth.register")}</DialogTitle>
             <DialogDescription className="sr-only">
-              {page === 'login' ? '이메일과 비밀번호로 로그인하세요.' : '새로운 계정을 만드세요.'}
+              {page === "login" ? t("auth.loginDescription") : t("auth.registerDescription")}
             </DialogDescription>
           </DialogHeader>
 

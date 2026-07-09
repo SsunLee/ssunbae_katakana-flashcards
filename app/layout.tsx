@@ -167,10 +167,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <ClientProviders>
           <main>{children}</main>
+          <Footer />
         </ClientProviders>
         <Analytics />
         <SpeedInsights />
-        <Footer />
 
       </body>
     </html>

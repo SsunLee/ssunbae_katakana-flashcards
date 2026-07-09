@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useLocale } from "@/app/context/LocaleContext";
 
 const COUNTER_NAMESPACE = "ssunbae-edu";
 const VISITOR_SEEN_KEY = "ssunbae-visitor-seen-v1";
@@ -24,6 +25,7 @@ function buildCounterKey() {
 }
 
 export default function Footer() {
+  const { t } = useLocale();
   const [year, setYear] = useState(new Date().getFullYear());
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
@@ -80,18 +82,18 @@ export default function Footer() {
         <div className="flex flex-col items-center sm:items-start">
           <p className="text-muted-foreground">© {year} SSUN EDU</p>
           {visitorCount !== null && (
-            <p className="text-xs text-muted-foreground/80">Visitors {visitorCount.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground/80">{t("common.visitors")} {visitorCount.toLocaleString()}</p>
           )}
         </div>
         <nav className="flex flex-wrap justify-center gap-4">
-          <Link href="/" className="hover:underline">Home</Link>
-          <Link href="/study/japanese" className="hover:underline">Japanese</Link>
-          <Link href="/study/english/words" className="hover:underline">English</Link>
-          <Link href="/study/spanish/words" className="hover:underline">Spanish</Link>
-          <Link href="/study/korean/words" className="hover:underline">Korean</Link>
-          <Link href="/support" className="hover:underline">Support</Link>
-          <Link href="/privacy" className="hover:underline">Privacy</Link>
-          <Link href="/terms" className="hover:underline">Terms</Link>
+          <Link href="/" className="hover:underline">{t("common.home")}</Link>
+          <Link href="/study/japanese" className="hover:underline">{t("menu.japanese")}</Link>
+          <Link href="/study/english/words" className="hover:underline">{t("menu.english")}</Link>
+          <Link href="/study/spanish/words" className="hover:underline">{t("menu.spanish")}</Link>
+          <Link href="/study/korean/words" className="hover:underline">{t("menu.korean")}</Link>
+          <Link href="/support" className="hover:underline">{t("common.support")}</Link>
+          <Link href="/privacy" className="hover:underline">{t("common.privacy")}</Link>
+          <Link href="/terms" className="hover:underline">{t("common.terms")}</Link>
         </nav>
       </div>
     </footer>

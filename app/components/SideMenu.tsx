@@ -7,7 +7,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { BarChart3, LogOut, Megaphone, Settings, ShieldAlert } from "lucide-react";
+import { BarChart3, Languages, LogOut, Megaphone, Settings, ShieldAlert } from "lucide-react";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { useTheme } from "@/app/context/ThemeContext";
@@ -26,6 +26,8 @@ import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "fir
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ProfileAvatarIcon from "./ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
+import { useLocale } from "@/app/context/LocaleContext";
+import { localeOptions, type TranslationKey } from "@/app/i18n/translations";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -33,52 +35,52 @@ interface SideMenuProps {
   hideAds?: boolean;
 }
 
-type MenuItem = { href: string; label: string; icon?: string; disabled?: boolean; };
-type MenuGroup = { language: string; value: string; icon?: string; disabled?: boolean; items: MenuItem[]; };
+type MenuItem = { href: string; labelKey: TranslationKey; icon?: string; disabled?: boolean; };
+type MenuGroup = { languageKey: TranslationKey; value: string; icon?: string; disabled?: boolean; items: MenuItem[]; };
 
 const menuConfig: MenuGroup[] = [
   {
-    language: "일본어 공부",
+    languageKey: "menu.japanese",
     value: "japanese",
     icon: "🇯🇵",
     items: [
-      { href: "/study/japanese/sentence-quiz", label: "문장 퀴즈", icon: "🧩" },
-      { href: "/study/japanese/katakana-words", label: "JLPT 단어", icon: "/icons/jp_word.png" },
-      { href: "/study/japanese/verbs", label: "JLPT 동사", icon: "📝", disabled: false },
-      { href: "/study/japanese/kanji", label: "JLPT 한자", icon: "🎴", disabled: false },
-      { href: "/study/japanese/kana-chars", label: "가타카나 / 히라가나", icon: "/icons/jp_katakana.png" },
-      { href: "/study/japanese/sentences", label: "일본어 문장", icon: "🌸" },
+      { href: "/study/japanese/sentence-quiz", labelKey: "menu.sentenceQuiz", icon: "🧩" },
+      { href: "/study/japanese/katakana-words", labelKey: "menu.jlptWords", icon: "/icons/jp_word.png" },
+      { href: "/study/japanese/verbs", labelKey: "menu.jlptVerbs", icon: "📝", disabled: false },
+      { href: "/study/japanese/kanji", labelKey: "menu.jlptKanji", icon: "🎴", disabled: false },
+      { href: "/study/japanese/kana-chars", labelKey: "menu.kana", icon: "/icons/jp_katakana.png" },
+      { href: "/study/japanese/sentences", labelKey: "menu.japaneseSentences", icon: "🌸" },
     ],
   },
   {
-    language: "영어 공부",
+    languageKey: "menu.english",
     value: "english",
     icon: "🇺🇸",
     disabled: false,
     items: [
-      { href: "/study/english/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
-      { href: "/study/english/words", label: "단어 공부", icon: "📖", disabled: false },
+      { href: "/study/english/sentences", labelKey: "menu.sentenceQuiz", icon: "🧩", disabled: false },
+      { href: "/study/english/words", labelKey: "menu.wordStudy", icon: "📖", disabled: false },
     ],
   },
   {
-    language: "스페인어 공부",
+    languageKey: "menu.spanish",
     value: "spanish",
     icon: "🇪🇸",
     disabled: false,
     items: [
-      { href: "/study/spanish/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
-      { href: "/study/spanish/words", label: "스페인어 단어 공부", icon: "/icons/es_word.png", disabled: false },
+      { href: "/study/spanish/sentences", labelKey: "menu.sentenceQuiz", icon: "🧩", disabled: false },
+      { href: "/study/spanish/words", labelKey: "menu.spanishWordStudy", icon: "/icons/es_word.png", disabled: false },
     ],
   },
   {
-    language: "한국어 공부",
+    languageKey: "menu.korean",
     value: "korean",
     icon: "🇰🇷",
     items: [
-      { href: "/study/korean/sentences", label: "문장 퀴즈", icon: "🧩", disabled: false },
-      { href: "/study/korean/words", label: "한국어 단어 공부", icon: "📚", disabled: false },
-      { href: "/study/korean/chars", label: "한글 자모 공부", icon: "📝", disabled: false },
-      { href: "/study/korean/syllables", label: "완성형 한글 공부", icon: "🔤", disabled: false },
+      { href: "/study/korean/sentences", labelKey: "menu.sentenceQuiz", icon: "🧩", disabled: false },
+      { href: "/study/korean/words", labelKey: "menu.koreanWordStudy", icon: "📚", disabled: false },
+      { href: "/study/korean/chars", labelKey: "menu.hangulChars", icon: "📝", disabled: false },
+      { href: "/study/korean/syllables", labelKey: "menu.hangulSyllables", icon: "🔤", disabled: false },
     ],
   },
 ];
@@ -107,6 +109,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
   const pathname = usePathname();
   const { open } = useAuthModal();
   const { theme, setTheme } = useTheme();
+  const { locale, setLocale, t } = useLocale();
 
   const [openDelete, setOpenDelete] = useState(false);
   const [needReauth, setNeedReauth] = useState(false);
@@ -217,12 +220,12 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                     onError={() => setMenuLogoSrc("/logo.svg")}
                   />
                 </span>
-                <span>학습 메뉴</span>
+                <span>{t("menu.title")}</span>
               </SheetTitle>
               <button 
                 onClick={onClose}
                 className="text-muted-foreground hover:text-foreground transition-colors p-1 -mr-1"
-                aria-label="메뉴 닫기"
+                aria-label={t("menu.close")}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -230,7 +233,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
               </button>
             </div>
             <SheetDescription className="sr-only">
-              언어별 학습 메뉴를 선택할 수 있습니다. 일본어, 영어, 스페인어 공부 메뉴가 있습니다.
+              {t("menu.description")}
             </SheetDescription>
           </SheetHeader>
         </div>
@@ -247,7 +250,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
               }`}
             >
               <BarChart3 className="mr-2 inline-block h-4 w-4 align-[-2px]" />
-              <span>분석 대시보드</span>
+              <span>{t("menu.dashboard")}</span>
             </button>
           </div>
 
@@ -257,7 +260,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 <AccordionItem value={lang.value} disabled={lang.disabled} className="border-b-0">
                     <AccordionTrigger className="text-xs font-semibold text-muted-foreground hover:no-underline hover:text-foreground disabled:opacity-50 px-2 py-2">
                       <MenuIcon icon={lang.icon} size={18} />
-                      <span>{lang.language}</span>
+                      <span>{t(lang.languageKey)}</span>
                     </AccordionTrigger>
                   <AccordionContent 
                     className="pl-3 pr-1 pb-2 data-[state=open]:border-t data-[state=open]:border-border/60"
@@ -283,7 +286,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                           }`}
                         >
                           <MenuIcon icon={item.icon} />
-                          <span className="truncate">{item.label}</span>
+                          <span className="truncate">{t(item.labelKey)}</span>
                         </Button>
                         );
                     })}
@@ -317,8 +320,8 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <p className="font-semibold text-foreground text-sm truncate">{user.nickname}님</p>
-                  <p className="text-[11px] text-muted-foreground">프로필 수정</p>
+                  <p className="font-semibold text-foreground text-sm truncate">{user.nickname}</p>
+                  <p className="text-[11px] text-muted-foreground">{t("menu.editProfile")}</p>
                 </div>
               </button>
 
@@ -329,24 +332,24 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 className="h-8 w-full justify-start px-2 text-xs"
               >
                 <Megaphone className="h-3.5 w-3.5" />
-                공지사항
+                {t("menu.notices")}
               </Button>
 
               <div className="grid w-full grid-cols-2 gap-2">
                 <Button onClick={handleOpenSettings} variant="outline" size="sm" className="h-8 px-2 text-xs">
                   <Settings className="h-3.5 w-3.5" />
-                  설정
+                  {t("common.settings")}
                 </Button>
                 <Button onClick={() => setOpenDelete(true)} variant="destructive" size="sm" className="h-8 px-2 text-xs">
                   <ShieldAlert className="h-3.5 w-3.5" />
-                  계정 삭제
+                  {t("menu.deleteAccount")}
                 </Button>
                 <Button onClick={handleLogout} variant="outline" size="sm" className="h-8 px-2 text-xs">
                   <LogOut className="h-3.5 w-3.5" />
-                  로그아웃
+                  {t("menu.logout")}
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => handleNavigate("/support")} className="h-8 px-2 text-xs">
-                Support
+                {t("common.support")}
                 </Button>
               </div>
             </div>
@@ -357,7 +360,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 onClick={() => openAuthFromSheet("login")}
                 className="w-full font-bold h-9"
               >
-                로그인 / 회원가입
+                {t("menu.loginRegister")}
               </Button>
               <Button
                 onClick={() => handleNavigate("/study/notices")}
@@ -366,15 +369,15 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                 className="h-8 w-full justify-start px-2 text-xs"
               >
                 <Megaphone className="h-3.5 w-3.5" />
-                공지사항
+                {t("menu.notices")}
               </Button>
               <div className="grid w-full grid-cols-2 gap-2">
                 <Button variant="outline" size="sm" onClick={handleOpenSettings} className="h-8 px-2 text-xs">
                   <Settings className="h-3.5 w-3.5" />
-                  설정
+                  {t("common.settings")}
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => handleNavigate("/support")} className="h-8 px-2 text-xs">
-                Support
+                {t("common.support")}
                 </Button>
               </div>
             </div>
@@ -386,29 +389,48 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2 text-base">
                 <Settings className="h-4 w-4" />
-                설정
+                {t("common.settings")}
               </DialogTitle>
               <DialogDescription>
-                서랍 메뉴에서 바로 바꿀 수 있는 공통 설정입니다.
+                {t("menu.settingsDescription")}
               </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">테마</p>
-                <Select value={theme} onValueChange={(value) => setTheme(value as "light" | "dark")}>
-                  <SelectTrigger className="w-full border-border bg-muted/60 text-foreground hover:bg-muted">
-                    <SelectValue placeholder="테마 선택" />
+                <p className="flex items-center gap-2 text-sm font-medium text-foreground">
+                  <Languages className="h-4 w-4 text-muted-foreground" />
+                  {t("common.language")}
+                </p>
+                <Select value={locale} onValueChange={(value) => setLocale(value as typeof locale)}>
+                  <SelectTrigger className="w-full border-border bg-muted/60 text-foreground hover:bg-muted" aria-label={t("common.selectLanguage")}>
+                    <SelectValue placeholder={t("common.selectLanguage")} />
                   </SelectTrigger>
                   <SelectContent className="border-border bg-card text-foreground">
-                    <SelectItem value="light" className="text-foreground">White mode</SelectItem>
-                    <SelectItem value="dark" className="text-foreground">Dark mode</SelectItem>
+                    {localeOptions.map((option) => (
+                      <SelectItem key={option.code} value={option.code} className="text-foreground">
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-foreground">{t("common.theme")}</p>
+                <Select value={theme} onValueChange={(value) => setTheme(value as "light" | "dark")}>
+                  <SelectTrigger className="w-full border-border bg-muted/60 text-foreground hover:bg-muted">
+                    <SelectValue placeholder={t("common.selectTheme")} />
+                  </SelectTrigger>
+                  <SelectContent className="border-border bg-card text-foreground">
+                    <SelectItem value="light" className="text-foreground">{t("common.lightMode")}</SelectItem>
+                    <SelectItem value="dark" className="text-foreground">{t("common.darkMode")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="rounded-xl border border-border bg-muted/40 px-3 py-3 text-xs leading-5 text-muted-foreground">
-                음성, 폰트, 글자 크기 같은 학습별 세부 설정은 각 학습 화면의 <span className="font-semibold text-foreground">설정</span> 버튼에서 조절할 수 있습니다.
+                {t("menu.studySettingsHint")}
               </div>
 
               {lastStudyPage ? (
@@ -420,7 +442,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
                     handleNavigate(lastStudyPage);
                   }}
                 >
-                  최근 학습 화면으로 이동
+                  {t("menu.recentStudy")}
                 </Button>
               ) : null}
             </div>
@@ -430,29 +452,29 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
         <AlertDialog open={openDelete} onOpenChange={setOpenDelete}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>정말로 계정을 삭제할까요?</AlertDialogTitle>
+              <AlertDialogTitle>{t("menu.deleteTitle")}</AlertDialogTitle>
               <AlertDialogDescription>
-                이 작업은 되돌릴 수 없습니다. 모든 학습 기록과 프로필이 영구 삭제됩니다.
+                {t("menu.deleteDescription")}
               </AlertDialogDescription>
             </AlertDialogHeader>
 
             {needReauth ? (
               <div className="space-y-3">
-                <p className="text-sm">보안을 위해 비밀번호를 다시 확인합니다.</p>
-                <input type="password" className="w-full rounded-md border p-2" placeholder="비밀번호"
+                <p className="text-sm">{t("menu.reauthDescription")}</p>
+                <input type="password" className="w-full rounded-md border p-2" placeholder={t("menu.password")}
                        value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             ) : null}
 
             <AlertDialogFooter>
-              <AlertDialogCancel>취소</AlertDialogCancel>
+              <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
               {!needReauth ? (
                 <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
-                  영구 삭제
+                  {t("menu.deleteForever")}
                 </AlertDialogAction>
               ) : (
                 <AlertDialogAction onClick={handleReauthAndDelete}>
-                  재인증 후 삭제
+                  {t("menu.reauthDelete")}
                 </AlertDialogAction>
               )}
             </AlertDialogFooter>

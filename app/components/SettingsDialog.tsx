@@ -8,6 +8,8 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from ".
 import { Slider } from "./ui/slider";
 import type { UserProfile } from "../AuthContext";
 import { useTheme } from "@/app/context/ThemeContext";
+import { useLocale } from "@/app/context/LocaleContext";
+import { localeOptions } from "@/app/i18n/translations";
 
 interface SettingsDialogProps {
   open: boolean;
@@ -59,6 +61,7 @@ export function SettingsDialog({
   resetDeck,
 }: SettingsDialogProps) {
   const { theme, setTheme } = useTheme();
+  const { locale, setLocale, t } = useLocale();
   const getVoiceId = (voice: SpeechSynthesisVoice) => `${voice.voiceURI || voice.name}__${voice.lang}`;
 
   const isEnglishMode = deckType.startsWith("english");
@@ -83,25 +86,39 @@ export function SettingsDialog({
         <div className="p-6">
           <DialogHeader className="mb-4 text-left">
             <DialogTitle className="text-lg font-semibold text-foreground flex items-center gap-2">
-              ⚙️ 설정
+              ⚙️ {t("common.settings")}
             </DialogTitle>
             <DialogDescription className="text-sm text-muted-foreground">
-              학습 환경을 사용자화하세요.
+              {t("settings.studyDescription")}
             </DialogDescription>
           </DialogHeader>
 
+          <div className="mb-4 pb-4 border-b ui-divider">
+            <h3 className="text-sm font-semibold text-muted-foreground mb-2">{t("common.language")}</h3>
+            <Select value={locale} onValueChange={(value) => setLocale(value as typeof locale)}>
+              <SelectTrigger className="w-full bg-muted/60 border-border text-foreground" aria-label={t("common.selectLanguage")}>
+                <SelectValue placeholder={t("common.selectLanguage")} />
+              </SelectTrigger>
+              <SelectContent className="z-[70]" position="popper">
+                {localeOptions.map((option) => (
+                  <SelectItem key={option.code} value={option.code}>{option.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Theme Settings */}
           <div className="mb-4 pb-4 border-b ui-divider">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-2">Theme Settings</h3>
+            <h3 className="text-sm font-semibold text-muted-foreground mb-2">{t("common.theme")}</h3>
             <div className="flex items-center gap-3">
-              <span className="w-24 text-sm text-muted-foreground">Theme</span>
+              <span className="w-24 text-sm text-muted-foreground">{t("common.theme")}</span>
               <Select value={theme} onValueChange={(v) => setTheme(v as "light" | "dark")}>
                 <SelectTrigger className="w-40 bg-muted/60 border-border text-foreground">
-                  <SelectValue placeholder="Select theme" />
+                  <SelectValue placeholder={t("common.selectTheme")} />
                 </SelectTrigger>
                 <SelectContent className="z-[70]" position="popper">
-                  <SelectItem value="light">White mode</SelectItem>
-                  <SelectItem value="dark">Dark mode</SelectItem>
+                  <SelectItem value="light">{t("common.lightMode")}</SelectItem>
+                  <SelectItem value="dark">{t("common.darkMode")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

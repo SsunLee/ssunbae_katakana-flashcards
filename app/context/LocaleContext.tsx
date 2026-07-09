@@ -1,30 +1,43 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from "react";
+import {
+  type Locale,
+  type TranslationKey,
+  supportedLocales,
+  translations,
+} from "@/app/i18n/translations";
 
-export type Locale = "ko" | "en" | "ja" | "es";
+export type { Locale } from "@/app/i18n/translations";
 
 const DEFAULT_LOCALE: Locale = "ko";
 
 const LocaleContext = createContext<{
   locale: Locale;
   setLocale: (l: Locale) => void;
+  t: (key: TranslationKey) => string;
 } | undefined>(undefined);
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
 
   useEffect(() => {
-    const saved = typeof window !== "undefined" ? localStorage.getItem("ssunbae-locale") : null;
-    if (saved && ["ko","en","ja","es"].includes(saved)) setLocale(saved as Locale);
+    const saved = localStorage.getItem("ssunbae-locale");
+    if (saved && supportedLocales.includes(saved as Locale)) setLocale(saved as Locale);
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const changeLocale = (l: Locale) => {
     setLocale(l);
-    if (typeof window !== "undefined") localStorage.setItem("ssunbae-locale", l);
+    localStorage.setItem("ssunbae-locale", l);
   };
 
+  const t = useCallback((key: TranslationKey) => translations[locale][key], [locale]);
+
   return (
-    <LocaleContext.Provider value={{ locale, setLocale: changeLocale }}>
+    <LocaleContext.Provider value={{ locale, setLocale: changeLocale, t }}>
       {children}
     </LocaleContext.Provider>
   );
