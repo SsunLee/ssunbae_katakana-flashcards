@@ -7,6 +7,8 @@
 
 **모바일 웹 수정 및 OTA 배포 운영 가이드:** [docs/mobile-live-updates.md](docs/mobile-live-updates.md)
 
+> 이 저장소에서 웹 페이지 개선과 함께 `배포까지`를 요청하면 Vercel Production 배포와 동일 커밋의 Appflow Production OTA 배포를 모두 완료하는 것을 기본 배포 범위로 합니다.
+
 ---
 
 ## 📸 프로젝트 스크린샷
