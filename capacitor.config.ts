@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const liveUpdatesAppId = process.env.CAPACITOR_LIVE_UPDATES_APP_ID?.trim() || '6f7685c7';
-const liveUpdatesChannel = process.env.CAPACITOR_LIVE_UPDATES_CHANNEL?.trim() || 'Staging';
+const liveUpdatesChannel = process.env.CAPACITOR_LIVE_UPDATES_CHANNEL?.trim() || 'Production';
 const liveUpdatesEnabled = Boolean(liveUpdatesAppId);
 const webDir = process.env.CAPACITOR_WEB_DIR?.trim() || '.next-mobile';
 

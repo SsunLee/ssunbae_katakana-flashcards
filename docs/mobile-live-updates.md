@@ -30,25 +30,18 @@ Create a normal native release when changing:
 ```bash
 CAPACITOR_WEB_DIR=.next-mobile
 CAPACITOR_LIVE_UPDATES_APP_ID=6f7685c7
-CAPACITOR_LIVE_UPDATES_CHANNEL=Staging
+CAPACITOR_LIVE_UPDATES_CHANNEL=Production
 ```
 
 The Appflow app id is `6f7685c7`. If you ever need to disable Live Updates for a local diagnostic run, temporarily set `CAPACITOR_LIVE_UPDATES_APP_ID` to an empty value and change the config fallback.
 
 The mobile scripts set `CAPACITOR_WEB_DIR=.next-mobile` because the isolated mobile build writes the exported web bundle there.
 
-For an App Store build, set:
+For App Store and TestFlight builds, set:
 
 ```bash
 export CAPACITOR_LIVE_UPDATES_APP_ID=your_appflow_app_id
 export CAPACITOR_LIVE_UPDATES_CHANNEL=Production
-```
-
-For a TestFlight or internal QA build, use:
-
-```bash
-export CAPACITOR_LIVE_UPDATES_APP_ID=your_appflow_app_id
-export CAPACITOR_LIVE_UPDATES_CHANNEL=Staging
 ```
 
 ## First Native Setup
@@ -76,9 +69,8 @@ For normal web-layer changes:
 2. Run `npm run ota:build` locally to verify the static mobile build.
 3. Push the commit.
 4. Create an Appflow Web build from that commit.
-5. Assign the build to `Staging`.
+5. Assign the build to `Production`.
 6. Test on a device or TestFlight build.
-7. Promote the same Web build to `Production`.
 
 The app uses `autoUpdateMethod: background`, so users keep using their current bundle while the new one downloads. The update is applied on the next app launch.
 
