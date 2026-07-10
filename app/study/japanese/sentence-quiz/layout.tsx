@@ -5,9 +5,9 @@ import { createQuizMetadata } from "@/app/lib/quiz-seo";
 
 const path = "/study/japanese/sentence-quiz";
 const image = "/images/quiz-previews/japanese-sentence-quiz-preview.png";
-const title = "JLPT 일본어 문장 빈칸 퀴즈";
-const description = "JLPT N5부터 N1까지 일본어 문장 빈칸 문제를 풀며 어휘, 조사, 동사 활용, 문장 패턴을 연습하는 무료 일본어 문장 퀴즈입니다.";
-const imageAlt = "SSUN EDU JLPT 일본어 문장 빈칸 퀴즈와 후리가나 선택지 화면";
+const title = "일본어 JLPT 문제 풀이 | 문장 빈칸 퀴즈";
+const description = "일본어 JLPT 문제 풀이를 N5부터 N1까지 난이도별 문장 빈칸 퀴즈로 연습하며 어휘, 조사, 동사 활용, 문장 패턴을 익혀 보세요.";
+const imageAlt = "SSUN EDU 일본어 JLPT 문제 풀이 문장 빈칸 퀴즈와 후리가나 선택지 화면";
 
 export const metadata: Metadata = createQuizMetadata({
   title,
@@ -17,6 +17,9 @@ export const metadata: Metadata = createQuizMetadata({
   imageAlt,
   imageHeight: 688,
   keywords: [
+    "일본어 JLPT 문제 풀이",
+    "JLPT 일본어 문제 풀이",
+    "일본어 JLPT 문제",
     "JLPT 문장 퀴즈",
     "일본어 문장 문제",
     "일본어 빈칸 퀴즈",
@@ -43,7 +46,7 @@ export default function JapaneseSentenceQuizLayout({
             일본어 문장 퀴즈 학습 안내
           </h2>
           <p>
-            JLPT 문장 빈칸 퀴즈는 일본어 문장을 읽고 빈칸에 맞는 표현을 고르며 문장 패턴을 연습하는 퀴즈입니다.
+            일본어 JLPT 문제 풀이는 문장을 읽고 빈칸에 맞는 표현을 고르며 문장 패턴을 연습하는 퀴즈입니다.
             JLPT N5부터 N1까지 난이도별 문장을 풀면서 조사, 동사 활용, 기본 어순,
             자주 쓰이는 표현을 함께 확인할 수 있습니다. 문제마다 원문, 후리가나,
             한국어 뜻, 선택지, 해설을 넣어 초급 학습자도 문장 구조를 짚어가며 복습할 수 있습니다.
@@ -65,7 +68,7 @@ export default function JapaneseSentenceQuizLayout({
         </article>
       </section>
       <QuizSeoPreview
-        heading="JLPT 일본어 문장 퀴즈 화면"
+        heading="일본어 JLPT 문제 풀이 화면"
         description="후리가나와 JLPT 레벨을 확인하며 문장의 빈칸에 들어갈 표현을 고르고, 정답과 해설로 문장 구조를 복습할 수 있습니다."
         path={path}
         image={image}

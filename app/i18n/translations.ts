@@ -91,7 +91,7 @@ const ko = {
   "home.eyebrow": "무료 언어 학습 사이트",
   "home.description": "일본어, 영어, 스페인어, 한국어를 짧은 카드와 문장 퀴즈로 반복합니다. 혼자 공부할 때도 보고, 듣고, 다시 풀어볼 수 있게 구성했습니다.",
   "home.startWords": "JLPT 단어 시작",
-  "home.sentenceQuiz": "JLPT 문장 퀴즈",
+  "home.sentenceQuiz": "일본어 JLPT 문제 풀이",
   "home.dashboard": "분석 대시보드",
   "home.japaneseTitle": "일본어 학습",
   "home.japaneseLabel": "Kana, JLPT, Kanji",

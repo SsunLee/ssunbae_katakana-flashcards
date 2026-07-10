@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HomeNavigation } from "@/app/components/HomeNavigation";
 import { useLocale } from "@/app/context/LocaleContext";
 import type { TranslationKey } from "@/app/i18n/translations";
 
@@ -22,8 +23,10 @@ export default function HomePageContent() {
   const { t } = useLocale();
 
   return (
-    <main className="overflow-hidden bg-background">
-      <section className="relative isolate min-h-[760px] overflow-hidden px-5 pb-24 pt-20 sm:min-h-[680px] sm:px-8 sm:py-14 lg:px-12">
+    <>
+      <HomeNavigation />
+      <main className="overflow-hidden bg-background">
+      <section className="relative isolate min-h-[760px] overflow-hidden px-5 pb-24 pt-12 sm:min-h-[680px] sm:px-8 sm:py-14 lg:px-12">
         <div
           className="absolute inset-0 -z-20 bg-cover bg-[position:58%_center] sm:bg-center"
           style={{ backgroundImage: "url('/home-hero-study-desk.webp')" }}
@@ -88,6 +91,7 @@ export default function HomePageContent() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
