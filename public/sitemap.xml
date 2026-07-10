@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ssunedu.com/</loc>
     <lastmod>2026-02-15</lastmod>
@@ -44,9 +45,12 @@
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/sentence-quiz</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ssunedu.com/images/quiz-previews/japanese-sentence-quiz-preview.png</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/kanji</loc>
@@ -67,6 +71,15 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ssunedu.com/study/english/sentences</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ssunedu.com/images/quiz-previews/english-sentence-quiz-preview.png</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://ssunedu.com/study/spanish/words</loc>
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -74,9 +87,12 @@
   </url>
   <url>
     <loc>https://ssunedu.com/study/spanish/sentences</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ssunedu.com/images/quiz-previews/spanish-sentence-quiz-preview.png</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://ssunedu.com/study/korean/words</loc>
@@ -95,6 +111,15 @@
     <lastmod>2026-02-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ssunedu.com/study/korean/sentences</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ssunedu.com/images/quiz-previews/korean-sentence-quiz-preview.png</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://ssunedu.com/support</loc>

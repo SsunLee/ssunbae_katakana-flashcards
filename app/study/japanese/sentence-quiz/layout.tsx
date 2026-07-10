@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "JLPT 일본어 문장 빈칸 퀴즈 | SSUN EDU",
-  description:
-    "JLPT N5부터 N1까지 일본어 문장 빈칸 문제를 풀며 어휘, 조사, 동사 활용, 문장 패턴을 연습하는 무료 일본어 문장 퀴즈입니다.",
+import { QuizSeoPreview } from "@/app/components/QuizSeoPreview";
+import { createQuizMetadata } from "@/app/lib/quiz-seo";
+
+const path = "/study/japanese/sentence-quiz";
+const image = "/images/quiz-previews/japanese-sentence-quiz-preview.png";
+const title = "JLPT 일본어 문장 빈칸 퀴즈";
+const description = "JLPT N5부터 N1까지 일본어 문장 빈칸 문제를 풀며 어휘, 조사, 동사 활용, 문장 패턴을 연습하는 무료 일본어 문장 퀴즈입니다.";
+const imageAlt = "SSUN EDU JLPT 일본어 문장 빈칸 퀴즈와 후리가나 선택지 화면";
+
+export const metadata: Metadata = createQuizMetadata({
+  title,
+  description,
+  path,
+  image,
+  imageAlt,
+  imageHeight: 688,
   keywords: [
     "JLPT 문장 퀴즈",
     "일본어 문장 문제",
@@ -15,17 +27,7 @@ export const metadata: Metadata = {
     "JLPT N3",
     "일본어 독학",
   ],
-  alternates: {
-    canonical: "/study/japanese/sentence-quiz",
-  },
-  openGraph: {
-    title: "JLPT 일본어 문장 빈칸 퀴즈 | SSUN EDU",
-    description:
-      "일본어 문장을 읽고 빈칸에 들어갈 표현을 고르며 JLPT 문장 이해력과 기초 문법을 반복 학습합니다.",
-    url: "/study/japanese/sentence-quiz",
-    type: "article",
-  },
-};
+});
 
 export default function JapaneseSentenceQuizLayout({
   children,
@@ -62,6 +64,15 @@ export default function JapaneseSentenceQuizLayout({
           </p>
         </article>
       </section>
+      <QuizSeoPreview
+        heading="JLPT 일본어 문장 퀴즈 화면"
+        description="후리가나와 JLPT 레벨을 확인하며 문장의 빈칸에 들어갈 표현을 고르고, 정답과 해설로 문장 구조를 복습할 수 있습니다."
+        path={path}
+        image={image}
+        imageAlt={imageAlt}
+        imageHeight={688}
+        language="ko-KR"
+      />
     </>
   );
 }
