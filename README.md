@@ -5,6 +5,8 @@
 
 **🔗 배포 사이트 바로가기:** [https://ssunedu.com/](https://ssunedu.com/)
 
+**모바일 웹 수정 및 OTA 배포 운영 가이드:** [docs/mobile-live-updates.md](docs/mobile-live-updates.md)
+
 ---
 
 ## 📸 프로젝트 스크린샷
