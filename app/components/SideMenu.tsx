@@ -7,7 +7,8 @@ import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/app/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/lib/firebase";
-import { BarChart3, Languages, LogOut, Megaphone, Settings, ShieldAlert } from "lucide-react";
+import { BarChart3, Languages, LogOut, Megaphone, RefreshCw, Settings, ShieldAlert } from "lucide-react";
+import { Capacitor } from "@capacitor/core";
 import Image from "next/image";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { useTheme } from "@/app/context/ThemeContext";
@@ -28,6 +29,7 @@ import ProfileAvatarIcon from "./ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
 import { useLocale } from "@/app/context/LocaleContext";
 import { localeOptions, type TranslationKey } from "@/app/i18n/translations";
+import { requestLiveUpdate } from "@/app/lib/liveUpdate";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -116,6 +118,7 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
   const [password, setPassword] = useState("");
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [lastStudyPage, setLastStudyPage] = useState<string | null>(null);
+  const [canCheckForUpdates, setCanCheckForUpdates] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -124,6 +127,22 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
       setLastStudyPage(savedPage);
     }
   }, [pathname, isOpen]);
+
+  useEffect(() => {
+    const isNative =
+      typeof Capacitor.isNativePlatform === "function"
+        ? Capacitor.isNativePlatform()
+        : Capacitor.getPlatform() !== "web";
+
+    if (!isNative) return;
+
+    import("@capacitor/live-updates")
+      .then(({ getConfig }) => getConfig())
+      .then((config) => {
+        setCanCheckForUpdates(config.enabled !== false && config.autoUpdateMethod === "none");
+      })
+      .catch(() => setCanCheckForUpdates(false));
+  }, []);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -432,6 +451,21 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
               <div className="rounded-xl border border-border bg-muted/40 px-3 py-3 text-xs leading-5 text-muted-foreground">
                 {t("menu.studySettingsHint")}
               </div>
+
+              {canCheckForUpdates ? (
+                <Button
+                  variant="outline"
+                  className="h-9 w-full"
+                  onClick={() => {
+                    setIsSettingsOpen(false);
+                    onClose();
+                    requestLiveUpdate();
+                  }}
+                >
+                  <RefreshCw className="h-4 w-4" />
+                  {t("menu.checkUpdates")}
+                </Button>
+              ) : null}
 
               {lastStudyPage ? (
                 <Button

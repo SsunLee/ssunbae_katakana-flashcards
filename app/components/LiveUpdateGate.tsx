@@ -6,6 +6,7 @@ import { Capacitor } from "@capacitor/core";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { RefreshCw, Sparkles } from "lucide-react";
 import { type Locale, useLocale } from "@/app/context/LocaleContext";
+import { LIVE_UPDATE_REQUEST_EVENT } from "@/app/lib/liveUpdate";
 
 type UpdatePhase =
   | "splash"
@@ -115,6 +116,18 @@ export default function LiveUpdateGate({ children }: { children: ReactNode }) {
   const [tipIndex, setTipIndex] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const messages = copy[locale];
+
+  useEffect(() => {
+    const handleManualUpdateRequest = () => {
+      if (phase !== "bypass" && phase !== "error") return;
+      setProgress(6);
+      setPhase("checking");
+      setAttempt((current) => current + 1);
+    };
+
+    window.addEventListener(LIVE_UPDATE_REQUEST_EVENT, handleManualUpdateRequest);
+    return () => window.removeEventListener(LIVE_UPDATE_REQUEST_EVENT, handleManualUpdateRequest);
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "bypass" || phase === "error" || phase === "splash") return;
