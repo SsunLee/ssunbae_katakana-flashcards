@@ -16,6 +16,7 @@
 /out
 /.next-build
 /.next-mobile
+/www
 /.codex-temp
 tsconfig.tsbuildinfo
 

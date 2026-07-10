@@ -28,14 +28,14 @@ Create a normal native release when changing:
 `capacitor.config.ts` reads these environment variables:
 
 ```bash
-CAPACITOR_WEB_DIR=.next-mobile
+CAPACITOR_WEB_DIR=www
 CAPACITOR_LIVE_UPDATES_APP_ID=6f7685c7
 CAPACITOR_LIVE_UPDATES_CHANNEL=Production
 ```
 
 The Appflow app id is `6f7685c7`. If you ever need to disable Live Updates for a local diagnostic run, temporarily set `CAPACITOR_LIVE_UPDATES_APP_ID` to an empty value and change the config fallback.
 
-The mobile scripts set `CAPACITOR_WEB_DIR=.next-mobile` because the isolated mobile build writes the exported web bundle there.
+The mobile scripts set `CAPACITOR_WEB_DIR=www` so Appflow can generate a Live Update manifest from a standard, non-hidden web asset directory.
 
 For App Store and TestFlight builds, set:
 
