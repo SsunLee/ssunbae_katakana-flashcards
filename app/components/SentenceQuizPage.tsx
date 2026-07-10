@@ -14,6 +14,7 @@ import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings
 import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import type { SentenceQuizItem, SentenceQuizLevel } from "@/app/data/sentence-quiz-types";
 import { triggerHaptic } from "@/app/lib/haptics";
+import { useLocale } from "@/app/context/LocaleContext";
 
 type QuizResult = "correct" | "wrong" | "skipped";
 
@@ -100,6 +101,7 @@ export function SentenceQuizPage({
   const quizSectionRef = useRef<HTMLElement | null>(null);
   const { user } = useAuth();
   const { open } = useAuthModal();
+  const { t } = useLocale();
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
@@ -191,7 +193,7 @@ export function SentenceQuizPage({
       <div className="min-h-screen w-full overflow-x-hidden px-4 py-6 sm:px-6" style={{ fontFamily: fontStack }}>
         <div className="mx-auto max-w-[660px]">
           <WelcomeBanner name={user?.nickname || undefined} subject={subject} subtitle={subtitle} />
-          <section className="ds-surface mt-4 p-6 text-center text-sm text-muted-foreground">선택한 난이도에 맞는 문제가 없습니다.</section>
+          <section className="ds-surface mt-4 p-6 text-center text-sm text-muted-foreground">{t("quiz.noQuestions")}</section>
         </div>
       </div>
     );
@@ -251,22 +253,22 @@ export function SentenceQuizPage({
         {!user ? (
           <LoginPromptCard
             onLoginClick={() => open("login")}
-            title="로그인하면 문장 퀴즈 학습 기록이 자동 저장됩니다."
-            features={["난이도별 문장 퀴즈", "최근 학습 흐름 대시보드 반영", "다른 학습 모드와 함께 기록 통합"]}
+            title={t("quiz.loginTitle")}
+            features={[t("quiz.featureDifficulty"), t("quiz.featureDashboard"), t("quiz.featureUnified")]}
           />
         ) : null}
 
         <div className="mb-4 w-full overflow-x-auto rounded-xl border border-border bg-card p-3 text-sm">
           <div className="mx-auto flex w-max items-center gap-3 whitespace-nowrap">
-            <span className="font-semibold text-foreground">난이도:</span>
+            <span className="font-semibold text-foreground">{t("quiz.difficulty")}</span>
             {LEVELS.map((level) => (
               <label key={level} className={`flex shrink-0 items-center space-x-1.5 ${user ? "cursor-pointer" : "cursor-not-allowed opacity-60"}`}>
                 <Checkbox checked={levelFilters[level]} onCheckedChange={() => handleFilterChange(level)} disabled={!user} />
-                <span>{level}</span>
+                <span>{level === "초급" ? t("quiz.levelBeginner") : level === "중급" ? t("quiz.levelIntermediate") : t("quiz.levelAdvanced")}</span>
               </label>
             ))}
           </div>
-          {!user ? <p className="mt-2 text-center text-xs text-muted-foreground">비로그인 체험은 3문제까지 제공되며, 난이도 필터는 로그인 후 사용할 수 있습니다.</p> : null}
+          {!user ? <p className="mt-2 text-center text-xs text-muted-foreground">{t("quiz.guestDifficulty")}</p> : null}
         </div>
 
         <section ref={quizSectionRef} tabIndex={-1} className="ds-surface p-5 outline-none sm:p-6">
@@ -276,25 +278,25 @@ export function SentenceQuizPage({
               <div className="mt-1 flex flex-wrap items-center gap-2">
                 <h1 className="text-2xl font-semibold text-foreground">{title} {questionIndex + 1}</h1>
                 <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                  {currentQuestion.level}
+                  {currentQuestion.level === "초급" ? t("quiz.levelBeginner") : currentQuestion.level === "중급" ? t("quiz.levelIntermediate") : t("quiz.levelAdvanced")}
                 </span>
               </div>
             </div>
             <div className="flex w-full flex-wrap items-center justify-start gap-2 sm:w-auto sm:justify-end">
               <div className="ds-chip">{progressText}</div>
-              <CompactResultBadge label="정답" value={counts.correct} tone="text-emerald-500" />
-              <CompactResultBadge label="오답" value={counts.wrong} tone="text-rose-500" />
-              <CompactResultBadge label="모름" value={counts.skipped} tone="text-amber-500" />
+              <CompactResultBadge label={t("quiz.correct")} value={counts.correct} tone="text-emerald-500" />
+              <CompactResultBadge label={t("quiz.wrong")} value={counts.wrong} tone="text-rose-500" />
+              <CompactResultBadge label={t("quiz.unknown")} value={counts.skipped} tone="text-amber-500" />
               <Button size="sm" variant="outline" onClick={handleReset}>
                 <RotateCcw className="h-4 w-4" />
-                처음부터
+                {t("common.startOver")}
               </Button>
               <Button size="sm" variant="outline" onClick={handleShuffle}>
                 <Shuffle className="h-4 w-4" />
-                섞기
+                {t("common.shuffle")}
               </Button>
               <Button size="sm" variant="outline" onClick={() => setShowSettings(true)} aria-haspopup="dialog" aria-expanded={showSettings}>
-                설정
+                {t("common.settings")}
               </Button>
               <SettingsDialog
                 open={showSettings}
@@ -326,16 +328,16 @@ export function SentenceQuizPage({
               }`}
             >
               {currentResult === "correct"
-                ? "정답입니다. 문장 구조를 그대로 익혀두면 비슷한 패턴에도 바로 적용할 수 있습니다."
+                ? t("quiz.correctFeedback")
                 : currentResult === "wrong"
-                  ? "오답입니다. 바로 아래 해설에서 문장 구조를 확인해보세요."
-                  : "모르는 문제로 넘겼습니다. 정답과 해설을 보고 다시 익혀두면 좋습니다."}
+                  ? t("quiz.wrongFeedback")
+                  : t("quiz.skippedFeedback")}
             </div>
           ) : null}
 
           <div className="ds-surface-soft mt-8 p-5 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-muted-foreground">빈칸에 들어갈 가장 알맞은 표현을 고르세요.</p>
+              <p className="text-sm text-muted-foreground">{t("quiz.prompt")}</p>
               <Button
                 size="sm"
                 variant="outline"
@@ -344,7 +346,7 @@ export function SentenceQuizPage({
                 className="w-full justify-center sm:w-auto"
               >
                 <Volume2 className="h-4 w-4" />
-                문장 듣기
+                {t("common.listenSentence")}
               </Button>
             </div>
 
@@ -392,7 +394,7 @@ export function SentenceQuizPage({
 
             {currentResult ? (
               <div className="mt-8 rounded-[24px] border border-border bg-card px-5 py-5">
-                <h2 className="text-lg font-semibold text-foreground">해설</h2>
+                <h2 className="text-lg font-semibold text-foreground">{t("quiz.explanation")}</h2>
                 <ol className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
                   {currentQuestion.explanation.map((item, index) => (
                     <li key={item}>
@@ -404,18 +406,18 @@ export function SentenceQuizPage({
             ) : null}
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-              <div className="text-sm text-muted-foreground">전체 {visibleDeck.length}문제 중 {solvedCount}문제를 확인했습니다.</div>
+              <div className="text-sm text-muted-foreground">{t("quiz.progress", { total: visibleDeck.length, solved: solvedCount })}</div>
               <div className="flex flex-wrap gap-2">
                 {!currentResult ? (
                   <Button variant="outline" onClick={handleSkip}>
                     <CircleHelp className="h-4 w-4" />
-                    모르는 문제
+                    {t("quiz.skip")}
                   </Button>
                 ) : null}
                 <Button variant="outline" onClick={handlePrevious} disabled={isFirstQuestion}>
-                  이전 문제
+                  {t("quiz.previous")}
                 </Button>
-                <Button onClick={handleNext}>{isLastQuestion ? "다시 시작" : "다음 문제"}</Button>
+                <Button onClick={handleNext}>{isLastQuestion ? t("common.restart") : t("quiz.next")}</Button>
               </div>
             </div>
           </div>

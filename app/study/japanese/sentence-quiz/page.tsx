@@ -12,7 +12,7 @@ import { Button } from "@/app/components/ui/button";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { Skeleton } from "@/app/components/ui/skeleton";
 import { useAuthModal } from "@/app/context/AuthModalContext";
-import { STUDY_LABELS } from "@/app/constants/studyLabels";
+import { useLocale } from "@/app/context/LocaleContext";
 import { LOCAL_JAPANESE_SENTENCE_QUIZ } from "@/app/data/japanese-sentence-quiz";
 import { useJaSpeech } from "@/app/hooks/useJaSpeech";
 import { useQuizTypographySettings } from "@/app/hooks/useQuizTypographySettings";
@@ -110,6 +110,7 @@ export default function JapaneseSentenceQuizPage() {
   const deckType = "japanese-sentence-quiz";
   const { user } = useAuth();
   const { open } = useAuthModal();
+  const { t } = useLocale();
   const { isSupported: isTtsSupported, ready: ttsReady, speakJa, selectedVoice, voices, selectVoice, isSafari } = useJaSpeech();
   const { deck, isLoading, error } = useStudyDeck<JapaneseSentenceQuiz>({
     user,
@@ -340,22 +341,22 @@ export default function JapaneseSentenceQuizPage() {
       <div className="mx-auto max-w-[660px]">
           <WelcomeBanner
             name={user?.nickname || undefined}
-            subject={STUDY_LABELS[deckType]}
-            subtitle="JLPT를 골라 일본어 문장 빈칸 퀴즈를 풀 수 있습니다."
+            subject={t("quiz.japaneseSubject")}
+            subtitle={t("quiz.japaneseSubtitle")}
             className="max-w-[430px]"
           />
 
           {!user ? (
             <LoginPromptCard
               onLoginClick={() => open("login")}
-              title="로그인하면 일본어 문장 퀴즈 학습 기록이 자동 저장됩니다."
-              features={["JLPT 문장 퀴즈 기록 저장", "분석 대시보드에 퀴즈 학습 반영", "원격 문제와 로컬 문제를 함께 활용"]}
+              title={t("quiz.japaneseLoginTitle")}
+              features={[t("quiz.japaneseFeatureSave"), t("quiz.japaneseFeatureDashboard"), t("quiz.japaneseFeatureSources")]}
             />
           ) : null}
 
           {error && deck.length > 0 ? (
             <div className="mb-4 rounded-2xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-              원격 문제를 불러오지 못해 로컬 기본 5문제로 학습 중입니다.
+              {t("quiz.remoteFallback")}
             </div>
           ) : null}
 
@@ -379,7 +380,7 @@ export default function JapaneseSentenceQuizPage() {
             </div>
             {!user ? (
               <p className="mt-2 text-center text-xs text-muted-foreground">
-                비로그인 체험은 3문제까지 제공되며, JLPT 필터는 로그인 후 사용할 수 있습니다.
+                {t("quiz.guestJlpt")}
               </p>
             ) : null}
           </div>
@@ -399,17 +400,17 @@ export default function JapaneseSentenceQuizPage() {
               <div className="flex flex-wrap items-center justify-end gap-1.5">
                 <div className="ds-chip">{progressText}</div>
                 <SignalResultBadge correct={counts.correct} wrong={counts.wrong} skipped={counts.skipped} />
-                <Button size="icon" variant="outline" onClick={handleReset} aria-label="처음부터" className="h-8 w-8">
+                <Button size="icon" variant="outline" onClick={handleReset} aria-label={t("common.startOver")} className="h-8 w-8">
                   <RotateCcw className="h-3.5 w-3.5" />
                 </Button>
-                <Button size="icon" variant="outline" onClick={handleShuffle} aria-label="섞기" className="h-8 w-8">
+                <Button size="icon" variant="outline" onClick={handleShuffle} aria-label={t("common.shuffle")} className="h-8 w-8">
                   <Shuffle className="h-3.5 w-3.5" />
                 </Button>
                 <Button
                   size="icon"
                   variant="outline"
                   onClick={() => setShowSettings(true)}
-                  aria-label="설정"
+                  aria-label={t("common.settings")}
                   aria-haspopup="dialog"
                   aria-expanded={showSettings}
                   className="h-8 w-8"
@@ -437,7 +438,7 @@ export default function JapaneseSentenceQuizPage() {
 
             {visibleDeck.length === 0 ? (
               <div className="mt-8 rounded-[24px] border border-dashed border-border bg-background/70 px-5 py-8 text-center text-sm text-muted-foreground">
-                선택한 JLPT 레벨에 맞는 문제가 없습니다. 필터를 다시 선택해주세요.
+                {t("quiz.noJlptQuestions")}
               </div>
             ) : (
               <>
@@ -454,22 +455,22 @@ export default function JapaneseSentenceQuizPage() {
                     }`}
                   >
                     {currentResult === "correct"
-                      ? "정답입니다. 소리 내어 읽어보면 패턴이 잘 남습니다."
+                      ? t("quiz.japaneseCorrectFeedback")
                       : currentResult === "wrong"
-                        ? "오답입니다. 바로 아래 해설에서 문장 패턴을 확인해보세요."
-                        : "모르는 문제로 넘겼습니다. 정답과 해설을 확인하고 다시 풀어보세요."}
+                        ? t("quiz.japaneseWrongFeedback")
+                        : t("quiz.japaneseSkippedFeedback")}
                   </div>
                 ) : null}
 
                 <div className="ds-surface-soft mt-8 p-5 sm:p-6">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-sm text-muted-foreground">빈칸의 답을 고르시오.</p>
+                    <p className="text-sm text-muted-foreground">{t("quiz.japanesePrompt")}</p>
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => handleRubyToggle(!showRuby)}
-                        aria-label="히라가나 표시 토글"
-                        title="히라가나 표시"
+                        aria-label={t("quiz.rubyToggle")}
+                        title={t("quiz.rubyTitle")}
                         className={`inline-flex h-9 items-center justify-center rounded-full border px-2.5 transition-colors ${
                           showRuby
                             ? "border-primary/30 bg-primary/10 text-primary"
@@ -484,8 +485,8 @@ export default function JapaneseSentenceQuizPage() {
                         variant="outline"
                         onClick={() => speakJa(currentQuestion.prompt.replace("_____", currentQuestion.answer))}
                         disabled={!isTtsSupported || !ttsReady}
-                        aria-label="문장 듣기"
-                        title="문장 듣기"
+                        aria-label={t("common.listenSentence")}
+                        title={t("common.listenSentence")}
                         className="h-10 w-10 rounded-full p-0"
                       >
                         <Volume2 className="h-4 w-4" />
@@ -540,7 +541,7 @@ export default function JapaneseSentenceQuizPage() {
 
                   {currentResult ? (
                     <div className="mt-8 rounded-[24px] border border-border bg-card px-5 py-5">
-                      <h2 className="text-lg font-semibold text-foreground">해설</h2>
+                      <h2 className="text-lg font-semibold text-foreground">{t("quiz.explanation")}</h2>
                       <ol className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
                         {currentQuestion.explanation.map((item, index) => (
                           <li key={item}>
@@ -552,18 +553,18 @@ export default function JapaneseSentenceQuizPage() {
                   ) : null}
 
                   <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
-                    <div className="text-sm text-muted-foreground">현재 세션에서 {solvedCount}문제를 확인했습니다.</div>
+                    <div className="text-sm text-muted-foreground">{t("quiz.sessionProgress", { solved: solvedCount })}</div>
                     <div className="flex flex-wrap gap-2">
                       {!currentResult ? (
                         <Button variant="outline" onClick={handleSkip}>
                           <CircleHelp className="h-4 w-4" />
-                          모르는 문제
+                          {t("quiz.skip")}
                         </Button>
                       ) : null}
                       <Button variant="outline" onClick={handlePrevious} disabled={isFirstQuestion}>
-                        이전 문제
+                        {t("quiz.previous")}
                       </Button>
-                      <Button onClick={handleNext}>{isLastQuestion ? "다시 시작" : "다음 문제"}</Button>
+                      <Button onClick={handleNext}>{isLastQuestion ? t("common.restart") : t("quiz.next")}</Button>
                     </div>
                   </div>
                 </div>

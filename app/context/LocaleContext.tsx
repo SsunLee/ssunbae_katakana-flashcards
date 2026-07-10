@@ -14,7 +14,7 @@ const DEFAULT_LOCALE: Locale = "ko";
 const LocaleContext = createContext<{
   locale: Locale;
   setLocale: (l: Locale) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: TranslationKey, values?: Record<string, string | number>) => string;
 } | undefined>(undefined);
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
@@ -34,7 +34,15 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("ssunbae-locale", l);
   };
 
-  const t = useCallback((key: TranslationKey) => translations[locale][key], [locale]);
+  const t = useCallback((key: TranslationKey, values?: Record<string, string | number>) => {
+    const message = translations[locale][key];
+    if (!values) return message;
+
+    return Object.entries(values).reduce(
+      (result, [name, value]) => result.replaceAll(`{${name}}`, String(value)),
+      message
+    );
+  }, [locale]);
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale: changeLocale, t }}>

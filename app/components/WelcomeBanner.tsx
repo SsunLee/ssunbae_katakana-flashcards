@@ -6,6 +6,7 @@ import { generateRandomNickname } from "@/app/utils/nickname";
 import { useAuth } from "@/app/AuthContext";
 import ProfileAvatarIcon from "@/app/components/ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
+import { useLocale } from "@/app/context/LocaleContext";
 
 type WelcomeBannerProps = {
   /** 로그인 사용자 닉네임. 없으면 게스트 닉네임을 자동 생성/복원 */
@@ -31,6 +32,7 @@ export function WelcomeBanner({
   storageKey = "ssunbae-guest-name",
 }: WelcomeBannerProps) {
   const { user } = useAuth();
+  const { t } = useLocale();
   const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
@@ -57,13 +59,13 @@ export function WelcomeBanner({
   }, [name, persistGuest, storageKey]);
 
 
-  const displayName = (name && name.trim()) || guestName || "게스트";
+  const displayName = (name && name.trim()) || guestName || t("welcome.guest");
   const showUserAvatar = Boolean(user && user.nickname && displayName === user.nickname);
   const finalSubtitle =
     subtitle ??
     (subject
-      ? `아래 카드를 클릭하여 ${subject} 학습을 시작하세요.`
-      : "아래 카드를 클릭하여 학습을 시작하세요.");
+      ? t("welcome.startSubject", { subject })
+      : t("welcome.startGeneric"));
 
   return (
     <header className={`w-full max-w-md mx-auto mb-6 ${className}`}>
@@ -82,8 +84,7 @@ export function WelcomeBanner({
                 />
               </span>
             )}
-            <strong className="font-semibold text-foreground">{displayName}</strong>
-            <span>님, 환영합니다!</span>
+            <strong className="font-semibold text-foreground">{t("welcome.greeting", { name: displayName })}</strong>
           </span>
           <br />
           {finalSubtitle}

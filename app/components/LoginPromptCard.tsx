@@ -3,6 +3,7 @@
 
 import React from "react";
 import { Button } from "@/app/components/ui/button";
+import { useLocale } from "@/app/context/LocaleContext";
 
 type LoginPromptCardProps = {
   onLoginClick: () => void;
@@ -12,26 +13,27 @@ type LoginPromptCardProps = {
   ctaLabel?: string;
 };
 
-const DEFAULT_FEATURES = [
-  "나만의 단어장 클라우드 저장",
-  "즐겨찾기 목록 동기화",
-  "JLPT 레벨 필터 기능",
-  "여러 장 모아보기",
-];
-
 export function LoginPromptCard({
   onLoginClick,
   className = "",
-  title = "로그인하고 더 많은 기능을 이용해보세요! (무료)",
-  features = DEFAULT_FEATURES,
-  ctaLabel = "로그인 / 회원가입",
+  title,
+  features,
+  ctaLabel,
 }: LoginPromptCardProps) {
+  const { t } = useLocale();
+  const resolvedFeatures = features ?? [
+    t("nudge.featureCloud"),
+    t("nudge.featureSync"),
+    t("nudge.featureJlpt"),
+    t("nudge.featureGrid"),
+  ];
+
   return (
     <section className={`w-full max-w-md mx-auto p-4 mb-6 bg-card/50 border border-border rounded-lg text-sm ${className}`}>
-      <p className="font-semibold text-foreground">{title}</p>
+      <p className="font-semibold text-foreground">{title ?? t("nudge.defaultTitle")}</p>
       <ul className="list-disc list-inside text-muted-foreground mt-2 space-y-1">
-        {features.map((f, i) => (
-          <li key={i}>{f}</li>
+        {resolvedFeatures.map((feature) => (
+          <li key={feature}>{feature}</li>
         ))}
       </ul>
       <Button
@@ -39,7 +41,7 @@ export function LoginPromptCard({
         onClick={onLoginClick}
         className="w-full mt-4" // variant="default" 가 기본 primary 색상을 적용합니다.
       >
-        <span className="font-bold">{ctaLabel}</span>
+        <span className="font-bold">{ctaLabel ?? t("nudge.cta")}</span>
       </Button>
     </section>
   );
