@@ -70,7 +70,7 @@
     "start:isolated": "cross-env NEXT_DIST_DIR=.next-build next start",
     "lint": "next lint",
     "appflow:build": "cross-env NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyCebe89lEo3qb6kSMPYMEI5005LNihn7nI NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=ssunbae-kana.firebaseapp.com NEXT_PUBLIC_FIREBASE_PROJECT_ID=ssunbae-kana NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=ssunbae-kana.firebasestorage.app NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=145214567765 NEXT_PUBLIC_FIREBASE_APP_ID=1:145214567765:ios:51cadcf6c6a30138382bdc npm run mobile:build",
-    "mobile:build": "npm run clean:mobile && cross-env BUILD_FOR_MOBILE=true NEXT_DIST_DIR=www next build",
+    "mobile:build": "npm run clean:mobile && cross-env BUILD_FOR_MOBILE=true NEXT_PUBLIC_API_BASE_URL=https://ssunbae-api.vercel.app NEXT_DIST_DIR=www next build",
     "mobile:sync:ios": "npm run mobile:build && cross-env CAPACITOR_WEB_DIR=www npx cap sync ios",
     "mobile:sync:android": "npm run mobile:build && cross-env CAPACITOR_WEB_DIR=www npx cap sync android",
     "mobile:ios": "npm run mobile:build && cross-env CAPACITOR_WEB_DIR=www npx cap copy ios && cross-env CAPACITOR_WEB_DIR=www npx cap sync ios && npx cap open ios",
