@@ -9,6 +9,7 @@ const config: CapacitorConfig = {
   appId: 'com.ssunbae.edu',
   appName: '쑨에듀',
   webDir,
+  backgroundColor: '#1769e8',
   loggingBehavior: process.env.NODE_ENV === 'production' ? 'production' : 'debug',
   plugins: {
     LiveUpdates: {

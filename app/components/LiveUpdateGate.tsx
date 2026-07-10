@@ -8,6 +8,7 @@ import { RefreshCw, Sparkles } from "lucide-react";
 import { type Locale, useLocale } from "@/app/context/LocaleContext";
 
 type UpdatePhase =
+  | "splash"
   | "checking"
   | "downloading"
   | "installing"
@@ -19,7 +20,7 @@ const copy: Record<
   Locale,
   {
     title: string;
-    stages: Record<Exclude<UpdatePhase, "bypass">, string>;
+    stages: Record<Exclude<UpdatePhase, "bypass" | "splash">, string>;
     tips: string[];
     tipLabel: string;
     retry: string;
@@ -109,14 +110,14 @@ const wait = (milliseconds: number) =>
 
 export default function LiveUpdateGate({ children }: { children: ReactNode }) {
   const { locale } = useLocale();
-  const [phase, setPhase] = useState<UpdatePhase>("checking");
+  const [phase, setPhase] = useState<UpdatePhase>("splash");
   const [progress, setProgress] = useState(6);
   const [tipIndex, setTipIndex] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const messages = copy[locale];
 
   useEffect(() => {
-    if (phase === "bypass" || phase === "error") return;
+    if (phase === "bypass" || phase === "error" || phase === "splash") return;
 
     const interval = window.setInterval(() => {
       setTipIndex((current) => (current + 1) % messages.tips.length);
@@ -150,7 +151,13 @@ export default function LiveUpdateGate({ children }: { children: ReactNode }) {
         }
 
         StatusBar.setOverlaysWebView({ overlay: true }).catch(() => {});
-        StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+        StatusBar.setStyle({ style: Style.Dark }).catch(() => {});
+
+        if (attempt === 0) {
+          setPhase("splash");
+          await wait(2000);
+          if (cancelled) return;
+        }
 
         setPhase("checking");
         setProgress(6);
@@ -200,6 +207,21 @@ export default function LiveUpdateGate({ children }: { children: ReactNode }) {
   );
 
   if (phase === "bypass") return <>{children}</>;
+
+  if (phase === "splash") {
+    return (
+      <div className="fixed inset-0 z-[9999] flex min-h-[100dvh] items-center justify-center bg-[#1769e8]">
+        <Image
+          src="/ssunedu_logo.png"
+          alt="쑨에듀"
+          width={285}
+          height={424}
+          priority
+          className="h-auto w-[148px] sm:w-[166px]"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[9999] min-h-[100dvh] overflow-hidden bg-[#1769e8] text-white">
