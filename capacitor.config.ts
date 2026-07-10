@@ -14,7 +14,7 @@ const config: CapacitorConfig = {
     LiveUpdates: {
       appId: liveUpdatesAppId || 'local-live-updates-disabled',
       channel: liveUpdatesChannel,
-      autoUpdateMethod: liveUpdatesEnabled ? 'background' : 'none',
+      autoUpdateMethod: 'none',
       enabled: liveUpdatesEnabled,
       maxVersions: 2,
     },
