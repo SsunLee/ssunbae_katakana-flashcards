@@ -8,10 +8,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Replace with the production Android AdMob app ID before public release. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-2330147867465531~7639169294" />
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
             android:name=".MainActivity"
