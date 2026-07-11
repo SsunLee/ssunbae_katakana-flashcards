@@ -20,6 +20,11 @@
 /.codex-temp
 tsconfig.tsbuildinfo
 
+# Android signing secrets
+*.jks
+*.keystore
+keystore.properties
+
 # misc
 .DS_Store
 .env.local

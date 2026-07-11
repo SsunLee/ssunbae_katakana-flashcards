@@ -9,11 +9,13 @@ import {
   BannerAdPosition,
   BannerAdSize,
 } from '@capacitor-community/admob';
+import { Capacitor } from '@capacitor/core';
 
 
 
-// Google의 공식 iOS 배너 테스트 ID입니다.
+// Google의 공식 테스트 광고 ID입니다.
 const TEST_IOS_BANNER = 'ca-app-pub-2330147867465531/5805463890';
+const TEST_ANDROID_BANNER = 'ca-app-pub-3940256099942544/6300978111';
 
 // ---- internal state ----
 let listenersInstalled = false;
@@ -70,17 +72,22 @@ export async function ensureShown(
   installListenersOnce();
 
   // --- 👇 [수정] 함수가 호출되는 시점에 환경 변수를 읽도록 위치를 변경합니다. ---
-  const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_BANNER_ID ?? ''; 
+  const platform = Capacitor.getPlatform();
+  const PROD_IOS_BANNER = process.env.NEXT_PUBLIC_ADMOB_BANNER_ID ?? '';
+  const PROD_ANDROID_BANNER = process.env.NEXT_PUBLIC_ADMOB_ANDROID_BANNER_ID ?? '';
   const isProd = process.env.NEXT_PUBLIC_APP_ENV === 'production';
-  const adIdToUse = isProd ? PROD_IOS_BANNER : TEST_IOS_BANNER;
+  const productionAdId = platform === 'android' ? PROD_ANDROID_BANNER : PROD_IOS_BANNER;
+  const testAdId = platform === 'android' ? TEST_ANDROID_BANNER : TEST_IOS_BANNER;
+  const adIdToUse = isProd ? productionAdId : testAdId;
   // --- 👆 [수정] ---
   
   // 로그는 그대로 유지하여 확인합니다.
   console.log("--- [AdMob Banner] 광고 표시 로직 시작 ---");
   console.log(`[AdMob Banner] 1. 환경 변수 (NEXT_PUBLIC_APP_ENV): "${process.env.NEXT_PUBLIC_APP_ENV}"`);
   console.log(`[AdMob Banner] 2. 운영 환경인가? (isProd): ${isProd}`);
-  console.log(`[AdMob Banner] 3. 운영용 광고 ID (PROD_IOS_BANNER): "${PROD_IOS_BANNER}"`);
-  console.log(`[AdMob Banner] 4. 최종 사용될 광고 ID: "${adIdToUse}"`);
+  console.log(`[AdMob Banner] 3. 플랫폼: "${platform}"`);
+  console.log(`[AdMob Banner] 4. 운영용 광고 ID: "${productionAdId}"`);
+  console.log(`[AdMob Banner] 5. 최종 사용될 광고 ID: "${adIdToUse}"`);
   
   const desired: BannerAdOptions = {
     adId: opts?.adId ?? adIdToUse,
@@ -89,7 +96,7 @@ export async function ensureShown(
     margin: opts?.margin ?? 0,
   };
   
-  console.log(`[AdMob Banner] 5. AdMob에 전달될 옵션:`, desired);
+  console.log(`[AdMob Banner] 6. AdMob에 전달될 옵션:`, desired);
 
   if (!forceReload && isVisible && lastOptions &&
       JSON.stringify({ ...lastOptions, adId: 'x' }) === JSON.stringify({ ...desired, adId: 'x' })) {
@@ -143,4 +150,3 @@ export async function refreshIfNeeded() {
     await ensureShown({ ...lastOptions, adSize: size }, /*forceReload=*/true);
   }
 }
-
