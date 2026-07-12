@@ -112,7 +112,7 @@ export const LOCAL_JAPANESE_SENTENCE_QUIZ: JapaneseSentenceQuiz[] = [
     jlpt: "N2",
     prompt: "電車が遅れたため、会議に_____ませんでした。",
     answer: "間に合い",
-    translation: "전철이 늦어져서 회의에 늦지 못했습니다.",
+    translation: "전철이 지연되어 회의에 제시간에 도착하지 못했습니다.",
     promptReading: [{ text: "電車", furigana: "でんしゃ" }, "が", { text: "遅", furigana: "おく" }, "れたため、", { text: "会議", furigana: "かいぎ" }, "に", "_____", "ませんでした。"],
     choices: [
       { text: "間に合い", furigana: "まにあい" },
@@ -122,7 +122,7 @@ export const LOCAL_JAPANESE_SENTENCE_QUIZ: JapaneseSentenceQuiz[] = [
     ],
     explanation: [
       "회의 시간에 제때 도착하지 못했다는 뜻이므로 間に合いませんでした가 맞습니다.",
-      "전철 지연이 이유로 이어지기 때문에 문맥상 가장 적절합니다.",
+      "間に合う는 정해진 시간에 맞추거나 늦지 않게 도착한다는 뜻입니다.",
     ],
   },
   {

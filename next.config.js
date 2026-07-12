@@ -14,6 +14,7 @@ if (distDir) {
 
 if (isStaticExportBuild) {
   nextConfig.output = "export";
+  nextConfig.trailingSlash = true;
 }
 
 export default nextConfig;

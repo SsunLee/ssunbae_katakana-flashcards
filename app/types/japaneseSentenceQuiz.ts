@@ -10,6 +10,11 @@ export type JapaneseSentenceQuizChoice = {
   furigana?: string;
 };
 
+export type JapaneseSentenceQuizKanjiHint = {
+  character: string;
+  huneum: string;
+};
+
 export type JapaneseSentenceQuiz = {
   id: number;
   jlpt: "N5" | "N4" | "N3" | "N2" | "N1";
@@ -19,4 +24,5 @@ export type JapaneseSentenceQuiz = {
   promptReading?: JapaneseSentenceQuizReadingPart[];
   choices: JapaneseSentenceQuizChoice[];
   explanation: string[];
+  kanjiHints?: JapaneseSentenceQuizKanjiHint[];
 };

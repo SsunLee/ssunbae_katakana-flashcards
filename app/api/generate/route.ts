@@ -2,17 +2,22 @@
 
 import { NextResponse } from 'next/server';
 import OpenAI, { APIError } from 'openai';
+import {
+  GenerateRequestError,
+  buildGenerateResponseHeaders,
+  consumeGenerateRateLimit,
+  isAllowedGenerateOrigin,
+  validateGeneratePayload,
+} from '@/app/lib/generateSecurity';
 
-// CORS 헤더
-const CORS_HEADERS = {
-  // 보안상 운영 배포 시에는 정확히 지정: 'capacitor://localhost'
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'content-type, authorization',
-  'Access-Control-Max-Age': '86400',
-};
-export async function OPTIONS() {
-  return new Response(null, { status: 204, headers: CORS_HEADERS });
+export async function OPTIONS(request: Request) {
+  if (!isAllowedGenerateOrigin(request)) {
+    return NextResponse.json(
+      { error: '허용되지 않은 요청 출처입니다.' },
+      { status: 403, headers: buildGenerateResponseHeaders(request) }
+    );
+  }
+  return new Response(null, { status: 204, headers: buildGenerateResponseHeaders(request) });
 }
 
 function isOpenAIError(error: any): error is APIError {
@@ -20,24 +25,33 @@ function isOpenAIError(error: any): error is APIError {
 }
 
 export async function POST(request: Request) {
-  console.log("\n--- [AI Generation] API 요청 시작 ---");
-  
+  let rateLimit: ReturnType<typeof consumeGenerateRateLimit> | undefined;
   try {
+    if (!isAllowedGenerateOrigin(request)) {
+      return NextResponse.json(
+        { error: '허용되지 않은 요청 출처입니다.' },
+        { status: 403, headers: buildGenerateResponseHeaders(request) }
+      );
+    }
+
+    rateLimit = consumeGenerateRateLimit(request);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: '요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.' },
+        { status: 429, headers: buildGenerateResponseHeaders(request, rateLimit) }
+      );
+    }
+
+    const { deckType, topic, count } = validateGeneratePayload(await request.text());
+
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey?.startsWith('sk-')) {
       return NextResponse.json(
-        { error: 'Server API key missing', details: 'OPENAI_API_KEY not set' },
-        { status: 500, headers: CORS_HEADERS }
+        { error: '콘텐츠 생성 기능을 사용할 수 없습니다.' },
+        { status: 503, headers: buildGenerateResponseHeaders(request, rateLimit) }
       );
     }
     const openai = new OpenAI({ apiKey });
-
-    const { deckType, topic, count } = await request.json();
-    console.log(`[AI Generation] 요청 파라미터: deckType=${deckType}, topic=${topic}, count=${count}`);
-
-    if (!deckType || !topic || !count) {
-      return NextResponse.json({ error: 'deckType, topic, count는 필수 항목입니다.' }, { status: 400 });
-    }
 
     let prompt = `
       You are a helpful assistant for language learners.
@@ -129,7 +143,10 @@ Output constraints:
         `;
         break;
       default:
-        return NextResponse.json({ error: '지원되지 않는 deckType입니다.' }, { status: 400 });
+        return NextResponse.json(
+          { error: '지원되지 않는 학습 유형입니다.' },
+          { status: 400, headers: buildGenerateResponseHeaders(request, rateLimit) }
+        );
     }
 
     prompt += `
@@ -138,12 +155,11 @@ Output constraints:
       The entire response must be a single JSON array, starting with '[' and ending with ']'.
     `;
     
-    console.log("[AI Generation] OpenAI에 프롬프트 전송 시작...");
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: prompt }],
+      max_tokens: 3000,
     });
-    console.log("[AI Generation] OpenAI로부터 응답 수신 완료.");
 
     const responseJsonText = completion.choices[0].message.content;
 
@@ -172,11 +188,18 @@ Output constraints:
       }
     }
     
-    console.log("✅ [AI Generation] 성공적으로 데이터를 생성하고 클라이언트에 반환합니다.");
-    return NextResponse.json(data);
+    const limitedData = Array.isArray(data) ? data.slice(0, count) : data;
+    return NextResponse.json(limitedData, {
+      headers: buildGenerateResponseHeaders(request, rateLimit),
+    });
 
   } catch (error) {
-    console.error('❌ [AI Generation] API 실행 중 심각한 오류 발생:');
+    if (error instanceof GenerateRequestError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status, headers: buildGenerateResponseHeaders(request, rateLimit) }
+      );
+    }
     
     let errorMessage = 'AI로부터 데이터를 생성하는 데 실패했습니다.';
     let errorDetails = '알 수 없는 서버 오류가 발생했습니다.';
@@ -198,6 +221,10 @@ Output constraints:
       console.error(error);
     }
 
-    return NextResponse.json({ error: errorMessage, details: errorDetails }, { status: 500 });
+    console.error('[api/generate] request failed', errorDetails);
+    return NextResponse.json(
+      { error: errorMessage },
+      { status: 500, headers: buildGenerateResponseHeaders(request, rateLimit) }
+    );
   }
 }

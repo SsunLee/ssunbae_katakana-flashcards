@@ -229,7 +229,12 @@ export function useStudyDeck<T extends HasId>({
       const cachedDeck = Array.isArray(cached.deck) ? cached.deck : undefined;
       setDeck(reconcileDeckWithBase(cachedDeckIds, cachedDeck, baseDeck));
       setFavs(sanitizeFavs(cached.favs, baseDeck));
+    } else {
+      setDeck(baseDeck);
+      setFavs({});
     }
+    // 네트워크가 느리거나 오프라인이어도 로컬 문제를 먼저 표시합니다.
+    setIsLoading(false);
 
     const userDocRef = doc(db, "users", user.uid);
     const unsubscribe = onSnapshot(

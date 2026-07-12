@@ -10,6 +10,7 @@ import { SettingsDialog } from "@/app/components/SettingsDialog";
 import { WelcomeBanner } from "@/app/components/WelcomeBanner";
 import { Button } from "@/app/components/ui/button";
 import { Checkbox } from "@/app/components/ui/checkbox";
+import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/ui/popover";
 import { Skeleton } from "@/app/components/ui/skeleton";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { useLocale } from "@/app/context/LocaleContext";
@@ -21,7 +22,7 @@ import { useStudySessionAnalytics } from "@/app/hooks/useStudySessionAnalytics";
 import { triggerHaptic } from "@/app/lib/haptics";
 import { SINGLE_LEFT_SIDE_AD_MIN_WIDTH, normalizeAdUnit, resolveAdUnit } from "@/app/lib/kakao-adfit";
 import { fetchJapaneseSentenceQuiz, isRemoteStudyApiEnabled } from "@/app/services/api";
-import type { JapaneseSentenceQuiz } from "@/app/types/japaneseSentenceQuiz";
+import type { JapaneseSentenceQuiz, JapaneseSentenceQuizKanjiHint } from "@/app/types/japaneseSentenceQuiz";
 
 type QuizResult = "correct" | "wrong" | "skipped";
 
@@ -44,14 +45,85 @@ function shuffleArray<T>(items: T[]) {
   return copy;
 }
 
-function renderRubyText(text: string, furigana?: string, className = "", showRuby = true) {
+const HAN_CHARACTER_PATTERN = /[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]/;
+
+function KanjiHintPopover({ hint }: { hint: JapaneseSentenceQuizKanjiHint }) {
+  const [open, setOpen] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelClose = () => {
+    if (!closeTimerRef.current) return;
+    clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = null;
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimerRef.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  useEffect(() => () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <span className="inline-block" onMouseEnter={() => { cancelClose(); setOpen(true); }} onMouseLeave={scheduleClose}>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className="inline border-b border-dotted border-primary/60 bg-transparent p-0 text-inherit transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+            aria-label={`${hint.character}, ${hint.huneum}`}
+            title={`${hint.character} · ${hint.huneum}`}
+            style={{ font: "inherit" }}
+          >
+            {hint.character}
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          side="top"
+          sideOffset={6}
+          className="w-auto min-w-32 max-w-52 p-3"
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+          onOpenAutoFocus={(event) => event.preventDefault()}
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-semibold text-foreground">{hint.character}</span>
+            <span className="text-sm font-medium text-foreground">{hint.huneum}</span>
+          </div>
+        </PopoverContent>
+      </span>
+    </Popover>
+  );
+}
+
+function renderKanjiHintText(text: string, kanjiHints: JapaneseSentenceQuizKanjiHint[] = []) {
+  if (kanjiHints.length === 0) return text;
+  const hintMap = new Map(kanjiHints.map((hint) => [hint.character, hint]));
+
+  return Array.from(text).map((character, index) => {
+    if (!HAN_CHARACTER_PATTERN.test(character)) return <span key={`${character}-${index}`}>{character}</span>;
+    const hint = hintMap.get(character);
+    return hint ? <KanjiHintPopover key={`${character}-${index}`} hint={hint} /> : <span key={`${character}-${index}`}>{character}</span>;
+  });
+}
+
+function renderRubyText(
+  text: string,
+  furigana?: string,
+  className = "",
+  showRuby = true,
+  kanjiHints: JapaneseSentenceQuizKanjiHint[] = []
+) {
+  const baseText = renderKanjiHintText(text, kanjiHints);
   if (!furigana || !showRuby) {
-    return <span className={className}>{text}</span>;
+    return <span className={className}>{baseText}</span>;
   }
 
   return (
     <ruby className={className}>
-      {text}
+      <span>{baseText}</span>
       <rt className="text-[0.62em] opacity-75">{furigana}</rt>
     </ruby>
   );
@@ -70,7 +142,7 @@ function renderPromptWithRuby(question: JapaneseSentenceQuiz, fontSize: number, 
             return revealed
               ? (
                 <span key={`blank-${index}`} className="border-b-2 border-primary px-1 text-primary">
-                  {renderRubyText(question.answer, answerChoice?.furigana, "", showRuby)}
+                  {renderRubyText(question.answer, answerChoice?.furigana, "", showRuby, question.kanjiHints)}
                 </span>
               )
               : <span key={`blank-${index}`} className="border-b-2 border-muted-foreground/40 px-8" />;
@@ -79,7 +151,7 @@ function renderPromptWithRuby(question: JapaneseSentenceQuiz, fontSize: number, 
           return <span key={`text-${index}`}>{part}</span>;
         }
 
-        return <span key={`ruby-${index}`}>{renderRubyText(part.text, part.furigana, "", showRuby)}</span>;
+        return <span key={`ruby-${index}`}>{renderRubyText(part.text, part.furigana, "", showRuby, question.kanjiHints)}</span>;
       })}
     </p>
   );
