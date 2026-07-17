@@ -461,7 +461,7 @@ export default function JapaneseSentenceQuizPage() {
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <div className="mt-1 flex flex-nowrap items-center gap-2 whitespace-nowrap">
-                  <h1 className="text-xl font-semibold text-foreground sm:text-2xl">{questionLabel}</h1>
+                  <h2 className="text-xl font-semibold text-foreground sm:text-2xl">{questionLabel}</h2>
                   {currentQuestion ? (
                     <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary sm:text-sm">
                       JLPT {currentQuestion.jlpt}

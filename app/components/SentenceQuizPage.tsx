@@ -276,7 +276,7 @@ export function SentenceQuizPage({
             <div>
               <p className="text-sm font-medium text-muted-foreground">{eyebrow}</p>
               <div className="mt-1 flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-semibold text-foreground">{title} {questionIndex + 1}</h1>
+                <h2 className="text-2xl font-semibold text-foreground">{title} {questionIndex + 1}</h2>
                 <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                   {currentQuestion.level === "초급" ? t("quiz.levelBeginner") : currentQuestion.level === "중급" ? t("quiz.levelIntermediate") : t("quiz.levelAdvanced")}
                 </span>

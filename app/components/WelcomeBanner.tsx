@@ -70,6 +70,7 @@ export function WelcomeBanner({
   return (
     <header className={`w-full max-w-md mx-auto mb-6 ${className}`}>
       <div className="text-sm text-muted-foreground bg-card/50 border border-border rounded-lg p-4 text-center">
+        {subject ? <h1 className="mb-1 text-base font-semibold text-foreground">{subject}</h1> : null}
         <p>
           <span className="inline-flex items-center gap-2">
             {showUserAvatar && (
