@@ -43,11 +43,11 @@ export default function HomePageContent() {
               {t("home.description")}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/study/japanese/katakana-words" className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_34px_rgba(59,130,246,0.38)] transition-transform hover:-translate-y-0.5">
-                {t("home.startWords")}
-              </Link>
-              <Link href="/study/japanese/sentence-quiz" className="rounded-md border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/10">
+              <Link href="/study/japanese/sentence-quiz" className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_10px_34px_rgba(59,130,246,0.38)] transition-transform hover:-translate-y-0.5">
                 {t("home.sentenceQuiz")}
+              </Link>
+              <Link href="/study/japanese/katakana-words" className="rounded-md border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/10">
+                {t("home.startWords")}
               </Link>
               <Link href="/study/dashboard" className="rounded-md border border-blue-300/35 bg-blue-500/15 px-5 py-3 text-sm font-semibold text-blue-100 backdrop-blur transition-colors hover:bg-blue-500/25">
                 {t("home.dashboard")}
