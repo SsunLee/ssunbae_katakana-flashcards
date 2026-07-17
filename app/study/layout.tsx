@@ -122,6 +122,11 @@ function StudyShell({ children }: { children: React.ReactNode }) {
 
   // 레이아웃 진입 시 1회 표시(약간 딜레이)
   useEffect(() => {
+    if (isDashboardPage) {
+      void ensureHidden();
+      return;
+    }
+
     const t = setTimeout(() => { void ensureShown(); }, 300);
     // 회전 시 사이즈 갱신
     const onResize = () => void refreshIfNeeded();
@@ -133,10 +138,15 @@ function StudyShell({ children }: { children: React.ReactNode }) {
       window.removeEventListener('resize', onResize);
       void ensureHidden(); // 떠날 때는 숨김(제거 아님)
     };
-  }, []);
+  }, [isDashboardPage]);
 
   // 메뉴/모달 열림에 따른 토글(디바운스 250ms)
   useEffect(() => {
+    if (isDashboardPage) {
+      void ensureHidden();
+      return;
+    }
+
     const overlay = isMenuOpen || isOpen;
     if (debounce.current) window.clearTimeout(debounce.current);
     debounce.current = window.setTimeout(() => {
@@ -146,7 +156,7 @@ function StudyShell({ children }: { children: React.ReactNode }) {
     return () => {
       if (debounce.current) window.clearTimeout(debounce.current);
     };
-  }, [isMenuOpen, isOpen]);
+  }, [isDashboardPage, isMenuOpen, isOpen]);
 
   return (
     // ✅ text-foreground를 추가하여 레이아웃 내 모든 텍스트의 기본 색상을 테마에 맞게 설정합니다.
@@ -250,8 +260,12 @@ function StudyShell({ children }: { children: React.ReactNode }) {
           </div>
         ) : null}
       </main>
-      <AdSafeSpacer />
-      <AdGuardMount />
+      {!isDashboardPage ? (
+        <>
+          <AdSafeSpacer />
+          <AdGuardMount />
+        </>
+      ) : null}
     </div>
   );
 }

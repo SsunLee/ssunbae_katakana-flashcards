@@ -7,7 +7,7 @@ import Link from "next/link"
 
 
 export const metadata = {
-  title: "Support | SSUN EDU",
+  title: "고객지원",
   description: "SSUN EDU 고객지원",
   alternates: {
     canonical: "/support",

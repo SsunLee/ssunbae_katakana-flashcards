@@ -3,49 +3,55 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ssunedu.com/</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ssunedu.com/about</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ssunedu.com/study/japanese</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/katakana-words</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/kana-chars</loc>
-    <lastmod>2026-02-16</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/katakana-chars</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/hiragana-chars</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/sentences</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/sentence-quiz</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -54,25 +60,25 @@
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/kanji</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/japanese/verbs</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/english/words</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/english/sentences</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -81,13 +87,13 @@
   </url>
   <url>
     <loc>https://ssunedu.com/study/spanish/words</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/spanish/sentences</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -96,25 +102,25 @@
   </url>
   <url>
     <loc>https://ssunedu.com/study/korean/words</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/korean/chars</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/korean/syllables</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/study/korean/sentences</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -123,19 +129,19 @@
   </url>
   <url>
     <loc>https://ssunedu.com/support</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/privacy</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://ssunedu.com/terms</loc>
-    <lastmod>2026-02-15</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

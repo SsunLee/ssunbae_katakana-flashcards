@@ -4,8 +4,9 @@ import { ArrowLeft, Mail, Trash2 } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 export const metadata = {
-  title: "계정 삭제 | 쑨에듀",
+  title: "계정 삭제 안내",
   description: "쑨에듀 계정과 관련 학습 데이터 삭제 방법",
+  robots: { index: false, follow: false },
 };
 
 export default function AccountDeletionPage() {

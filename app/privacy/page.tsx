@@ -4,7 +4,7 @@ import { Button } from "app/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "개인정보처리방침 | SSUN EDU",
+  title: "개인정보처리방침",
   description: "SSUN EDU 개인정보처리방침",
   robots: { index: true, follow: true },
   alternates: {

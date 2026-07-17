@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "이용약관 | SSUN EDU",
+  title: "이용약관",
   description: "SSUN EDU 이용약관",
   robots: { index: true, follow: true },
   alternates: {

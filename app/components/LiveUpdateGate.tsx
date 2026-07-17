@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Capacitor } from "@capacitor/core";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { RefreshCw, Sparkles } from "lucide-react";
@@ -111,11 +111,15 @@ const wait = (milliseconds: number) =>
 
 export default function LiveUpdateGate({ children }: { children: ReactNode }) {
   const { locale } = useLocale();
-  const [phase, setPhase] = useState<UpdatePhase>("splash");
+  const [phase, setPhase] = useState<UpdatePhase>("bypass");
   const [progress, setProgress] = useState(6);
   const [tipIndex, setTipIndex] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const messages = copy[locale];
+
+  useLayoutEffect(() => {
+    if (Capacitor.isNativePlatform()) setPhase("splash");
+  }, []);
 
   useEffect(() => {
     const handleManualUpdateRequest = () => {

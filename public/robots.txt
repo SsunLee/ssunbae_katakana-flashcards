@@ -1,11 +1,9 @@
 User-agent: Yeti
 Allow: /
 Disallow: /api/
-Disallow: /goodbye
 
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /goodbye
 
 Sitemap: https://ssunedu.com/sitemap.xml

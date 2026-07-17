@@ -7,12 +7,10 @@ import { BarChart3, Clock3, Layers3, Star, TrendingUp } from "lucide-react";
 import { doc, onSnapshot } from "firebase/firestore";
 
 import { useAuth } from "@/app/AuthContext";
-import KakaoAdFit from "@/app/components/KakaoAdFit";
 import { LoginPromptCard } from "@/app/components/LoginPromptCard";
 import { Button } from "@/app/components/ui/button";
 import { useAuthModal } from "@/app/context/AuthModalContext";
 import { db } from "@/app/lib/firebase";
-import { normalizeAdUnit } from "@/app/lib/kakao-adfit";
 import { cn } from "@/app/lib/utils";
 import {
   DASHBOARD_DECK_ORDER,
@@ -39,8 +37,6 @@ type DailyTotals = {
 };
 
 const ACTIVITY_WINDOW_DAYS = 7;
-const DASHBOARD_BANNER_AD_UNIT = normalizeAdUnit("DAN-CsPbwpoHeHagCsVE");
-const DASHBOARD_MOBILE_BANNER_AD_UNIT = normalizeAdUnit("DAN-XHgkDQm4tU2MiVjQ");
 
 function getLocalDateKey(date: Date) {
   const year = date.getFullYear();
@@ -176,8 +172,6 @@ export default function DashboardPage() {
   const { open } = useAuthModal();
   const [dashboardDoc, setDashboardDoc] = useState<DashboardDoc | null>(null);
   const [isDocLoading, setIsDocLoading] = useState(false);
-  const [isDesktopBannerFilled, setIsDesktopBannerFilled] = useState(false);
-  const [isMobileBannerFilled, setIsMobileBannerFilled] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -441,31 +435,6 @@ export default function DashboardPage() {
                   />
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="overflow-hidden">
-          <div className={cn("flex justify-center overflow-hidden transition-all duration-300 lg:hidden", isMobileBannerFilled ? "mt-0 max-h-[100px]" : "max-h-0")}>
-            <div className="w-[320px] max-w-full">
-              <KakaoAdFit
-                adUnit={DASHBOARD_MOBILE_BANNER_AD_UNIT}
-                width={320}
-                height={100}
-                reserveSpace={false}
-                onFillChange={setIsMobileBannerFilled}
-              />
-            </div>
-          </div>
-          <div className={cn("hidden justify-center overflow-hidden transition-all duration-300 lg:flex", isDesktopBannerFilled ? "mt-0 max-h-[90px]" : "max-h-0")}>
-            <div className="min-w-[728px]">
-              <KakaoAdFit
-                adUnit={DASHBOARD_BANNER_AD_UNIT}
-                width={728}
-                height={90}
-                reserveSpace={false}
-                onFillChange={setIsDesktopBannerFilled}
-              />
             </div>
           </div>
         </section>

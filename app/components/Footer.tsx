@@ -87,6 +87,7 @@ export default function Footer() {
         </div>
         <nav className="flex flex-wrap justify-center gap-4">
           <Link href="/" className="hover:underline">{t("common.home")}</Link>
+          <Link href="/about" className="hover:underline">{t("common.about")}</Link>
           <Link href="/study/japanese" className="hover:underline">{t("menu.japanese")}</Link>
           <Link href="/study/english/words" className="hover:underline">{t("menu.english")}</Link>
           <Link href="/study/spanish/words" className="hover:underline">{t("menu.spanish")}</Link>

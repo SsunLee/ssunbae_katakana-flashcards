@@ -6,6 +6,7 @@ import '@fontsource/noto-sans-jp/700.css';
 import './styles/globals.css';
 import ClientProviders from '@/app/components/ClientProviders';
 import Script from 'next/script';
+import AdSenseLoader from '@/app/components/AdSenseLoader';
 import Footer from "@/app/components/Footer";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -31,39 +32,22 @@ export const metadata: Metadata = {
   
   keywords: [
     '무료 일본어 사이트',
-    '무료 공부사이트',
     '일본어 공부 사이트',
-    '일본어 공부사이트',
     '일본어 학습 사이트',
+    '일본어 JLPT 문제 풀이',
+    'JLPT 문장 퀴즈',
+    'JLPT 단어 공부',
     '일본어 독학',
     '언어 학습',
     '영어 공부',
-    '일본어 공부',
     '스페인어 공부',
     '한국어 학습',
-    '외국어 학습',
     '단어 암기',
     '플래시카드',
     '히라가나',
     '가타카나',
-    '한자',
     '한자 쓰기',
-    '언어 교육',
-    '어휘 학습',
     '문장 연습',
-    '일본어 공부 앱 비교',
-    '일본어 학습 사이트 추천',
-    '듀오링고 일본어',
-    'Duolingo Japanese',
-    '와니카니',
-    'WaniKani',
-    '멤라이즈 일본어',
-    'Memrise Japanese',
-    'Bunpro',
-    'Anki 일본어',
-    'NHK Easy Japanese',
-    'Tofugu',
-    'JLPT Sensei',
     'SSUN EDU',
   ],
   
@@ -153,12 +137,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head />
       <body>
-        <Script
-          id="adsense"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3025305005440839"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
+        <AdSenseLoader />
         <Script
           id="website-json-ld"
           type="application/ld+json"
