@@ -23,25 +23,34 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || SITE_URL),
   
   title: {
-    default: 'SSUN EDU - 언어 학습 플랫폼',
+    default: 'SSUN EDU - 무료 일본어·언어 학습 사이트',
     template: '%s | SSUN EDU',
   },
   
   description:
-    'SSUN EDU는 일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 반복하는 무료 언어 학습 사이트입니다. 히라가나, 가타카나, 한자 쓰기, JLPT 문장 퀴즈까지 한곳에서 연습할 수 있습니다.',
+    'SSUN EDU는 일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 반복하는 무료 언어 학습 사이트입니다. 히라가나, 가타카나, JLPT 단어, 한자 쓰기, 일본어 문장 빈칸 퀴즈를 한곳에서 연습할 수 있습니다.',
   
   keywords: [
     '무료 일본어 사이트',
+    '무료 일본어 공부',
     '일본어 공부 사이트',
     '일본어 학습 사이트',
+    '일본어 문장 퀴즈',
+    '일본어 빈칸 문제',
     '일본어 JLPT 문제 풀이',
     'JLPT 문장 퀴즈',
+    'JLPT N5 단어',
+    'JLPT N4 단어',
+    'JLPT N3 단어',
     'JLPT 단어 공부',
     '일본어 독학',
+    '히라가나 공부',
+    '가타카나 공부',
+    '일본어 한자 공부',
     '언어 학습',
-    '영어 공부',
-    '스페인어 공부',
-    '한국어 학습',
+    '무료 영어 단어 공부',
+    '무료 스페인어 공부',
+    '무료 한국어 학습',
     '단어 암기',
     '플래시카드',
     '히라가나',
@@ -60,8 +69,8 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     url: SITE_URL,
     siteName: 'SSUN EDU',
-    title: 'SSUN EDU - 무료 언어 학습 사이트',
-    description: '일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 짧게 반복해 보세요.',
+    title: 'SSUN EDU - 무료 일본어·언어 학습 사이트',
+    description: '히라가나, 가타카나, JLPT 단어, 일본어 문장 퀴즈부터 영어·스페인어·한국어까지 카드로 반복 학습하세요.',
     images: [
       {
         url: '/og-image.png',
@@ -74,8 +83,8 @@ export const metadata: Metadata = {
   
   twitter: {
     card: 'summary_large_image',
-    title: 'SSUN EDU - 언어 학습 플랫폼',
-    description: '카드와 문장 퀴즈로 일본어, 영어, 스페인어, 한국어를 반복 학습하세요.',
+    title: 'SSUN EDU - 무료 일본어·언어 학습 사이트',
+    description: 'JLPT 단어, 히라가나, 가타카나, 일본어 문장 퀴즈와 여러 언어 단어 카드를 반복 학습하세요.',
     images: ['/og-image.png'],
     creator: '@ssunedu',
   },
@@ -123,11 +132,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'SSUN EDU',
+    alternateName: ['쑨에듀', 'ssunedu', 'ssun edu'],
     url: SITE_URL,
     image: `${SITE_URL}/og-image.png`,
     inLanguage: 'ko-KR',
     description:
-      '일본어, 영어, 스페인어, 한국어를 카드와 문장 퀴즈로 공부하는 무료 언어 학습 사이트입니다.',
+      '히라가나, 가타카나, JLPT 단어, 일본어 문장 퀴즈와 영어, 스페인어, 한국어를 카드로 공부하는 무료 언어 학습 사이트입니다.',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${SITE_URL}/study/japanese?query={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   };
 
   return (

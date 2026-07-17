@@ -19,6 +19,39 @@ const learningSections: Array<{
 
 const flowItems: TranslationKey[] = ["home.flowAnswer", "home.flowListen", "home.flowRecord"];
 
+const searchIntentLinks = [
+  {
+    href: "/study/japanese/sentence-quiz",
+    title: "일본어 JLPT 문제 풀이",
+    description: "N5부터 N1까지 일본어 문장 빈칸 퀴즈로 조사, 어휘, 동사 활용을 반복합니다.",
+  },
+  {
+    href: "/study/japanese/katakana-words",
+    title: "JLPT 단어 공부",
+    description: "가타카나 단어와 JLPT 한자 단어를 읽기, 뜻, 예문 카드로 복습합니다.",
+  },
+  {
+    href: "/study/japanese/hiragana-chars",
+    title: "히라가나 공부",
+    description: "히라가나 기본 글자, 탁음, 반탁음, 요음을 카드와 발음으로 익힙니다.",
+  },
+  {
+    href: "/study/japanese/katakana-chars",
+    title: "가타카나 공부",
+    description: "가타카나 외래어 글자, 장음, 촉음, 요음을 소리와 함께 연습합니다.",
+  },
+  {
+    href: "/study/japanese/kanji",
+    title: "일본어 한자 공부",
+    description: "JLPT 기초 한자의 뜻과 읽기를 확인하고 화면에 직접 따라 씁니다.",
+  },
+  {
+    href: "/study/english/words",
+    title: "무료 영어 단어 공부",
+    description: "영어 단어의 발음, 뜻, 예문을 카드로 확인하고 반복 학습합니다.",
+  },
+];
+
 export default function HomePageContent() {
   const { t } = useLocale();
 
@@ -38,7 +71,7 @@ export default function HomePageContent() {
         <div className="mx-auto flex min-h-[640px] max-w-6xl flex-col justify-between gap-12 sm:min-h-[580px] sm:gap-8">
           <div className="max-w-[21rem] sm:max-w-2xl sm:pt-16">
             <p className="text-sm font-semibold text-primary">{t("home.eyebrow")}</p>
-            <h1 className="mt-4 text-5xl font-bold tracking-normal text-white sm:text-7xl">SSUN EDU</h1>
+            <h1 className="mt-4 text-5xl font-bold tracking-normal text-white sm:text-7xl">무료 일본어·언어 학습 SSUN EDU</h1>
             <p className="mt-6 max-w-[21rem] text-base leading-8 text-zinc-200 sm:max-w-xl sm:text-lg">
               {t("home.description")}
             </p>
@@ -88,6 +121,31 @@ export default function HomePageContent() {
           <div className="max-w-3xl text-sm leading-7 text-muted-foreground">
             <h2 className="text-xl font-semibold text-foreground">{t("home.methodTitle")}</h2>
             <p className="mt-4">{t("home.methodDescription")}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8 lg:px-12" aria-labelledby="popular-study-topics">
+        <div className="rounded-3xl border border-border bg-card/60 p-6 shadow-sm sm:p-8">
+          <p className="text-sm font-semibold text-primary">Popular study topics</p>
+          <h2 id="popular-study-topics" className="mt-2 text-2xl font-bold text-foreground">
+            많이 찾는 무료 학습 주제
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+            SSUN EDU는 일본어 독학 사용자가 자주 찾는 히라가나, 가타카나, JLPT 단어, 일본어 문장 퀴즈를 중심으로
+            영어·스페인어·한국어 단어 카드까지 함께 제공합니다.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {searchIntentLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-2xl border border-border bg-background p-4 transition-colors hover:border-primary/50 hover:bg-primary/5"
+              >
+                <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
