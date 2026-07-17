@@ -16,9 +16,9 @@ export function StudyPageGuide({ id, eyebrow, title, intro, sections }: StudyPag
     <section className="mx-auto w-full max-w-5xl px-5 pb-12 pt-10 sm:px-8" aria-labelledby={`${id}-title`}>
       <div className="border-t border-border pt-8">
         <p className="text-xs font-semibold uppercase text-primary">{eyebrow}</p>
-        <h2 id={`${id}-title`} className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
+        <h1 id={`${id}-title`} className="mt-2 text-xl font-semibold text-foreground sm:text-2xl">
           {title}
-        </h2>
+        </h1>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
           {intro}
         </p>

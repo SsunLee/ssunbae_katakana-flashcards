@@ -42,9 +42,9 @@ export default function JapaneseSentenceQuizLayout({
       {children}
       <section className="mx-auto w-full max-w-[660px] px-4 pb-10 pt-6 sm:px-6">
         <article className="space-y-3 border-t border-border pt-5 text-xs leading-6 text-muted-foreground sm:text-sm sm:leading-7">
-          <h2 className="text-sm font-semibold text-foreground sm:text-base">
+          <h1 className="text-sm font-semibold text-foreground sm:text-base">
             일본어 문장 퀴즈 학습 안내
-          </h2>
+          </h1>
           <p>
             일본어 JLPT 문제 풀이는 문장을 읽고 빈칸에 맞는 표현을 고르며 문장 패턴을 연습하는 퀴즈입니다.
             JLPT N5부터 N1까지 난이도별 문장을 풀면서 조사, 동사 활용, 기본 어순,
