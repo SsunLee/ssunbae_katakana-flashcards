@@ -1,18 +1,23 @@
 // app/api/account/delete/route.ts
-export const runtime = "nodejs"; // ✅ Edge에서 돌지 않게
+export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 import { getAdminAuth, getAdminDb } from "@/app/lib/firebase-admin";
 
 const ALLOWED_ORIGINS = [
-  "https://ssunbae-api.vercel.app/",
+  "https://ssunbae-api.vercel.app",
+  "https://ssunedu.com",
+  "https://www.ssunedu.com",
   "http://localhost:3000",
+  "http://localhost:3001",
+  "http://localhost",
   "capacitor://localhost",
 ];
 
 function cors(res: NextResponse, origin: string | null) {
-  const allow = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
-  res.headers.set("Access-Control-Allow-Origin", allow);
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.headers.set("Access-Control-Allow-Origin", origin);
+  }
   res.headers.set("Vary", "Origin");
   res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.headers.set("Access-Control-Allow-Headers", "Authorization, Content-Type");
@@ -30,35 +35,28 @@ export async function OPTIONS(req: Request) {
 async function purgeUserData(uid: string) {
   const adminDb = getAdminDb();
   const userDocRef = adminDb.collection("users").doc(uid);
-  const subs = await userDocRef.listCollections();
-  for (const col of subs) {
-    const snap = await col.get();
-    const batch = adminDb.batch();
-    snap.docs.forEach((d) => batch.delete(d.ref));
-    await batch.commit();
-  }
-  await userDocRef.delete().catch(() => {});
+  await adminDb.recursiveDelete(userDocRef);
 }
 
 export async function POST(req: Request) {
+  const origin = req.headers.get("origin");
   try {
     const adminAuth = getAdminAuth();
     const authHeader = req.headers.get("authorization");
     if (!authHeader?.startsWith("Bearer ")) {
-      return NextResponse.json({ error: "Missing ID token" }, { status: 401 });
+      return cors(NextResponse.json({ error: "Missing ID token" }, { status: 401 }), origin);
     }
     const idToken = authHeader.split(" ")[1];
 
-    // ✅ 모듈식 Auth에서 제공하는 메서드
     const decoded = await adminAuth.verifyIdToken(idToken, true);
     const uid = decoded.uid;
 
     await purgeUserData(uid);
     await adminAuth.deleteUser(uid);
 
-    return NextResponse.json({ ok: true });
+    return cors(NextResponse.json({ ok: true }), origin);
   } catch (e: any) {
-    // 디버깅용으로 메시지 반환(개발중에만)
-    return NextResponse.json({ error: e?.message ?? "delete failed" }, { status: 400 });
+    const message = e?.code === "auth/id-token-revoked" ? "Please sign in again" : "Account deletion failed";
+    return cors(NextResponse.json({ error: message }, { status: 400 }), origin);
   }
 }

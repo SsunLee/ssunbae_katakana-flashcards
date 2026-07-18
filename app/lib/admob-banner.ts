@@ -14,7 +14,7 @@ import { Capacitor } from '@capacitor/core';
 
 
 // Google의 공식 테스트 광고 ID입니다.
-const TEST_IOS_BANNER = 'ca-app-pub-2330147867465531/5805463890';
+const TEST_IOS_BANNER = 'ca-app-pub-3940256099942544/2934735716';
 const TEST_ANDROID_BANNER = 'ca-app-pub-3940256099942544/6300978111';
 
 // ---- internal state ----

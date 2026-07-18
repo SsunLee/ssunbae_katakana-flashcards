@@ -165,9 +165,10 @@ npm run appflow:build
 - 명령이 오류 없이 종료됨
 - 프로젝트 루트에 `www/index.html`이 생성됨
 - 모바일 번들에 운영 학습 API(`https://ssunbae-api.vercel.app`)가 포함됨
+- 모바일 번들에 `NEXT_PUBLIC_APP_ENV=production`과 iOS·Android 운영 AdMob 배너 ID가 포함됨
 - 수정한 페이지가 정적 빌드 단계에서 실패하지 않음
 
-`.env.local`로 직접 Firebase 설정을 관리하는 환경에서는 `npm run mobile:build`도 사용할 수 있습니다. `.env.local`과 비밀 키는 절대 Git에 커밋하지 마십시오.
+`npm run mobile:build`는 개발 확인용이며 테스트 광고를 사용합니다. Appflow OTA와 스토어 제출용 Android 동기화에는 각각 `npm run appflow:build`, `npm run mobile:sync:android:release`를 사용하십시오. `.env.local`과 비밀 키는 절대 Git에 커밋하지 마십시오.
 
 ### 6.4 커밋 및 GitHub 푸시
 
@@ -208,6 +209,7 @@ Appflow에서 배포할 커밋은 최종적으로 GitHub `main` 브랜치에 있
 - `git status`에 의도하지 않은 파일이 포함되지 않았는가
 - `npm run appflow:build`가 성공했는가
 - `www/index.html`이 생성됐는가
+- 생성된 운영 번들에 Google 공식 테스트 광고 ID가 선택되지 않았는가
 - 로그인 전후 화면을 모두 확인했는가
 - 모바일 화면에서 텍스트가 잘리거나 겹치지 않는가
 - 기존 학습 데이터와 로컬 저장 데이터가 유지되는가

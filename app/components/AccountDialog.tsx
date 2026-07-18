@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import {
-  getAuth, getIdToken, EmailAuthProvider,
+  getAuth, EmailAuthProvider,
   reauthenticateWithCredential, signOut
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
@@ -15,10 +15,7 @@ import {
   AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle,
   AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction
 } from "@/app/components/ui/alert-dialog";
-
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
-  (typeof window !== "undefined" ? window.location.origin : "");
+import { clearAccountCache, requestAccountDeletion } from "@/app/lib/accountDeletion";
 
 export default function AccountDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const auth = getAuth();
@@ -26,43 +23,37 @@ export default function AccountDialog({ open, onOpenChange }: { open: boolean; o
   const [openDelete, setOpenDelete] = useState(false);
   const [needReauth, setNeedReauth] = useState(false);
   const [password, setPassword] = useState("");
+  const [deleteError, setDeleteError] = useState("");
 
   async function callDeleteEndpoint() {
     const user = auth.currentUser;
     if (!user) throw new Error("No user");
 
-    const idToken = await getIdToken(user, true);
-
-    const res = await fetch(`${API_BASE}/api/account/delete`, {
-      method: "POST",
-      // iOS(WebView) → Vercel 호출: CORS 사전 요청 대비
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${idToken}`,
-      },
-      // 쿠키를 쓰지 않으므로 credentials 생략(= 'same-origin')
-    });
-
-    if (res.status === 401) {
-      setNeedReauth(true);
-      throw new Error("Need reauth");
-    }
-    if (!res.ok) {
-      const { error } = await res.json().catch(() => ({ error: "Delete failed" }));
-      throw new Error(error || "Delete failed");
+    try {
+      await requestAccountDeletion(user);
+    } catch (error) {
+      if (error instanceof Error && error.message === "NEED_REAUTH") {
+        setNeedReauth(true);
+      }
+      throw error;
     }
   }
 
   async function handleDelete() {
+    const uid = auth.currentUser?.uid;
+    setDeleteError("");
     try {
       await callDeleteEndpoint();
+      if (uid) clearAccountCache(uid);
       await signOut(auth);
       router.replace("/goodbye");
       onOpenChange(false);
-    } catch (e) {
-      // 필요 시 토스트/알림 추가
-      // console.error(e);
+    } catch (error) {
+      if (error instanceof Error && error.message === "NEED_REAUTH") {
+      setNeedReauth(true);
+      } else {
+        setDeleteError(error instanceof Error ? error.message : "계정 삭제에 실패했습니다.");
+      }
     }
   }
 
@@ -128,6 +119,7 @@ export default function AccountDialog({ open, onOpenChange }: { open: boolean; o
               />
             </div>
           )}
+          {deleteError && <p role="alert" className="text-sm text-destructive">{deleteError}</p>}
 
           <AlertDialogFooter>
             <AlertDialogCancel>취소</AlertDialogCancel>

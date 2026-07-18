@@ -23,13 +23,15 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
 } from "./ui/alert-dialog";
-import { getIdToken, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ProfileAvatarIcon from "./ProfileAvatarIcon";
 import { DEFAULT_AVATAR_COLOR, DEFAULT_AVATAR_ICON } from "@/app/constants/avatarOptions";
 import { useLocale } from "@/app/context/LocaleContext";
 import { localeOptions, type TranslationKey } from "@/app/i18n/translations";
 import { requestLiveUpdate } from "@/app/lib/liveUpdate";
+import { clearAccountCache, requestAccountDeletion } from "@/app/lib/accountDeletion";
+import { toast } from "sonner";
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -164,30 +166,30 @@ export default function SideMenu({ isOpen, onClose, hideAds = false }: SideMenuP
   };
 
   async function callDeleteEndpoint() {
-    const user = auth.currentUser;
-    if (!user) throw new Error("No user");
-    const idToken = await getIdToken(user, true);
-
-    const res = await fetch("/api/account/delete", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${idToken}` },
-    });
-
-    if (res.status === 401) {
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error("로그인이 필요합니다.");
+    try {
+      await requestAccountDeletion(currentUser);
+    } catch (error) {
+      if (error instanceof Error && error.message === "NEED_REAUTH") {
       setNeedReauth(true);
-      throw new Error("Need reauth");
+      }
+      throw error;
     }
-    if (!res.ok) throw new Error("Delete failed");
   }
 
   async function handleDelete() {
+    const uid = auth.currentUser?.uid;
     try {
       await callDeleteEndpoint();
+      if (uid) clearAccountCache(uid);
       await signOut(auth).catch(() => {});
       router.replace("/goodbye");
       onClose();
-    } catch (_) {
-      // needReauth will show reauth UI
+    } catch (error) {
+      if (!(error instanceof Error && error.message === "NEED_REAUTH")) {
+        toast.error(error instanceof Error ? error.message : "계정 삭제에 실패했습니다.");
+      }
     }
   }
 
