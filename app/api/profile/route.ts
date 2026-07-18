@@ -11,6 +11,7 @@ import {
 
 // --- 👇 [추가] delete API와 동일한 CORS 설정을 가져옵니다 ---
 const ALLOWED_ORIGINS = [
+  "https://ssunbae-api.vercel.app",
   "https://ssunedu.com",
   "http://localhost:3000",
   "http://localhost:3001",

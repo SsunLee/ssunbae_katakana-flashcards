@@ -164,7 +164,7 @@ npm run appflow:build
 
 - 명령이 오류 없이 종료됨
 - 프로젝트 루트에 `www/index.html`이 생성됨
-- 모바일 번들에 운영 학습 API(`https://ssunedu.com`)가 포함됨
+- 모바일 번들에 운영 학습 API(`https://ssunbae-api.vercel.app`)와 계정 API(`https://ssunedu.com`)가 각각 포함됨
 - 모바일 번들에 `NEXT_PUBLIC_APP_ENV=production`과 iOS·Android 운영 AdMob 배너 ID가 포함됨
 - 수정한 페이지가 정적 빌드 단계에서 실패하지 않음
 

@@ -3,7 +3,7 @@ import { getIdToken, type User } from "firebase/auth";
 const PRODUCTION_API_BASE = "https://ssunedu.com";
 
 function getApiBase(): string {
-  const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
+  const configured = process.env.NEXT_PUBLIC_ACCOUNT_API_BASE_URL?.replace(/\/$/, "");
   if (configured) return configured;
   if (typeof window !== "undefined" && window.location.protocol.startsWith("http")) {
     return window.location.origin;
