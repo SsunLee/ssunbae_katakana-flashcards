@@ -13,7 +13,7 @@ function normalizeEnv(value: string | undefined) {
   return trimmed;
 }
 
-// 예: https://ssunedu.com 또는 https://ssunbae-api.vercel.app
+// 예: https://ssunedu.com
 const API_BASE = normalizeEnv(process.env.NEXT_PUBLIC_API_BASE_URL).replace(/\/$/, '');
 
 function isLocalWebDev() {

@@ -1,6 +1,6 @@
 import { getIdToken, type User } from "firebase/auth";
 
-const PRODUCTION_API_BASE = "https://ssunbae-api.vercel.app";
+const PRODUCTION_API_BASE = "https://ssunedu.com";
 
 function getApiBase(): string {
   const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");

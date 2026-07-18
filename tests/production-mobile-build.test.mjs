@@ -18,3 +18,7 @@ test("Android release sync has an explicit production build path", () => {
   assert.equal(typeof script, "string");
   assert.match(script, /mobile:build:production/);
 });
+
+test("mobile builds use the live production API", () => {
+  assert.match(packageJson.scripts["mobile:build"], /NEXT_PUBLIC_API_BASE_URL=https:\/\/ssunedu\.com/);
+});

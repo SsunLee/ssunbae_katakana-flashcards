@@ -14,7 +14,7 @@
 2. 변경 범위에 맞는 로컬 브라우저 검증을 수행한다.
 3. `npm run build`를 성공시켜 Vercel용 Next.js 빌드를 검증한다.
 4. `npm run appflow:build`를 성공시켜 `www/index.html`과 모바일 정적 번들을 검증한다.
-5. 모바일 번들에 운영 API `https://ssunbae-api.vercel.app`가 포함되는지 확인한다.
+5. 모바일 번들에 운영 API `https://ssunedu.com`이 포함되는지 확인한다.
 6. 의도한 파일만 커밋하고 최신 원격 변경을 반영한 뒤 `main`에 푸시한다.
 7. Vercel Production 배포가 `READY`인지 확인하고 `https://ssunedu.com`에서 변경을 검증한다.
 8. Ionic Appflow 앱 `6f7685c7`에서 동일한 최신 `main` 커밋으로 Web Build를 생성한다.
